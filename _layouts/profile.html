@@ -8,7 +8,7 @@
 	<link rel="icon" type="image/png" href="{{ site.baseurl }}/assets/img/favicon.png">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
-	<title>{{ page.OrganizationName }} - Grantmakers.io Profile</title>
+	<title>Grantmakers.io Profile - {{ page.OrganizationName }}</title>
 
 	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
 
@@ -53,25 +53,26 @@
 				    </a>
 			    </div>
 				</div>
-				<div class="col-sm-4">
-					<div class="navbar-collapse">
+				<div class="collapse navbar-collapse" id="navigation-index">
+					<div class="col-sm-4">
+					
 						<ul class="nav navbar-nav navbar-center">
 							<li><a href="#people">People</a></li>
 							<li><a href="#grants">Grants</a></li>
 							<li><a href="#filings">Tax Filings</a></li>
 						</ul>
-					</div>
 					
-				</div>
-				<div class="col-sm-4">
-					<ul class="nav navbar-nav navbar-right">
-						<li>
-							<a href="https://aws.amazon.com/public-datasets/irs-990/" target="_blank">
-								Data for Tax Year {{ page.Filings[0].TaxYear }} <i class="material-icons md-18" data-toggle="tooltip" data-html="true" data-placement="bottom" title="<b>Source</b><br>Electronically filed IRS Form 990-PF">info</i>
-							</a>
-						
-						</li>
-		    	</ul>
+					</div>
+					<div class="col-sm-4">
+						<ul class="nav navbar-nav navbar-right">
+							<li>
+								<a href="https://aws.amazon.com/public-datasets/irs-990/" target="_blank">
+									Data for Tax Year {{ page.Filings[0].TaxYear }} <i class="material-icons md-18" data-toggle="tooltip" data-html="true" data-placement="bottom" title="<b>Source</b><br>Electronically filed IRS Form 990-PF">info</i>
+								</a>
+							
+							</li>
+			    	</ul>
+					</div>
 				</div>
 			</div>
 		</div>

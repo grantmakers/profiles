@@ -523,7 +523,7 @@ Profile
 .profile-page {
 	.navbar-transparent {
 		&.affix {
-			a {
+			a, .navbar-toggle {
 				color: $gray !important;
 				&:hover {
 					color: $gray-light;
@@ -646,6 +646,13 @@ Profile
 				color: $gray-light !important;
 				margin: -1px 5px 0 0;
 				vertical-align: middle;
+			}
+		}
+
+		@media (max-width: $screen-xs-max) {
+			li:first-child {
+				display: block;
+				text-align: center;
 			}
 		}
 	}

@@ -13,21 +13,22 @@ $(document).ready(function() {
   // credit http://stackoverflow.com/questions/14804941/how-to-add-smooth-scrolling-to-bootstraps-scroll-spy-function
 
   $('.navbar-nav li a[href^="#"], .scrolly').on('click', function(e) {
-     // prevent default anchor click behavior
-     e.preventDefault();
+    e.preventDefault();
+    // collapse mobile header
+    $('#navigation-index').collapse('hide');
 
-     // store hash
-     var hash = this.hash;
+    // store hash
+    var hash = this.hash;
 
-     // animate
-     $('html, body').animate({
-         scrollTop: $(this.hash).offset().top - 120
-       }, 300, function(){
+    // animate
+    $('html, body').animate({
+        scrollTop: $(this.hash).offset().top - 120
+      }, 300, function(){
 
-         // when done, add hash to url
-         // (default click behaviour)
-         window.location.hash = hash;
-       });
+        // when done, add hash to url
+        // (default click behaviour)
+        window.location.hash = hash;
+    });
 
   });
 
