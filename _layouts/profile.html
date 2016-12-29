@@ -244,7 +244,7 @@
 												</thead>
 												<tbody>
 													{% assign sorted_grants = (page.Grants | sort: 'Amount'  | reverse) %}
-													{% if sorted_grants %}
+													{% if sorted_grants.size > 0 %}
 														{% for each in sorted_grants %}
 															<tr>
 																<td class="text-center">{{ forloop.index }}</td>
