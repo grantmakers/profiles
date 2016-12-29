@@ -244,15 +244,25 @@
 												</thead>
 												<tbody>
 													{% assign sorted_grants = (page.Grants | sort: 'Amount'  | reverse) %}
-													{% for each in sorted_grants %}
+													{% if sorted_grants %}
+														{% for each in sorted_grants %}
+															<tr>
+																<td class="text-center">{{ forloop.index }}</td>
+																<td>{{ each.Name }}</td>
+																<td>{{ each.City }}, {{ each.State }}</td>
+																<td>{{ each.Purpose }}</td>
+																<td class="format-currency-list text-right">{{ each.Amount }}</td>
+															</tr>
+														{% endfor %}
+													{% else %}
 														<tr>
-															<td class="text-center">{{ forloop.index }}</td>
-															<td>{{ each.Name }}</td>
-															<td>{{ each.City }}, {{ each.State }}</td>
-															<td>{{ each.Purpose }}</td>
-															<td class="format-currency-list text-right">{{ each.Amount }}</td>
+															<td></td>
+															<td>No Grants Listed</td>
+															<td></td>
+															<td></td>
+															<td></td>
 														</tr>
-													{% endfor %}
+													{% endif %}
 												</tbody>
 											</table>
 										</div>
