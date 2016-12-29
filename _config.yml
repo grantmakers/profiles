@@ -4,7 +4,7 @@ title: Grantmakers.io
 description: Quickly find data on 67,000 grantmaking institutions in the US. An open source project from your friends at SmarterGiving.
 
 # Jekyll settings
-baseurl: # Leave this blank unless your site is located on a subpath, e.g. /blog
+baseurl: /profiles # Leave this blank unless your site is located on a subpath, e.g. /blog
 url: https://www.grantmakers.io # Typically http://www.yourdomain.org
 sass:
   sass_dir: assets/css/_sass

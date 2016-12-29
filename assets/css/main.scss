@@ -523,7 +523,7 @@ Profile
 .profile-page {
 	.navbar-transparent {
 		&.affix {
-			a, .navbar-toggle {
+			a, .navbar-toggle, .brand-name {
 				color: $gray !important;
 				&:hover {
 					color: $gray-light;
