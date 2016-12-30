@@ -102,7 +102,7 @@
 									<h6 class="description">{{ page.City }}, {{ page.State }}</h6>
 									<ul class="list-inline description profile-summary-icons text-center"> 
 	                  <li>
-	                  	{% if page.GrantMedian %}
+	                  	{% if page.GrantMedian > 0 %}
 												<i class="material-icons material-icons-active" data-toggle="tooltip" title="Has recent grants">monetization_on</i>
 	                  	{% else %}
 												<i class="material-icons" data-toggle="tooltip" title="No recent grants">monetization_on</i>
