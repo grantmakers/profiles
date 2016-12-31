@@ -123,7 +123,7 @@
 	                    <li>
 	                      <i class="material-icons" data-toggle="tooltip" title="No website listed">public</i>
 	                    </li>
-	                  {% endif %}            
+	                  {% endif %}
 	                </ul>
 								</div>
 							</div>
@@ -249,7 +249,7 @@
 															<tr>
 																<td class="text-center">{{ forloop.index }}</td>
 																<td>{{ each.Name }}</td>
-																<td>{{ each.City }}, {{ each.State }}</td>
+																<td>{% if each.City != null %}{{ each.City }}, {{ each.State }}{% endif %}</td>
 																<td>{{ each.Purpose }}</td>
 																<td class="format-currency-list text-right">{{ each.Amount }}</td>
 															</tr>
