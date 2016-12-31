@@ -34,5 +34,4 @@ exclude:
   - LICENSE
   - README.md
   - node_modules
-  - algolia/
-  - data/ #Note: does not affect _data folder
+  - Creative_Tim_License.pdf
