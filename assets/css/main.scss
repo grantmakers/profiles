@@ -143,7 +143,7 @@ canvas {
     .brand-name {
 			color: $gray !important;
 			@media (max-width: $screen-sm-max) {
-				display: none;
+				//display: none;
 			}
 		}
 		.try-it, .algolia-dark-bg {
@@ -541,6 +541,10 @@ Profile
 }
 .profile-page .header {
 	background-position: center center;
+}
+.profile-page .profile img {
+	max-width: 160px;
+	max-height: 160px;
 }
 .profile-page .main {
 	background-color: $gray-lightest;

@@ -281,14 +281,14 @@
 								  </div>
 								  <div class="panel-body">
 								    <ul class="list-inline">
-								    	<li><i class="material-icons" data-toggle="tooltip" data-html="true" title="<b>Human Readable</b><br>Foundation Center PDFs">picture_as_pdf</i></li>
+								    	<li><i class="material-icons" data-toggle="tooltip" data-html="true" title="<b>Human Readable</b><br>Foundation Center PDFs">picture_as_pdf</i> <span class="visible-xs-inline">PDF</span></li>
 								    	{% for each in page.Filings %}
 								    		<li><a class="js-filings-pdf btn btn-default btn-sm" target="_blank" data-tax-period="{{ each.TaxPeriod }}" data-ein="{{ page.EIN }}" data-url-xml="{{ each.URL }}" title="View 990-PF">{{ each.TaxYear }}</a></li>
 								    	{% endfor %}
 								    </ul>
 								    <hr>
 								    <ul class="list-inline">
-								    	<li><i class="material-icons" data-toggle="tooltip" data-html="true" title="<b>Machine Readable</b><br>XML Format">code</i></li>
+								    	<li><i class="material-icons" data-toggle="tooltip" data-html="true" title="<b>Machine Readable</b><br>XML Format">code</i> <span class="visible-xs-inline">XML</span></li>
 								    	{% for each in page.Filings %}
 								    		<li><a class="btn btn-default btn-sm" href="{{ each.URL }}" target="_blank" data-tax-period="{{ each.TaxPeriod }}" data-ein="{{ each.EIN }}" data-url-xml="{{ each.URL }}" title="View 990-PF">{{ each.TaxYear }}</a></li>
 								    	{% endfor %}
