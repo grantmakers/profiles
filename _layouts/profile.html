@@ -196,7 +196,11 @@
 													{% for each in page.People %}
 														<tr>
 															<td class="text-center">{{ forloop.index }}</td>
-															<td>{{ each.Name }}</td>
+															{% if each.Name._ %}
+																<td>{{ each.Name._ }}</td>
+															{% else %}
+																<td>{{ each.Name }}</td>
+															{% endif %}
 															<td>{{ each.Title }}</td>
 															<td class="format-number">{{ each.Hours }}</td>
 															<td class="format-currency-list">{{ each.Compensation }}</td>
