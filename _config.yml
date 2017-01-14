@@ -22,7 +22,7 @@ defaults:
       layout: profile
 
 # Google Analytics
-google-analytics: #UA-84268197-1
+google-analytics: UA-84268197-1
 
 # Build settings
 markdown: kramdown
