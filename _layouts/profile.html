@@ -9,6 +9,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
 	<title>Grantmakers.io Profile - {{ page.OrganizationName }}</title>
+	<meta name="description" content="Profile for {{ page.OrganizationName }} ({{ page.City }}, {{ page.State }} - EIN {{ page.EIN }}) including grantees and board members as of {{ page.Filings[0].TaxYear}} tax year. Data Source: Electronic IRS Form 990PF.">
 
 	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
 
@@ -102,7 +103,7 @@
 									<h6 class="description">{{ page.City }}, {{ page.State }}</h6>
 									<ul class="list-inline description profile-summary-icons text-center"> 
 	                  <li>
-	                  	{% if page.GrantMedian > 0 %}
+	                  	{% if page.hasRecentGrants %}
 												<i class="material-icons material-icons-active" data-toggle="tooltip" title="Has recent grants">monetization_on</i>
 	                  	{% else %}
 												<i class="material-icons" data-toggle="tooltip" title="No recent grants">monetization_on</i>
