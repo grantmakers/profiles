@@ -21,6 +21,9 @@ defaults:
     values:
       layout: profile
 
+gems:
+  - jekyll-sitemap
+
 # Google Analytics
 google-analytics: UA-84268197-1
 
