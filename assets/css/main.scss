@@ -531,12 +531,39 @@ Profile
 			}
 		}
 	}
+	.row-alert-fixed-to-top {
+		line-height: 0px;
+	}
+	.alert-fixed-to-top {
+		position: relative;
+		top: -15px;
+		padding: 0px 15px;
+		color: #fff;
+		border-top-left-radius: 6px;
+		border-top-right-radius: 6px;
+		@media (max-width: $screen-xs-max) {
+			font-size: .8em;
+		}
+	}
 	.navbar-center {
     display: inline-block;
     float: none;
 	}
 	.navbar .navbar-collapse {
 	  text-align: center;
+	}
+	.navbar-profile-year {
+		li {
+			text-align: right;
+			a {
+				font-size: 16px;
+				font-weight: 300;
+				span {
+					font-size: 10px;
+					text-align: right;
+				}
+			}
+		}
 	}
 }
 .profile-page .header {
@@ -556,6 +583,9 @@ Profile
 	}
 	#summary, #people, #grants, #filings {
 		background-color: white;
+		margin-bottom: 75px;
+	}
+	#profile-cta {
 		margin-bottom: 75px;
 	}
 	.avatar .avatar-circle-w-icon {
@@ -613,6 +643,13 @@ Profile
 		}
 		:-moz-placeholder { /* Firefox 18- */
 		  color: white;
+		}
+	}
+	table {
+		th  span{
+			&:hover {
+				cursor: pointer;
+			}
 		}
 	}
 	.list-group {

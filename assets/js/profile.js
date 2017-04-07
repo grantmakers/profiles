@@ -7,6 +7,11 @@ $(document).ready(function() {
   $.material.init(); //Initialize Material Design ripples
   $('[data-toggle="tooltip"], [rel="tooltip"]').tooltip(); //Enable tooltips
 
+
+  // Enable table sort via StupidTable
+  // =======================================================
+  $("#grantsTable").stupidtable();
+
   // SMOOTH SCROLL
   // =============
   // simple smooth scrolling for bootstrap scroll spy nav
