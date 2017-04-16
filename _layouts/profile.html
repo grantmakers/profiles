@@ -27,6 +27,21 @@
 	<link href="{{ site.baseurl }}/assets/css/bootstrap.min.css" rel="stylesheet" />
 	<link href="{{ site.baseurl }}/assets/css/main.css" rel="stylesheet">
 
+	<!-- Schema.org -->
+	<script type='application/ld+json'>
+		{
+			"@context": "http://schema.org/",
+			"@type": "NGO",
+			"address": {
+				"@type": "PostalAddress",
+				"addressLocality": "{{ page.City }}",
+				"addressRegion": "{{ page.State }}"
+			},
+			"legalName": "{{ page.OrganizationName }}",
+			"taxID": "{{ page.EIN }}"
+		}
+	</script>
+
 </head>
 
 <body class="profile-page">
