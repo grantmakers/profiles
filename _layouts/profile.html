@@ -70,7 +70,6 @@
 								<a href="https://www.grantmakers.io/faq/" data-toggle="tooltip" data-html="true" data-placement="bottom" title="<b>Source</b><br>Profile pulled directly from electronically filed IRS Form 990-PF">
 									FAQ
 								</a>
-							
 							</li>
 			    	</ul>
 					</div>
@@ -101,13 +100,13 @@
 										<img src="{{ site.baseurl }}/assets/img/icons-letters/{{ page.OrganizationName | split: '' | first }}.svg" alt="Circle Image" class="img-circle img-responsive">
 								</div>
 								<div class="name">
-									<h3 class="title">
+									<h1 class="title">
 										{% if page.Website %}
 											<a href="{{ page.Website}}" title="Visit Website">{{ page.OrganizationName }}</a>
 										{% else %}
 											{{ page.OrganizationName }}
 										{% endif %}
-									</h3>
+									</h1>
 									<h6 class="description">{{ page.City }}, {{ page.State }}</h6>
 									<ul class="list-inline description profile-summary-icons text-center"> 
 	                  <li>
