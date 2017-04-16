@@ -9,17 +9,10 @@ url: https://www.grantmakers.io # Typically http://www.yourdomain.org
 sass:
   sass_dir: assets/css/_sass
 
-collections: 
-  profiles:
-    output: true
-    permalink: /:path/
-
-defaults:
-  - scope:
-      path: ""
-      type: profiles
-    values:
-      layout: profile
+portfolio_dir: v0
+skip_related_projects: true
+related_project_keys: []
+related_min_common: 0.6
 
 gems:
   - jekyll-sitemap
@@ -37,4 +30,3 @@ exclude:
   - LICENSE
   - README.md
   - node_modules
-  - Creative_Tim_License.pdf
