@@ -13,6 +13,20 @@ module Jekyll
         end
     end
 
+    class RedirectPage < Page
+        def initialize(site, base, dir, project_data)
+            @site = site
+            @base = base
+            @dir = dir
+            @name = "index.html"
+
+            self.process(@name)
+            self.read_yaml(File.join(base, "_layouts"), "redirect.html")
+
+            project_data.each { |key, value| self.data[key] = value }
+        end
+    end
+
     class PortfolioGenerator < Generator
         safe true
 
@@ -29,18 +43,21 @@ module Jekyll
             site.data["EIN"].each do |project_file|
                 project = project_file[1]
 
+                # Original url scheme
                 # I Love Cats -> i-love-cats
                 # /profiles/title
                 # file_name_slug = slugify(project["title"])
-                # /profiles/123456789/some-foundation
-                file_name_slug = slugify(project["OrganizationName"])
 
-                # portfolio/i-love-cats/
-                #path = File.join(dir, file_name_slug)
-                path = File.join(dir, project["title"], file_name_slug)
+                # Grantmakers.io url scheme
+                # /profiles/123456789-some-foundation
+                file_name_slug = slugify(project["EIN"] + "-" + project["OrganizationName"])
+
+                path = File.join(dir, file_name_slug)
                 project["dir"] = path
 
                 site.pages << ProjectPage.new(site, site.source, path, project)
+                site.pages << RedirectPage.new(site, site.source, project["EIN"], project)
+                #site.pages << RedirectPage.new(site, site.source, path, project)
             end
         end
 
