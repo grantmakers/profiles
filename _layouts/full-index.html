@@ -1,0 +1,175 @@
+---
+---
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<link rel="apple-touch-icon" sizes="76x76" href="assets/img/apple-icon.png">
+	<link rel="icon" type="image/png" href="{{ site.baseurl }}/assets/img/favicon.png">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+	{% comment %}
+	<title>Grantmakers.io Profile - {{ page.OrganizationName }}</title>
+	<meta name="description" content="Profile for {{ page.OrganizationName }} ({{ page.City }}, {{ page.State }} - EIN {{ page.EIN }}) including grantees and board members as of {{ page.Filings[0].TaxYear}} tax year.">
+	{% endcomment %}
+
+	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+
+	<!-- Fonts and Icons  -->
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+	<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" />
+
+	<!-- CSS Files -->
+	<link href="{{ site.baseurl }}/assets/css/bootstrap.min.css" rel="stylesheet" />
+	<link href="{{ site.baseurl }}/assets/css/main.css" rel="stylesheet">
+
+</head>
+
+<body class="profile-page">
+	<!-- Navbar -->
+	<nav class="navbar navbar-transparent navbar-fixed-top navbar-color-on-scroll navbar-search"  data-spy="affix" data-offset-top="60">
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-4">
+					<div class="navbar-header">
+				  	<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navigation-index">
+			      	<span class="sr-only">Toggle navigation</span>
+			      	<span class="icon-bar"></span>
+			      	<span class="icon-bar"></span>
+			      	<span class="icon-bar"></span>
+				  	</button>
+				  	<a href="https://www.grantmakers.io">
+				    	<div class="logo-container">
+				        <div class="logo">
+				           <img src="{{ site.baseurl }}/assets/img/logo.png" alt="Grantmakers Logo" rel="tooltip" title="<b>Grantmakers.io</b> is a free tool from your friends at <b>SmarterGiving.org</b>" data-placement="bottom" data-html="true">
+				        </div>
+				        <div class="brand brand-name">
+				           Grantmakers.io
+				        </div>
+							</div>
+				    </a>
+			    </div>
+				</div>
+				<div class="collapse navbar-collapse" id="navigation-index">
+					<div class="col-sm-4">
+						<ul class="nav navbar-nav navbar-center">
+							<li><a href="#index">Index by State</a></li>
+							<li><a href="{{ site.url }}/">Live Search</a></li>
+						</ul>
+					</div>
+					<div class="col-sm-4">
+						<ul class="nav navbar-nav navbar-right">
+							<li><a href="https://www.grantmakers.io/about/">About</a></li>
+							<li><a href="https://www.grantmakers.io/faq/">FAQ</a></li>
+			    	</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</nav>
+	<!-- End Navbar -->
+
+	<div class="wrapper">
+		<!-- <div class="header header-filter" style="background-image: url('{{ site.baseurl }}/assets/img/{{ page.State }}.jpg');"></div> -->
+		<div class="header header-filter" style="background-image: url('{{ site.baseurl }}/assets/img/NY.jpg');"></div>
+		<div class="main main-raised">
+			<div class="profile-content">
+				<div class="row row-alert-fixed-to-top">
+					<div class="col-md-12">
+						<div class="alert-fixed-to-top">
+							<div class="pull-left">Updated: {{ site.time | date: '%B %d, %Y' }}</div>
+							<div class="pull-right">70,035 Profiles</div>
+						</div>
+					</div>
+				</div>
+				<div class="container">
+					<div class="row">
+						<div class="col-md-12">
+							<div id="profile" class="profile">
+								<div class="avatar">
+									<img src="{{ site.baseurl }}/assets/img/logo.png" alt="Grantmakers.io Logo" class="img-circle img-responsive">
+								</div>
+								<div class="name">
+									<h1 class="title">
+											Foundation Profiles
+									</h1>
+									<h6 class="description">Complete Index</h6>
+
+									<ul id="index" class="list-unstyled description text-left">
+										{% assign states = site.data.EIN | group_by_exp: 'item', 'item[1].State' | sort: 'name' %}
+										{% for state in states %}
+										<li id="{{ state.name }}">{% include state-list.html %}</li>
+										<ul class="list-unstyled">
+											{% for each in state.items %}
+												{% assign org = each[1] %}
+												<li><h6><a href="{{ site.url }}{{ site.baseurl }}/v0/{{ org.EIN }}-{{ org.OrganizationName | slugify }}/">{{ org.OrganizationName }}</a></h6></li>
+											{% endfor %}
+										</ul>
+										{% endfor %}
+									</ul>
+
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-md-12">
+							<div id="profile-cta">
+								<div class="text-center">
+									<h3>Try our live search tool</h3>
+									<p></p>
+									<a href="{{ site.url }}" class="btn btn-danger">Search</a>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+	{% include footer.html %}
+	{% include footer-license-and-links.html %}
+	{% include ga.html %}
+
+</body>
+<!--   Core JS Files   -->
+<script src="{{ site.baseurl }}/assets/js/jquery.min.js" type="text/javascript"></script>
+<script src="{{ site.baseurl }}/assets/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="{{ site.baseurl }}/assets/js/material.min.js"></script>
+<script src="{{ site.baseurl }}/assets/js/stupidtable.min.js"></script>
+
+<!-- Control Center for Material Kit: activating the ripples, parallax effects, scripts from the example pages etc -->
+<script src="{{ site.baseurl }}/assets/js/material-kit.js" type="text/javascript"></script>
+
+<!-- Search and Algolia-related scripts -->
+<!--
+<script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=Object.assign,Intl.~locale.en"></script>
+<script src="//cdn.jsdelivr.net/algoliasearch/3/algoliasearch.min.js"></script>
+<script src="//cdn.jsdelivr.net/algoliasearch.helper/2/algoliasearch.helper.min.js"></script>
+<script src="//cdn.jsdelivr.net/hogan.js/3.0.2/hogan.min.common.js"></script>
+<script src="//cdn.jsdelivr.net/jquery.ion.rangeslider/2.0.12/js/ion.rangeSlider.min.js"></script>
+<script src="{{ site.baseurl }}/assets/js/search.js"></script>
+-->
+<script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=Intl.~locale.en"></script>
+<script src="{{ site.baseurl }}/assets/js/profile.js"></script>
+
+<script type="text/javascript">
+	$().ready(function(){
+		// the body of this function is in assets/material-kit.js
+		//materialKit.initSliders();
+		window_width = $(window).width();
+
+		if (window_width >= 992){
+			big_image = $('.wrapper > .header');
+
+			$(window).on('scroll', materialKitDemo.checkScrollForParallax);
+		}
+
+	});
+</script>
+	
+</html>
