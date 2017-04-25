@@ -98,7 +98,7 @@
 									<ul id="index" class="list-unstyled description text-left">
 										{% assign states = site.data.EIN | group_by_exp: 'item', 'item[1].State' | sort: 'name' %}
 										{% for state in states %}
-										<li id="{{ state.name }}"><h3>{% include state-list.html %}</h3></li>
+										<li id="{{ state.name }}"><h3>{% include state-list.html %}</h3>	</li>
 										<ul class="list-unstyled">
 											{% for each in state.items %}
 												{% assign org = each[1] %}
