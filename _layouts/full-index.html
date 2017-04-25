@@ -98,11 +98,11 @@
 									<ul id="index" class="list-unstyled description text-left">
 										{% assign states = site.data.EIN | group_by_exp: 'item', 'item[1].State' | sort: 'name' %}
 										{% for state in states %}
-										<li id="{{ state.name }}">{% include state-list.html %}</li>
+										<li id="{{ state.name }}"><h3>{% include state-list.html %}</h3></li>
 										<ul class="list-unstyled">
 											{% for each in state.items %}
 												{% assign org = each[1] %}
-												<li><h6><a href="{{ site.url }}{{ site.baseurl }}/v0/{{ org.EIN }}-{{ org.OrganizationName | slugify }}/">{{ org.OrganizationName }}</a></h6></li>
+												<li><h6><small>{{ org.EIN }}</small> <a href="{{ site.url }}{{ site.baseurl }}/v0/{{ org.EIN }}-{{ org.OrganizationName | slugify }}/">{{ org.OrganizationName }}</a></h6></li>
 											{% endfor %}
 										</ul>
 										{% endfor %}
