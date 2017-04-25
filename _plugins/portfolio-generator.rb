@@ -130,7 +130,9 @@ module Jekyll
         end
 
         def slugify(title)
-            title.downcase.strip.gsub(' ', '-').gsub(/[^\w-]/, '')
+            title.downcase.gsub(/[^\w]/, " ").strip.gsub(/\s+/, '-')
+            # Original slugify regex
+            #title.downcase.strip.gsub(' ', '-').gsub(/[^\w-]/, '')
         end
 
     end
