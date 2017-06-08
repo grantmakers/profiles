@@ -35,6 +35,14 @@ $(document).ready(function() {
         window.location.hash = hash;
     });
 
+    // google analytics
+    var text = $(this).text();
+    ga('send', 'event', {
+      eventCategory: 'Profile Events',
+      eventAction: 'Profile Header Click',
+      eventLabel: text
+    });
+
   });
 
   // FORMATTING
