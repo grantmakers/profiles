@@ -1,16 +1,14 @@
 $(document).ready(function() {
-  'use strict';
-
   // Enable Material Design ripples and Bootstrap components
   // =======================================================
 
-  $.material.init(); //Initialize Material Design ripples
-  $('[data-toggle="tooltip"], [rel="tooltip"]').tooltip(); //Enable tooltips
+  $.material.init(); // Initialize Material Design ripples
+  $('[data-toggle="tooltip"], [rel="tooltip"]').tooltip(); // Enable tooltips
 
 
   // Enable table sort via StupidTable
   // =======================================================
-  $("#grantsTable").stupidtable();
+  $('#grantsTable').stupidtable();
 
   // SMOOTH SCROLL
   // =============
@@ -23,72 +21,70 @@ $(document).ready(function() {
     $('#navigation-index').collapse('hide');
 
     // store hash
-    var hash = this.hash;
+    let hash = this.hash;
 
     // animate
     $('html, body').animate({
-        scrollTop: $(this.hash).offset().top - 120
-      }, 300, function(){
-
-        // when done, add hash to url
-        // (default click behaviour)
-        window.location.hash = hash;
+      'scrollTop': $(this.hash).offset().top - 120,
+    }, 300, function() {
+      // when done, add hash to url
+      // (default click behaviour)
+      window.location.hash = hash;
     });
 
     // google analytics
-    var text = $(this).text();
+    let text = $(this).text();
     ga('send', 'event', {
-      eventCategory: 'Profile Events',
-      eventAction: 'Profile Header Click',
-      eventLabel: text
+      'eventCategory': 'Profile Events',
+      'eventAction': 'Profile Header Click',
+      'eventLabel': text,
     });
-
   });
 
   // FORMATTING
   // ==========
 
-  //Format numbers and currency
-  var formatCurrency = new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD',
-    currencyDisplay: 'symbol',
-    minimumFractionDigits: 0
+  // Format numbers and currency
+  let formatCurrency = new Intl.NumberFormat('en-US', {
+    'style': 'currency',
+    'currency': 'USD',
+    'currencyDisplay': 'symbol',
+    'minimumFractionDigits': 0,
   });
 
-  //Format numbers and currency
-  var formatCurrencyList = new Intl.NumberFormat('en-US', {
-    style: 'decimal',
-    currency: 'USD',
-    //currencyDisplay: 'symbol',
-    minimumFractionDigits: 0
+  // Format numbers and currency
+  let formatCurrencyList = new Intl.NumberFormat('en-US', {
+    'style': 'decimal',
+    'currency': 'USD',
+    // currencyDisplay: 'symbol',
+    'minimumFractionDigits': 0,
   });
 
-  //Format numbers and currency
-  var formatNumber = new Intl.NumberFormat('en-US', {
-    style: 'decimal',
-    minimumFractionDigits: 0,
-    maximumFractionDigits: 2
-  }); 
+  // Format numbers and currency
+  let formatNumber = new Intl.NumberFormat('en-US', {
+    'style': 'decimal',
+    'minimumFractionDigits': 0,
+    'maximumFractionDigits': 2,
+  });
 
-  //Format dollar amounts and currency figures
-  $('.format-currency').each(function(){
-    var n = $(this).text();
-    var formattedNumber = formatCurrency.format(n);
+  // Format dollar amounts and currency figures
+  $('.format-currency').each(function() {
+    let n = $(this).text();
+    let formattedNumber = formatCurrency.format(n);
     $(this).text(formattedNumber);
   });
 
-  //Format dollar amounts and currency figures
-  $('.format-currency-list').each(function(){
-    var n = $(this).text();
-    var formattedNumber = formatCurrencyList.format(n);
+  // Format dollar amounts and currency figures
+  $('.format-currency-list').each(function() {
+    let n = $(this).text();
+    let formattedNumber = formatCurrencyList.format(n);
     $(this).text(formattedNumber);
   });
 
-  //Format numbers
-  $('.format-number').each(function(){
-    var n = $(this).text();
-    var formattedNumber = formatNumber.format(n);
+  // Format numbers
+  $('.format-number').each(function() {
+    let n = $(this).text();
+    let formattedNumber = formatNumber.format(n);
     $(this).text(formattedNumber);
   });
 
@@ -114,18 +110,18 @@ $(document).ready(function() {
   */
 
 
-  //Filings
-  $('.js-filings-pdf').each(function () {
-      addFilingURL($(this));
-    });
+  // Filings
+  $('.js-filings-pdf').each(function() {
+    addFilingURL($(this));
+  });
   
-  function addFilingURL(el){
-    var ein = el.data('ein');
-    var einShort = ein.toString().substring(0, 3);
-    var taxPeriod = el.data('tax-period');
+  function addFilingURL(el) {
+    let ein = el.data('ein');
+    let einShort = ein.toString().substring(0, 3);
+    let taxPeriod = el.data('tax-period');
     // Foundation Center: http://990s.foundationcenter.org/990pf_pdf_archive/272/272624875/272624875_201412_990PF.pdf
-    var urlPDF = 'http://990s.foundationcenter.org/990pf_pdf_archive/' + 
-                 einShort + '/' + 
+    let urlPDF = 'http://990s.foundationcenter.org/990pf_pdf_archive/' +
+                 einShort + '/' +
                  ein + '/' +
                  ein + '_' +
                  taxPeriod + '_990PF.pdf';
@@ -142,7 +138,8 @@ $(document).ready(function() {
   }
   */
 
-  //Abbreviate large numbers and currency
+  // Abbreviate large numbers and currency
+  /*
   function abbreviateNumber(num, fixed) {
     if (num === null) { return null; } // terminate early
     if (num === 0) { return '0'; } // terminate early
@@ -154,5 +151,5 @@ $(document).ready(function() {
         e = d + ['', 'K', 'M', 'B', 'T'][k]; // append power
     return e;
   }
-
+  */
 });
