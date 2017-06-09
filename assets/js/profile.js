@@ -88,28 +88,6 @@ $(document).ready(function() {
     $(this).text(formattedNumber);
   });
 
-  /*
-  //Progress Bars
-  $('.progress-bar-assets').each(function(){
-    var assets = $(this).attr('data-assets');
-    var width = 0;
-    width = assets / 100000000 * 100;
-    $(this).css('width', width + '%');
-    $(this).children('.sr-only').text('Total Assets = ' + assets);
-  });
-
-  $('.progress-bar-grants').each(function(){
-    var grants = $(this).attr('data-grants');
-    var barMax = 100000;
-    var width = 0;
-
-    width = grants / barMax * 100;
-    $(this).css('width', width + '%');
-    $(this).children('.sr-only').text('Total Grants = ' + grants);
-  });
-  */
-
-
   // Filings
   $('.js-filings-pdf').each(function() {
     addFilingURL($(this));
@@ -128,28 +106,4 @@ $(document).ready(function() {
     el.attr('data-url-pdf', urlPDF);
     el.attr('href', urlPDF);
   }
-
-  /*
-  function removeModalsIfFilingsPreferenceSet() {
-    $('.js-filings').each(function(){
-      $(this).removeAttr('data-toggle');
-      $(this).removeAttr('data-target');
-    });
-  }
-  */
-
-  // Abbreviate large numbers and currency
-  /*
-  function abbreviateNumber(num, fixed) {
-    if (num === null) { return null; } // terminate early
-    if (num === 0) { return '0'; } // terminate early
-    fixed = (!fixed || fixed < 0) ? 0 : fixed; // number of decimal places to show
-    var b = (num).toPrecision(2).split("e"), // get power
-        k = b.length === 1 ? 0 : Math.floor(Math.min(b[1].slice(1), 14) / 3), // floor at decimals, ceiling at trillions
-        c = k < 1 ? num.toFixed(0 + fixed) : (num / Math.pow(10, k * 3) ).toFixed(1 + fixed), // divide by power
-        d = c < 0 ? c : Math.abs(c), // enforce -0 is 0
-        e = d + ['', 'K', 'M', 'B', 'T'][k]; // append power
-    return e;
-  }
-  */
 });
