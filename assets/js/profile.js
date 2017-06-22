@@ -6,10 +6,6 @@ $(document).ready(function() {
   $('[data-toggle="tooltip"], [rel="tooltip"]').tooltip(); // Enable tooltips
 
 
-  // Enable table sort via StupidTable
-  // =======================================================
-  $('#grantsTable').stupidtable();
-
   // SMOOTH SCROLL
   // =============
   // simple smooth scrolling for bootstrap scroll spy nav
@@ -41,52 +37,11 @@ $(document).ready(function() {
     });
   });
 
-  // FORMATTING
-  // ==========
 
-  // Format numbers and currency
-  let formatCurrency = new Intl.NumberFormat('en-US', {
-    'style': 'currency',
-    'currency': 'USD',
-    'currencyDisplay': 'symbol',
-    'minimumFractionDigits': 0,
-  });
+  // Enable table sort via StupidTable
+  // =======================================================
+  $('#grantsTable').stupidtable();
 
-  // Format numbers and currency
-  let formatCurrencyList = new Intl.NumberFormat('en-US', {
-    'style': 'decimal',
-    'currency': 'USD',
-    // currencyDisplay: 'symbol',
-    'minimumFractionDigits': 0,
-  });
-
-  // Format numbers and currency
-  let formatNumber = new Intl.NumberFormat('en-US', {
-    'style': 'decimal',
-    'minimumFractionDigits': 0,
-    'maximumFractionDigits': 2,
-  });
-
-  // Format dollar amounts and currency figures
-  $('.format-currency').each(function() {
-    let n = $(this).text();
-    let formattedNumber = formatCurrency.format(n);
-    $(this).text(formattedNumber);
-  });
-
-  // Format dollar amounts and currency figures
-  $('.format-currency-list').each(function() {
-    let n = $(this).text();
-    let formattedNumber = formatCurrencyList.format(n);
-    $(this).text(formattedNumber);
-  });
-
-  // Format numbers
-  $('.format-number').each(function() {
-    let n = $(this).text();
-    let formattedNumber = formatNumber.format(n);
-    $(this).text(formattedNumber);
-  });
 
   // Filings
   $('.js-filings-pdf').each(function() {

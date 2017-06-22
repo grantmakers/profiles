@@ -51,8 +51,7 @@
 				<div class="collapse navbar-collapse" id="navigation-index">
 					<div class="col-sm-4">
 						<ul class="nav navbar-nav navbar-center">
-							<li><a href="#index">Index by State</a></li>
-							<li><a href="{{ site.url }}/">Live Search</a></li>
+							<li><a class="btn btn-white btn-round" href="{{ site.url }}/"><i class="material-icons">search</i> Search</a></li>
 						</ul>
 					</div>
 					<div class="col-sm-4">
@@ -94,13 +93,13 @@
 									<h6 class="description">Complete Index</h6>
 
 									<ul id="index" class="list-unstyled description text-left">
-										{% assign states = site.data.EIN | group_by_exp: 'item', 'item[1].State' | sort: 'name' %}
+										{% assign states = site.data.ein | group_by_exp: 'item', 'item[1].state' | sort: 'name' %}
 										{% for state in states %}
 										<li id="{{ state.name }}"><h3>{% include state-list.html %}</h3>	</li>
 										<ul class="list-unstyled">
 											{% for each in state.items %}
 												{% assign org = each[1] %}
-												<li><h6><small>{{ org.EIN }}</small> <a href="{{ site.url }}{{ site.baseurl }}/v0/{{ org.EIN }}-{{ org.OrganizationName | slugify }}/">{{ org.OrganizationName }}</a></h6></li>
+												<li><h6><small>{{ org.ein }}</small> <a href="{{ site.url }}{{ site.baseurl }}/v0/{{ org.ein }}-{{ org.organization_name | slugify }}/">{{ org.organization_name }}</a></h6></li>
 											{% endfor %}
 										</ul>
 										{% endfor %}

@@ -4,10 +4,10 @@
 <html lang="en-US">
   <meta charset="utf-8">
   <title>Redirecting&hellip;</title>
-  <link rel="canonical" href="{{ site.url }}{{ site.baseurl }}/v0/{{ page.EIN }}-{{ page.OrganizationName | slugify }}/">
-  <meta http-equiv="refresh" content="0; url={{ site.url }}{{ site.baseurl }}/v0/{{ page.EIN }}-{{ page.OrganizationName | slugify }}/">
-  <h1>Redirecting…</h1>
-  <a href="{{ site.url }}{{ site.baseurl }}/v0/{{ page.EIN }}-{{ page.OrganizationName | slugify }}/">Click here if you are not redirected.</a>
-  <script>location="{{ site.url }}{{ site.baseurl }}/v0/{{ page.EIN }}-{{ page.OrganizationName | slugify }}/";</script>
+  <link rel="canonical" href="{{ site.url }}{{ site.baseurl }}/v0/{{ page.ein }}-{{ page.organization_name | slugify }}/">
+  <meta http-equiv="refresh" content="0; url={{ site.url }}{{ site.baseurl }}/v0/{{ page.ein }}-{{ page.organization_name | slugify }}/">
+  <h2>Redirecting…</h2>
+  <a href="{{ site.url }}{{ site.baseurl }}/v0/{{ page.ein }}-{{ page.organization_name | slugify }}/">Click here if you are not redirected.</a>
+  <script>location="{{ site.url }}{{ site.baseurl }}/v0/{{ page.ein }}-{{ page.organization_name | slugify }}/";</script>
   {% include ga.html %}
 </html>

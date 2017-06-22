@@ -3,4 +3,4 @@ _site/
 .jekyll-metadata
 .DS_Store
 /algolia/secrets.js
-_data/EIN/
+_data/ein/

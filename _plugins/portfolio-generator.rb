@@ -40,7 +40,7 @@ module Jekyll
             end
 
             # Then generate the project pages
-            site.data["EIN"].each do |project_file|
+            site.data["ein"].each do |project_file|
                 project = project_file[1]
 
                 # Original url scheme
@@ -50,20 +50,20 @@ module Jekyll
 
                 # Grantmakers.io url scheme
                 # /profiles/123456789-some-foundation
-                file_name_slug = slugify(project["EIN"] + "-" + project["OrganizationName"])
+                file_name_slug = slugify(project["ein"] + "-" + project["organization_name"])
 
                 path = File.join(dir, file_name_slug)
                 project["dir"] = path
 
                 site.pages << ProjectPage.new(site, site.source, path, project)
-                site.pages << RedirectPage.new(site, site.source, project["EIN"], project)
+                site.pages << RedirectPage.new(site, site.source, project["ein"], project)
                 #site.pages << RedirectPage.new(site, site.source, path, project)
             end
         end
 
         def compute_related_projects(site)
             projects = []
-            site.data["EIN"].each { |project| projects.push(project[1]) }
+            site.data["ein"].each { |project| projects.push(project[1]) }
 
             keys = site.config["related_project_keys"]
 
