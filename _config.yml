@@ -15,7 +15,7 @@ related_project_keys: []
 related_min_common: 0.6
 #Documentation for related_projects: https://github.com/codeinpink/jekyll-portfolio-generator
 
-gems:
+plugins:
   - jekyll-sitemap
 
 # Google Analytics
