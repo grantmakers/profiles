@@ -744,3 +744,14 @@ Profile
 		color: $gray-light;
 	}
 }
+
+/****************************
+Feedback Lite Plugin
+Make compatible w Bootstrap
+*****************************/
+
+#feedbacklite_box .type_1 {
+	-webkit-box-sizing: content-box;
+	   -moz-box-sizing: content-box;
+	        box-sizing: content-box;
+}
