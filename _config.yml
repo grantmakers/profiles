@@ -16,7 +16,7 @@ related_min_common: 0.6
 #Documentation for related_projects: https://github.com/codeinpink/jekyll-portfolio-generator
 
 plugins:
-  - jekyll-sitemap
+# - jekyll-sitemap
 
 # Google Analytics
 google-analytics: UA-84268197-1

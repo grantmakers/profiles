@@ -1,0 +1,18 @@
+---
+layout: null
+---
+<?xml version="1.0" encoding="UTF-8"?>
+<sitemapindex xmlns="http://www.google.com/schemas/sitemap/0.9">
+  <sitemap>
+    <loc>{{site.url}}/sitemap-main.xml</loc>
+    <lastmod>{{ site.time | date_to_xmlschema }}</lastmod>
+  </sitemap>
+  <sitemap>
+    <loc>{{site.url}}/sitemap-profiles-ein-00-through-39.xml</loc>
+    <lastmod>{{ site.time | date_to_xmlschema }}</lastmod>
+  </sitemap>
+  <sitemap>
+    <loc>{{site.url}}/sitemap-profiles-ein-40-through-99.xml</loc>
+    <lastmod>{{ site.time | date_to_xmlschema }}</lastmod>
+  </sitemap>
+</sitemapindex>

@@ -1,0 +1,20 @@
+---
+layout: null
+---
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+{%- for profile in site.data.ein -%}
+  {%- assign target = profile[0] | slice: 0 -%}
+  {% if 
+    target == '0' or 
+    target == '1' or 
+    target == '2' or 
+    target == '3' 
+  %}
+  <url>
+    <loc>{{ site.url }}/profiles/v0/{{ profile[1].ein }}-{{profile[1].organization_name |  slugify}}/</loc>
+    <lastmod>{{ site.time | date_to_xmlschema }}</lastmod>
+  </url>
+  {%- endif -%}
+{% endfor %}
+</urlset>
