@@ -31,5 +31,5 @@ exclude:
   - LICENSE
   - README.md
   - node_modules
-  - split_for_jekyll_json.js
+  - _data/split_for_jekyll_json.js
   - split_for_markdown.js
