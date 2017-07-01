@@ -1,123 +1,167 @@
 {
-    "title": "431992271",
-    "objectID": "431992271",
-    "EIN": "431992271",
-    "OrganizationName": "FAIRBRIDGE FOUNDATION",
-    "Assets": 7476784,
-    "Website": null,
-    "City": "Portland",
-    "State": "OR",
-    "isLikelyStaffed": false,
-    "hasWebsite": false,
-    "hasGrants": true,
-    "hasRecentGrants": true,
-    "GrantMax": 105600,
-    "GrantMin": 1000,
-    "GrantMedian": 38500,
-    "GrantCount": 10,
-    "Filings": [
+    "_id" : "050509502",
+    "last_updated" : "2017-06-11T01:20:55.196Z",
+    "last_updated_irs" : "2017-03-11T03:54:49.000Z",
+    "ein" : "050509502",
+    "organization_name" : "WHITE FAMILY FOUNDATION",
+    "assets" : 2013194.0,
+    "website" : "http://www.thewhitefamilyfoundation.com",
+    "city" : "Cranston",
+    "state" : "RI",
+    "is_likely_staffed" : false,
+    "has_website" : true,
+    "has_grants" : true,
+    "has_recent_grants" : true,
+    "grant_max" : 250000.0,
+    "grant_min" : 5000.0,
+    "grant_median" : 17900.0,
+    "grant_count" : 10.0,
+    "filings" : [ 
         {
-            "TaxPeriod": 201512,
-            "TaxYear": 2015,
-            "URL": "https://s3.amazonaws.com/irs-form-990/201621539349100707_public.xml"
+            "object_id_irs" : "201613139349100231",
+            "tax_period" : 201512.0,
+            "tax_year" : 2015.0,
+            "url" : "https://s3.amazonaws.com/irs-form-990/201613139349100231_public.xml"
         }
     ],
-    "Grants": [
+    "grants" : [ 
         {
-            "Name": "ALBERTINA KERR",
-            "City": "Portland",
-            "State": "OR",
-            "Amount": 2000,
-            "Purpose": "SUPPORT DISADVANTAGED CHILDREN"
-        },
+            "name" : "Community Preparatory School",
+            "city" : "Providence",
+            "state" : "RI",
+            "amount" : 15800.0,
+            "purpose" : "Education"
+        }, 
         {
-            "Name": "ELEVATE OREGON",
-            "City": "Portland",
-            "State": "OR",
-            "Amount": 75000,
-            "Purpose": "EDUCATION, AT RISK YOUTH"
-        },
+            "name" : "FirstWorks Providence",
+            "city" : "Providence",
+            "state" : "RI",
+            "amount" : 15000.0,
+            "purpose" : "Culture"
+        }, 
         {
-            "Name": "FINANCIAL BEGINNINGS",
-            "City": "Portland",
-            "State": "OR",
-            "Amount": 51000,
-            "Purpose": "FINANCIAL LITERACY PROGRAM"
-        },
+            "name" : "House of Hope",
+            "city" : "North Kingstown",
+            "state" : "RI",
+            "amount" : 5000.0,
+            "purpose" : "Recovery"
+        }, 
         {
-            "Name": "HABITAT FOR HUMANITY",
-            "City": "Portland",
-            "State": "OR",
-            "Amount": 1000,
-            "Purpose": "CHARITABLE"
-        },
+            "name" : "Project Goal",
+            "city" : "Providence",
+            "state" : "RI",
+            "amount" : 12500.0,
+            "purpose" : "Sports, Youth, Education"
+        }, 
         {
-            "Name": "LAMBDA CHI ALPHA FOUNDATION",
-            "City": "Carmel",
-            "State": "IN",
-            "Amount": 1250,
-            "Purpose": "YOUTH PERSONAL DEVELOPMENT"
-        },
+            "name" : "Providence Performing Arts Center",
+            "city" : "Kingston",
+            "state" : "RI",
+            "amount" : 250000.0,
+            "purpose" : "culture"
+        }, 
         {
-            "Name": "OREGON STATE UNIVERSITY FOUNDATION",
-            "City": "Corvallis",
-            "State": "OR",
-            "Amount": 100000,
-            "Purpose": "EDUCATION, LEADERSHIP DEVELOPMENT"
-        },
+            "name" : "RI Free Clinic",
+            "city" : "Providence",
+            "state" : "RI",
+            "amount" : 11000.0,
+            "purpose" : "Health"
+        }, 
         {
-            "Name": "READINGS RESULTS",
-            "City": "Portland",
-            "State": "OR",
-            "Amount": 60000,
-            "Purpose": "EDUCATION"
-        },
+            "name" : "St Andrews School",
+            "city" : "Barrington",
+            "state" : "RI",
+            "amount" : 20000.0,
+            "purpose" : "Education"
+        }, 
         {
-            "Name": "SALVATION ARMY",
-            "City": "Happy Valley",
-            "State": "OR",
-            "Amount": 105600,
-            "Purpose": "SHELTER FOR WOMEN"
-        },
+            "name" : "Trinity Repertory Company",
+            "city" : "Providence",
+            "state" : "RI",
+            "amount" : 25000.0,
+            "purpose" : "arts"
+        }, 
         {
-            "Name": "STORE TO DOOR",
-            "City": "Portland",
-            "State": "OR",
-            "Amount": 26000,
-            "Purpose": "FOOD SERVICE FOR ELDERLY"
-        },
+            "name" : "Wheaton College",
+            "city" : "Norton",
+            "state" : "MA",
+            "amount" : 100000.0,
+            "purpose" : "science center"
+        }, 
         {
-            "Name": "UNIVERSITY OF NEBRASKA FOUNDATION",
-            "City": "Lincoln",
-            "State": "NE",
-            "Amount": 25000,
-            "Purpose": "EDUCATION, GENERAL FUND"
+            "name" : "Various others",
+            "city" : "Providence",
+            "state" : "RI",
+            "amount" : 58100.0,
+            "purpose" : "various"
         }
     ],
-    "People": [
+    "people" : [ 
         {
-            "Name": "JOHN STIREK",
-            "Title": "PRESIDENT",
-            "Hours": 5,
-            "Compensation": 0
-        },
+            "name" : "JOHN HAZEN WHITE JR",
+            "title" : "Board Member",
+            "hours" : 3.0,
+            "compensation" : 0.0
+        }, 
         {
-            "Name": "JOHN ALAN STIREK",
-            "Title": "VICE PRESIDENT",
-            "Hours": 2,
-            "Compensation": 0
-        },
+            "name" : "DAVID GILDEN",
+            "title" : "Board member",
+            "hours" : 2.0,
+            "compensation" : 0.0
+        }, 
         {
-            "Name": "SIDNEY HODGES",
-            "Title": "DIRECTOR",
-            "Hours": 2,
-            "Compensation": 0
-        },
+            "name" : "GLENN GRAHAM",
+            "title" : "Treasurer",
+            "hours" : 3.0,
+            "compensation" : 0.0
+        }, 
         {
-            "Name": "TERRI TRAVIS",
-            "Title": "SECRETARY",
-            "Hours": 0,
-            "Compensation": 0
+            "name" : "MARJORIE HOUSTON",
+            "title" : "President",
+            "hours" : 4.0,
+            "compensation" : 0.0
+        }, 
+        {
+            "name" : "LATAVORN BONILLA",
+            "title" : "Secretary",
+            "hours" : 2.0,
+            "compensation" : 0.0
+        }, 
+        {
+            "name" : "BENJAMIN WHITE",
+            "title" : "Board Member",
+            "hours" : 1.0,
+            "compensation" : 0.0
+        }, 
+        {
+            "name" : "IRVING SCHNEIDER",
+            "title" : "Board Member",
+            "hours" : 1.0,
+            "compensation" : 0.0
+        }, 
+        {
+            "name" : "JOHN WHITE III",
+            "title" : "Board member",
+            "hours" : 1.0,
+            "compensation" : 0.0
+        }, 
+        {
+            "name" : "CHRISTY FUSI",
+            "title" : "Board Member",
+            "hours" : 1.0,
+            "compensation" : 0.0
+        }, 
+        {
+            "name" : "NELSON REGO",
+            "title" : "Board member",
+            "hours" : 1.0,
+            "compensation" : 0.0
+        }, 
+        {
+            "name" : "ELIZABETH WHITE",
+            "title" : "Board member",
+            "hours" : 1.0,
+            "compensation" : 0.0
         }
     ]
 }
