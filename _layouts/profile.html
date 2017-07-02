@@ -53,7 +53,7 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a href="https://www.grantmakers.io">
+            <a href="https://www.grantmakers.io" data-ga="Homepage">
               <div class="logo-container">
                 <div class="logo">
                    <img src="{{ site.baseurl }}/assets/img/logo.png" alt="Grantmakers Logo" rel="tooltip" title="<b>Grantmakers.io</b> is a free tool from your friends at <b>SmarterGiving.org</b>" data-placement="bottom" data-html="true">
@@ -78,7 +78,7 @@
           <div class="col-sm-4">
             <ul class="nav navbar-nav navbar-right">
               <li>
-                <a href="https://www.grantmakers.io/faq/" data-toggle="tooltip" data-html="true" data-placement="bottom" title="<b>Source</b><br>Profile pulled directly from electronically filed IRS Form 990-PF">
+                <a href="https://www.grantmakers.io/faq/" data-ga="FAQ" data-toggle="tooltip" data-html="true" data-placement="bottom" title="<b>Source</b><br>Profile pulled directly from electronically filed IRS Form 990-PF">
                   FAQ
                 </a>
               </li>
@@ -306,14 +306,14 @@
                     <ul class="list-inline">
                       <li><i class="material-icons" data-toggle="tooltip" data-html="true" title="<b>Human Readable</b><br>Foundation Center PDFs">picture_as_pdf</i> <span class="visible-xs-inline text-muted">PDF</span></li>
                       {% for each in page.filings %}
-                        <li><a class="js-filings-pdf btn btn-default btn-sm" target="_blank" data-tax-period="{{ each.tax_period | round }}" data-ein="{{ page.ein }}" data-url-xml="{{ each.url }}" title="View 990-PF">{{ each.tax_year | round }}</a></li>
+                        <li><a class="js-filings-pdf btn btn-default btn-sm" target="_blank" data-ga="PDF" data-tax-period="{{ each.tax_period | round }}" data-ein="{{ page.ein }}" data-url-xml="{{ each.url }}" title="View 990-PF">{{ each.tax_year | round }}</a></li>
                       {% endfor %}
                     </ul>
                     <hr>
                     <ul class="list-inline">
                       <li><i class="material-icons" data-toggle="tooltip" data-html="true" title="<b>Machine Readable</b><br>XML Format">code</i> <span class="visible-xs-inline text-muted">XML</span></li>
                       {% for each in page.filings %}
-                        <li><a class="btn btn-default btn-sm" href="{{ each.url }}" target="_blank" data-tax-period="{{ each.tax_period | round }}" data-ein="{{ each.ein }}" data-url-xml="{{ each.url }}" title="View 990-PF">{{ each.tax_year | round }}</a></li>
+                        <li><a class="btn btn-default btn-sm" href="{{ each.url }}" target="_blank" data-ga="XML" data-tax-period="{{ each.tax_period | round }}" data-ein="{{ each.ein }}" data-url-xml="{{ each.url }}" title="View 990-PF">{{ each.tax_year | round }}</a></li>
                       {% endfor %}
                     </ul>
                   </div>
@@ -366,6 +366,7 @@
 -->
 <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=Intl.~locale.en"></script>
 <script src="{{ site.baseurl }}/assets/js/profile.js"></script>
+<script src="{{ site.baseurl }}/assets/js/ga-events.js"></script>
 
 <script type="text/javascript">
   $().ready(function() {
