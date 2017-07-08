@@ -1,9 +1,17 @@
+---
+---
 $(document).ready(function() {
   // Enable Material Design ripples and Bootstrap components
   // =======================================================
 
   $.material.init(); // Initialize Material Design ripples
   $('[data-toggle="tooltip"], [rel="tooltip"]').tooltip(); // Enable tooltips
+
+
+  // Import feedback.js
+  // ==================
+
+  $.getScript('{{ site.baseurl }}/assets/js/feedback.js');
 
 
   // SMOOTH SCROLL
