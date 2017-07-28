@@ -31,7 +31,7 @@ module Jekyll
         safe true
 
         def generate(site)
-            dir = site.config["portfolio_dir"] || "portfolio"
+            dir = site.config["portfolio_dir"] || "profiles"
 
             # First get the related projects and add them to each project
             unless site.config["skip_related_projects"] == true
@@ -43,21 +43,27 @@ module Jekyll
             site.data["ein"].each do |project_file|
                 project = project_file[1]
 
-                # Original url scheme
-                # I Love Cats -> i-love-cats
-                # /profiles/title
-                # file_name_slug = slugify(project["title"])
-
                 # Grantmakers.io url scheme
                 # /profiles/123456789-some-foundation
                 file_name_slug = slugify(project["ein"] + "-" + project["organization_name"])
-
                 path = File.join(dir, file_name_slug)
                 project["dir"] = path
 
                 site.pages << ProjectPage.new(site, site.source, path, project)
                 site.pages << RedirectPage.new(site, site.source, project["ein"], project)
-                #site.pages << RedirectPage.new(site, site.source, path, project)
+
+                # Create redirects if name has changed
+                date_updated_grantmakers = DateTime.strptime(site.config["last_updated_grantmakers"], '%Y-%m-%d %H:%M:%S.%N%z').to_s
+                date_updated_irs = project["last_updated_irs"]
+
+                if (project["organization_name_prior_year"])
+                    file_name_slug_old_name = slugify(project["ein"] + "-" + project["organization_name_prior_year"])
+                    if (date_updated_irs > date_updated_grantmakers) && (file_name_slug != file_name_slug_old_name)
+                        path_old_name = File.join(dir, file_name_slug_old_name)
+                        project["dir"] = path_old_name
+                        site.pages << RedirectPage.new(site, site.source, path_old_name, project)
+                    end
+                end
             end
         end
 

@@ -1,0 +1,75 @@
+{
+    "_id" : "010549309",
+    "last_updated" : "2017-06-29T17:54:03.061Z",
+    "last_updated_irs" : "2017-04-11T02:32:14.000Z",
+    "ein" : "010549309",
+    "organization_name" : "ROBERTS FOUNDATION CO MARGARET GALLAGHER THOMPSON ESQ",
+    "assets" : 5678331.0,
+    "website" : null,
+    "city" : "West Conshohocken",
+    "state" : "PA",
+    "is_likely_staffed" : false,
+    "has_website" : false,
+    "has_grants" : true,
+    "has_recent_grants" : true,
+    "grant_max" : 60000.0,
+    "grant_min" : 60000.0,
+    "grant_median" : 60000.0,
+    "grant_count" : 1.0,
+    "filings" : [ 
+        {
+            "object_id_irs" : "201633209349102963",
+            "tax_period" : 201512.0,
+            "tax_year" : 2015.0,
+            "url" : "https://s3.amazonaws.com/irs-form-990/201633209349102963_public.xml"
+        }, 
+        {
+            "object_id_irs" : "201541349349103469",
+            "tax_period" : 201412.0,
+            "tax_year" : 2014.0,
+            "url" : "https://s3.amazonaws.com/irs-form-990/201541349349103469_public.xml"
+        }, 
+        {
+            "object_id_irs" : "201432119349100713",
+            "tax_period" : 201312.0,
+            "tax_year" : 2013.0,
+            "url" : "https://s3.amazonaws.com/irs-form-990/201432119349100713_public.xml"
+        }, 
+        {
+            "object_id_irs" : "201331269349100608",
+            "tax_period" : 201212.0,
+            "tax_year" : 2012.0,
+            "url" : "https://s3.amazonaws.com/irs-form-990/201331269349100608_public.xml"
+        }, 
+        {
+            "object_id_irs" : "201231379349100413",
+            "tax_period" : 201112.0,
+            "tax_year" : 2011.0,
+            "url" : "https://s3.amazonaws.com/irs-form-990/201231379349100413_public.xml"
+        }, 
+        {
+            "object_id_irs" : "201131369349100603",
+            "tax_period" : 201012.0,
+            "tax_year" : 2010.0,
+            "url" : "https://s3.amazonaws.com/irs-form-990/201131369349100603_public.xml"
+        }
+    ],
+    "grants" : [ 
+        {
+            "name" : "ROOTS OF RENEWAL",
+            "city" : "New Orleans",
+            "state" : "LA",
+            "amount" : 60000.0,
+            "purpose" : "TO FUND THE RECIPIENT'S OPERATING BUDGET"
+        }
+    ],
+    "people" : [ 
+        {
+            "name" : "DIANE BAYLES ROBERTS",
+            "title" : "TRUSTEE",
+            "hours" : 0.0,
+            "compensation" : 0.0
+        }
+    ],
+    "organization_name_prior_year" : "ROBERTS FOUNDATION"
+}
