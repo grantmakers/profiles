@@ -8,6 +8,15 @@ $(document).ready(function() {
     });
   });
 
+  // Clicks to foundation websites
+  $('.js-ga-website-click').on('click', function() {
+    ga('send', 'event', {
+      'eventCategory': 'Profile Events',
+      'eventAction': 'Profile Org Website Click',
+      'eventLabel': $(this).data('ga'),
+    });
+  });
+
   // Table sort
   $('#grantsTable th').on('click', function() {
     ga('send', 'event', {
