@@ -42,8 +42,7 @@ $(document).ready(function() {
     $('.button-collapse').sideNav('hide');
 
     // store hash
-    let hash = this.hash;
-    console.log('Hash: ' + hash)
+    var hash = this.hash;
 
     // animate
     $('html, body').animate({
@@ -55,7 +54,7 @@ $(document).ready(function() {
     });
 
     // google analytics
-    let text = $(this).text();
+    var text = $(this).text();
     ga('send', 'event', {
       'eventCategory': 'Profile Events',
       'eventAction': 'Profile Header Click',
@@ -77,11 +76,11 @@ $(document).ready(function() {
   });
   
   function addFilingURL(el) {
-    let ein = el.data('ein');
-    let einShort = ein.toString().substring(0, 3);
-    let taxPeriod = el.data('tax-period');
+    var ein = el.data('ein');
+    var einShort = ein.toString().substring(0, 3);
+    var taxPeriod = el.data('tax-period');
     // Foundation Center: http://990s.foundationcenter.org/990pf_pdf_archive/272/272624875/272624875_201412_990PF.pdf
-    let urlPDF = 'http://990s.foundationcenter.org/990pf_pdf_archive/' +
+    var urlPDF = 'http://990s.foundationcenter.org/990pf_pdf_archive/' +
                  einShort + '/' +
                  ein + '/' +
                  ein + '_' +
