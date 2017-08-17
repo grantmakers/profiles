@@ -5,8 +5,7 @@ See also [Grantmakers.io main repo](https://github.com/grantmakers/grantmakers.g
 If you have a question, feature request, find a bug, or just want to say hi, please open an [issue on GitHub](https://github.com/grantmakers/grantmakers.github.io/issues).
 
 # Credits
-- Material Kit: [Creative Tim](https://github.com/timcreative/material-kit) *License required
-- Bootstrap Material Design: [Federico Zivolo](https://github.com/FezVrasta/bootstrap-material-design)
+- Materialize: [Alvin Wang et al](http://materializecss.com/)
 - Electronic Tax Filings: [Amazon Web Services](https://aws.amazon.com/public-datasets/irs-990/)
 - PDF Links: [Foundation Center PDF Archives](http://990finder.foundationcenter.org/)
 - Images: [Unsplash](https://unsplash.com/)
