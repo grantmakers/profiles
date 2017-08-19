@@ -1,6 +1,6 @@
 {
     "_id" : "050509502",
-    "last_updated" : "2017-06-11T01:20:55.196Z",
+    "last_updated" : "2017-06-29T17:54:03.061Z",
     "last_updated_irs" : "2017-03-11T03:54:49.000Z",
     "ein" : "050509502",
     "organization_name" : "WHITE FAMILY FOUNDATION",
@@ -22,6 +22,18 @@
             "tax_period" : 201512.0,
             "tax_year" : 2015.0,
             "url" : "https://s3.amazonaws.com/irs-form-990/201613139349100231_public.xml"
+        }, 
+        {
+            "object_id_irs" : "201523119349100002",
+            "tax_period" : 201412.0,
+            "tax_year" : 2014.0,
+            "url" : "https://s3.amazonaws.com/irs-form-990/201523119349100002_public.xml"
+        }, 
+        {
+            "object_id_irs" : "201442949349100004",
+            "tax_period" : 201312.0,
+            "tax_year" : 2013.0,
+            "url" : "https://s3.amazonaws.com/irs-form-990/201442949349100004_public.xml"
         }
     ],
     "grants" : [ 
@@ -163,5 +175,6 @@
             "hours" : 1.0,
             "compensation" : 0.0
         }
-    ]
+    ],
+    "organization_name_prior_year" : "WHITE FAMILY FOUNDATION"
 }
