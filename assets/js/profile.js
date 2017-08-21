@@ -1,31 +1,48 @@
 ---
 ---
 $(document).ready(function() {
-  // Enable Material Design ripples and Bootstrap components
+
+  // Navbar
   // =======================================================
 
-  $.material.init(); // Initialize Material Design ripples
-  $('[data-toggle="tooltip"], [rel="tooltip"]').tooltip(); // Enable tooltips
+  var header = $('.header');
+  var navbar = $('.navbar-profile');
+  var range = 64;
 
+  $(window).on('scroll', function () {
+    
+    var scrollTop = $(this).scrollTop(),
+        height = header.outerHeight(),
+        offset = height / 2,
+        calc = 1 - (scrollTop - offset + range) / range;
 
-  // Import feedback.js
-  // ==================
+    header.css({ 'opacity': calc });
 
-  $.getScript('{{ site.baseurl }}/assets/js/feedback.js');
+    if (calc > '1') {
+      header.css({ 'opacity': 1 });
+      navbar.addClass('affix-top');
+      navbar.removeClass('affix');
+    } else if ( calc < '0' ) {
+      header.css({ 'opacity': 0 });
+      navbar.addClass('affix');
+      navbar.removeClass('affix-top');
+    }
+    
+  });
 
+  // Materialize components
+  // =======================================================
+  $('.button-collapse').sideNav();
 
   // SMOOTH SCROLL
-  // =============
-  // simple smooth scrolling for bootstrap scroll spy nav
-  // credit http://stackoverflow.com/questions/14804941/how-to-add-smooth-scrolling-to-bootstraps-scroll-spy-function
-
-  $('.navbar-nav li a[href^="#"], .scrolly').on('click', function(e) {
+  // =======================================================
+  $('.nav-primary li a.scrolly').on('click', function(e) {
     e.preventDefault();
     // collapse mobile header
-    $('#navigation-index').collapse('hide');
+    $('.button-collapse').sideNav('hide');
 
     // store hash
-    let hash = this.hash;
+    var hash = this.hash;
 
     // animate
     $('html, body').animate({
@@ -37,7 +54,7 @@ $(document).ready(function() {
     });
 
     // google analytics
-    let text = $(this).text();
+    var text = $(this).text();
     ga('send', 'event', {
       'eventCategory': 'Profile Events',
       'eventAction': 'Profile Header Click',
@@ -48,20 +65,22 @@ $(document).ready(function() {
 
   // Enable table sort via StupidTable
   // =======================================================
-  $('#grantsTable').stupidtable();
-
+  if( $( "#grantsTable" ).length ) {
+    $('#grantsTable').stupidtable();
+  }
 
   // Filings
+  // =======================================================
   $('.js-filings-pdf').each(function() {
     addFilingURL($(this));
   });
   
   function addFilingURL(el) {
-    let ein = el.data('ein');
-    let einShort = ein.toString().substring(0, 3);
-    let taxPeriod = el.data('tax-period');
+    var ein = el.data('ein');
+    var einShort = ein.toString().substring(0, 3);
+    var taxPeriod = el.data('tax-period');
     // Foundation Center: http://990s.foundationcenter.org/990pf_pdf_archive/272/272624875/272624875_201412_990PF.pdf
-    let urlPDF = 'http://990s.foundationcenter.org/990pf_pdf_archive/' +
+    var urlPDF = 'http://990s.foundationcenter.org/990pf_pdf_archive/' +
                  einShort + '/' +
                  ein + '/' +
                  ein + '_' +
@@ -69,4 +88,8 @@ $(document).ready(function() {
     el.attr('data-url-pdf', urlPDF);
     el.attr('href', urlPDF);
   }
+
+  // Import feedback.js
+  // =======================================================
+  $.getScript('{{ site.baseurl }}/assets/js/feedback.js');
 });

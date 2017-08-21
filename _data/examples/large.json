@@ -1,6 +1,6 @@
 {
     "_id" : "131684331",
-    "last_updated" : "2017-06-11T01:21:02.322Z",
+    "last_updated" : "2017-06-29T17:54:03.061Z",
     "last_updated_irs" : "2017-03-11T03:54:49.000Z",
     "ein" : "131684331",
     "organization_name" : "FORD FOUNDATION",
@@ -22,6 +22,36 @@
             "tax_period" : 201512.0,
             "tax_year" : 2015.0,
             "url" : "https://s3.amazonaws.com/irs-form-990/201613139349100776_public.xml"
+        }, 
+        {
+            "object_id_irs" : "201523179349100347",
+            "tax_period" : 201412.0,
+            "tax_year" : 2014.0,
+            "url" : "https://s3.amazonaws.com/irs-form-990/201523179349100347_public.xml"
+        }, 
+        {
+            "object_id_irs" : "201423149349100332",
+            "tax_period" : 201312.0,
+            "tax_year" : 2013.0,
+            "url" : "https://s3.amazonaws.com/irs-form-990/201423149349100332_public.xml"
+        }, 
+        {
+            "object_id_irs" : "201321309349100122",
+            "tax_period" : 201209.0,
+            "tax_year" : 2011.0,
+            "url" : "https://s3.amazonaws.com/irs-form-990/201321309349100122_public.xml"
+        }, 
+        {
+            "object_id_irs" : "201211329349101176",
+            "tax_period" : 201109.0,
+            "tax_year" : 2010.0,
+            "url" : "https://s3.amazonaws.com/irs-form-990/201211329349101176_public.xml"
+        }, 
+        {
+            "object_id_irs" : "201111319349101206",
+            "tax_period" : 201009.0,
+            "tax_year" : 2009.0,
+            "url" : "https://s3.amazonaws.com/irs-form-990/201111319349101206_public.xml"
         }
     ],
     "grants" : [ 
@@ -21616,5 +21646,6 @@
             "hours" : 45.0,
             "compensation" : 401632.0
         }
-    ]
+    ],
+    "organization_name_prior_year" : "FORD FOUNDATION"
 }
