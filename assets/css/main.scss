@@ -511,6 +511,66 @@ nav ul li a {
 			background-color: $grantmakers !important;
 		}
 	}
+	#grants {
+		a {
+			color: inherit;
+		}
+		.card-panel-header .row:first-child {
+			margin-bottom: 0;
+		}
+		.algolia-logo {
+			color: inherit;
+    	padding-top: 15px;
+    	padding-bottom: 15px;
+    	font-weight: 400;
+    	font-size: 10px;
+    	text-transform: uppercase;
+    	img {
+    		width: 60px;
+    		height: 16px;
+    		vertical-align: middle;
+    	}
+		}
+		input[id="search-input"] {
+			height: 45px !important; 
+		  margin-top: 10px;
+		  border-radius: 5px;
+		  border-bottom: none;
+		  box-shadow: none;
+		}
+		.search{
+		  background-color: #fafafa;
+		  height: 45px !important; 
+		  border-radius: 5px;
+		  .input-field {
+		  	margin-top: 0;
+		  }
+		  i {
+		  	top: 8px;
+		  	left: 3px;
+		  }
+		  label {
+		  	//top: 0;
+		    //left: 8px;
+		  }
+		}
+		#hits {
+			clear: both;
+		}
+		#facets {
+			font-size: 85%;
+			.facet h4 {
+				color: rgba(0, 0, 0, 0.77);
+	    	font-size: 20px;
+	    	line-height: 29px;
+	    	font-weight: 400;
+	    	border-bottom: 1px solid rgba(160,160,160,0.2);
+    	}
+    	.facet ul li a .left {
+    		width: 80%;
+    	}
+		}
+	}
 	#filings {
 		li {
 			.material-icons {
