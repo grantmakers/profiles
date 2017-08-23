@@ -5,6 +5,7 @@
       <div class="content">
         <div class="tab-content">
           <div class="hits-list-group">
+          <!--
             <div class="hits-list-group-header">
               <div class="row">
                 <div class="col m7">
@@ -18,43 +19,38 @@
                 </div>
               </div>
             </div>
+          -->
           {{#hits}}
             <div class="hits-list-item">
               <div class="row">
                 <div class="col m7">
                   <div class="hits-list-item-name-primary">
-                    {{{ _highlightResult.grants.name.value }}}
+                    {{{ _highlightResult.grantee_name.value }}}
                   </div>
                 </div>
-                <div class="col m4">
-                  <div class="ellipsis text-normal">
-                    <a href="https://www.grantmakers.io/profiles/{{ ein }}" rel="tooltip" title="View all recent grants" data-placement="top">{{ organization_name }}</a>
-                  </div>
+                <div class="col m3">
+                  {{#grantee_city}}
+                    {{ grantee_city }}, {{ grantee_state }}
+                  {{/grantee_city}}
                 </div>
-                <div class="col m1">
+                <div class="col m2 right-align">
+                  <span class="hit-format-currency">{{ grant_amount }}</span>
+                <!--
                   <div class="hits-list-action text-center" data-toggle="modal" data-target="#modal-grant-detail-{{ objectID }}">
                     <i class="material-icons text-info">info</i>
                   </div>
+                  -->
                 </div>
               </div>
-              <div class="row"> 
-                <div class="col m7">
-                  <div class="small">
-                    <p>{{#grants.city}}
-                      {{ grants.city }}, {{ grants.state }}
-                    {{/grants.city}}</p>
-                  </div>
-                </div> 
-                <div class="col m4">
-                  <div class="small">
-                    <p><span class="hit-format-currency">{{ grants.amount }}</span></p>
-                  </div>
-                </div>              
+              <div class="row">                
                 <div class="col m11">
                   <div class="text-muted">
-                    <small>{{{ _highlightResult.grants.purpose.value }}}<br></small>
+                    <small>{{{ _highlightResult.grant_purpose.value }}}<br></small>
                   </div>
                 </div>
+                <div class="col m1">
+       
+                </div> 
               </div>
             </div>
           {{/hits}}
@@ -167,14 +163,8 @@
         {{#values}}
         <li>
           <a href="" class="facet-link toggle-refine {{#disjunctive}}facet-disjunctive{{/disjunctive}} {{#isRefined}}facet-refined{{/isRefined}}" data-facet="{{ facet }}" data-value="{{ name }}">
-            <div class="">
-              <div class="left">
-                <span class="facet-value truncate">{{ name }}</span>
-              </div>
-              <div class="right">
-                <span class="facet-count format-number-facet">{{ count }}</span>
-              </div>
-            </div>
+            <span class="facet-value">{{ name }}</span>
+            <span class="facet-count format-number-facet right">{{ count }}</span>
           </a>
         </li>
         {{/values}}
@@ -191,8 +181,8 @@
   </script>
 
   <script type="text/template" id="clear-template">
-    <div class="facet facet-clear-all">
-      <a class='clear-all clear-all-full-width btn btn-default btn-block btn-sm'>Clear All</a>
+    <div class="facet facet-clear-all center-align">
+      <a class='clear-all clear-all-full-width waves-effect waves-light btn grey white-text'>Clear All</a>
     </div>
   </script>
 
@@ -219,7 +209,7 @@
 
   <!-- No-Results template -->
   <script type="text/template" id="no-results-template">
-    <div id="no-results-message" class="text-center">
+    <div id="no-results-message" class="center-align">
       <!--
       <h3>Sorry, experiments are currently underway</h3>
       <p>Try again in a few days or <a href="mailto:opensource@grantmakers.io">say hello</a></p>

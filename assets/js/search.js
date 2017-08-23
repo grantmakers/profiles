@@ -4,20 +4,23 @@ $(document).ready(function() {
   // INITIALIZATION
   // ==============
 
+  var targetEIN = $('h1.org-name').data('ein');
+
   // Replace with your own values
   var APPLICATION_ID = 'KDWVSZVS1I';
   var SEARCH_ONLY_API_KEY = 'ce4d584b0de36ca3f8b4727fdb83c658';
-  var INDEX_NAME = 'grants_filtered_by_smartergiving';
+  var INDEX_NAME = 'grantmakers_io_test';
   var PARAMS = {
     hitsPerPage: 10,
     maxValuesPerFacet: 8,
     facets: [],
-    disjunctiveFacets: ['grants.name', 'grants.city', 'grants.state'],
-    index: INDEX_NAME
+    disjunctiveFacets: ['tax_year', 'grantee_city', 'grantee_state'],
+    index: INDEX_NAME,
+    filters: '_tags:' + targetEIN
   };
   var FACETS_SLIDER = [];
-  var FACETS_ORDER_OF_DISPLAY = ['grants.name', 'grants.city', 'grants.state'];
-  var FACETS_LABELS = {'grants.name': 'Recipient', 'grants.city': 'City', 'grants.state': 'State'};
+  var FACETS_ORDER_OF_DISPLAY = ['tax_year', 'grantee_state', 'grantee_city'];
+  var FACETS_LABELS = {'tax_year': 'Tax Year', 'grantee_state': 'State', 'grantee_city': 'City'};
 
   // Client + Helper initialization
   var algolia = algoliasearch(APPLICATION_ID, SEARCH_ONLY_API_KEY);
@@ -65,7 +68,7 @@ $(document).ready(function() {
       $('#stats ul li a').html('MOST RECENT');
     }
     
-    algoliaHelper.setQuery(query).search();
+    algoliaHelper.setQuery(query).addTag(targetEIN).search();
   })
   .focus();
 
@@ -92,6 +95,7 @@ $(document).ready(function() {
     bindSearchObjects(state);
     renderPagination(content);
     handleNoResults(content);
+    console.log(content);
     //$.material.init(); //Initialize Material Design ripples
     //$('[data-toggle="tooltip"], [rel="tooltip"]').tooltip(); //Enable tooltips
   });
@@ -99,6 +103,9 @@ $(document).ready(function() {
   // Initial search
   initFromURLParams();
   algoliaHelper.search();
+  //algoliaHelper.addTag(targetEIN).search();
+
+
 
 
 
@@ -395,7 +402,7 @@ $(document).ready(function() {
   // EVENTS BINDING
   // ==============
 
-  var scrollAnchor = $('.section-results').offset().top - 50;
+  var scrollAnchor = $('.section-results').offset().top - 150;
   var isMobile = window.matchMedia('only screen and (max-width: 768px)');
 
   $searchInput.on('focusin', function(e) { //HACK Mobile Safari
