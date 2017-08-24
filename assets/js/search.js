@@ -11,7 +11,7 @@ $(document).ready(function() {
   var SEARCH_ONLY_API_KEY = 'ce4d584b0de36ca3f8b4727fdb83c658';
   var INDEX_NAME = 'grantmakers_io_test';
   var PARAMS = {
-    hitsPerPage: 10,
+    hitsPerPage: 15,
     maxValuesPerFacet: 8,
     facets: [],
     disjunctiveFacets: ['tax_year', 'grantee_city', 'grantee_state'],
@@ -61,11 +61,11 @@ $(document).ready(function() {
     //var query = e.currentTarget.value.replace('-',''); //Handle EINs entered with a hyphen
     var query = e.currentTarget.value;
     if ($('#search-input').val().length > 0) {
-      $searchInputIcon.removeClass('empty');
-      $('#stats ul li a').html('MOST RELEVANT');
+      $searchInputIcon.html('close');
+      // $('#stats ul li a').html('MOST RELEVANT');
     } else {
-      $searchInputIcon.addClass('empty');
-      $('#stats ul li a').html('MOST RECENT');
+      $searchInputIcon.html('search');
+      // $('#stats ul li a').html('MOST RECENT');
     }
     
     algoliaHelper.setQuery(query).addTag(targetEIN).search();
@@ -95,17 +95,12 @@ $(document).ready(function() {
     bindSearchObjects(state);
     renderPagination(content);
     handleNoResults(content);
-    console.log(content);
-    //$.material.init(); //Initialize Material Design ripples
-    //$('[data-toggle="tooltip"], [rel="tooltip"]').tooltip(); //Enable tooltips
+    // console.log(content);
   });
 
   // Initial search
   initFromURLParams();
   algoliaHelper.search();
-  //algoliaHelper.addTag(targetEIN).search();
-
-
 
 
 
@@ -343,6 +338,11 @@ $(document).ready(function() {
       next_page: content.page + 1 < content.nbPages ? content.page + 2 : false
     };
     $pagination.html(paginationTemplate.render(pagination));
+
+    // Prevent default click behavior on disabled buttons
+    $(document).on('click', 'ul.pagination li.disabled a', function(e) {
+      e.preventDefault();
+    });
   }
 
   function renderRateLimit(content) {
@@ -450,7 +450,7 @@ $(document).ready(function() {
     e.preventDefault();
     $searchInput.val('').keyup().focus();
     algoliaHelper.setQuery('').search();
-    $searchInputIcon.addClass('empty');
+    $searchInputIcon.html('search');
     readyToSearchScrollPosition();
   });
   $(document).on('click', '.remove-numeric-refine', function(e) {
@@ -460,16 +460,19 @@ $(document).ready(function() {
   $(document).on('click', '.clear-all', function(e) {
     e.preventDefault();
     $searchInput.val('').focus();
+    $searchInputIcon.html('search');
     algoliaHelper.setQuery('').clearRefinements().search();
   });
   $(document).on('click', '.clear-search', function(e) {
     e.preventDefault();
     $searchInput.val('').focus();
+    $searchInputIcon.html('search');
     algoliaHelper.setQuery('').search();
   });
   $(document).on('click', '.clear-refinements', function(e) {
     e.preventDefault();
     $searchInput.focus();
+    $searchInputIcon.html('search');
     algoliaHelper.setQuery('').clearRefinements().search();
   });
   $(document).on('click', '.try-it li a', function(e) {

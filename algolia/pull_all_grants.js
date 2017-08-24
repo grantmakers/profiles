@@ -38,6 +38,6 @@ db.normalized.aggregate([
   const newID = x.ein + '_' + x.tax_year + '_' + x.index_for_objectID;
   x.objectID = newID;
   x._id = newID;
-  delete x.index_for_objectID;
+  x.index_for_objectID = x.index_for_objectID + 1;
   db.grants.insert(x);
 });

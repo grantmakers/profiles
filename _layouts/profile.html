@@ -45,7 +45,11 @@
   </script>
   <script async src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/js/materialize.min.js"></script>
 
+  {% if page.grant_count > 30 %}
+    {% assign algolia = true %}
+  {% endif %}
 
+  {% if algolia == true %}
   <!-- Search and Algolia-related scripts -->
   <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=Object.assign,Intl.~locale.en"></script>
   <script src="//cdn.jsdelivr.net/algoliasearch/3/algoliasearch.min.js"></script>
@@ -53,6 +57,7 @@
   <script src="//cdn.jsdelivr.net/hogan.js/3.0.2/hogan.min.common.js"></script>
   <script src="//cdn.jsdelivr.net/jquery.ion.rangeslider/2.0.12/js/ion.rangeSlider.min.js"></script>
   <script src="{{ site.baseurl }}/assets/js/search.js"></script>
+  {% endif %}
 
   <script async src="https://cdn.polyfill.io/v2/polyfill.min.js?features=Intl.~locale.en"></script>
   <script defer src="{{ site.baseurl }}/assets/js/stupidtable.min.js"></script>
@@ -263,69 +268,77 @@
                         <h4>Grants</h4>
                       </div>
                       <div class="col s6">
+                      {% if algolia == true %}
                         <form class="search">
                           <div class="input-field text-muted">
-                            <i class="material-icons prefix grey-text text-lighten-1">search</i>
+                            <i id="search-input-icon" class="material-icons prefix grey-text text-lighten-1">search</i>
                             <input id="search-input" type="search" />
                             <label for="search-input" id="search-input-icon"></label>
                           </div>
                         </form>
+                      {% endif %}
                       </div>
-                      <div class="col s3">
+                      <div class="col s3 right-align">
+                      {% if algolia == true %}
                         <div class="right-align text-muted algolia-logo">Search powered by<br><a class="algolia-light-bg" href="https://www.algolia.com"><img src="{{ site.baseurl }}/assets/img/algolia-light-bg.svg" alt="Powered by Algolia"></a></div>
+                      {% else %}
+                      <h4 class="right-align text-muted"><i class="material-icons tooltipped" data-delay="20" data-tooltip="Grants made in {{ page.filings[0].tax_year | round }} tax year">info</i></h4>
+                      {% endif %}
                       </div>
                     </div>
                     
                   </div>
+                  {% if algolia == true %}
                   <div class="section section-results">
-                    <div class="">
-                      <div class="row">
-                        <div class="col s12">
-                          <main>
+                    <div class="row">
+                      <div class="col s12">
+                        <main>
 
-                            <!-- Left Column -->
-                            <div id="left-column-affix-parent" class="col m2">
-                              <div id="left-column">
-                                <div id="facets"></div>
-                                <div id="clear" class="clearfix"></div>
-                                <div id="tips" class="clearfix">
-                                  <div class="facets">
-                                    <h5>Feedback Welcome</h5>
-                                    <ul class="list-unstyled">
-                                      <li>As a community project, insight and ideas from professionals like you guide the development of this site.</li>
-                                      <li><a href="https://github.com/grantmakers/grantmakers.github.io/issues"><i class="material-icons md-18">add_box</i> Post a suggestion</a></li>
-                                      <li><a href="mailto:hello@grantmakers.io"><i class="material-icons md-18">email</i> Get in touch</a></li>
-                                    </ul>
-                                  </div>
+                          <!-- Left Column -->
+                          <div id="left-column-affix-parent" class="col m2">
+                            <div id="left-column">
+                              <div id="facets"></div>
+                              <div id="clear" class="clearfix"></div>
+                              <div id="tips" class="clearfix">
+                                <div class="facets">
+                                  
                                 </div>
-                              </div>
-                            </div>            
-
-                            <!-- Right Column -->
-                            <div class="col m9 offset-m1">
-                              <div id="right-column">
-                                <!-- 
-                                <div id="sort-by">Sort by:
-                                  <select dir="rtl" id="sort-by-select">
-                                    <option value="" selected>Most relevant</option>
-                                    <option value="_TaxPeriod_asc">Lowest Price</option>
-                                    <option value="_TaxPeriod_desc">Highest Price</option>
-                                  </select>
-                                  <span class="caret"></span>
-                                </div>
-                                -->
-                                <div id="stats"><h5><div class="pace-activity-not-fixed"></div><span class="algolia-loading"> Fetching returns</span></h5></div>
-                                <div id="rate-limit"></div>
-                                <div id="hits"></div>
-                                <div id="pagination" class="center-align"></div>
                               </div>
                             </div>
-                          </main>
-                        </div>
+                          </div>            
+
+                          <!-- Right Column -->
+                          <div class="col m9 offset-m1">
+                            <div id="right-column">
+                              <!-- 
+                              <div id="sort-by">Sort by:
+                                <select dir="rtl" id="sort-by-select">
+                                  <option value="" selected>Most relevant</option>
+                                  <option value="_TaxPeriod_asc">Lowest Price</option>
+                                  <option value="_TaxPeriod_desc">Highest Price</option>
+                                </select>
+                                <span class="caret"></span>
+                              </div>
+                              -->
+                              <div id="stats"><h5><div class="pace-activity-not-fixed"></div><span class="algolia-loading"> Fetching returns</span></h5></div>
+                              <div id="rate-limit" class="clearfix"></div>
+                              <div id="hits" class="clearfix"></div>
+                              <div id="pagination" class="center-align"></div>
+                            </div>
+                          </div>
+                        </main>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col s12">
+                        <ul class="tabs tabs-grants-table">
+                          <li class="tab col s3 offset-s6"><a href="#grantsTableWrapper">View all current year grants in single list</a></li>
+                        </ul>
                       </div>
                     </div>
                   </div>
-                  <div class="card-panel-body">
+                  {% endif %}
+                  <div id="grantsTableWrapper" class="card-panel-body" {% if algolia == true %}style="display:none"{% endif %}>
                     <div class="responsive-table-wrapper">
                       <table id="grantsTable" class="bordered">
                         <thead>

@@ -194,6 +194,10 @@ body, h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4 {
 	}
 }
 
+i.tooltipped {
+	cursor: default;
+}
+
 /* Navbar */
 .navbar-fixed {
 	position: fixed;
@@ -534,7 +538,8 @@ nav ul li a {
 		input[id="search-input"] {
 			height: 45px !important; 
 		  margin-top: 10px;
-		  border-radius: 5px;
+		  padding-left: 10px;
+		  border-radius: 0px 5px 5px 0px;
 		  border-bottom: none;
 		  box-shadow: none;
 		}
@@ -544,18 +549,32 @@ nav ul li a {
 		  border-radius: 5px;
 		  .input-field {
 		  	margin-top: 0;
-		  }
-		  i {
-		  	top: 8px;
-		  	left: 3px;
-		  }
-		  label {
-		  	//top: 0;
-		    //left: 8px;
+		  	i {
+			  	top: 8px;
+			  	left: 8px;
+			  	cursor: pointer;
+			  }
+			  label {
+			  	//top: 0;
+			    //left: 8px;
+			  }
+		  	#ssearch-input-icon:before {
+					font-family: 'Material Icons';
+					font-size: 24px;
+					content: 'close';
+					cursor: pointer;
+				}
+				#ssearch-input-icon.empty:before {
+					font-family: 'Material Icons';
+					font-size: 24px;
+					content: 'search';
+					cursor: default;
+				}
 		  }
 		}
-		#hits {
-			clear: both;
+		#stats {
+			position: relative;
+			top: 15px;
 		}
 		#facets {
 			.facet {
@@ -693,7 +712,7 @@ nav ul li a {
 					.hits-list-item-name-primary {
 						font-size: 1em;
 		    		//line-height: 29px;
-		    		font-weight: bold;
+		    		//font-weight: bold;
 		    		margin-bottom: 0.5em;
 					}
 
@@ -826,10 +845,36 @@ nav ul li a {
 			}
 		}
 	}
+	.tabs-grants-table {
+		height: 20px;
+	}
+	.tabs-grants-table .tab {
+		display: inherit;
+    text-align: inherit;
+    line-height: inherit;
+    height: inherit;
+    padding: inherit;
+    margin: inherit;
+    text-transform: inherit;
+    a {
+    	color: $gray-light !important;;
+	    display: inherit;
+	    width: inherit;
+	    height: inherit;
+	    padding: inherit;
+	    font-size: 65%;
+	    text-overflow: inherit;
+	    overflow: inherit;
+	    transition: inherit;
+    }
+	}
+	.tabs-grants-table .indicator {
+		display: none;
+	}
 	#tips {
 		display: none;
 	}
-	.no-results #pagination, .no-results #sort-by, .no-results #facets, .no-results #clear {
+	.no-results #pagination, .no-results #sort-by, .no-results #facets, .no-results #clear, .no-results #stats, .no-results #left-column-affix-parent {
 		display: none;
 	}
 	.no-results #tips {
@@ -841,7 +886,7 @@ nav ul li a {
 			color: $gray-lightest;
 		}
 		p {
-			margin-top: 50px;
+			//margin-top: 50px;
 		}
 	}
 	#tips ul li {
