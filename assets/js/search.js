@@ -7,9 +7,9 @@ $(document).ready(function() {
   var targetEIN = $('h1.org-name').data('ein');
 
   // Replace with your own values
-  var APPLICATION_ID = 'KDWVSZVS1I';
-  var SEARCH_ONLY_API_KEY = 'ce4d584b0de36ca3f8b4727fdb83c658';
-  var INDEX_NAME = 'grantmakers_io_test';
+  var APPLICATION_ID = 'QA1231C5W9';
+  var SEARCH_ONLY_API_KEY = 'cd47ecb3457441878399b20acc8c3fbc';
+  var INDEX_NAME = 'grantmakers_io_grants_test';
   var PARAMS = {
     hitsPerPage: 15,
     maxValuesPerFacet: 8,
