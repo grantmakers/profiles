@@ -95,7 +95,7 @@ $(document).ready(function() {
     bindSearchObjects(state);
     renderPagination(content);
     handleNoResults(content);
-    console.log(content);
+    // console.log(content);
   });
 
   // Initial search
