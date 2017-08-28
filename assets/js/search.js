@@ -16,7 +16,7 @@ $(document).ready(function() {
     facets: [],
     disjunctiveFacets: ['tax_year', 'grantee_city', 'grantee_state'],
     index: INDEX_NAME,
-    filters: '_tags:' + targetEIN
+    filters: 'ein:' + targetEIN,
   };
   var FACETS_SLIDER = [];
   var FACETS_ORDER_OF_DISPLAY = ['tax_year', 'grantee_state', 'grantee_city'];
@@ -68,7 +68,7 @@ $(document).ready(function() {
       // $('#stats ul li a').html('MOST RECENT');
     }
     
-    algoliaHelper.setQuery(query).addTag(targetEIN).search();
+    algoliaHelper.setQuery(query).search();
   })
   .focus();
 
@@ -95,7 +95,7 @@ $(document).ready(function() {
     bindSearchObjects(state);
     renderPagination(content);
     handleNoResults(content);
-    // console.log(content);
+    console.log(content);
   });
 
   // Initial search

@@ -572,6 +572,13 @@ nav ul li a {
 				}
 		  }
 		}
+		.algolia-loading {
+			display: inline-block;
+			height: 36px;
+			vertical-align: bottom;
+			margin-left: 10px;
+			font-size: 15px;
+		}
 		#stats {
 			position: relative;
 			top: 15px;
@@ -843,6 +850,14 @@ nav ul li a {
 					}
 				}
 			}
+		}
+	}
+	ul.collapsible-grants-table {
+		.collapsible-header, i {
+			color: $gray-light !important;
+		}
+		i {
+			font-size: 20px;
 		}
 	}
 	.tabs-grants-table {

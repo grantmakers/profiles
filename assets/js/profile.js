@@ -33,6 +33,7 @@ $(document).ready(function() {
   // Materialize components
   // =======================================================
   $('.button-collapse').sideNav();
+  $('.collapsible').collapsible();
   $('ul.tabs').tabs();
 
   // SMOOTH SCROLL

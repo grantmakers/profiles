@@ -45,7 +45,7 @@
   </script>
   <script async src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/js/materialize.min.js"></script>
 
-  {% if page.grant_count > 30 %}
+  {% if page.grant_count > 5 %}
     {% assign algolia = true %}
   {% endif %}
 
@@ -292,89 +292,69 @@
                   <div class="section section-results">
                     <div class="row">
                       <div class="col s12">
-                        <main>
-
-                          <!-- Left Column -->
-                          <div id="left-column-affix-parent" class="col m2">
-                            <div id="left-column">
-                              <div id="facets"></div>
-                              <div id="clear" class="clearfix"></div>
-                              <div id="tips" class="clearfix">
-                                <div class="facets">
-                                  
-                                </div>
+                        <!-- Algolia Search -->
+                        <div id="left-column-affix-parent" class="col m2">
+                          <div id="left-column">
+                            <div id="facets"></div>
+                            <div id="clear" class="clearfix"></div>
+                            <div id="tips" class="clearfix">
+                              <div class="facets">
+                                
                               </div>
-                            </div>
-                          </div>            
-
-                          <!-- Right Column -->
-                          <div class="col m9 offset-m1">
-                            <div id="right-column">
-                              <!-- 
-                              <div id="sort-by">Sort by:
-                                <select dir="rtl" id="sort-by-select">
-                                  <option value="" selected>Most relevant</option>
-                                  <option value="_TaxPeriod_asc">Lowest Price</option>
-                                  <option value="_TaxPeriod_desc">Highest Price</option>
-                                </select>
-                                <span class="caret"></span>
-                              </div>
-                              -->
-                              <div id="stats"><h5><div class="pace-activity-not-fixed"></div><span class="algolia-loading"> Fetching returns</span></h5></div>
-                              <div id="rate-limit" class="clearfix"></div>
-                              <div id="hits" class="clearfix"></div>
-                              <div id="pagination" class="center-align"></div>
                             </div>
                           </div>
-                        </main>
+                        </div>            
+                        <div class="col m9 offset-m1">
+                          <div id="right-column">
+                            <!-- 
+                            <div id="sort-by">Sort by:
+                              <select dir="rtl" id="sort-by-select">
+                                <option value="" selected>Most relevant</option>
+                                <option value="_TaxPeriod_asc">Lowest Price</option>
+                                <option value="_TaxPeriod_desc">Highest Price</option>
+                              </select>
+                              <span class="caret"></span>
+                            </div>
+                            -->
+                            <div id="stats">
+                              <div class="preloader-wrapper small active">
+                                <div class="spinner-layer">
+                                  <div class="circle-clipper left">
+                                    <div class="circle"></div>
+                                  </div><div class="gap-patch">
+                                    <div class="circle"></div>
+                                  </div><div class="circle-clipper right">
+                                    <div class="circle"></div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="algolia-loading"> Fetching grants data</div>
+                            </div>
+                            <div id="rate-limit" class="clearfix"></div>
+                            <div id="hits" class="clearfix"></div>
+                            <div id="pagination" class="center-align"></div>
+                          </div>
+                        </div>
                       </div>
                     </div>
+                  </div>
+                  <ul class="collapsible collapsible-grants-table" data-collapsible="accordion">
+                    <li title="View all current tax year grants in a single, scrollable list">
+                      <div class="collapsible-header small"><i class="small material-icons">list</i>Current year list view</div>
+                      <div class="collapsible-body">
+                        {% include grants-table.html %}
+                      </div>
+                    </li>
+                  </ul>
+                  {% else %}
+                  <div class="section section-results">
                     <div class="row">
                       <div class="col s12">
-                        <ul class="tabs tabs-grants-table">
-                          <li class="tab col s3 offset-s6"><a href="#grantsTableWrapper">View all current year grants in single list</a></li>
-                        </ul>
+                        {% include grants-table.html %}
                       </div>
                     </div>
                   </div>
                   {% endif %}
-                  <div id="grantsTableWrapper" class="card-panel-body" {% if algolia == true %}style="display:none"{% endif %}>
-                    <div class="responsive-table-wrapper">
-                      <table id="grantsTable" class="bordered">
-                        <thead>
-                          <tr>
-                            <th data-sort="int" class="text-center"><span>#</span></th>
-                            <th data-sort="string"><span>Name</span></th>
-                            <th data-sort="string"><span>Location</span></th>
-                            <th data-sort="string"><span>Purpose</span></th>
-                            <th class="text-nowrap text-right" data-sort="int"><span>Amount ($)</span></th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {% assign sorted_grants = page.grants | sort: 'amount' | reverse %}
-                          {% if sorted_grants.size > 0 %}
-                            {% for each in sorted_grants %}
-                              <tr>
-                                <td class="text-center">{{ forloop.index }}</td>
-                                <td>{{ each.name }}</td>
-                                <td class="text-nowrap">{% if each.city != null %}{{ each.city }}, {{ each.state }}{% endif %}</td>
-                                <td>{{ each.purpose }}</td>
-                                <td class="text-right" data-sort-value="{{ each.amount }}">{{ each.amount | round | intcomma }}</td>
-                              </tr>
-                            {% endfor %}
-                          {% else %}
-                            <tr>
-                              <td></td>
-                              <td>No Grants Listed</td>
-                              <td></td>
-                              <td></td>
-                              <td></td>
-                            </tr>
-                          {% endif %}
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
                 </div>
               </div>
             </div>
