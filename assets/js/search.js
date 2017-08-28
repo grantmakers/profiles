@@ -204,14 +204,25 @@ $(document).ready(function() {
 
       // Conjunctive + Disjunctive facets
       else {
-        facetContent = {
-          facet: facetName,
-          title: FACETS_LABELS[facetName] || facetName,
-          values: content.getFacetValues(facetName, {sortBy: ['isRefined:desc', 'count:desc']}),
-          disjunctive: $.inArray(facetName, PARAMS.disjunctiveFacets) !== -1
-        };
-        facetsHtml += facetTemplate.render(facetContent);
-        $clear.html(clearTemplate.render());
+        if (facetName === 'tax_year') {
+          facetContent = {
+            facet: facetName,
+            title: FACETS_LABELS[facetName] || facetName,
+            values: content.getFacetValues(facetName, {sortBy: ['name:desc']}),
+            disjunctive: $.inArray(facetName, PARAMS.disjunctiveFacets) !== -1
+          };
+          facetsHtml += facetTemplate.render(facetContent);
+          $clear.html(clearTemplate.render());
+        } else {
+          facetContent = {
+            facet: facetName,
+            title: FACETS_LABELS[facetName] || facetName,
+            values: content.getFacetValues(facetName, {sortBy: ['isRefined:desc', 'count:desc']}),
+            disjunctive: $.inArray(facetName, PARAMS.disjunctiveFacets) !== -1
+          };
+          facetsHtml += facetTemplate.render(facetContent);
+          $clear.html(clearTemplate.render());
+        }
       }
     }
     $facets.html(facetsHtml);
