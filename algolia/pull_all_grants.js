@@ -1,7 +1,8 @@
 db.normalized.aggregate([  
   { 
     $match: {
-      'normalized.ein': '521798711'
+      //'normalized.ein': '521798711'
+      //'normalized.ein': { $in: ['050509502', '521798711', '131684331'] }
     }
   },
   {
@@ -25,18 +26,10 @@ db.normalized.aggregate([
       'grantee_city': '$normalized.grants.city',
       'grantee_state': '$normalized.grants.state',
       'index_for_objectID': 1,
-      '_tags': ['$normalized.ein'],
-      //'assets': '$normalized.assets',
-      //'website': '$normalized.website',
-      //'has_website': '$normalized.has_website',
-      //'grant_max': '$normalized.grant_max',
-      //'grant_min': '$normalized.grant_min',
-      //'grant_median': '$normalized.grant_median',
-      //'grant_count': '$normalized.grant_count',
     },
   }
 ]).forEach(function(x){
-  const newID = x.ein + '_' + x.tax_year + '_' + x.index_for_objectID;
+  let newID = x.ein + '_' + x.tax_year + '_' + x.index_for_objectID;
   x.objectID = newID;
   x._id = newID;
   x.grant_number = x.index_for_objectID + 1;
