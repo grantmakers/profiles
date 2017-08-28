@@ -29,7 +29,7 @@ $(document).ready(function() {
   // DOM BINDING
   var $searchInput = $('#search-input');
   var $searchInputIcon = $('#search-input-icon');
-  var $main = $('main');
+  var $main = $('#grants');
   var $sortBySelect = $('#sort-by-select');
   var $hits = $('#hits');
   var $hitsModal = $('#hitsModal');
@@ -173,37 +173,7 @@ $(document).ready(function() {
       var n = $(this).text();
       var formattedNumber = formatter.format(n);
       $(this).text(formattedNumber);
-    });
-
-    //Progress Bars
-    $('.progress-bar-assets').each(function(){
-      var assets = $(this).attr('data-assets');
-      var width = 0;
-      width = assets / 100000000 * 100;
-      $(this).css('width', width + '%');
-      $(this).children('.sr-only').text('Total Assets = ' + assets);
-    });
-
-    $('.progress-bar-grants').each(function(){
-      var grants = $(this).attr('data-grants');
-      var barMax = 100000;
-      var width = 0;
-
-      width = grants / barMax * 100;
-      $(this).css('width', width + '%');
-      $(this).children('.sr-only').text('Total Grants = ' + grants);
-    });
-
-    //Filings
-    $('.js-filings').each(function () {
-      if (window.localStorage && window.localStorage.tax_filings_preference){
-        addFilingURL($(this));
-      } else {
-        $(this).attr('data-toggle', 'modal');
-        $(this).attr('data-target', '.modal-tax-filings');
-      }
-    });
-    
+    });    
   }
 
 
@@ -255,25 +225,6 @@ $(document).ready(function() {
       var formattedNumber = formatter.format(n);
       $(this).text(formattedNumber);
     });
-
-    //Adjust 'Staffed' label
-    $('[data-facet="isLikelyStaffed"][data-value="true"] .facet-value').text('Full-Time');
-    $('[data-facet="isLikelyStaffed"][data-value="false"] .facet-value').text('Part-Time | None');
-    //$('[data-facet="isLikelyStaffed"][data-value="false"]').hide();
-
-    //Add tooltips
-    $('[data-facet-tooltip="isLikelyStaffed"]').
-      attr('data-toggle', 'tooltip').
-      attr('data-placement', 'top').
-      attr('data-html', 'true').
-      attr('title', '<b>Full-Time</b><br>One staff member working 35+ hours with $50k+ salary').
-      tooltip();
-    $('[data-facet-tooltip="GrantMedian"]').
-      attr('data-toggle', 'tooltip').
-      attr('title', '').
-      attr('data-original-title', 'Median grant size for latest tax year').
-      attr('data-placement', 'top').
-      tooltip();
   }
 
   function bindSearchObjects(state) {
@@ -427,10 +378,8 @@ $(document).ready(function() {
       page.on('scroll mousedown wheel DOMMouseScroll mousewheel touchmove', function(){
         page.stop();
       });
-
       readyToSearchScrollPosition();
-
-      return false; 
+      return false;
     }
   });
   $(document).on('click', '.toggle-refine', function(e) {
@@ -484,12 +433,6 @@ $(document).ready(function() {
     algoliaHelper.setQuery(target).search();
     readyToSearchScrollPosition();
   });
-  $(document).on('click', '#tab-detail a', function(e) {
-    $('[data-pane="detail"]').addClass('active').css('display', 'block');
-  });
-  $(document).on('click', '#tab-summary a', function(e) {
-    $('[data-pane="detail"]').removeClass('active').css('display', 'none');
-  });
 
 
 
@@ -540,49 +483,6 @@ $(document).ready(function() {
 
   function toggleIconEmptyInput(query) {
     $searchInputIcon.toggleClass('empty', query.trim() !== '');
-  }
-
-  function addFilingURL(el){
-    var ein = el.data('ein');
-    var einShort = ein.toString().substring(0, 3);
-    var taxPeriod = el.data('tax-period');
-    var url;
-    var urlXML = el.data('url-xml');
-    // Foundation Center: http://990s.foundationcenter.org/990pf_pdf_archive/272/272624875/272624875_201412_990PF.pdf
-    var urlPDF = 'http://990s.foundationcenter.org/990pf_pdf_archive/' + 
-                 einShort + '/' + 
-                 ein + '/' +
-                 ein + '_' +
-                 taxPeriod + '_990PF.pdf';
-    el.attr('data-url-pdf', urlPDF);
-
-    var preference = localStorage.getItem('tax_filings_preference');
-    if (preference == 'pdf') {
-      url = urlPDF;
-    } else if (preference == 'xml') {
-      url = urlXML;
-    }
-    el.attr('href', url);
-  }
-
-  function removeModalsIfFilingsPreferenceSet() {
-    $('.js-filings').each(function(){
-      $(this).removeAttr('data-toggle');
-      $(this).removeAttr('data-target');
-    });
-  }
-
-  //Abbreviate large numbers and currency
-  function abbreviateNumber(num, fixed) {
-    if (num === null) { return null; } // terminate early
-    if (num === 0) { return '0'; } // terminate early
-    fixed = (!fixed || fixed < 0) ? 0 : fixed; // number of decimal places to show
-    var b = (num).toPrecision(2).split("e"), // get power
-        k = b.length === 1 ? 0 : Math.floor(Math.min(b[1].slice(1), 14) / 3), // floor at decimals, ceiling at trillions
-        c = k < 1 ? num.toFixed(0 + fixed) : (num / Math.pow(10, k * 3) ).toFixed(1 + fixed), // divide by power
-        d = c < 0 ? c : Math.abs(c), // enforce -0 is 0
-        e = d + ['', 'K', 'M', 'B', 'T'][k]; // append power
-    return e;
   }
 
   function readyToSearchScrollPosition() {
