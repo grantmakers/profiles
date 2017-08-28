@@ -853,6 +853,10 @@ nav ul li a {
 		}
 	}
 	ul.collapsible-grants-table {
+		.progress {
+			display: none;
+			margin: 0;
+		}
 		.collapsible-header, i {
 			color: $gray-light !important;
 		}

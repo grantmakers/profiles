@@ -33,8 +33,14 @@ $(document).ready(function() {
   // Materialize components
   // =======================================================
   $('.button-collapse').sideNav();
-  $('.collapsible').collapsible();
-  $('ul.tabs').tabs();
+  $('.collapsible').collapsible({
+    accordion : false
+  });
+  $('.collapsible-grants-table .collapsible-header').click(function() {
+    // TODO Show progress bar while data is loading
+    // Waiting for Materialize v1.0 as plugins are being refactored
+    // https://github.com/Dogfalo/materialize/issues/5004
+  });
 
   // SMOOTH SCROLL
   // =======================================================
