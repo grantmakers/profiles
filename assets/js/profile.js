@@ -16,6 +16,8 @@ $(document).ready(function() {
         offset = height / 2,
         calc = 1 - (scrollTop - offset + range) / range;
 
+    console.log(scrollTop);
+
     header.css({ 'opacity': calc });
 
     if (calc > '1') {
@@ -26,6 +28,19 @@ $(document).ready(function() {
       header.css({ 'opacity': 0 });
       navbar.addClass('affix');
       navbar.removeClass('affix-top');
+    }
+    /*
+    if (scrollTop > $('#grants').offset().top) {
+      navbar.css({ 'display': 'none' });
+      navbar.addClass('affix-top');
+      navbar.removeClass('affix');
+    } else {
+      navbar.css({ 'display': 'block'});
+    }
+    */
+
+    if (scrollTop > $('#grants').offset().top) {
+
     }
     
   });
@@ -41,6 +56,40 @@ $(document).ready(function() {
     // Waiting for Materialize v1.0 as plugins are being refactored
     // https://github.com/Dogfalo/materialize/issues/5004
   });
+  /*
+  var grantsTarget = $('.card-panel-grants-search')
+  var grantsTop = grantsTarget.offset().top
+  var grantsBottom = grantsTarget.offset().top + $('#grants').outerHeight() - grantsTarget.height()
+  $('#grants').pushpin({
+    top: grantsTop,
+    bottom: grantsBottom,
+    offset: 0
+  });
+  */
+
+  if ($('.pushpin-nav').length) {
+    $('.pushpin-nav').each(function() {
+      var $this = $(this);
+      var $target = $('#' + $(this).attr('data-target'));
+      var $id = $(this).attr('data-target');
+      var targetTop;
+      var targetBottom;
+      if ($id == 'main-nav') {
+        targetBottom = $('#grants').offset().top - $('.pushpin-nav-search').height();
+      } else {
+        targetBottom = $target.offset().bottom;
+      }
+      $this.pushpin({
+        top: $target.offset().top,
+        //bottom: $target.offset().top + $target.outerHeight() - $this.height()
+        bottom: targetBottom
+      });
+    });
+  }
+
+  // $('#grants').offset().top
+  // $('#grants').outerHeight()
+  // $('.pushpin-nav').height()
 
   // SMOOTH SCROLL
   // =======================================================

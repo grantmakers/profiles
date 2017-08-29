@@ -1,10 +1,12 @@
 $(document).ready(function() {
   'use strict';
 
+  // Define search globals
+  var targetEIN = $('h1.org-name').data('ein');
+  var isMobile = window.matchMedia("only screen and (max-width: 992px)");
+
   // INITIALIZATION
   // ==============
-
-  var targetEIN = $('h1.org-name').data('ein');
 
   // Replace with your own values
   var APPLICATION_ID = 'QA1231C5W9';
@@ -364,7 +366,7 @@ $(document).ready(function() {
   // EVENTS BINDING
   // ==============
 
-  var scrollAnchor = $('.section-results').offset().top - 150;
+  var scrollAnchor = $('.section-results').offset().top - 82;
   var isMobile = window.matchMedia('only screen and (max-width: 768px)');
 
   $searchInput.on('focusin', function(e) { //HACK Mobile Safari
