@@ -40,7 +40,7 @@ $gray-light:             #999999 !default; // #999999
 $gray-lighter:           lighten($gray-base, 93.5%) !default; // #eee
 $gray-lightest: 				 #f5f5f5;
 
-.grantmakers-color-bg, .btn-grantmakers {
+.grantmakers-color-bg, .btn-grantmakers, .grantmakers {
 	background-color: $grantmakers;
 }
 
@@ -48,7 +48,7 @@ $gray-lightest: 				 #f5f5f5;
 	background-color: darken($grantmakers, 5%);
 }
 
-.grantmakers-color-text {
+.grantmakers-color, .grantmakers-text {
 	color: $grantmakers;
 }
 
