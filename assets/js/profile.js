@@ -27,7 +27,7 @@ $(document).ready(function() {
       navbar.addClass('affix');
       navbar.removeClass('affix-top');
     }
-    
+
   });
 
   // Materialize components
@@ -41,6 +41,26 @@ $(document).ready(function() {
     // Waiting for Materialize v1.0 as plugins are being refactored
     // https://github.com/Dogfalo/materialize/issues/5004
   });
+
+  if ($('.pushpin-nav').length) {
+    $('.pushpin-nav').each(function() {
+      var $this = $(this);
+      var $target = $('#' + $(this).attr('data-target'));
+      var $id = $(this).attr('data-target');
+      var targetTop;
+      var targetBottom;
+      if ($id == 'main-nav') {
+        targetBottom = $('#grants').offset().top - $('.pushpin-nav-search').height();
+      } else {
+        targetBottom = $target.offset().bottom;
+      }
+      $this.pushpin({
+        top: $target.offset().top,
+        //bottom: $target.offset().top + $target.outerHeight() - $this.height()
+        bottom: targetBottom
+      });
+    });
+  }
 
   // SMOOTH SCROLL
   // =======================================================

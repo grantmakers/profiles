@@ -68,11 +68,11 @@
 
 <body class="profile-page">
   <!-- Navbar -->
-  <div class="navbar-fixed">
-    <nav class="navbar-profile affix-top">
+  <div id="main-nav" class="navbar-fixed">
+    <nav class="navbar-profile affix-top pushpin-nav" data-target="main-nav">
       <div class="nav-wrapper">
         <div class="container-custom">
-          <a href="#" data-activates="mobile-nav" class="button-collapse right"><i class="material-icons">menu</i></a>
+          <a href="#" data-activates="mobile-nav" class="button-collapse right disable-primary-color"><i class="material-icons">menu</i></a>
           <div class="row">
             <div class="col s8 m4">
               <a href="https://www.grantmakers.io" data-ga="Homepage" class="brand-logo">
@@ -137,7 +137,7 @@
                 <div class="name">
                   <h1 class="org-name" data-ein="{{ page.ein }}">
                     {% if page.website %}
-                      <a href="{{ page.website}}" class="js-ga-website-click" title="Click to visit website" data-ga="Website H1 Click">{{ page.organization_name }}</a>
+                      <a href="{{ page.website}}" class="js-ga-website-click disable-primary-color" title="Click to visit website" data-ga="Website H1 Click">{{ page.organization_name }}</a>
                     {% else %}
                       {{ page.organization_name }}
                     {% endif %}
@@ -262,49 +262,53 @@
             <div class="col s12">
               <div id="grants">
                 <div class="card-panel">
-                  <div class="card-panel-header">
-                    <div class="row">
-                      <div class="col s3">
-                        <h4>Grants</h4>
-                      </div>
-                      <div class="col s6">
-                      {% if algolia == true %}
-                        <form class="search">
-                          <div class="input-field text-muted">
-                            <i id="search-input-icon" class="material-icons prefix grey-text text-lighten-1">search</i>
-                            <input id="search-input" type="search" />
-                            <label for="search-input" id="search-input-icon"></label>
+                  <div class="card-panel-header-wrapper">
+                      <div class="card-panel-header pushpin-nav pushpin-nav-search" data-target="grants">
+                        <div class="row">
+                          <div class="col s12 m3">
+                            <h4>Grants <span class="text-muted algolia-logo right hide-on-med-and-up">Search powered by<br><a href="https://www.algolia.com" class="algolia-light-bg"><img src="{{ site.baseurl }}/assets/img/algolia-light-bg.svg" alt="Powered by Algolia"></a></span><a href="#" data-activates="algolia-mobile" class="button-collapse right hide"><i class="material-icons text-muted">filter_list</i></a></h4>
                           </div>
-                        </form>
-                      {% endif %}
+                          <div class="col s12 m6">
+                          {% if algolia == true %}
+                            <form class="search">
+                              <div class="input-field text-muted">
+                                <i id="search-input-icon" class="material-icons prefix grey-text text-lighten-1">search</i>
+                                <input id="search-input" type="search" />
+                                <label for="search-input" id="search-input-icon"></label>
+                              </div>
+                            </form>
+                          {% endif %}
+                          </div>
+                          <div class="col s12 m3 right-align">
+                          {% if algolia == true %}
+                            <div class="right-align text-muted algolia-logo hide-on-small-only">Search powered by<br><a class="algolia-light-bg" href="https://www.algolia.com"><img src="{{ site.baseurl }}/assets/img/algolia-light-bg.svg" alt="Powered by Algolia"></a></div>
+                          {% else %}
+                          <h4 class="right-align text-muted"><i class="material-icons tooltipped" data-delay="20" data-tooltip="Grants made in {{ page.filings[0].tax_year | round }} tax year">info</i></h4>
+                          {% endif %}
+                          </div>
+                        </div>
+                        
                       </div>
-                      <div class="col s3 right-align">
-                      {% if algolia == true %}
-                        <div class="right-align text-muted algolia-logo">Search powered by<br><a class="algolia-light-bg" href="https://www.algolia.com"><img src="{{ site.baseurl }}/assets/img/algolia-light-bg.svg" alt="Powered by Algolia"></a></div>
-                      {% else %}
-                      <h4 class="right-align text-muted"><i class="material-icons tooltipped" data-delay="20" data-tooltip="Grants made in {{ page.filings[0].tax_year | round }} tax year">info</i></h4>
-                      {% endif %}
-                      </div>
-                    </div>
-                    
                   </div>
                   {% if algolia == true %}
                   <div class="section section-results">
                     <div class="row">
                       <div class="col s12">
                         <!-- Algolia Search -->
-                        <div id="left-column-affix-parent" class="col m2">
-                          <div id="left-column">
-                            <div id="facets"></div>
-                            <div id="clear" class="clearfix"></div>
-                            <div id="tips" class="clearfix">
-                              <div class="facets">
-                                
+                        <!-- <div id="algolia-mobile" class="side-nav"> -->
+                          <div id="left-column-affix-parent" class="col s12 l2 hide-on-med-and-down">
+                            <div id="left-column">
+                              <div id="facets"></div>
+                              <div id="clear" class="clearfix"></div>
+                              <div id="tips" class="clearfix">
+                                <div class="facets">
+                                  
+                                </div>
                               </div>
                             </div>
                           </div>
-                        </div>            
-                        <div class="col m9 offset-m1">
+                        <!-- </div> -->           
+                        <div class="col s12 l9 offset-l1">
                           <div id="right-column">
                             <!-- 
                             <div id="sort-by">Sort by:
