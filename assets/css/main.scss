@@ -297,12 +297,14 @@ nav ul li a {
 	@media #{$small-and-down} {
 		&.affix-top {
 			background-color: rgba(0,0,0,0.4);
+			box-shadow: none !important;
 		}
 	}
 	@media #{$medium-and-up} {
     &.affix-top {
-      background-color:transparent !important;
-      border-color:transparent !important;
+      background-color: transparent !important;
+			border-color: transparent !important;
+			box-shadow: none !important;
     }
   }
   .logo-container .logo {
