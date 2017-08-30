@@ -7,9 +7,10 @@
   // Styling 
   // temporary until new css released across all profiles
   var isMobile = window.matchMedia('only screen and (max-width: 992px)').matches;
-  var fabTempStyling;
+  var stylesModal = '<style>#feedback-js-modal {box-shadow: none;background-color:transparent;}</style>';
+  var stylesFab;
   if (!isMobile) {
-    fabTempStyling = '<style> .fixed-action-btn {right: 46px;}#feedback-js-modal {box-shadow: none;background-color:transparent;}</style>';
+    stylesFab = '<style> .fixed-action-btn {right: 46px;}</style>';
   }
 
   // Modal
@@ -22,7 +23,7 @@
 
   // Insert into DOM
   $('body').append(modal);
-  $('.feedback-wrapper').html(fabTempStyling + fab);
+  $('.feedback-wrapper').html(stylesFab + stylesModal + fab);
 
   // Initialize
   $('.modal').modal();
