@@ -56,6 +56,10 @@ a:not(.btn):not(.btn:hover) {
 	color: $grantmakers;
 }
 
+.disable-primary-color {
+	color: inherit !important;
+}
+
 /****************************
 Helpers
 *****************************/
