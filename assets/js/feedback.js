@@ -8,7 +8,7 @@
   // temporary until new css released across all profiles
   var isMobile = window.matchMedia('only screen and (max-width: 992px)').matches;
   var stylesModal = '<style>#feedback-js-modal {box-shadow: none;background-color:transparent;}</style>';
-  var stylesFab;
+  var stylesFab = '';
   if (!isMobile) {
     stylesFab = '<style> .fixed-action-btn {right: 46px;}</style>';
   }
@@ -27,6 +27,11 @@
   // Insert into DOM
   $('body').append(modal);
   $('.feedback-wrapper').html(stylesFab + stylesModal + fab + discover);
+  console.log(modal);
+  console.log(stylesFab);
+  console.log(stylesModal);
+  console.log(fab);
+  console.log(discover);
 
   // Initialize
   $('.modal').modal();
