@@ -55,6 +55,8 @@
   <script defer src="//cdn.jsdelivr.net/hogan.js/3.0.2/hogan.min.common.js"></script>
   <!-- <script src="//cdn.jsdelivr.net/jquery.ion.rangeslider/2.0.12/js/ion.rangeSlider.min.js"></script> -->
   <script defer src="{{ site.baseurl }}/assets/js/search.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/autocomplete.js/0.28/autocomplete.min.js"></script>
+  <script defer src="{{ site.baseurl }}/assets/js/autocomplete.js"></script>
   {% endif %}
 
   <!-- <script async src="https://cdn.polyfill.io/v2/polyfill.min.js?features=Intl.~locale.en"></script> -->
@@ -396,7 +398,20 @@
                 <div class="center-align">
                   <h4>Looking for Another Grantmaker?</h4>
                   <p>Free profiles for over 70,000 US foundations</p>
-                  <a href="https://www.grantmakers.io" class="btn">Search</a>
+                  <!-- <a href="https://www.grantmakers.io" class="btn">Search</a> -->
+                  <div class="row">
+                    <div class="input-field text-muted col m6 offset-m3">
+                      <i class="js-autocomplete-icon material-icons prefix grey-text text-lighten-1">search</i>
+                      <input id="autocomplete-input" type="text" class="autocomplete" />
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col s12">
+                      <div class="small text-muted">
+                        <a href="{{ site.url }}">Try our full search</a>
+                      </div> 
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

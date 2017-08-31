@@ -385,7 +385,7 @@ $(document).ready(function() {
       $('.navbar-search').removeClass('safari-scroll-hack');
     }
   });
-  $(document).on('input', $searchInput, function(e) {
+  $searchInput.on('input', function(e) {
     var page = $('html, body');
     if (!isMobile.matches) {
       page.on('scroll mousedown wheel DOMMouseScroll mousewheel touchmove', function(){
