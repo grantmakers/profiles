@@ -442,6 +442,10 @@ nav ul li a {
 		margin-bottom: 75px; 
 		i {
 			line-height: 1.5;
+			z-index: 1;
+			background-color: #fafafa;
+			border-top-left-radius: 3px;
+			border-bottom-left-radius: 3px;
 		}
 		.algolia-logo-autocomplete {
 			margin: 10px 0px;
@@ -452,10 +456,16 @@ nav ul li a {
 			}
 		}
 		.input-field .prefix ~ span input {
-			margin-left: 3rem;
+			//margin-left: 3rem;
 			width: 92%;
-			width: calc(100% - 3rem);
+			width: calc(100% - 3.2rem);
+			padding-left: 3.2rem;
 			margin-bottom: 0;
+			background-color: white;
+			border-radius: 3px;
+			border: 0;
+			-webkit-box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 1px 5px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.2);
+			box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 1px 5px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.2);
 		}
 		.algolia-autocomplete {
 			width: 100%;
@@ -472,6 +482,7 @@ nav ul li a {
 			width: calc(100% - 3rem);
 			text-align: left;
 			background-color: #fff;
+			top: 104% !important;
 			-webkit-box-shadow: 0 4px 5px 0 rgba(0,0,0,0.14), 0 1px 10px 0 rgba(0,0,0,0.12), 0 2px 4px -1px rgba(0,0,0,0.3);
 			box-shadow: 0 4px 5px 0 rgba(0,0,0,0.14), 0 1px 10px 0 rgba(0,0,0,0.12), 0 2px 4px -1px rgba(0,0,0,0.3);
 		}
@@ -640,7 +651,8 @@ nav ul li a {
 		  padding-left: 10px;
 		  border-radius: 0px 5px 5px 0px;
 		  border-bottom: none;
-		  box-shadow: none;
+			box-shadow: none;
+			font-size: 16px; // Ensure iOS Safari does not zoom upon focus
 		}
 		.search{
 		  background-color: #fafafa;
@@ -653,22 +665,6 @@ nav ul li a {
 			  	left: 8px;
 			  	cursor: pointer;
 			  }
-			  label {
-			  	//top: 0;
-			    //left: 8px;
-			  }
-		  	#ssearch-input-icon:before {
-					font-family: 'Material Icons';
-					font-size: 24px;
-					content: 'close';
-					cursor: pointer;
-				}
-				#ssearch-input-icon.empty:before {
-					font-family: 'Material Icons';
-					font-size: 24px;
-					content: 'search';
-					cursor: default;
-				}
 		  }
 		}
 		.algolia-loading {
