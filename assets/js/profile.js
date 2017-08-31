@@ -43,7 +43,6 @@ $(document).ready(function() {
   });
 
   if ($('.pushpin-nav').length) { // TODO checks for Algolia results
-    console.log(window.globalDetectionOfAlgoliaResults);
     $('.pushpin-nav').each(function() {
       var $this = $(this);
       var $target = $('#' + $(this).attr('data-target'));
