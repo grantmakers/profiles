@@ -42,21 +42,23 @@ $(document).ready(function() {
     // https://github.com/Dogfalo/materialize/issues/5004
   });
 
-  if ($('.pushpin-nav').length) {
+  if ($('.pushpin-nav').length) { // TODO checks for Algolia results
+    console.log(window.globalDetectionOfAlgoliaResults);
     $('.pushpin-nav').each(function() {
       var $this = $(this);
       var $target = $('#' + $(this).attr('data-target'));
       var $id = $(this).attr('data-target');
-      var targetTop;
       var targetBottom;
       if ($id == 'main-nav') {
         targetBottom = $('#grants').offset().top - $('.pushpin-nav-search').height();
       } else {
-        targetBottom = $target.offset().bottom;
+        targetBottom = $target.offset().top + 1400;
+        // Due to Algolia delay in displaying results, any element underneath #grants will show the wrong location
+        // TODO Fix hard-coded hack
+        // targetBottom = $('#filings').offset().top;
       }
       $this.pushpin({
         top: $target.offset().top,
-        //bottom: $target.offset().top + $target.outerHeight() - $this.height()
         bottom: targetBottom
       });
     });
