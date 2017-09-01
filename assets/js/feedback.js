@@ -32,11 +32,13 @@
   $('.modal').modal();
   $('.modal-trigger').modal();
 
-  var scrollFireOptions = [
-    {selector: 'footer', offset: 0, callback: function(el) {
-      $('.tap-target').tapTarget('open')
-    } },
-  ];
-  Materialize.scrollFire(scrollFireOptions);
+  if (!isMobile) {
+    var scrollFireOptions = [
+      {selector: 'footer', offset: 0, callback: function(el) {
+        $('.tap-target').tapTarget('open')
+      } },
+    ];
+    Materialize.scrollFire(scrollFireOptions);
+  }
 
 })();
