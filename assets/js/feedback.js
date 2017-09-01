@@ -27,11 +27,6 @@
   // Insert into DOM
   $('body').append(modal);
   $('.feedback-wrapper').html(stylesFab + stylesModal + fab + discover);
-  console.log(modal);
-  console.log(stylesFab);
-  console.log(stylesModal);
-  console.log(fab);
-  console.log(discover);
 
   // Initialize
   $('.modal').modal();
