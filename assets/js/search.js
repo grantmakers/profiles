@@ -1,57 +1,72 @@
 $(document).ready(function() {
-  'use strict';
-
   // Define search globals
-  var targetEIN = $('h1.org-name').data('ein');
-  var isMobile = window.matchMedia("only screen and (max-width: 992px)");
+  const targetEIN = $('h1.org-name').data('ein');
+  const isMobile = window.matchMedia('only screen and (max-width: 992px)');
 
   // INITIALIZATION
   // ==============
 
   // Replace with your own values
-  var APPLICATION_ID = 'QA1231C5W9';
-  var SEARCH_ONLY_API_KEY = 'cd47ecb3457441878399b20acc8c3fbc';
-  var INDEX_NAME = 'grantmakers_io_grants_test';
-  var PARAMS = {
-    hitsPerPage: 15,
-    maxValuesPerFacet: 8,
-    facets: [],
-    disjunctiveFacets: ['tax_year', 'grantee_city', 'grantee_state'],
-    index: INDEX_NAME,
-    filters: 'ein:' + targetEIN,
+  const APPLICATION_ID = 'QA1231C5W9';
+  const SEARCH_ONLY_API_KEY = 'cd47ecb3457441878399b20acc8c3fbc';
+  const INDEX_NAME = 'grantmakers_io_grants_test';
+  let PARAMS = {
+    'hitsPerPage': 15,
+    'maxValuesPerFacet': 8,
+    'facets': [],
+    'disjunctiveFacets': ['tax_year', 'grantee_city', 'grantee_state'],
+    'index': INDEX_NAME,
+    'filters': 'ein:' + targetEIN,
   };
-  var FACETS_SLIDER = [];
-  var FACETS_ORDER_OF_DISPLAY = ['tax_year', 'grantee_state', 'grantee_city'];
-  var FACETS_LABELS = {'tax_year': 'Tax Year', 'grantee_state': 'State', 'grantee_city': 'City'};
+  let FACETS_SLIDER = [];
+  let FACETS_ORDER_OF_DISPLAY = ['tax_year', 'grantee_state', 'grantee_city'];
+  let FACETS_LABELS = {'tax_year': 'Tax Year', 'grantee_state': 'State', 'grantee_city': 'City'};
 
   // Client + Helper initialization
-  var algolia = algoliasearch(APPLICATION_ID, SEARCH_ONLY_API_KEY);
-  var algoliaHelper = algoliasearchHelper(algolia, INDEX_NAME, PARAMS);
+  const algolia = algoliasearch(APPLICATION_ID, SEARCH_ONLY_API_KEY);
+  const algoliaHelper = algoliasearchHelper(algolia, INDEX_NAME, PARAMS);
 
   // DOM BINDING
-  var $searchInput = $('#search-input');
-  var $searchInputIcon = $('#search-input-icon');
-  var $main = $('#grants');
-  var $sortBySelect = $('#sort-by-select');
-  var $hits = $('#hits');
-  var $hitsModal = $('#hitsModal');
-  var $stats = $('#stats');
-  var $facets = $('#facets');
-  var $clear = $('#clear');
-  var $pagination = $('#pagination');
-  var $rateLimit = $('#rate-limit');
+  const $searchInput = $('#search-input');
+  const $searchInputIcon = $('#search-input-icon');
+  const $main = $('#grants');
+  const $sortBySelect = $('#sort-by-select');
+  const $hits = $('#hits');
+  const $hitsModal = $('#hitsModal');
+  const $stats = $('#stats');
+  const $facets = $('#facets');
+  const $clear = $('#clear');
+  const $pagination = $('#pagination');
+  const $rateLimit = $('#rate-limit');
 
   // Hogan templates binding
-  var hitTemplate = Hogan.compile($('#hit-template').text());
-  var hitModalTemplate = Hogan.compile($('#hit-modal-template').text());
-  var statsTemplate = Hogan.compile($('#stats-template').text());
-  var facetTemplate = Hogan.compile($('#facet-template').text());
-  var sliderTemplate = Hogan.compile($('#slider-template').text());
-  var clearTemplate = Hogan.compile($('#clear-template').text());
-  var paginationTemplate = Hogan.compile($('#pagination-template').text());
-  var noResultsTemplate = Hogan.compile($('#no-results-template').text());
-  var rateLimitTemplate = Hogan.compile($('#rate-limit-template').text());
+  const hitTemplate = Hogan.compile($('#hit-template').text());
+  const hitModalTemplate = Hogan.compile($('#hit-modal-template').text());
+  const statsTemplate = Hogan.compile($('#stats-template').text());
+  const facetTemplate = Hogan.compile($('#facet-template').text());
+  const sliderTemplate = Hogan.compile($('#slider-template').text());
+  const clearTemplate = Hogan.compile($('#clear-template').text());
+  const paginationTemplate = Hogan.compile($('#pagination-template').text());
+  const noResultsTemplate = Hogan.compile($('#no-results-template').text());
+  const rateLimitTemplate = Hogan.compile($('#rate-limit-template').text());
 
+  // FORMATTING
+  // ==========
+
+  // Format numbers and currency
+  let formatter = new Intl.NumberFormat('en-US', {
+    'style': 'decimal',
+    'minimumFractionDigits': 0,
+  });
+
+  // Hide footer tip on scroll
+  $(window).scroll(function() {
+    if ($(this).scrollTop() > 0) {
+      $('#footer-alert').fadeOut();
+    } else {
+      $('#footer-alert').fadeIn();
+    }
+  });
 
 
   // SEARCH BINDING
@@ -60,8 +75,8 @@ $(document).ready(function() {
   // Input binding
   $searchInput
   .on('input propertychange', function(e) {
-    //var query = e.currentTarget.value.replace('-',''); //Handle EINs entered with a hyphen
-    var query = e.currentTarget.value;
+    // var query = e.currentTarget.value.replace('-',''); //Handle EINs entered with a hyphen
+    const query = e.currentTarget.value;
     if ($('#search-input').val().length > 0) {
       $searchInputIcon.html('close');
       // $('#stats ul li a').html('MOST RELEVANT');
@@ -77,7 +92,7 @@ $(document).ready(function() {
   // Search errors
   algoliaHelper.on('error', function(error) {
     console.log(error);
-    if (error.statusCode == 429) {
+    if (error.statusCode === 429) {
       $('#stats').css('visibility', 'hidden');
       renderRateLimit();
       console.log('Rate limit reached');
@@ -85,7 +100,7 @@ $(document).ready(function() {
   });
 
   // Update URL
-  algoliaHelper.on('change', function(state) {
+  algoliaHelper.on('change', function() {
     setURLParams();
   });
 
@@ -105,15 +120,14 @@ $(document).ready(function() {
   algoliaHelper.search();
 
 
-
   // RENDER SEARCH COMPONENTS
   // ========================
 
   function renderStats(content) {
-    var stats = {
-      nbHits: content.nbHits,
-      nbHits_plural: content.nbHits !== 1,
-      processingTimeMS: content.processingTimeMS
+    let stats = {
+      'nbHits': content.nbHits,
+      'nbHits_plural': content.nbHits !== 1,
+      'processingTimeMS': content.processingTimeMS,
     };
     $stats.html(statsTemplate.render(stats));
 
@@ -123,104 +137,99 @@ $(document).ready(function() {
       $('#stats ul li a').html('MOST RECENT');
     }
 
-    $('.format-number').each(function(){
-      var n = $(this).text();
-      var formattedNumber = formatter.format(n);
+    $('.format-number').each(function() {
+      let n = $(this).text();
+      let formattedNumber = formatter.format(n);
       $(this).text(formattedNumber);
     });
-    
-
   }
 
   function renderHits(content) {
     $hits.html(hitTemplate.render(content));
     $hitsModal.html(hitModalTemplate.render(content));
 
-    //Format EIN results
-    $('.hit-ein').each(function(){
-      var string = $(this).text();
-      $(this).text(string.substring(0,2) + '-' + string.substring(2,9));
+    // Format EIN results
+    $('.hit-ein').each(function() {
+      let string = $(this).text();
+      $(this).text(string.substring(0, 2) + '-' + string.substring(2, 9));
     });
 
-    //Format Website results to provide proper href
-    $('.hit-website').each(function(){
-
-      var site = $(this).data('website');
+    // Format Website results to provide proper href
+    $('.hit-website').each(function() {
+      let site = $(this).data('website');
            
-      //Check if properly formatted url
+      // Check if properly formatted url
       if (site && site.match(/(?:(?:https?):\/\/)/i)) {
         site = site;
         $(this).attr('href', site);
-      } else { 
-        //Alert if malformed url
+      } else {
+        // Alert if malformed url
         $(this).removeAttr('href');
-        $(this).bind('click', function(){
+        $(this).bind('click', function() {
           alert(
-            'Hmm, looks like the website url is not properly formatted.' + 
+            'Hmm, looks like the website url is not properly formatted.' +
             '\n\n' + site + '\n\n'
           );
         });
       }
     });
 
-    //Format dollar amounts and currency figures
-    $('.hit-format-currency').each(function(){
-      var n = $(this).text();
-      var formattedNumber = '$' + formatter.format(n);
+    // Format dollar amounts and currency figures
+    $('.hit-format-currency').each(function() {
+      let n = $(this).text();
+      let formattedNumber = '$' + formatter.format(n);
       $(this).text(formattedNumber);
     });
 
-    //Format numbers
-    $('.hit-format-number').each(function(){
-      var n = $(this).text();
-      var formattedNumber = formatter.format(n);
+    // Format numbers
+    $('.hit-format-number').each(function() {
+      let n = $(this).text();
+      let formattedNumber = formatter.format(n);
       $(this).text(formattedNumber);
-    });    
+    });
   }
 
 
   function renderFacets(content, state) {
-    var facetsHtml = '';
-    for (var facetIndex = 0; facetIndex < FACETS_ORDER_OF_DISPLAY.length; ++facetIndex) {
-      var facetName = FACETS_ORDER_OF_DISPLAY[facetIndex];
-      var facetResult = content.getFacetByName(facetName);
+    let facetsHtml = '';
+    for (let facetIndex = 0; facetIndex < FACETS_ORDER_OF_DISPLAY.length; ++facetIndex) {
+      let facetName = FACETS_ORDER_OF_DISPLAY[facetIndex];
+      let facetResult = content.getFacetByName(facetName);
       if (!facetResult) continue;
-      var facetContent = {};
+      let facetContent = {};
 
       // Slider facets
       if ($.inArray(facetName, FACETS_SLIDER) !== -1) {
         facetContent = {
-          facet: facetName,
-          title: FACETS_LABELS[facetName] || facetName 
+          'facet': facetName,
+          'title': FACETS_LABELS[facetName] || facetName,
         };
         facetContent.min = facetResult.stats.min;
         facetContent.max = facetResult.stats.max;
         facetContent.min = 0;
         facetContent.max = 1000000;
-        var from = state.getNumericRefinement(facetName, '>=') || facetContent.min;
-        var to = state.getNumericRefinement(facetName, '<=') || facetContent.max;
+        let from = state.getNumericRefinement(facetName, '>=') || facetContent.min;
+        let to = state.getNumericRefinement(facetName, '<=') || facetContent.max;
         facetContent.from = Math.min(facetContent.max, Math.max(facetContent.min, from));
         facetContent.to = Math.min(facetContent.max, Math.max(facetContent.min, to));
         facetsHtml += sliderTemplate.render(facetContent);
-      }
-
-      // Conjunctive + Disjunctive facets
-      else {
+      } else {
+        // Conjunctive + Disjunctive facets
         if (facetName === 'tax_year') {
           facetContent = {
-            facet: facetName,
-            title: FACETS_LABELS[facetName] || facetName,
-            values: content.getFacetValues(facetName, {sortBy: ['name:desc']}),
-            disjunctive: $.inArray(facetName, PARAMS.disjunctiveFacets) !== -1
+            'facet': facetName,
+            'title': FACETS_LABELS[facetName] || facetName,
+            'values': content.getFacetValues(facetName, {'sortBy': ['name:desc']}),
+            'disjunctive': $.inArray(facetName, PARAMS.disjunctiveFacets) !== -1,
           };
           facetsHtml += facetTemplate.render(facetContent);
           $clear.html(clearTemplate.render());
         } else {
           facetContent = {
-            facet: facetName,
-            title: FACETS_LABELS[facetName] || facetName,
-            values: content.getFacetValues(facetName, {sortBy: ['isRefined:desc', 'count:desc']}),
-            disjunctive: $.inArray(facetName, PARAMS.disjunctiveFacets) !== -1
+            'facet': facetName,
+            'title': FACETS_LABELS[facetName] || facetName,
+            'values': content.getFacetValues(facetName, {'sortBy': ['isRefined:desc', 'count:desc']}),
+            'disjunctive': $.inArray(facetName, PARAMS.disjunctiveFacets) !== -1,
           };
           facetsHtml += facetTemplate.render(facetContent);
           $clear.html(clearTemplate.render());
@@ -228,14 +237,14 @@ $(document).ready(function() {
       }
     }
     $facets.html(facetsHtml);
-    $('[data-facet="Filings.TaxPeriod"] .facet-value').each(function(){
-      var string = $.trim($(this).text());
-      $(this).html(string.substring(0,4) + '-' + string.substring(4,6));
+    $('[data-facet="Filings.TaxPeriod"] .facet-value').each(function() {
+      let string = $.trim($(this).text());
+      $(this).html(string.substring(0, 4) + '-' + string.substring(4, 6));
     });
 
-    $('.format-number-facet').each(function(){
-      var n = $(this).text();
-      var formattedNumber = formatter.format(n);
+    $('.format-number-facet').each(function() {
+      let n = $(this).text();
+      let formattedNumber = formatter.format(n);
       $(this).text(formattedNumber);
     });
   }
@@ -243,63 +252,63 @@ $(document).ready(function() {
   function bindSearchObjects(state) {
     function createOnFinish(facetName) {
       return function onFinish(data) {
-          var lowerBound = state.getNumericRefinement(facetName, '>=');
-          lowerBound = lowerBound && lowerBound[0] || data.min;
-          if (data.from !== lowerBound) {
-            algoliaHelper.removeNumericRefinement(facetName, '>=');
-            algoliaHelper.addNumericRefinement(facetName, '>=', data.from).search();
-          }
-          var upperBound = state.getNumericRefinement(facetName, '<=');
-          upperBound = upperBound && upperBound[0] || data.max;
-          if (data.to !== upperBound) {
-            algoliaHelper.removeNumericRefinement(facetName, '<=');
-            algoliaHelper.addNumericRefinement(facetName, '<=', data.to).search();
-          }
-        };
+        let lowerBound = state.getNumericRefinement(facetName, '>=');
+        lowerBound = lowerBound && lowerBound[0] || data.min;
+        if (data.from !== lowerBound) {
+          algoliaHelper.removeNumericRefinement(facetName, '>=');
+          algoliaHelper.addNumericRefinement(facetName, '>=', data.from).search();
+        }
+        let upperBound = state.getNumericRefinement(facetName, '<=');
+        upperBound = upperBound && upperBound[0] || data.max;
+        if (data.to !== upperBound) {
+          algoliaHelper.removeNumericRefinement(facetName, '<=');
+          algoliaHelper.addNumericRefinement(facetName, '<=', data.to).search();
+        }
+      };
     }
     
     // Bind Sliders
-    for (var facetIndex = 0; facetIndex < FACETS_SLIDER.length; ++facetIndex) {
-      var facetName = FACETS_SLIDER[facetIndex];
-      var slider = $('#' + facetName + '-slider');
-      var sliderOptions = {
-        type: 'double',
-        //values: [0, 1000000, 100000000, 1000000000, 50000000000],
-        grid: true,
-        min: slider.data('min'),
-        max: slider.data('max'),
-        from: slider.data('from'),
-        to: slider.data('to'),
-        keyboard: true,
-        keyboard_step: 0.5,
-        prettify_enabled: true,
-        prettify_separator: ",",
-        force_edges: true,
-        prefix: "$",
-        onFinish: createOnFinish(facetName)
+    for (let facetIndex = 0; facetIndex < FACETS_SLIDER.length; ++facetIndex) {
+      let facetName = FACETS_SLIDER[facetIndex];
+      let slider = $('#' + facetName + '-slider');
+      let sliderOptions = {
+        'type': 'double',
+        // values: [0, 1000000, 100000000, 1000000000, 50000000000],
+        'grid': true,
+        'min': slider.data('min'),
+        'max': slider.data('max'),
+        'from': slider.data('from'),
+        'to': slider.data('to'),
+        'keyboard': true,
+        'keyboard_step': 0.5,
+        'prettify_enabled': true,
+        'prettify_separator': ',',
+        'force_edges': true,
+        'prefix': '$',
+        'onFinish': createOnFinish(facetName),
       };
       slider.ionRangeSlider(sliderOptions);
     }
   }
 
   function renderPagination(content) {
-    var pages = [];
+    let pages = [];
     if (content.page > 3) {
-      pages.push({current: false, number: 1});
-      pages.push({current: false, number: '...', disabled: true});
+      pages.push({'current': false, 'number': 1});
+      pages.push({'current': false, 'number': '...', 'disabled': true});
     }
-    for (var p = content.page - 3; p < content.page + 3; ++p) {
+    for (let p = content.page - 3; p < content.page + 3; ++p) {
       if (p < 0 || p >= content.nbPages) continue;
-      pages.push({current: content.page === p, number: p + 1});
+      pages.push({'current': content.page === p, 'number': p + 1});
     }
     if (content.page + 3 < content.nbPages) {
-      pages.push({current: false, number: '...', disabled: true});
-      pages.push({current: false, number: content.nbPages});
+      pages.push({'current': false, 'number': '...', 'disabled': true});
+      pages.push({'current': false, 'number': content.nbPages});
     }
-    var pagination = {
-      pages: pages,
-      prev_page: content.page > 0 ? content.page : false,
-      next_page: content.page + 1 < content.nbPages ? content.page + 2 : false
+    let pagination = {
+      'pages': pages,
+      'prev_page': content.page > 0 ? content.page : false,
+      'next_page': content.page + 1 < content.nbPages ? content.page + 2 : false,
     };
     $pagination.html(paginationTemplate.render(pagination));
 
@@ -314,7 +323,6 @@ $(document).ready(function() {
   }
 
 
-
   // NO RESULTS
   // ==========
 
@@ -325,51 +333,49 @@ $(document).ready(function() {
     }
     $main.addClass('no-results');
 
-    var filters = [];
-    var i;
-    var j;
+    let filters = [];
+    let i;
+    let j;
     for (i in algoliaHelper.state.facetsRefinements) {
       filters.push({
-        class: 'toggle-refine',
-        facet: i, facet_value: algoliaHelper.state.facetsRefinements[i],
-        label: FACETS_LABELS[i] + ': ',
-        label_value: algoliaHelper.state.facetsRefinements[i]
+        'class': 'toggle-refine',
+        'facet': i, 'facet_value': algoliaHelper.state.facetsRefinements[i],
+        'label': FACETS_LABELS[i] + ': ',
+        'label_value': algoliaHelper.state.facetsRefinements[i],
       });
     }
     for (i in algoliaHelper.state.disjunctiveFacetsRefinements) {
       for (j in algoliaHelper.state.disjunctiveFacetsRefinements[i]) {
         filters.push({
-          class: 'toggle-refine',
-          facet: i,
-          facet_value: algoliaHelper.state.disjunctiveFacetsRefinements[i][j],
-          label: FACETS_LABELS[i] + ': ',
-          label_value: algoliaHelper.state.disjunctiveFacetsRefinements[i][j]
+          'class': 'toggle-refine',
+          'facet': i,
+          'facet_value': algoliaHelper.state.disjunctiveFacetsRefinements[i][j],
+          'label': FACETS_LABELS[i] + ': ',
+          'label_value': algoliaHelper.state.disjunctiveFacetsRefinements[i][j],
         });
       }
     }
     for (i in algoliaHelper.state.numericRefinements) {
       for (j in algoliaHelper.state.numericRefinements[i]) {
         filters.push({
-          class: 'remove-numeric-refine',
-          facet: i,
-          facet_value: j,
-          label: FACETS_LABELS[i] + ' ',
-          label_value: j + ' ' + algoliaHelper.state.numericRefinements[i][j]
+          'class': 'remove-numeric-refine',
+          'facet': i,
+          'facet_value': j,
+          'label': FACETS_LABELS[i] + ' ',
+          'label_value': j + ' ' + algoliaHelper.state.numericRefinements[i][j],
         });
       }
     }
-    $hits.html(noResultsTemplate.render({query: content.query, filters: filters}));
+    $hits.html(noResultsTemplate.render({'query': content.query, 'filters': filters}));
   }
-
 
 
   // EVENTS BINDING
   // ==============
 
-  var scrollAnchor = $('.section-results').offset().top - 82;
-  var isMobile = window.matchMedia('only screen and (max-width: 768px)');
+  const scrollAnchor = $('.section-results').offset().top - 82;
 
-  $searchInput.on('focusin', function(e) { //HACK Mobile Safari
+  $searchInput.on('focusin', function(e) { // HACK Mobile Safari
     if (isMobile.matches) {
       e.preventDefault();
       e.stopPropagation();
@@ -377,7 +383,7 @@ $(document).ready(function() {
       $('.navbar-search').addClass('safari-scroll-hack');
     }
   });
-  $searchInput.on('focusout', function(e) { //HACK Mobile Safari
+  $searchInput.on('focusout', function(e) { // HACK Mobile Safari
     if (isMobile.matches) {
       e.preventDefault();
       e.stopPropagation();
@@ -385,14 +391,16 @@ $(document).ready(function() {
       $('.navbar-search').removeClass('safari-scroll-hack');
     }
   });
-  $searchInput.on('input', function(e) {
-    var page = $('html, body');
+  $searchInput.on('input', function() {
+    const page = $('html, body');
     if (!isMobile.matches) {
-      page.on('scroll mousedown wheel DOMMouseScroll mousewheel touchmove', function(){
+      page.on('scroll mousedown wheel DOMMouseScroll mousewheel touchmove', function() {
         page.stop();
       });
       readyToSearchScrollPosition();
       return false;
+    } else {
+      return true;
     }
   });
   $(document).on('click', '.toggle-refine', function(e) {
@@ -439,49 +447,48 @@ $(document).ready(function() {
   });
   $(document).on('click', '.try-it li a', function(e) {
     e.preventDefault();
-    var target = $(this).text();
-    //$searchInput.val(target.replace('-','')); //Handle hyphen in EIN
-    //algoliaHelper.setQuery(target.replace('-','')).search();
+    let target = $(this).text();
+    // $searchInput.val(target.replace('-','')); //Handle hyphen in EIN
+    // algoliaHelper.setQuery(target.replace('-','')).search();
     $searchInput.val(target);
     algoliaHelper.setQuery(target).search();
     readyToSearchScrollPosition();
   });
 
 
-
   // URL MANAGEMENT
   // ==============
 
   function initFromURLParams() {
-    var URLString = window.location.search.slice(1);
-    var URLParams = algoliasearchHelper.url.getStateFromQueryString(URLString);
-    var stateFromURL = Object.assign({}, PARAMS, URLParams);
+    let URLString = window.location.search.slice(1);
+    let URLParams = algoliasearchHelper.url.getStateFromQueryString(URLString);
+    let stateFromURL = Object.assign({}, PARAMS, URLParams);
     $searchInput.val(stateFromURL.query);
     $sortBySelect.val(stateFromURL.index.replace(INDEX_NAME, ''));
     algoliaHelper.overrideStateWithoutTriggeringChangeEvent(stateFromURL);
   }
 
-  var URLHistoryTimer = Date.now();
-  var URLHistoryThreshold = 700;
+  let URLHistoryTimer = Date.now();
+  let URLHistoryThreshold = 700;
   function setURLParams() {
-    var trackedParameters = ['attribute:*'];
+    let trackedParameters = ['attribute:*'];
     if (algoliaHelper.state.query.trim() !== '')  trackedParameters.push('query');
     if (algoliaHelper.state.page !== 0)           trackedParameters.push('page');
     if (algoliaHelper.state.index !== INDEX_NAME) trackedParameters.push('index');
 
-    var URLParams = window.location.search.slice(1);
-    var nonAlgoliaURLParams = algoliasearchHelper.url.getUnrecognizedParametersInQueryString(URLParams);
-    var nonAlgoliaURLHash = window.location.hash;
-    var helperParams = algoliaHelper.getStateAsQueryString({filters: trackedParameters, moreAttributes: nonAlgoliaURLParams});
+    let URLParams = window.location.search.slice(1);
+    let nonAlgoliaURLParams = algoliasearchHelper.url.getUnrecognizedParametersInQueryString(URLParams);
+    let nonAlgoliaURLHash = window.location.hash;
+    let helperParams = algoliaHelper.getStateAsQueryString({'filters': trackedParameters, 'moreAttributes': nonAlgoliaURLParams});
     if (URLParams === helperParams) return;
 
-    var now = Date.now();
+    let now = Date.now();
     if (URLHistoryTimer > now) {
       window.history.replaceState(null, '', '?' + helperParams + nonAlgoliaURLHash);
     } else {
       window.history.pushState(null, '', '?' + helperParams + nonAlgoliaURLHash);
     }
-    URLHistoryTimer = now+URLHistoryThreshold;
+    URLHistoryTimer = now + URLHistoryThreshold;
   }
 
   window.addEventListener('popstate', function() {
@@ -490,34 +497,11 @@ $(document).ready(function() {
   });
 
 
-
   // HELPER METHODS
   // ==============
 
-  function toggleIconEmptyInput(query) {
-    $searchInputIcon.toggleClass('empty', query.trim() !== '');
-  }
-
   function readyToSearchScrollPosition() {
-    $('html, body').animate({scrollTop: scrollAnchor}, '500', 'swing');
+    console.log('readyToSearchScrollPosition');
+    $('html, body').animate({'scrollTop': scrollAnchor}, '500', 'swing');
   }
-
-  // FORMATTING
-  // ==========
-
-  //Format numbers and currency
-  var formatter = new Intl.NumberFormat('en-US', {
-    style: 'decimal',
-    minimumFractionDigits: 0,
-  });
-
-  //Hide footer tip on scroll
-  $(window).scroll(function() {
-    if ($(this).scrollTop()>0) {
-      $('#footer-alert').fadeOut();
-     } else {
-      $('#footer-alert').fadeIn();
-     }
-  });
-
 });
