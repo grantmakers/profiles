@@ -8,6 +8,10 @@
 	<link rel="icon" type="image/png" href="{{ site.baseurl }}/assets/img/favicon.png">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
+	{% if jekyll.environment == 'staging' %}
+  	<meta name="robots" content="noindex, nofollow">
+ 	{% endif %}
+
 	<title>Grantmakers.io Profiles Index</title>
 	<meta name="description" content="Links to all 71,042 foundation profiles available on Grantmakers.io">
 
@@ -164,7 +168,9 @@
 
 	{% include footer.html %}
 	{% include footer-license-and-links.html %}
-	{% include ga.html %}
+	{% unless jekyll.environment == 'staging' %}
+    {% include ga.html %}
+  {% endunless %}
 
 </body>
 </html>
