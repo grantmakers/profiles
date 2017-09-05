@@ -501,7 +501,8 @@ $(document).ready(function() {
   // ==============
 
   function readyToSearchScrollPosition() {
-    console.log('readyToSearchScrollPosition');
-    $('html, body').animate({'scrollTop': scrollAnchor}, '500', 'swing');
+    if (!isMobile.matches) {
+      $('html, body').animate({'scrollTop': scrollAnchor}, '500', 'swing');
+    }
   }
 });

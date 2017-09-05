@@ -42,6 +42,19 @@ $(document).ready(function() {
     // https://github.com/Dogfalo/materialize/issues/5004
   });
 
+  // Fixed headers via Pushpin
+  // Disable on mobile for now
+  const isMobile = window.matchMedia('only screen and (max-width: 992px)');
+  function enableGrantsFixedHeader () {
+    const grantsHeader = $('#grants .card-panel-header');
+    grantsHeader.addClass('pushpin-nav pushpin-nav-search');
+    grantsHeader.attr('data-target', 'grants');
+  }
+
+  if (!isMobile.matches) {
+    enableGrantsFixedHeader();
+  }
+
   if ($('.pushpin-nav').length) { // TODO checks for Algolia results
     $('.pushpin-nav').each(function() {
       var $this = $(this);
