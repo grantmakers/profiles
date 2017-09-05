@@ -115,19 +115,30 @@
 									<h1 class="title">Foundation Profiles</h1>
 									<h6 class="sub-title">Complete Index</h6>
 
-									<ul id="index" class="list-unstyled description left-align">
-										{% assign states = site.data.ein | group_by_exp: 'item', 'item[1].state' | sort: 'name' %}
-										{% for state in states %}
-										<li id="{{ state.name }}"><h3>{% include state-list.html %}</h3>	</li>
-										<ul class="list-unstyled left-align">
-											{% for each in state.items %}
-												{% assign org = each[1] %}
-												<li><h6><small>{{ org.ein }}</small> <a href="{{ site.url }}{{ site.baseurl }}/v0/{{ org.ein }}-{{ org.organization_name | slugify }}/">{{ org.organization_name }}</a></h6></li>
-											{% endfor %}
-										</ul>
-										{% endfor %}
-									</ul>
-
+									<div class="row">
+										<div class="col s12 l8 offset-l2">
+											<ul id="index" class="collapsible list-unstyled description left-align" data-collapsible="expandable">
+												{% assign states = site.data.ein | group_by_exp: 'item', 'item[1].state' | sort: 'name' %}
+												{% for state in states %}
+												<li id="{{ state.name }}">
+													<div class="collapsible-header {% if forloop.first == true %}active{% endif %}">
+														<h3><i class="material-icons">arrow_drop_down_circle</i> {% include state-list.html %}<span class="right"></span></h3>
+													</div>
+													<div class="collapsible-body">
+														<ul class="list-unstyled">
+															{% for each in state.items %}
+															{% assign org = each[1] %}
+																<li>
+																	<h6><span class="hide-on-med-and-down"><small>{{ org.ein }}</small></span> <a href="{{ site.url }}{{ site.baseurl }}/v0/{{ org.ein }}-{{ org.organization_name | slugify }}/">{{ org.organization_name }}</a></h6>
+																</li>
+															{% endfor %}
+														</ul>
+													</div>
+												</li>
+												{% endfor %}
+											</ul>
+										</div>
+									</div>
 								</div>
 							</div>
 						</div>

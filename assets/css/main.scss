@@ -1153,15 +1153,18 @@ Index - list of links
 *****************************/
 
 ul#index {
-	margin: 30px auto 0;
-	max-width: 600px;
-	color: #999999;
+	margin-top: 4rem;
 	h3 {
 		font-size: 1.825em;
     line-height: 1.4em;
     margin: 20px 0 10px;
 	}
-	li h6, h3 {
+	h6, h3 {
 		color: #999;
+	}
+	li .active i {
+		-ms-transform: rotate(180deg); /* IE 9 */
+		-webkit-transform: rotate(180deg); /* Chrome, Safari, Opera */
+		transform: rotate(180deg);
 	}
 }
