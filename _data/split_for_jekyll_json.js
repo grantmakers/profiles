@@ -9,8 +9,6 @@ fs.readFile('aggregated.json', 'utf8', function(err, data) {
   const array = JSON.parse(data);
   array.forEach(function(item) {
     const ein = item.ein;
-    item.last_updated.toISOString();
-    item.last_updated_irs.toISOString();
 
     const doc = JSON.stringify(item, null, 4);
 
