@@ -87,7 +87,7 @@ $(document).ready(function() {
     
     algoliaHelper.setQuery(query).search();
   })
-  .focus();
+  //.focus();
 
   // Search errors
   algoliaHelper.on('error', function(error) {
