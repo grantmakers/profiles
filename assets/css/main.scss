@@ -448,7 +448,7 @@ nav ul li a {
 			border-bottom-left-radius: 3px;
 		}
 		.algolia-logo-autocomplete {
-			margin: 10px 0px;
+			margin-bottom: 10px;
 			padding-top: 10px;
 			border-top: 1px solid $gray-lighter;
 			img {
@@ -456,7 +456,6 @@ nav ul li a {
 			}
 		}
 		.input-field .prefix ~ span input {
-			//margin-left: 3rem;
 			width: 92%;
 			width: calc(100% - 3.2rem);
 			padding-left: 3.2rem;
@@ -499,6 +498,10 @@ nav ul li a {
 		.algolia-autocomplete .aa-dropdown-menu .aa-suggestion em {
 			font-weight: bold;
 			font-style: normal;
+		}
+		.algolia-autocomplete .aa-dropdown-menu .empty {
+			margin: 5px 0px;
+			padding-left: 4px;
 		}
 	}
 	.avatar .avatar-circle-w-icon {

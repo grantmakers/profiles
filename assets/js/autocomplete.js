@@ -6,7 +6,7 @@ $(document).ready(function() {
   var client = algoliasearch('KDWVSZVS1I', 'ce4d584b0de36ca3f8b4727fdb83c658');
   var index = client.initIndex('grantmakers_io');
   
-  autocomplete('#autocomplete-input', { hint: false, openOnFocus: true, minLength: 0 }, [
+  autocomplete('#autocomplete-input', { hint: false, openOnFocus: false, minLength: 1 }, [
     {
       source: function(q, cb) {
         if (q === '') {
@@ -27,6 +27,9 @@ $(document).ready(function() {
         },
         footer: function(){
           return '<div class="algolia-logo-autocomplete center-align small">Search powered by <a href="https://www.algolia.com/" class="algolia-powered-by-link" title="Algolia"><img class="algolia-logo" src="{{site.url}}{{site.baseurl}}/assets/img/algolia-light-bg.svg" alt="Algolia" style="width: 60px;height: 16px;" /></a></div>'
+        },
+        empty: function(){
+          return '<div class="empty">Not finding what you need? Try our <a href="{{ site.baseurl }}">full search</a>.</div>';
         }
       }
     }
