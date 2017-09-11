@@ -13,7 +13,7 @@
       <tbody>
         {% assign sorted_grants = page.grants | sort: 'amount' | reverse %}
         {% if sorted_grants.size > 0 %}
-          {% for each in sorted_grants %}
+          {% for each in sorted_grants limit:5000 %}
             <tr>
               <td class="left-align">{{ forloop.index }}</td>
               <td>{{ each.name }}</td>
