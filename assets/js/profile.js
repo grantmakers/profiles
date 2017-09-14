@@ -22,10 +22,12 @@ $(document).ready(function() {
       header.css({ 'opacity': 1 });
       navbar.addClass('affix-top');
       navbar.removeClass('affix');
+      //$('.algolia-partnership-logo img').attr('src', '{{ site.baseurl}}/assets/img/algolia-partnership-logo.png');
     } else if ( calc < '0' ) {
       header.css({ 'opacity': 0 });
       navbar.addClass('affix');
       navbar.removeClass('affix-top');
+      //$('.algolia-partnership-logo img').attr('src', '{{ site.baseurl}}/assets/img/algolia-partnership-logo-light.png');
     }
 
   });

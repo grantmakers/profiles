@@ -231,6 +231,23 @@ i.tooltipped {
 	display: none;
 }
 
+i.suffix {
+	position: absolute;
+	top: 5px;
+	left: auto !important;
+	right: 0px;
+	margin-right: 5px;
+	z-index: 3;
+	width: 2rem;
+	//float: right;
+	font-size: 2rem;
+	transition: color .2s;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
 #toast-container {
   top: auto !important;
   right: auto !important;
@@ -315,6 +332,9 @@ nav ul li a {
 		.algolia-partnership-logo {
 			display: none;
 		}
+		.algolia-partnership-logo img {
+			border-left: 1px solid $gray-light;
+		}
 	}
 	.algolia-partnership-logo {
 		position: relative;
@@ -323,6 +343,8 @@ nav ul li a {
 		img {
 			border-left: 1px solid white;
 			padding-left: 30px;
+			width: 104px;
+			height: 25px;
 		}
 	}
 	/* initial navbar style */
