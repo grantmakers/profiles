@@ -238,6 +238,19 @@ i.tooltipped {
   left:7%;
 }
 
+.algolia-partnership-alert {
+	display: none;
+	background-color: black;
+	color: white;
+	height: 30px;
+	line-height: 30px;
+	font-size: 12px;
+	img {
+		height: 15px;
+		vertical-align: middle;
+	}
+}
+
 /* Navbar */
 .navbar-fixed {
 	position: fixed;
@@ -298,8 +311,20 @@ nav ul li a {
     } 
     .algolia-light-bg {
     	display: block;
-    }
-  }
+		}
+		.algolia-partnership-logo {
+			display: none;
+		}
+	}
+	.algolia-partnership-logo {
+		position: relative;
+		top: 5px;
+		left: 200px;
+		img {
+			border-left: 1px solid white;
+			padding-left: 30px;
+		}
+	}
 	/* initial navbar style */
 	@media #{$small-and-down} {
 		&.affix-top {
