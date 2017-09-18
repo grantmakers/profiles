@@ -257,7 +257,7 @@ i.suffix {
 
 .algolia-partnership-alert {
 	display: none;
-	background-color: black;
+	@extend .grey, .darken-4;
 	color: white;
 	height: 30px;
 	line-height: 30px;
