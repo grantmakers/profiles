@@ -332,9 +332,6 @@ nav ul li a {
 		.algolia-partnership-logo {
 			display: none;
 		}
-		.algolia-partnership-logo img {
-			border-left: 1px solid $gray-light;
-		}
 	}
 	.algolia-partnership-logo {
 		position: relative;
@@ -936,9 +933,6 @@ nav ul li a {
 				//background-color: $grantmakers-lightest;
 				background-color: $grantmakers-lightest;
 			}
-			[data-pane='detail'] {
-				//display: none;
-			}
 			.hit-name {
 				min-height: 70px;
 				clear: both;
@@ -957,9 +951,6 @@ nav ul li a {
 				}
 			}
 			.hit-grants-wrapper {
-				//padding: 10px;
-				//background-color: $gray-lighter;
-				//border-radius: 3px;
 				border-left: 1px solid $gray-light;
 			}
 			.hit-summary-items {
@@ -975,9 +966,6 @@ nav ul li a {
 			}
 			.progress-assets-wrapper {
 				color: $gray;
-				span {
-					//font-weight: bold;
-				}
 				.material-icons {
 					font-size: 20px;
 					vertical-align: text-bottom;
@@ -1068,9 +1056,6 @@ nav ul li a {
 		margin-top: 50px;
 		small, a i {
 			color: $gray-lightest;
-		}
-		p {
-			//margin-top: 50px;
 		}
 	}
 	#tips ul li {
