@@ -160,7 +160,11 @@
                       {{ page.organization_name }}
                     {% endif %}
                   </h1>
+                  {% if page.is_foreign %}
+                  <h6 class="org-location">{{ page.city }}, {% if page.state == 'Foreign' %}{{ page.country }}*{% else %}{{ page.state }}{% endif %}</h6>
+                  {% else %}
                   <h6 class="org-location">{{ page.city }}, {{ page.state }}</h6>
+                  {% endif %}
                   <ul class="list-inline org-location profile-summary-icons text-center"> 
                     <li>
                       {% if page.has_recent_grants %}
