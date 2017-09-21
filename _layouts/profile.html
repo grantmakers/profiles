@@ -95,7 +95,14 @@
                   </div>
                 </div>
               </a>
-              <div class="algolia-partnership-logo hide-on-med-and-down"><img src="{{ site.baseurl }}/assets/img/algolia-partnership-logo.png" alt="Algolia Partnership Logo"></div>
+              {% if algolia == true %}
+              <div class="algolia-partnership-logo hide-on-med-and-down">
+                <a href="{{ site.algolia_referral_link }}">
+                  <span><span class="text-spread">In partnership</span><br>with </span>
+                  <img src="{{ site.baseurl }}/assets/img/algolia-dark-bg.svg" alt="Algolia Partnership Logo">
+                </a>
+              </div>
+              {% endif %}
             </div>
             <div class="col m4">
               <ul class="nav-primary nav-center hide-on-med-and-down">
@@ -293,7 +300,7 @@
                           </div>
                           <div class="col s12 m3 right-align">
                           {% if algolia == true %}
-                            <div class="right-align text-muted algolia-logo hide-on-small-only">Search powered by<br><a class="algolia-light-bg" href="https://www.algolia.com"><img src="{{ site.baseurl }}/assets/img/algolia-light-bg.svg" alt="Powered by Algolia"></a></div>
+                            <div class="right-align text-muted algolia-logo hide-on-small-only">Search powered by<br><a class="algolia-light-bg" href="{{ site.algolia_referral_link }}"><img src="{{ site.baseurl }}/assets/img/algolia-light-bg.svg" alt="Powered by Algolia"></a></div>
                           {% else %}
                           <h4 class="right-align text-muted"><i class="material-icons tooltipped" data-delay="20" data-tooltip="Grants made in {{ page.filings[0].tax_year | round }} tax year">info</i></h4>
                           {% endif %}

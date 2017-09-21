@@ -338,13 +338,20 @@ nav ul li a {
 	}
 	.algolia-partnership-logo {
 		position: relative;
-		top: 5px;
+		top: 17px; 
 		left: 200px;
+		border-left: 1px solid white;
+		padding-left: 28px;
+		line-height: 14px;
+		font-size: 75%;
+		span.text-spread {
+			letter-spacing: 0.5px;
+		}
 		img {
-			border-left: 1px solid white;
-			padding-left: 30px;
-			width: 104px;
-			height: 25px;
+			padding-left: 2px;
+			width: 51px;
+			height: 13px;
+			vertical-align: text-top;
 		}
 	}
 	/* initial navbar style */
