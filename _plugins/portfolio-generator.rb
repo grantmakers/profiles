@@ -53,7 +53,7 @@ module Jekyll
                 site.pages << RedirectPage.new(site, site.source, project["ein"], project)
 
                 # Create redirects if name has changed
-                date_updated_grantmakers = DateTime.strptime(site.config["last_updated_grantmakers"], '%Y-%m-%d %H:%M:%S.%N%z').to_s
+                date_updated_grantmakers = DateTime.strptime(site.config["last_updated_grantmakers"], '%Y-%m-%dT%H:%M:%S.%N%z').to_s
                 date_updated_irs = project["last_updated_irs"]
 
                 if (project["organization_name_prior_year"])
