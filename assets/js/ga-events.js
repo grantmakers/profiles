@@ -26,6 +26,24 @@ $(document).ready(function() {
     });
   });
 
+  // Algolia grants search box
+  $('#search-input').on('focus', function() {
+    ga('send', 'event', {
+      'eventCategory': 'Profile Events',
+      'eventAction': 'Profile Search Focus',
+      'eventLabel': 'Grants search',
+    });
+  });
+
+  // Algolia Autocomplete search box
+  $('#autocomplete-input').on('focus', function() {
+    ga('send', 'event', {
+      'eventCategory': 'Profile Events',
+      'eventAction': 'Profile Search Focus',
+      'eventLabel': 'Autocomplete search',
+    });
+  });
+
   // Tax filings
   $('#filings ul li a').on('click', function() {
     ga('send', 'event', {

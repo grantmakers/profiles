@@ -53,7 +53,7 @@ module Jekyll
                 site.pages << RedirectPage.new(site, site.source, project["ein"], project)
 
                 # Create redirects if name has changed
-                date_updated_grantmakers = DateTime.strptime(site.config["last_updated_grantmakers"], '%Y-%m-%d %H:%M:%S.%N%z').to_s
+                date_updated_grantmakers = DateTime.strptime(site.config["last_updated_grantmakers"], '%Y-%m-%dT%H:%M:%S.%N%z').to_s
                 date_updated_irs = project["last_updated_irs"]
 
                 if (project["organization_name_prior_year"])
@@ -62,6 +62,18 @@ module Jekyll
                         path_old_name = File.join(dir, file_name_slug_old_name)
                         project["dir"] = path_old_name
                         site.pages << RedirectPage.new(site, site.source, path_old_name, project)
+                    end
+                end
+
+                # Fix previously malformed urls that used old slugify method
+                # Google has indexed the erroneous form
+                # Limited to org names with a hyphen - 2,680 orgs
+                if (project["organization_name"].include? "-")
+                    malformed_url = slugify_old_method(project["ein"] + "-" + project["organization_name"])
+                    correct_url = slugify(project["ein"] + "-" + project["organization_name"])
+                    malformed_path = File.join(dir, malformed_url)
+                    if (malformed_url != correct_url)
+                        site.pages << RedirectPage.new(site, site.source, malformed_path, project)
                     end
                 end
             end
@@ -139,6 +151,10 @@ module Jekyll
             title.downcase.gsub(/[^\w]/, " ").strip.gsub(/\s+/, '-')
             # Original slugify regex
             #title.downcase.strip.gsub(' ', '-').gsub(/[^\w-]/, '')
+        end
+
+        def slugify_old_method(title)
+            title.downcase.strip.gsub(' ', '-').gsub(/[^\w-]/, '')
         end
 
     end

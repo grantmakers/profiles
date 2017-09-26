@@ -40,7 +40,7 @@ $gray-light:             #999999 !default; // #999999
 $gray-lighter:           lighten($gray-base, 93.5%) !default; // #eee
 $gray-lightest: 				 #f5f5f5;
 
-.grantmakers-color-bg, .btn-grantmakers {
+.grantmakers-color-bg, .btn-grantmakers, .grantmakers {
 	background-color: $grantmakers;
 }
 
@@ -48,12 +48,16 @@ $gray-lightest: 				 #f5f5f5;
 	background-color: darken($grantmakers, 5%);
 }
 
-.grantmakers-color-text {
+.grantmakers-color, .grantmakers-text {
 	color: $grantmakers;
 }
 
 a:not(.btn):not(.btn:hover) {
 	color: $grantmakers;
+}
+
+.disable-primary-color {
+	color: inherit !important;
 }
 
 /****************************
@@ -77,7 +81,7 @@ Helpers
 }
 
 .text-muted {
-	color: #777777;
+	color: #777777 !important;
 }
 
 hr {
@@ -194,6 +198,76 @@ body, h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4 {
 	}
 }
 
+i.tooltipped {
+	cursor: default;
+}
+
+.pinned {
+	box-shadow: 0 10px 20px -12px rgba(0, 0, 0, 0.42), 0 3px 20px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2);
+	z-index: 998;
+	&.pushpin-nav-search {
+		@media #{$small-and-down} {
+			width: 304px; // Chrome 
+			//width: 250px; // Firefox
+		}
+		@media #{$medium-and-up} {
+			//width: 596px;
+			width: 90%;
+		}
+		@media #{$large-and-up} {
+			width: 920px;
+		}
+		@media #{$extra-large-and-up} {
+			width: 1117px;
+		}
+	}
+}
+
+.pin-top, .pin-bottom {
+	position: inherit;
+}
+
+.pin-bottom  {
+	display: none;
+}
+
+i.suffix {
+	position: absolute;
+	top: 5px;
+	left: auto !important;
+	right: 0px;
+	margin-right: 5px;
+	z-index: 3;
+	width: 2rem;
+	//float: right;
+	font-size: 2rem;
+	transition: color .2s;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+#toast-container {
+  top: auto !important;
+  right: auto !important;
+  bottom: 10%;
+  left:7%;
+}
+
+.algolia-partnership-alert {
+	display: none;
+	@extend .grey, .darken-4;
+	color: white;
+	height: 30px;
+	line-height: 30px;
+	font-size: 12px;
+	img {
+		height: 15px;
+		vertical-align: middle;
+	}
+}
+
 /* Navbar */
 .navbar-fixed {
 	position: fixed;
@@ -254,18 +328,41 @@ nav ul li a {
     } 
     .algolia-light-bg {
     	display: block;
-    }
-  }
+		}
+		.algolia-partnership-logo {
+			display: none;
+		}
+	}
+	.algolia-partnership-logo {
+		position: relative;
+		top: 17px; 
+		left: 200px;
+		border-left: 1px solid white;
+		padding-left: 28px;
+		line-height: 14px;
+		font-size: 75%;
+		span.text-spread {
+			letter-spacing: 0.5px;
+		}
+		img {
+			padding-left: 2px;
+			width: 51px;
+			height: 13px;
+			vertical-align: text-top;
+		}
+	}
 	/* initial navbar style */
 	@media #{$small-and-down} {
 		&.affix-top {
 			background-color: rgba(0,0,0,0.4);
+			box-shadow: none !important;
 		}
 	}
 	@media #{$medium-and-up} {
     &.affix-top {
-      background-color:transparent !important;
-      border-color:transparent !important;
+      background-color: transparent !important;
+			border-color: transparent !important;
+			box-shadow: none !important;
     }
   }
   .logo-container .logo {
@@ -400,7 +497,70 @@ nav ul li a {
 		margin-bottom: 75px;
 	}
 	#profile-cta {
-		margin-bottom: 75px;
+		margin-bottom: 75px; 
+		i {
+			line-height: 1.5;
+			z-index: 1;
+			background-color: #fafafa;
+			border-top-left-radius: 3px;
+			border-bottom-left-radius: 3px;
+		}
+		.algolia-logo-autocomplete {
+			margin-bottom: 10px;
+			padding-top: 10px;
+			border-top: 1px solid $gray-lighter;
+			img {
+				vertical-align: middle;
+			}
+		}
+		.input-field .prefix ~ span input {
+			width: 92%;
+			width: calc(100% - 3.2rem);
+			padding-left: 3.2rem;
+			margin-bottom: 0;
+			background-color: white;
+			border-radius: 3px;
+			border: 0;
+			-webkit-box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 1px 5px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.2);
+			box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 1px 5px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.2);
+		}
+		.algolia-autocomplete {
+			width: 100%;
+		}
+		#autocomplete-input {
+			font-size: 16px;
+		}
+		.algolia-autocomplete .aa-input, .algolia-autocomplete .aa-hint {
+			width: 100%;
+		}
+		.algolia-autocomplete .aa-hint {
+			color: #999;
+		}
+		.algolia-autocomplete .aa-dropdown-menu {
+			margin-left: 3rem;
+			width: 92%;
+			width: calc(100% - 3rem);
+			text-align: left;
+			background-color: #fff;
+			top: 104% !important;
+			-webkit-box-shadow: 0 4px 5px 0 rgba(0,0,0,0.14), 0 1px 10px 0 rgba(0,0,0,0.12), 0 2px 4px -1px rgba(0,0,0,0.3);
+			box-shadow: 0 4px 5px 0 rgba(0,0,0,0.14), 0 1px 10px 0 rgba(0,0,0,0.12), 0 2px 4px -1px rgba(0,0,0,0.3);
+		}
+		.algolia-autocomplete .aa-dropdown-menu .aa-suggestion {
+			cursor: pointer;
+			padding: 5px 4px;
+		}
+		.algolia-autocomplete .aa-dropdown-menu .aa-suggestion.aa-cursor {
+			background-color: #B2D7FF;
+		}
+		.algolia-autocomplete .aa-dropdown-menu .aa-suggestion em {
+			font-weight: bold;
+			font-style: normal;
+		}
+		.algolia-autocomplete .aa-dropdown-menu .empty {
+			margin: 5px 0px;
+			padding-left: 4px;
+		}
 	}
 	.avatar .avatar-circle-w-icon {
 		width: 160px;
@@ -509,6 +669,412 @@ nav ul li a {
 		}
 		.icon-danger {
 			background-color: $grantmakers !important;
+		}
+	}
+	#grants {
+		a {
+			color: inherit;
+		}
+		.card-panel-header-wrapper {
+			height: 82px; // Fix for pushpin jump
+			@media #{$small-and-down} {
+				height: 121px;
+			}
+		}
+		.card-panel-header .row:first-child {
+			margin-bottom: 0;
+		}
+		.pushpin-nav-search.pinned {
+			@media #{$small-and-down} {
+				box-shadow: 0 2px 2px -2px rgba(0, 0, 0, 0.14), 0 1px 5px -5px rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+			}
+		}
+		.algolia-logo {
+			color: inherit;
+    	padding-top: 15px;
+    	padding-bottom: 15px;
+    	font-weight: 400;
+    	font-size: 10px;
+			text-transform: uppercase;
+    	img {
+    		width: 60px;
+    		height: 16px;
+    		vertical-align: middle;
+    	}
+		}
+		h4 span.algolia-logo {
+			padding: 0;
+			position: relative;
+			top: -15px;
+			text-align: right;
+			img {
+				vertical-align: inherit;
+			}
+		}
+		input[id="search-input"] {
+			height: 45px !important; 
+		  margin-top: 10px;
+		  padding-left: 10px;
+		  border-radius: 0px 5px 5px 0px;
+		  border-bottom: none;
+			box-shadow: none;
+			font-size: 16px; // Ensure iOS Safari does not zoom upon focus
+			-webkit-appearance: none; // Ensure iOS Safari does not change border radius
+		}
+		.search{
+		  background-color: #fafafa;
+		  height: 45px !important; 
+		  border-radius: 5px;
+		  .input-field {
+		  	margin-top: 0;
+		  	i {
+			  	top: 8px;
+			  	left: 8px;
+			  	cursor: pointer;
+			  }
+		  }
+		}
+		.algolia-loading {
+			display: inline-block;
+			height: 36px;
+			vertical-align: bottom;
+			margin-left: 10px;
+			font-size: 15px;
+		}
+		#stats {
+			position: relative;
+			top: 15px;
+		}
+		#facets {
+			.facet {
+				margin-bottom: 24px;
+			}
+			h5 {
+				border-bottom: 1px solid $gray-light;
+			}
+			[data-facet-tooltip] {
+				display: none;
+			}
+			[data-toggle] { //TODO Eliminate or narrow to tooltips
+				display: inline-block;
+				text-transform: none;
+				text-align: center;
+			}
+			.facet-info {
+				vertical-align: bottom;
+				color: $gray-light;
+			}
+			.facet {
+				margin-bottom: 24px;
+			}
+			.facet h5 {
+				padding: 0 0 10px;
+				font-weight: 400;
+				//text-transform: uppercase;
+				border-bottom: 1px solid $gray-light;
+			}
+			.facet ul {
+				margin: 0;
+				padding: 0;
+				list-style-type: none;
+			}
+			.facet li {
+				margin-bottom: 3px;
+			}
+			.facet-link {
+				font-size: 13px;
+				line-height: 1.2;
+				text-decoration: none;
+				color: black;
+			}
+			.facet-link:hover {
+				text-decoration: none;
+			}
+			.facet-link:hover, .facet-link.facet-refined {
+				color: $grantmakers;
+			}
+			.facet .facet-link.facet-refined:hover {
+				text-decoration: line-through;
+				color: $grantmakers;
+			}
+			.facet-count {
+				position: relative;
+				top: 3px;
+				float: right;
+				color: $gray-light;
+			}
+			/* Checkboxes */
+			.facet-disjunctive {
+				font-weight: normal;
+				position: relative;
+				margin-left: 18px;
+			}
+			.facet-disjunctive:before {
+				position: absolute;
+				top: 0px;
+				left: -18px;
+				width: 16px;
+				height: 16px;
+				font-family: 'Material Icons';
+				color: $gray-light;
+		    display: inline-block;
+		    content: 'radio_button_unchecked';
+		    background: none;
+			}
+			.facet-disjunctive:hover:before {
+				color: $grantmakers;
+			}
+			.facet-disjunctive.facet-refined:before {
+				color: $grantmakers;
+				content: 'radio_button_checked' ;
+			}
+			.facet-disjunctive.facet-refined:hover:before {
+				content: 'close';
+			}
+		}
+		#facets {
+			font-size: 85%;
+			.facet h4 {
+				color: rgba(0, 0, 0, 0.77);
+	    	font-size: 20px;
+	    	line-height: 29px;
+	    	font-weight: 400;
+	    	border-bottom: 1px solid rgba(160,160,160,0.2);
+    	}
+		}
+		#hits {
+			//Tables
+			tr.tab-pane td {
+				border: 0;
+			}
+			.icon-highlight i {
+				//background-color: #feebde;
+				background-color: $grantmakers-lightest;
+		    border-radius: 50%;
+		    &.icon-no-highlight {
+		    	background-color: transparent;
+		    }
+			}
+			//List Groups
+			.hits-list-group {
+				line-height: 1.4em;
+				border-top: 1px solid #ddd;
+				.hits-list-group-header {
+					padding: 0.5em 1em;
+					font-weight: bold;
+					vertical-align: bottom;
+		    	border-bottom: 2px solid #ddd;
+				}
+				.hits-list-item {
+					padding: 1em;
+			    vertical-align: top;
+			    //border-top: 1px solid #ddd;
+					&:nth-of-type(odd) {
+						background: #fafafa;
+					}
+					.row:first-child {
+						margin-bottom: 0;
+					}
+					.row:last-child {
+						margin-bottom: 0;
+					}
+					.hits-list-item-name-primary {
+						font-size: 1em;
+		    		//line-height: 29px;
+		    		//font-weight: bold;
+		    		margin-bottom: 0.5em;
+					}
+
+				}
+				.hits-list-action {
+					//position: relative;
+		    	//right: 16px;
+		    	//top: 16px;
+					i {
+						font-size: 20px;
+			    	color: rgba(0, 0, 0, 0.25);
+			    	cursor: pointer;
+					}
+				}
+			}
+			.list-group-algolia-hits div.list-group-item > div:nth-of-type(odd) {
+		    background: #fafafa;
+		  }
+			.list-group .list-group-item p.ellipsis {
+				white-space: nowrap;
+		    overflow: hidden;
+		    text-overflow: ellipsis;
+			}
+			.list-group .list-group-item .list-group-item-heading {
+		    //color: rgba(0, 0, 0, 0.77);
+		    font-size: 16px;
+		    //line-height: 29px;
+		    font-weight: 400;
+			}
+			.list-group .list-group-item .row-content .action-secondary {
+				position: absolute;
+		    right: 16px;
+		    top: 16px;
+				i {
+					font-size: 20px;
+		    	color: rgba(0, 0, 0, 0.25);
+		    	cursor: pointer;
+				}
+			}
+			//Cards
+			.card:first-child {
+				margin-top: 15px;
+			}
+			.card {
+				margin-top: 15px;
+			}
+			em {
+				font-style: normal;
+				//background-color: $grantmakers-lightest;
+				background-color: $grantmakers-lightest;
+			}
+			.hit-name {
+				min-height: 70px;
+				clear: both;
+				small {
+					color: $grantmakers;
+				}
+				.hit-ein {
+					margin-left: 25px;
+				}
+				a {
+					color: inherit;
+					&:hover {
+						color: $grantmakers;
+						text-decoration: none;
+					}
+				}
+			}
+			.hit-grants-wrapper {
+				border-left: 1px solid $gray-light;
+			}
+			.hit-summary-items {
+				h6 span {
+					float: right;
+				}
+				h6 small {
+					float: left;
+				}
+				.progress {
+					clear: both;
+				}
+			}
+			.progress-assets-wrapper {
+				color: $gray;
+				.material-icons {
+					font-size: 20px;
+					vertical-align: text-bottom;
+					color: $gray-light;
+				}
+			}
+			.progress-bar {
+				background-color: $gray-light;
+			}
+			.hit-summary-icons {
+				//color: $smartergiving;
+				a, i.material-icons {
+					color: $gray-lighter;
+				}
+				i.material-icons-active {
+					color: $grantmakers;
+				}
+				margin-top: 10px; //HACK Match h6 EIN listing
+				.hit-ein {
+					margin-left: 25px;
+					//font-size: 80%;
+					color: $gray-light;
+					text-align: right;
+				}
+			}
+			.list-profile-items {
+				color: $gray-light;
+				font-size: 90%;
+				//text-align: center;
+				li {
+					//text-align: center;
+					span {
+						color: $gray;
+						font-size: 111%;
+					}
+				}
+			}
+		}
+	}
+	ul.collapsible-grants-table {
+		.progress {
+			display: none;
+			margin: 0;
+		}
+		.collapsible-header, i {
+			color: $gray-light !important;
+		}
+		i {
+			font-size: 20px;
+		}
+	}
+	.tabs-grants-table {
+		height: 20px;
+	}
+	.tabs-grants-table .tab {
+		display: inherit;
+    text-align: inherit;
+    line-height: inherit;
+    height: inherit;
+    padding: inherit;
+    margin: inherit;
+    text-transform: inherit;
+    a {
+    	color: $gray-light !important;;
+	    display: inherit;
+	    width: inherit;
+	    height: inherit;
+	    padding: inherit;
+	    font-size: 65%;
+	    text-overflow: inherit;
+	    overflow: inherit;
+	    transition: inherit;
+    }
+	}
+	.tabs-grants-table .indicator {
+		display: none;
+	}
+	#tips {
+		display: none;
+	}
+	.no-results #pagination, .no-results #sort-by, .no-results #facets, .no-results #clear, .no-results #stats, .no-results #left-column-affix-parent {
+		display: none;
+	}
+	.no-results #tips {
+		display: block;
+	}
+	#no-results-message {
+		margin-top: 50px;
+		small, a i {
+			color: $gray-lightest;
+		}
+	}
+	#tips ul li {
+		margin-bottom: 20px;
+	}
+	.pagination .active a.go-to-page {
+		color: #fff !important;
+		cursor: default;
+	}
+	.pagination .active a.go-to-page:hover {
+		background-color: inherit;
+	}
+	.pagination a.go-to-page:hover {
+		background-color: #fff;
+	}
+	.pagination .disabled a {
+		color: $gray-light !important;
+		&:hover {
+			color: $gray-light !important;
 		}
 	}
 	#filings {
@@ -636,15 +1202,18 @@ Index - list of links
 *****************************/
 
 ul#index {
-	margin: 30px auto 0;
-	max-width: 600px;
-	color: #999999;
+	margin-top: 4rem;
 	h3 {
 		font-size: 1.825em;
     line-height: 1.4em;
     margin: 20px 0 10px;
 	}
-	li h6, h3 {
+	h6, h3 {
 		color: #999;
+	}
+	li .active i {
+		-ms-transform: rotate(180deg); /* IE 9 */
+		-webkit-transform: rotate(180deg); /* Chrome, Safari, Opera */
+		transform: rotate(180deg);
 	}
 }

@@ -19,8 +19,10 @@ plugins:
 # - jekyll-sitemap
 
 # Last updated - used in creating redirects if name has changed
-# Format: "YYYY-MM-DD HH:MM:SS.fffZ"
-last_updated_grantmakers: '2017-04-01 12:54:03.061Z'
+# Format: "YYYY-MM-DDTHH:MM:SS.fffZ"
+last_updated_grantmakers: '2017-09-18T12:54:03.061Z'
+
+algolia_referral_link: https://www.algolia.com/?utm_source=grantmakers_io
 
 # Google Analytics
 google-analytics: UA-84268197-1

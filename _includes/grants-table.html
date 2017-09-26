@@ -1,0 +1,37 @@
+<div id="grantsTableWrapper" class="card-panel-body">
+  <div class="responsive-table-wrapper">
+    <table id="grantsTable" class="bordered">
+      <thead>
+        <tr>
+          <th data-sort="int" class="text-center"><span>#</span></th>
+          <th data-sort="string"><span>Name</span></th>
+          <th data-sort="string"><span>Location</span></th>
+          <th data-sort="string"><span>Purpose</span></th>
+          <th class="text-nowrap text-right" data-sort="int"><span>Amount ($)</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% assign sorted_grants = page.grants | sort: 'amount' | reverse %}
+        {% if sorted_grants.size > 0 %}
+          {% for each in sorted_grants limit:5000 %}
+            <tr>
+              <td class="left-align">{{ forloop.index }}</td>
+              <td>{{ each.name }}</td>
+              <td class="text-nowrap">{% if each.city != null %}{{ each.city }}, {{ each.state }}{% endif %}</td>
+              <td>{{ each.purpose }}</td>
+              <td class="right-align" data-sort-value="{{ each.amount }}">{{ each.amount | round | intcomma }}</td>
+            </tr>
+          {% endfor %}
+        {% else %}
+          <tr>
+            <td></td>
+            <td>No Grants Listed</td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+        {% endif %}
+      </tbody>
+    </table>
+  </div>
+</div>

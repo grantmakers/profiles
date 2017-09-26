@@ -7,12 +7,15 @@
   <link rel="apple-touch-icon" sizes="76x76" href="{{ site.baseurl }}/assets/img/apple-icon.png">
   <link rel="icon" type="image/png" href="{{ site.baseurl }}/assets/img/favicon.png">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-  <meta http-equiv=”content-language” content=”en-us”>
+
+  {% if jekyll.environment == 'staging' %}
+    <meta name="robots" content="noindex, nofollow">
+  {% endif %}
 
   <title>Grantmakers.io Profile - {{ page.organization_name }}</title>
   <meta name="description" content="Profile for {{ page.organization_name }} ({{ page.city }}, {{ page.state }} - EIN {{ page.ein }}) including grantees and board members as of {{ page.filings[0].tax_year | round }} tax year.">
 
-  <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+  <meta content='width=device-width, initial-scale=1.0, minimum-scale=1' name='viewport' />
 
   <!-- Fonts and Icons  -->
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" />
@@ -39,36 +42,47 @@
 
   <!--   Core JS Files   -->
   <script
-    src="http://code.jquery.com/jquery-3.2.1.min.js"
+    src="https://code.jquery.com/jquery-3.2.1.min.js"
     integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
     crossorigin="anonymous">
   </script>
   <script async src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/js/materialize.min.js"></script>
 
+  {% if page.grant_count > 5 %}
+    {% assign algolia = true %}
+  {% endif %}
 
+  {% if algolia == true %}
   <!-- Search and Algolia-related scripts -->
-  <!--
-  <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=Object.assign,Intl.~locale.en"></script>
-  <script src="//cdn.jsdelivr.net/algoliasearch/3/algoliasearch.min.js"></script>
-  <script src="//cdn.jsdelivr.net/algoliasearch.helper/2/algoliasearch.helper.min.js"></script>
-  <script src="//cdn.jsdelivr.net/hogan.js/3.0.2/hogan.min.common.js"></script>
-  <script src="//cdn.jsdelivr.net/jquery.ion.rangeslider/2.0.12/js/ion.rangeSlider.min.js"></script>
-  <script src="{{ site.baseurl }}/assets/js/search.js"></script>
-  -->
-  <script async src="https://cdn.polyfill.io/v2/polyfill.min.js?features=Intl.~locale.en"></script>
+  <script defer src="https://cdn.polyfill.io/v2/polyfill.min.js?features=Object.assign,Intl.~locale.en"></script>
+  <script defer src="//cdn.jsdelivr.net/algoliasearch/3/algoliasearch.min.js"></script>
+  <script defer src="//cdn.jsdelivr.net/algoliasearch.helper/2/algoliasearch.helper.min.js"></script>
+  <script defer src="//cdn.jsdelivr.net/hogan.js/3.0.2/hogan.min.common.js"></script>
+  <!-- <script src="//cdn.jsdelivr.net/jquery.ion.rangeslider/2.0.12/js/ion.rangeSlider.min.js"></script> -->
+  <script defer src="{{ site.baseurl }}/assets/js/search.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/autocomplete.js/0.28/autocomplete.min.js"></script>
+  <script defer src="{{ site.baseurl }}/assets/js/autocomplete.js"></script>
+  {% endif %}
+
+  <!-- <script async src="https://cdn.polyfill.io/v2/polyfill.min.js?features=Intl.~locale.en"></script> -->
   <script defer src="{{ site.baseurl }}/assets/js/stupidtable.min.js"></script>
   <script src="{{ site.baseurl }}/assets/js/profile.js"></script>
-  <script src="{{ site.baseurl }}/assets/js/ga-events.js"></script>
+  {% unless jekyll.environment == 'staging' %}
+    <script src="{{ site.baseurl }}/assets/js/ga-events.js"></script>
+  {% endunless %}
 
 </head>
 
 <body class="profile-page">
   <!-- Navbar -->
-  <div class="navbar-fixed">
-    <nav class="navbar-profile affix-top">
+  <div id="main-nav" class="navbar-fixed">
+    <nav class="navbar-profile affix-top pushpin-nav" data-target="main-nav">
       <div class="nav-wrapper">
+        <div class="algolia-partnership-alert center-align">
+          In partership with <img src="{{ site.baseurl }}/assets/img/algolia-dark-bg.svg" alt="Algolia Partnership Logo">
+        </div>
         <div class="container-custom">
-          <a href="#" data-activates="mobile-nav" class="button-collapse right"><i class="material-icons">menu</i></a>
+          <a href="#" data-activates="mobile-nav" class="button-collapse right disable-primary-color"><i class="material-icons">menu</i></a>
           <div class="row">
             <div class="col s8 m4">
               <a href="https://www.grantmakers.io" data-ga="Homepage" class="brand-logo">
@@ -81,6 +95,14 @@
                   </div>
                 </div>
               </a>
+              {% if algolia == true %}
+              <div class="algolia-partnership-logo hide-on-med-and-down">
+                <a href="{{ site.algolia_referral_link }}">
+                  <span><span class="text-spread">In partnership</span><br>with </span>
+                  <img src="{{ site.baseurl }}/assets/img/algolia-dark-bg.svg" alt="Algolia Partnership Logo">
+                </a>
+              </div>
+              {% endif %}
             </div>
             <div class="col m4">
               <ul class="nav-primary nav-center hide-on-med-and-down">
@@ -131,14 +153,18 @@
                     <img src="{{ site.baseurl }}/assets/img/icons-letters/{{ page.organization_name | split: '' | first | upcase }}.svg" alt="Circle Image" class="circle responsive-img">
                 </div>
                 <div class="name">
-                  <h1 class="org-name">
+                  <h1 class="org-name" data-ein="{{ page.ein }}">
                     {% if page.website %}
-                      <a href="{{ page.website}}" class="js-ga-website-click" title="Click to visit website" data-ga="Website H1 Click">{{ page.organization_name }}</a>
+                      <a href="{{ page.website}}" class="js-ga-website-click disable-primary-color" title="Click to visit website" data-ga="Website H1 Click">{{ page.organization_name }}</a>
                     {% else %}
                       {{ page.organization_name }}
                     {% endif %}
                   </h1>
+                  {% if page.is_foreign %}
+                  <h6 class="org-location">{{ page.city }}, {% if page.state == 'Foreign' %}{{ page.country }}*{% else %}{{ page.state }}{% endif %}</h6>
+                  {% else %}
                   <h6 class="org-location">{{ page.city }}, {{ page.state }}</h6>
+                  {% endif %}
                   <ul class="list-inline org-location profile-summary-icons text-center"> 
                     <li>
                       {% if page.has_recent_grants %}
@@ -156,7 +182,7 @@
                     </li>
                     {% if page.website %}
                       <li>
-                        <a href="{{ page.website }}" target="_blank" data-ga="Website Summary Icon" class="js-ga-website-click tooltipped" data-delay="20" data-tooltip="Click to visit website"><i class="material-icons material-icons-active">public</i></a>
+                        <a href="{{ page.website }}" data-ga="Website Summary Icon" class="js-ga-website-click tooltipped" data-delay="20" data-tooltip="Click to visit website"><i class="material-icons material-icons-active">public</i></a>
                       </li>
                     {% else %}
                       <li>
@@ -258,58 +284,105 @@
             <div class="col s12">
               <div id="grants">
                 <div class="card-panel">
-                  <div class="card-panel-header">
-                    <h4>Grants <span class="right text-muted"><i class="material-icons tooltipped" data-delay="20" data-tooltip="Grants made in {{ page.filings[0].tax_year | round }} tax year">info</i></span></h4>
-                    <div class="right" style="display: none">
-                      <div class="input-group">
-                        <span class="input-group-addon">
-                          <i class="material-icons">search</i>
-                        </span>
-                        <div class="form-group">
-                          <input id="input-grant-search" class="form-control" type="text" autocomplete="off" spellcheck="false" autocorrect="off" placeholder="Search..." autofocus/>
-                          <span class="material-input"></span>
+                  <div class="card-panel-header-wrapper">
+                      <!-- <div class="card-panel-header pushpin-nav pushpin-nav-search" data-target="grants"> -->
+                      <div class="card-panel-header">
+                        <div class="row">
+                          <div class="col s12 m3">
+                            <h4>Grants <span class="text-muted algolia-logo right hide-on-med-and-up">Search powered by<br><a href="https://www.algolia.com" class="algolia-light-bg"><img src="{{ site.baseurl }}/assets/img/algolia-light-bg.svg" alt="Powered by Algolia"></a></span><a href="#" data-activates="algolia-mobile" class="button-collapse right hide"><i class="material-icons text-muted">filter_list</i></a></h4>
+                          </div>
+                          <div class="col s12 m6">
+                          {% if algolia == true %}
+                            <div class="search">
+                              <div class="input-field text-muted">
+                                <i id="search-input-icon" class="material-icons prefix grey-text text-lighten-1">search</i>
+                                <input id="search-input" type="search" />
+                                <label for="search-input"></label>
+                              </div>
+                            </div>
+                          {% endif %}
+                          </div>
+                          <div class="col s12 m3 right-align">
+                          {% if algolia == true %}
+                            <div class="right-align text-muted algolia-logo hide-on-small-only">Search powered by<br><a class="algolia-light-bg" href="{{ site.algolia_referral_link }}"><img src="{{ site.baseurl }}/assets/img/algolia-light-bg.svg" alt="Powered by Algolia"></a></div>
+                          {% else %}
+                          <h4 class="right-align text-muted"><i class="material-icons tooltipped" data-delay="20" data-tooltip="Grants made in {{ page.filings[0].tax_year | round }} tax year">info</i></h4>
+                          {% endif %}
+                          </div>
                         </div>
                         
                       </div>
+                  </div>
+                  {% if algolia == true %}
+                  <div class="section section-results">
+                    <div class="row">
+                      <div class="col s12">
+                        <!-- Algolia Search -->
+                        <!-- <div id="algolia-mobile" class="side-nav"> -->
+                          <div id="left-column-affix-parent" class="col s12 l2 hide-on-med-and-down">
+                            <div id="left-column">
+                              <div id="facets"></div>
+                              <div id="clear" class="clearfix"></div>
+                              <div id="tips" class="clearfix">
+                                <div class="facets">
+                                  
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        <!-- </div> -->           
+                        <div class="col s12 l9 offset-l1">
+                          <div id="right-column">
+                            <!-- 
+                            <div id="sort-by">Sort by:
+                              <select dir="rtl" id="sort-by-select">
+                                <option value="" selected>Most relevant</option>
+                                <option value="_TaxPeriod_asc">Lowest Price</option>
+                                <option value="_TaxPeriod_desc">Highest Price</option>
+                              </select>
+                              <span class="caret"></span>
+                            </div>
+                            -->
+                            <div id="stats">
+                              <div class="preloader-wrapper small active">
+                                <div class="spinner-layer">
+                                  <div class="circle-clipper left">
+                                    <div class="circle"></div>
+                                  </div><div class="gap-patch">
+                                    <div class="circle"></div>
+                                  </div><div class="circle-clipper right">
+                                    <div class="circle"></div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="algolia-loading"> Fetching grants data</div>
+                            </div>
+                            <div id="rate-limit" class="clearfix"></div>
+                            <div id="hits" class="clearfix"></div>
+                            <div id="pagination" class="center-align"></div>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
-                  <div class="card-panel-body">
-                    <div class="responsive-table-wrapper">
-                      <table id="grantsTable" class="bordered">
-                        <thead>
-                          <tr>
-                            <th data-sort="int" class="text-center"><span>#</span></th>
-                            <th data-sort="string"><span>Name</span></th>
-                            <th data-sort="string"><span>Location</span></th>
-                            <th data-sort="string"><span>Purpose</span></th>
-                            <th class="text-nowrap text-right" data-sort="int"><span>Amount ($)</span></th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {% assign sorted_grants = page.grants | sort: 'amount' | reverse %}
-                          {% if sorted_grants.size > 0 %}
-                            {% for each in sorted_grants %}
-                              <tr>
-                                <td class="text-center">{{ forloop.index }}</td>
-                                <td>{{ each.name }}</td>
-                                <td class="text-nowrap">{% if each.city != null %}{{ each.city }}, {{ each.state }}{% endif %}</td>
-                                <td>{{ each.purpose }}</td>
-                                <td class="text-right" data-sort-value="{{ each.amount }}">{{ each.amount | round | intcomma }}</td>
-                              </tr>
-                            {% endfor %}
-                          {% else %}
-                            <tr>
-                              <td></td>
-                              <td>No Grants Listed</td>
-                              <td></td>
-                              <td></td>
-                              <td></td>
-                            </tr>
-                          {% endif %}
-                        </tbody>
-                      </table>
+                  <ul class="collapsible collapsible-grants-table" data-collapsible="accordion">
+                    <li title="View all current tax year grants in a single, scrollable list">
+                      {% include progress-bar.html %}
+                      <div class="collapsible-header small"><i class="small material-icons">list</i>Current year list view</div>
+                      <div class="collapsible-body">
+                        {% include grants-table.html %}
+                      </div>
+                    </li>
+                  </ul>
+                  {% else %}
+                  <div class="section section-results">
+                    <div class="row">
+                      <div class="col s12">
+                        {% include grants-table.html %}
+                      </div>
                     </div>
                   </div>
+                  {% endif %}
                 </div>
               </div>
             </div>
@@ -326,14 +399,14 @@
                     <ul class="list-inline">
                       <li><i class="material-icons tooltipped" data-delay="20" data-html="true" data-tooltip="<b>Human Readable</b><br>Foundation Center PDFs">picture_as_pdf</i> <span class="show-on-medium-and-down text-muted">PDF</span></li>
                       {% for each in page.filings %}
-                        <li><a class="js-filings-pdf waves-effect waves-light btn grey lighten-3 grey-text text-darken-1" target="_blank" data-ga="PDF" data-tax-period="{{ each.tax_period | round }}" data-ein="{{ page.ein }}" data-url-xml="{{ each.url }}" title="View 990-PF">{{ each.tax_year | round }}</a></li>
+                        <li><a class="js-filings-pdf waves-effect waves-light btn grey lighten-3 grey-text text-darken-1" target="_blank" rel="noopener" data-ga="PDF" data-tax-period="{{ each.tax_period | round }}" data-ein="{{ page.ein }}" data-url-xml="{{ each.url }}" title="View 990-PF">{{ each.tax_year | round }}</a></li>
                       {% endfor %}
                     </ul>
                     <hr>
                     <ul class="list-inline">
                       <li><i class="material-icons tooltipped" data-delay="20" data-html="true" data-tooltip="<b>Machine Readable</b><br>XML Format">code</i> <span class="show-on-medium-and-down text-muted">XML</span></li>
                       {% for each in page.filings %}
-                        <li><a class="waves-effect waves-light btn grey lighten-3 grey-text text-darken-1" href="{{ each.url }}" target="_blank" data-ga="XML" data-tax-period="{{ each.tax_period | round }}" data-ein="{{ each.ein }}" data-url-xml="{{ each.url }}" title="View 990-PF">{{ each.tax_year | round }}</a></li>
+                        <li><a class="waves-effect waves-light btn grey lighten-3 grey-text text-darken-1" href="{{ each.url }}" target="_blank" rel="noopener" data-ga="XML" data-tax-period="{{ each.tax_period | round }}" data-ein="{{ each.ein }}" data-url-xml="{{ each.url }}" title="View 990-PF">{{ each.tax_year | round }}</a></li>
                       {% endfor %}
                     </ul>
                   </div>
@@ -348,7 +421,20 @@
                 <div class="center-align">
                   <h4>Looking for Another Grantmaker?</h4>
                   <p>Free profiles for over 70,000 US foundations</p>
-                  <a href="https://www.grantmakers.io" class="btn">Search</a>
+                  <!-- <a href="https://www.grantmakers.io" class="btn">Search</a> -->
+                  <div class="row">
+                    <div class="input-field text-muted col s12 m6 offset-m3">
+                      <i class="js-autocomplete-icon material-icons prefix grey-text text-lighten-1">search</i>
+                      <input id="autocomplete-input" type="text" class="autocomplete" />
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col s12">
+                      <div class="small text-muted">
+                        <a href="{{ site.url }}">Try our full search</a>
+                      </div> 
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -361,7 +447,13 @@
   </div>
   {% include footer.html %}
   {% include footer-license-and-links.html %}
-  {% include ga.html %}
+  <!-- Hogan.js Search Template -->
+  {% include search.html %}
+  <!-- /Hogan.js Search Template -->
+  {% unless jekyll.environment == 'staging' %}
+    {% include ga.html %}
+  {% endunless %}
+  
   <div class="feedback-wrapper"></div>
 
 </body>  
