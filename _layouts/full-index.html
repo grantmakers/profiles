@@ -126,7 +126,7 @@
 												{% for state in states %}
 												<li id="{{ state.name }}">
 													<div class="collapsible-header {% if forloop.first == true %}active{% endif %}">
-														<h3><i class="material-icons">arrow_drop_down_circle</i> {% include state-list.html %}<span class="right"></span></h3>
+														<h3><i class="material-icons">arrow_drop_down_circle</i> {% if state.name.size == 2 %}{% include state-list.html %}{% else %}{{ state.name | capitalize_all }}{% endif %}<span class="right"></span></h3>
 													</div>
 													<div class="collapsible-body">
 														<ul class="list-unstyled">
