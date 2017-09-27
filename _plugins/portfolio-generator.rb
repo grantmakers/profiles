@@ -58,7 +58,7 @@ module Jekyll
 
                 if (project["organization_name_prior_year"])
                     file_name_slug_old_name = slugify(project["ein"] + "-" + project["organization_name_prior_year"])
-                    if (date_updated_irs > date_updated_grantmakers) && (file_name_slug != file_name_slug_old_name)
+                    if (file_name_slug != file_name_slug_old_name)
                         path_old_name = File.join(dir, file_name_slug_old_name)
                         project["dir"] = path_old_name
                         site.pages << RedirectPage.new(site, site.source, path_old_name, project)
@@ -67,14 +67,12 @@ module Jekyll
 
                 # Fix previously malformed urls that used old slugify method
                 # Google has indexed the erroneous form
-                # Limited to org names with a hyphen - 2,680 orgs
-                if (project["organization_name"].include? "-")
-                    malformed_url = slugify_old_method(project["ein"] + "-" + project["organization_name"])
-                    correct_url = slugify(project["ein"] + "-" + project["organization_name"])
-                    malformed_path = File.join(dir, malformed_url)
-                    if (malformed_url != correct_url)
-                        site.pages << RedirectPage.new(site, site.source, malformed_path, project)
-                    end
+                # Includes org names with a hyphen and org names with extra spaces
+                malformed_url = slugify_old_method(project["ein"] + "-" + project["organization_name"])
+                correct_url = slugify(project["ein"] + "-" + project["organization_name"])
+                malformed_path = File.join(dir, malformed_url)
+                if (malformed_url != correct_url)
+                    site.pages << RedirectPage.new(site, site.source, malformed_path, project)
                 end
             end
         end
