@@ -289,7 +289,7 @@
                       <div class="card-panel-header">
                         <div class="row">
                           <div class="col s12 m3">
-                            <h4>Grants <span class="text-muted algolia-logo right hide-on-med-and-up">Search powered by<br><a href="https://www.algolia.com" class="algolia-light-bg"><img src="{{ site.baseurl }}/assets/img/algolia-light-bg.svg" alt="Powered by Algolia"></a></span><a href="#" data-activates="algolia-mobile" class="button-collapse right hide"><i class="material-icons text-muted">filter_list</i></a></h4>
+                            <h4>Grants{% if algolia == true %} <span class="text-muted algolia-logo right hide-on-med-and-up">Search powered by<br><a href="https://www.algolia.com" class="algolia-light-bg"><img src="{{ site.baseurl }}/assets/img/algolia-light-bg.svg" alt="Powered by Algolia"></a></span><a href="#" data-activates="algolia-mobile" class="button-collapse right hide"><i class="material-icons text-muted">filter_list</i></a>{% endif %}</h4>
                           </div>
                           <div class="col s12 m6">
                           {% if algolia == true %}
@@ -306,7 +306,7 @@
                           {% if algolia == true %}
                             <div class="right-align text-muted algolia-logo hide-on-small-only">Search powered by<br><a class="algolia-light-bg" href="{{ site.algolia_referral_link }}"><img src="{{ site.baseurl }}/assets/img/algolia-light-bg.svg" alt="Powered by Algolia"></a></div>
                           {% else %}
-                          <h4 class="right-align text-muted"><i class="material-icons tooltipped" data-delay="20" data-tooltip="Grants made in {{ page.filings[0].tax_year | round }} tax year">info</i></h4>
+                          <h4 class="right-align text-muted hide-on-small-only"><i class="material-icons tooltipped" data-delay="20" data-tooltip="Grants made in {{ page.filings[0].tax_year | round }} tax year">info</i></h4>
                           {% endif %}
                           </div>
                         </div>
