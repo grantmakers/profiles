@@ -15,7 +15,7 @@ layout: null
   %}
   <url>
     <loc>{{ site.url }}/profiles/v0/{{ profile[1].ein }}-{{profile[1].organization_name |  slugify}}/</loc>
-    <lastmod>{{ site.time | date_to_xmlschema }}</lastmod>
+    <lastmod>{{ site.last_updated_grantmakers | date_to_xmlschema }}</lastmod>
   </url>
   {%- endif -%}
 {% endfor %}
