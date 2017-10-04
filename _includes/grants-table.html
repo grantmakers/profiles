@@ -17,7 +17,12 @@
             <tr>
               <td class="left-align">{{ forloop.index }}</td>
               <td>{{ each.name }}</td>
-              <td class="text-nowrap">{% if each.city != null %}{{ each.city }}, {{ each.state }}{% endif %}</td>
+              {% if each.is_foreign == true %}
+              {% assign is_foreign_true = true %}
+                <td class="text-nowrap">{% if each.city != null %}{{ each.city }}, {{ each.country }}*{% endif %}</td>
+              {% else %}
+                <td class="text-nowrap">{% if each.city != null %}{{ each.city }}, {{ each.state }}{% endif %}</td>
+              {% endif %}
               <td>{{ each.purpose }}</td>
               <td class="right-align" data-sort-value="{{ each.amount }}">{{ each.amount | round | intcomma }}</td>
             </tr>
@@ -32,6 +37,14 @@
           </tr>
         {% endif %}
       </tbody>
+      {% if is_foreign_true %}
+      <tfoot>
+        <tr>
+          <td colspan="5" class="small text-muted">(*) Denotes foreign country</td>
+          <!--TODO Add country list modal-->
+        </tr>
+      </tfoot>
+      {% endif %}
     </table>
   </div>
 </div>
