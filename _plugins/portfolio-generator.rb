@@ -45,29 +45,49 @@ module Jekyll
 
                 # Grantmakers.io url scheme
                 # /profiles/123456789-some-foundation
+                # EIN Redirect: /profiles/123456789
                 file_name_slug = slugify(project["ein"] + "-" + project["organization_name"])
                 path = File.join(dir, file_name_slug)
                 project["dir"] = path
 
-                site.pages << ProjectPage.new(site, site.source, path, project)
-                site.pages << RedirectPage.new(site, site.source, project["ein"], project)
+                site.pages << ProjectPage.new(site, site.source, path, project) # Main profile link
+                site.pages << RedirectPage.new(site, site.source, project["ein"], project) # EIN redirect
 
                 # Create redirects if name has changed
                 date_updated_grantmakers = DateTime.strptime(site.config["last_updated_grantmakers"], '%Y-%m-%dT%H:%M:%S.%N%z').to_s
                 date_updated_irs = project["last_updated_irs"]
 
                 if (project["organization_name_prior_year"])
-                    file_name_slug_old_name = slugify(project["ein"] + "-" + project["organization_name_prior_year"])
-                    if (file_name_slug != file_name_slug_old_name)
-                        path_old_name = File.join(dir, file_name_slug_old_name)
-                        project["dir"] = path_old_name
-                        site.pages << RedirectPage.new(site, site.source, path_old_name, project)
+                    if (project["organization_name_prior_year"] != project["organization_name"])
+
+                        # Create basic redirects covering most cases
+                        file_name_slug_old_name = slugify(project["ein"] + "-" + project["organization_name_prior_year"])
+                        if (file_name_slug != file_name_slug_old_name)
+                            path_old_name = File.join(dir, file_name_slug_old_name)
+                            project["dir"] = path_old_name
+                            site.pages << RedirectPage.new(site, site.source, path_old_name, project)
+                        end
+
+                        # Create edge case redirects for previously malformed urls
+                        # TODO These can be removed after Google indexes the correct urls (e.g. new slugify method)
+                        file_name_slug_old_name_old_slugify = slugify_old_method(project["ein"] + "-" + project["organization_name_prior_year"])
+                        if (file_name_slug_old_name != file_name_slug_old_name_old_slugify)
+                            path_old_name_old_slugify = File.join(dir, file_name_slug_old_name_old_slugify)
+                            project["dir"] = path_old_name_old_slugify
+
+                            # Ensure link is not a duplicate of basic malformed redirect
+                            if (file_name_slug_old_name != file_name_slug_old_name_old_slugify)
+                                site.pages << RedirectPage.new(site, site.source, path_old_name_old_slugify, project)
+                            end
+                        end
                     end
+
                 end
 
                 # Fix previously malformed urls that used old slugify method
                 # Google has indexed the erroneous form
                 # Includes org names with a hyphen and org names with extra spaces
+                # TODO These can be removed after Google indexes the correct urls (e.g. new slugify method)
                 malformed_url = slugify_old_method(project["ein"] + "-" + project["organization_name"])
                 correct_url = slugify(project["ein"] + "-" + project["organization_name"])
                 malformed_path = File.join(dir, malformed_url)
