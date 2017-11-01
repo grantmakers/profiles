@@ -20,9 +20,9 @@ plugins:
 
 # Last updated - used in creating redirects if name has changed
 # Format: "YYYY-MM-DDTHH:MM:SS.fffZ"
-last_updated_grantmakers: '2017-10-02T22:28:47.000Z'
+last_updated_grantmakers: '2017-11-01T15:00:00.000Z'
 
-algolia_referral_link: https://www.algolia.com/?utm_source=grantmakers_io
+algolia_referral_link: http://goto.algolia.com/l/139121/2017-10-24/26gc84
 
 # Google Analytics
 google-analytics: UA-84268197-1
