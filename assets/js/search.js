@@ -1,3 +1,4 @@
+/* eslint-disable guard-for-in */
 $(document).ready(function() {
   // Define search globals
   const targetEIN = $('h1.org-name').data('ein');
@@ -74,20 +75,20 @@ $(document).ready(function() {
 
   // Input binding
   $searchInput
-  .on('input propertychange', function(e) {
-    // var query = e.currentTarget.value.replace('-',''); //Handle EINs entered with a hyphen
-    const query = e.currentTarget.value;
-    if ($('#search-input').val().length > 0) {
-      $searchInputIcon.html('close');
-      // $('#stats ul li a').html('MOST RELEVANT');
-    } else {
-      $searchInputIcon.html('search');
-      // $('#stats ul li a').html('MOST RECENT');
-    }
-    
-    algoliaHelper.setQuery(query).search();
-  })
-  //.focus();
+    .on('input propertychange', function(e) {
+      // var query = e.currentTarget.value.replace('-',''); //Handle EINs entered with a hyphen
+      const query = e.currentTarget.value;
+      if ($('#search-input').val().length > 0) {
+        $searchInputIcon.html('close');
+        // $('#stats ul li a').html('MOST RELEVANT');
+      } else {
+        $searchInputIcon.html('search');
+        // $('#stats ul li a').html('MOST RECENT');
+      }
+      
+      algoliaHelper.setQuery(query).search();
+    });
+  // .focus();
 
   // Search errors
   algoliaHelper.on('error', function(error) {
