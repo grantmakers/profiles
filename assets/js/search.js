@@ -332,6 +332,17 @@ $(document).ready(function() {
       $main.removeClass('no-results');
       return;
     }
+    // Hide Algolia search elements if initial search results are empty
+    // Covers edge case where a new profile is pushed live prior to the related grants being indexed
+    if (algoliaHelper.state.query === '') {
+      $main.addClass('no-results');
+      $('.search').hide();
+      $('#grants .algolia-logo').hide();
+      $('.section-results').hide();
+      $('.collapsible').collapsible('open', 0);
+      return;
+    }
+
     $main.addClass('no-results');
 
     let filters = [];
