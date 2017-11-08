@@ -13,7 +13,7 @@
  	{% endif %}
 
 	<title>Grantmakers.io Profiles Index</title>
-	<meta name="description" content="Links to all 71,042 foundation profiles available on Grantmakers.io">
+	<meta name="description" content="Links to all {{ site.number_of_profiles | divided_by: 1000 }},{{ site.number_of_profiles | modulo: 1000 }} foundation profiles available on Grantmakers.io">
 
 	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
 	<meta name = "format-detection" content = "telephone=no">
@@ -104,7 +104,7 @@
 					<div class="col s12">
 						<div class="alert-fixed-to-top">
 							<div class="left">Updated: {{ site.last_updated_grantmakers | date: '%B %d, %Y' }}</div>
-							<div class="right">72,558 Profiles</div>
+							<div class="right">{{ site.number_of_profiles | divided_by: 1000 }},{{ site.number_of_profiles | modulo: 1000 }} Profiles</div>
 						</div>
 					</div>
 				</div>
