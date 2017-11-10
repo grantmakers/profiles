@@ -53,6 +53,15 @@ $(document).ready(function() {
     });
   });
 
+  // Bottom CTAs: Share and feedback buttons
+  $('#profile-share a').on('click', function() {
+    ga('send', 'event', {
+      'eventCategory': 'Profile Events',
+      'eventAction': 'Profile Bottom CTAs',
+      'eventLabel': $(this).data('ga'),
+    });
+  });
+
   // Footer links
   $('footer a, .footer-terms a').on('click', function() {
     ga('send', 'event', {

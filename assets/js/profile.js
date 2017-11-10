@@ -138,8 +138,4 @@ $(document).ready(function() {
     el.attr('data-url-pdf', urlPDF);
     el.attr('href', urlPDF);
   }
-
-  // Import feedback.js
-  // =======================================================
-  $.getScript('{{ site.baseurl }}/assets/js/feedback.js');
 });

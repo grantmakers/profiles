@@ -418,6 +418,19 @@
 
           <div class="row">
             <div class="col s12">
+              <div id="profile-share" class="center-align">
+                <ul class="list-inline">
+                  <li class="tooltipped" data-tooltip="What else would you like<br>to see in profiles?" data-position="bottom" data-delay="20" data-html="true"><a href="mailto:feedback@grantmakers.io?body=%0D%0A%0D%0A{{ page.organization_name}}%0D%0A{{ site.url }}{{ site.baseurl }}/{{ page.ein }}/" target="_blank" class="waves-effect waves-light btn white grey-text text-darken-1" data-ga="Email Feedback"><i class="material-icons left">email</i> Give us feedback</a></li>
+                  <li><a href="mailto:?to=&subject=Grantmakers.io%20Profile%20-%20{{ page.organization_name | url_encode }}&body=%0D%0A%0D%0A{{ page.organization_name}}%0D%0A{{ site.url }}{{ site.baseurl }}/{{ page.ein }}/" target="_blank" class="waves-effect waves-light btn" data-ga="Share Profile via Email"><i class="material-icons left">email</i> Share this profile</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <hr class="divider">
+
+          <div class="row">
+            <div class="col s12">
               <div id="profile-cta">
                 <div class="center-align">
                   <h4>Looking for Another Grantmaker?</h4>
@@ -455,7 +468,7 @@
     {% include ga.html %}
   {% endunless %}
   
-  <div class="feedback-wrapper"></div>
+  {% include drift.html %}
 
 </body>  
 </html>
