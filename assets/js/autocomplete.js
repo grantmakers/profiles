@@ -26,7 +26,7 @@ $(document).ready(function() {
           return autocomplete.escapeHighlightedString(suggestion._highlightResult) && autocomplete.escapeHighlightedString(suggestion._highlightResult.organization_name.value) || autocomplete.escapeHighlightedString(suggestion.organization_name);
         },
         footer: function(){
-          return '<div class="algolia-logo-autocomplete center-align small">Search powered by <a href="https://www.algolia.com/" class="algolia-powered-by-link" title="Algolia"><img class="algolia-logo" src="{{site.url}}{{site.baseurl}}/assets/img/algolia-light-bg.svg" alt="Algolia" style="width: 60px;height: 16px;" /></a></div>'
+          return '<div class="algolia-logo-autocomplete center-align small">Search powered by <a href="{{ site.algolia_referral_link }}" class="algolia-powered-by-link" title="Algolia"><img class="algolia-logo" src="{{site.url}}{{site.baseurl}}/assets/img/algolia-light-bg.svg" alt="Algolia" style="width: 60px;height: 16px;" /></a></div>'
         },
         empty: function(){
           return '<div class="empty">Not finding what you need? Try our <a href="{{ site.url }}">full search</a>.</div>';
