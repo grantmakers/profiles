@@ -157,11 +157,11 @@ $(document).ready(function() {
         window.location.href = target;
       } else {
         elem.addClass('disabled');
-        Materialize.toast('Bummer. PDF not yet available.', 4000)
+        Materialize.toast('PDF not yet available. Try a prior year.', 5000)
       }
     })
     .fail(function(xhr, textStatus, error){
-      var $toastContent = $('<span>Having trouble.</span>').add($('<button href="http://foundationcenter.org/find-funding/990-finder" class="btn-flat toast-action">Try Here.</button>'));
+      var $toastContent = $('<span>Something went wrong.</span>').add($('<button href="http://foundationcenter.org/find-funding/990-finder" class="btn-flat toast-action">Try Here.</button>'));
       Materialize.toast($toastContent, 10000);
     });
   });
