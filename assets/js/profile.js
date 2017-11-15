@@ -121,6 +121,7 @@ $(document).ready(function() {
 
   // Filings
   // =======================================================
+  // Add filing links
   $('.js-filings-pdf').each(function() {
     addFilingURL($(this));
   });
@@ -138,4 +139,30 @@ $(document).ready(function() {
     el.attr('data-url-pdf', urlPDF);
     el.attr('href', urlPDF);
   }
+
+  // Check if filing is available
+  const gcf = 'https://us-central1-infinite-badge-163220.cloudfunctions.net/checkUrl';
+  
+  $('.js-filings-pdf').click(function(e) {
+    e.preventDefault();
+    const elem = $(this);
+    const target = $(this).attr('href');
+    $.ajax({
+      method: 'POST',
+      url: gcf,
+      data: { target: target }
+    })
+    .done(function( res ) {
+      if (res) {
+        window.location.href = target;
+      } else {
+        elem.addClass('disabled');
+        Materialize.toast('Bummer. PDF not yet available.', 4000)
+      }
+    })
+    .fail(function(xhr, textStatus, error){
+      var $toastContent = $('<span>Having trouble.</span>').add($('<button href="http://foundationcenter.org/find-funding/990-finder" class="btn-flat toast-action">Try Here.</button>'));
+      Materialize.toast($toastContent, 10000);
+    });
+  });
 });
