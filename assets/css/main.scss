@@ -164,6 +164,7 @@ Sitewide layout
 body, h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4 {
 	color: #333;
 	font-weight: 300;
+	font-style: normal;
 }
 
 .main {
@@ -309,7 +310,7 @@ nav ul li a {
 	}
 }
 .navbar-profile {
-	//margin: 25px 0;
+	font-weight: 400;
 	&.transparent {
 		background-color: transparent !important;
 		border: 0 !important;
@@ -334,8 +335,9 @@ nav ul li a {
 		}
 	}
 	.algolia-partnership-logo {
+		display: inline-block;
 		position: relative;
-		top: 17px; 
+		top: 5px; 
 		left: 200px;
 		border-left: 1px solid white;
 		padding-left: 28px;
@@ -343,6 +345,9 @@ nav ul li a {
 		font-size: 75%;
 		span.text-spread {
 			letter-spacing: 0.5px;
+		}
+		a {
+			color: #ffffff !important; // Safari fix
 		}
 		img {
 			padding-left: 2px;
