@@ -41,7 +41,7 @@ $gray-lighter:           lighten($gray-base, 93.5%) !default; // #eee
 $gray-lightest: 				 #f5f5f5;
 
 .grantmakers-color-bg, .btn-grantmakers, .grantmakers {
-	background-color: $grantmakers;
+	background-color: $grantmakers !important;
 }
 
 .btn-grantmakers:hover {
@@ -164,6 +164,7 @@ Sitewide layout
 body, h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4 {
 	color: #333;
 	font-weight: 300;
+	font-style: normal;
 }
 
 .main {
@@ -309,7 +310,7 @@ nav ul li a {
 	}
 }
 .navbar-profile {
-	//margin: 25px 0;
+	font-weight: 400;
 	&.transparent {
 		background-color: transparent !important;
 		border: 0 !important;
@@ -334,8 +335,9 @@ nav ul li a {
 		}
 	}
 	.algolia-partnership-logo {
+		display: inline-block;
 		position: relative;
-		top: 17px; 
+		top: 5px; 
 		left: 200px;
 		border-left: 1px solid white;
 		padding-left: 28px;
@@ -343,6 +345,9 @@ nav ul li a {
 		font-size: 75%;
 		span.text-spread {
 			letter-spacing: 0.5px;
+		}
+		a {
+			color: #ffffff !important; // Safari fix
 		}
 		img {
 			padding-left: 2px;
@@ -489,14 +494,11 @@ nav ul li a {
 	//z-index: 2000; //HACK Fixed header loses transparent background
 }
 .profile-content {
-	#profile {
+	#profile, #feedback, #profile-share {
 		margin-bottom: 75px;
 	}
-	#summary, #people, #grants, #filings {
+	#summary, #people, #grants, #application-info, #community, #filings {
 		background-color: white;
-		margin-bottom: 75px;
-	}
-	#profile-share {
 		margin-bottom: 75px;
 	}
 	#profile-cta {
@@ -1079,6 +1081,31 @@ nav ul li a {
 		color: $gray-light !important;
 		&:hover {
 			color: $gray-light !important;
+		}
+	}
+	#application-info {
+		.collection, .collection-item {
+			border: none;
+		}
+		.card-panel-header .row:first-child {
+			margin-bottom: 0;
+		}
+	}
+	#community {
+		.card-panel-body {
+			padding: 15px 20px;
+		}
+		.community-examples {
+			padding-top: 20px;
+			padding-bottom: 20px;
+		}
+		.action-group {
+			padding: 20px 0px;
+		}
+	}
+	#feedback {
+		h5 {
+			margin-bottom: 25px;
 		}
 	}
 	#filings {

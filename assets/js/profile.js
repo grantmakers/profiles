@@ -78,12 +78,6 @@ $(document).ready(function() {
         bottom: targetBottom
       });
     });
-
-    {% if jekyll.environment == 'staging' %}
-      var targetURL = 'https://www.grantmakers.io' + window.location.pathname; 
-      var $toastStaging = $('<span>This is a preview site</span>').add($('<a href="' + targetURL + '" class="btn-flat toast-action">Go to the live site</a>'));
-      Materialize.toast($toastStaging, 2000);
-    {% endif %}
   }
 
   // SMOOTH SCROLL

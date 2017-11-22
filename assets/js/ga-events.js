@@ -54,7 +54,7 @@ $(document).ready(function() {
   });
 
   // Bottom CTAs: Share and feedback buttons
-  $('#profile-share a').on('click', function() {
+  $('#profile-share a, #community a, #feedback a, #application-info').on('click', function() {
     ga('send', 'event', {
       'eventCategory': 'Profile Events',
       'eventAction': 'Profile Bottom CTAs',
