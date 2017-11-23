@@ -413,49 +413,41 @@
                       </ul>
                       <hr class="divider">
                     {% endif %}
+
                     {% unless page.grants_to_preselected_only or page.grants_application_info %}
                       The foundation does not provide any guidance in its latest Form 990PF Part XV, Lines 2-2d
                     {% endunless %}
+
                     {% if page.grants_to_preselected_only %}
                       <p>The foundation has indicated it only makes contributions to preselected charitable organizations and does not accept unsolicited requests for funds.</p>
+                      {% if page.grants_application_info %}
+                        <hr class="divider">
+                      {% endif %}
                     {% endif %} 
                     
-                    {% if page.grants_to_preselected_only and page.grants_application_info %}
-                      <hr class="divider">
-                    {% endif %}
-
                     {% if page.grants_application_info %}
-                    <ul class="collection">
-                      {% for each in page.grants_application_info %}
+                      <ul class="collection">
+                        <li class="collection-item avatar">
+                          <i class="material-icons circle grey tooltipped" data-delay="20" data-position="right" data-html="true" data-tooltip="The form in which applications<br>should be submitted and information<br>and materials they should include<br>Line 2b">assignment</i>
+                          <span class="title">Instructions</span>
+                          <p>{{ page.grants_application_info }}</p>
+                          <!-- <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a> -->
+                        </li>
 
-                        {% if each[0] == "FormAndInfoAndMaterialsTxt" or each[0] == "FormAndInfoAndMaterials" %}
-                          <li class="collection-item avatar">
-                            <i class="material-icons circle grey tooltipped" data-delay="20" data-position="right" data-html="true" data-tooltip="The form in which applications<br>should be submitted and information<br>and materials they should include<br>Line 2b">assignment</i>
-                            <span class="title">Instructions</span>
-                            <p>{{ each[1] }}</p>
-                            <!-- <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a> -->
-                          </li>
-                        {% endif %}
+                        <li class="collection-item avatar">
+                          <i class="material-icons circle grey tooltipped" data-delay="20" data-position="right" data-html="true" data-tooltip="Any submission deadlines<br>Line 2c">history</i>
+                          <span class="title">Deadlines</span>
+                          <p>{{ page.grants_application_deadlines }}</p>
+                          <!--<a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>-->
+                        </li>
 
-                        {% if each[0] == "SubmissionDeadlinesTxt" or each[0] == "SubmissionDeadlines" %}
-                          <li class="collection-item avatar">
-                            <i class="material-icons circle grey tooltipped" data-delay="20" data-position="right" data-html="true" data-tooltip="Any submission deadlines<br>Line 2c">history</i>
-                            <span class="title">Deadlines</span>
-                            <p>{{ each[1] }}</p>
-                            <!--<a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>-->
-                          </li>
-                        {% endif %}
-
-                        {% if each[0] == "RestrictionsOnAwardsTxt" or each[0] == "RestrictionsOnAwards" %}
-                          <li class="collection-item avatar">
-                            <i class="material-icons circle grey tooltipped" data-delay="20" data-position="right" data-html="true" data-tooltip="Any restrictions or limitations on awards,<br>such as by geographical areas, charitable fields,<br>kinds of institutions, or other factors<br>Line 2d">assignment_late</i>
-                            <span class="title">Restrictions</span>
-                            <p>{{ each[1] }}</p>
-                            <!--<a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>-->
-                          </li>
-                        {% endif %}
-                      {% endfor %}
-                    </ul>
+                        <li class="collection-item avatar">
+                          <i class="material-icons circle grey tooltipped" data-delay="20" data-position="right" data-html="true" data-tooltip="Any restrictions or limitations on awards,<br>such as by geographical areas, charitable fields,<br>kinds of institutions, or other factors<br>Line 2d">assignment_late</i>
+                          <span class="title">Restrictions</span>
+                          <p>{{ page.grants_application_restrictions }}</p>
+                          <!--<a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>-->
+                        </li>
+                      </ul>
                     {% endif %}
                   </div>
                 </div>
