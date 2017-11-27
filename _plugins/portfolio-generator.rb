@@ -84,6 +84,20 @@ module Jekyll
 
                 end
 
+                if (project["organization_name_second_prior_year"])
+                    if (project["organization_name_second_prior_year"] != project["organization_name_prior_year"])
+                        # Create basic redirects covering most cases
+                        file_name_slug_old_name = slugify(project["ein"] + "-" + project["organization_name_prior_year"])
+                        file_name_slug_oldest_name = slugify(project["ein"] + "-" + project["organization_name_second_prior_year"])
+                        if (file_name_slug_old_name != file_name_slug_oldest_name && file_name_slug != file_name_slug_oldest_name)
+                            path_oldest_name = File.join(dir, file_name_slug_oldest_name)
+                            project["dir"] = path_oldest_name
+                            site.pages << RedirectPage.new(site, site.source, path_oldest_name, project)
+                        end
+                    end
+                
+                end
+
                 # Fix previously malformed urls that used old slugify method
                 # Google has indexed the erroneous form
                 # Includes org names with a hyphen and org names with extra spaces
