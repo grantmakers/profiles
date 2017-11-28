@@ -50,50 +50,7 @@
 </head>
 
 <body class="profile-page">
-	<!-- Navbar -->
-	<div class="navbar-fixed">
-    <nav class="navbar-profile affix-top">
-      <div class="nav-wrapper">
-        <div class="container-custom">
-					<a href="#" data-activates="mobile-nav" class="button-collapse right disable-primary-color"><i class="material-icons">menu</i></a>
-					<div class="row">
-						<div class="col s8 m4">
-							<a href="https://www.grantmakers.io" data-ga="Homepage" class="brand-logo">
-								<div class="logo-container">
-									<div class="logo">
-											<img src="{{ site.baseurl }}/assets/img/logo.png" alt="Grantmakers Logo" class="tooltipped" data-tooltip="<b>Grantmakers.io</b> is a free tool<br>from your friends at<br><b>SmarterGiving.org</b>" data-position="bottom" data-delay="20" data-html="true">
-									</div>
-									<div class="brand brand-name">
-											Grantmakers.io
-									</div>
-								</div>
-							</a>
-						</div>
-						<div class="col m4">
-							<ul class="nav-primary nav-center hide-on-med-and-down">
-								<li><a class="waves-effect waves-light btn-flat white-text" href="{{ site.url }}/"><i class="material-icons left">search</i> Search</a></li>
-							</ul>
-						</div>
-						<div class="col m4">
-							<ul class="nav-primary hide-on-med-and-down">
-								<li class="right"><a href="{{ site.url }}/faq/" data-ga="FAQ">FAQ</a></li>
-								<li class="right"><a href="{{ site.url }}/about/" data-ga="About">About</a></li>
-							</ul>
-						</div>
-					</div>
-        </div>
-      </div>
-		</nav>
-	</div>
-	<!-- Mobile Navbar -->
-	<ul class="nav-primary side-nav" id="mobile-nav" >
-		<li><a href="{{ site.url }}/about/" data-ga="About">About</a></li>
-		<li><a href="{{ site.url }}/faq/" data-ga="FAQ">FAQ</a></li>
-		<li><hr></li>
-		<li><a class="waves-effect waves-light btn-flat grey lighten-3" href="{{ site.url }}/"><i class="material-icons left">search</i> Search</a></li>
-	</ul>
-	<!-- End Mobile Navbar -->
-	<!-- End Navbar -->
+	{% include nav-no-search.html %}
 
 	<div class="wrapper">
 		<!-- <div class="header header-filter" style="background-image: url('{{ site.baseurl }}/assets/img/{{ page.State }}.jpg');"></div> -->
@@ -118,6 +75,7 @@
 								<div class="name">
 									<h1 class="title">Foundation Profiles</h1>
 									<h6 class="sub-title">Complete Index</h6>
+									<p>Psst. Use the <a href="{{ site.url }}">main search feature</a> to find profiles.</p>
 
 									<div class="row">
 										<div class="col s12 l8 offset-l2">

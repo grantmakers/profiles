@@ -356,6 +356,9 @@ nav ul li a {
 			vertical-align: text-top;
 		}
 	}
+	i.left-tighten {
+		margin-right: 3px;
+	}
 	/* initial navbar style */
 	@media #{$small-and-down} {
 		&.affix-top {
