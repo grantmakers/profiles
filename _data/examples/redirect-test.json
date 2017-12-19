@@ -1,13 +1,15 @@
 {
     "_id" : "010549309",
-    "last_updated" : "2017-06-29T17:54:03.061Z",
-    "last_updated_irs" : "2017-04-11T02:32:14.000Z",
+    "last_updated_grantmakers" : "2017-11-21T17:39:04.163Z",
+    "last_updated_irs" : "2017-04-10T21:32:14",
     "ein" : "010549309",
     "organization_name" : "ROBERTS FOUNDATION CO MARGARET GALLAGHER THOMPSON ESQ",
     "assets" : 5678331.0,
     "website" : null,
     "city" : "West Conshohocken",
     "state" : "PA",
+    "country" : "US",
+    "is_foreign" : false,
     "is_likely_staffed" : false,
     "has_website" : false,
     "has_grants" : true,
@@ -16,6 +18,10 @@
     "grant_min" : 60000.0,
     "grant_median" : 60000.0,
     "grant_count" : 1.0,
+    "grants_to_preselected_only" : true,
+    "grants_application_info" : null,
+    "grants_application_deadlines" : null,
+    "grants_application_restrictions" : null,
     "filings" : [ 
         {
             "object_id_irs" : "201633209349102963",
@@ -59,6 +65,8 @@
             "name" : "ROOTS OF RENEWAL",
             "city" : "New Orleans",
             "state" : "LA",
+            "country" : "US",
+            "is_foreign" : false,
             "amount" : 60000.0,
             "purpose" : "TO FUND THE RECIPIENT'S OPERATING BUDGET"
         }
@@ -71,5 +79,6 @@
             "compensation" : 0.0
         }
     ],
-    "organization_name_prior_year" : "ROBERTS FOUNDATION"
+    "organization_name_prior_year" : "ROBERTS FOUNDATION",
+    "organization_name_second_prior_year" : "ROBERTS FOUNDATION"
 }

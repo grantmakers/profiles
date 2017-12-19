@@ -1,13 +1,15 @@
 {
     "_id" : "521798711",
-    "last_updated" : "2017-06-29T17:54:03.061Z",
-    "last_updated_irs" : "2017-04-11T02:32:14.000Z",
+    "last_updated_grantmakers" : "2017-11-21T17:39:04.163Z",
+    "last_updated_irs" : "2017-04-10T21:32:14",
     "ein" : "521798711",
     "organization_name" : "KAHLERT FOUNDATION INC",
     "assets" : 213784438.0,
     "website" : "http://www.thekahlertfoundation.org",
     "city" : "Sykesville",
     "state" : "MD",
+    "country" : "US",
+    "is_foreign" : false,
     "is_likely_staffed" : false,
     "has_website" : true,
     "has_grants" : true,
@@ -16,6 +18,10 @@
     "grant_min" : 1000.0,
     "grant_median" : 88500.0,
     "grant_count" : 100.0,
+    "grants_to_preselected_only" : true,
+    "grants_application_info" : null,
+    "grants_application_deadlines" : null,
+    "grants_application_restrictions" : null,
     "filings" : [ 
         {
             "object_id_irs" : "201633199349102333",
@@ -59,6 +65,8 @@
             "name" : "ACCESS CARROLL INC",
             "city" : "Westminster",
             "state" : "MD",
+            "country" : "US",
+            "is_foreign" : false,
             "amount" : 250000.0,
             "purpose" : "PRIMARY HEALTHCARE FOR UNINSURED, LOW-INCOME RESIDENTS OF CARROLL COUNTY."
         }, 
@@ -66,6 +74,8 @@
             "name" : "ALPINE SCHOOL DISTRICT FOUNDATION",
             "city" : "American Fork",
             "state" : "UT",
+            "country" : "US",
+            "is_foreign" : false,
             "amount" : 75000.0,
             "purpose" : "EDUCATION."
         }, 
@@ -73,6 +83,8 @@
             "name" : "ALZHEIMER'S ASSOCIATION GREATER MARYLAND",
             "city" : "Timonium",
             "state" : "MD",
+            "country" : "US",
+            "is_foreign" : false,
             "amount" : 210000.0,
             "purpose" : "TO END ALZHEIMER'S DISEASE."
         }, 
@@ -80,6 +92,8 @@
             "name" : "AMERICAN DIABETES ASSOCIATION",
             "city" : "Alexandria",
             "state" : "VA",
+            "country" : "US",
+            "is_foreign" : false,
             "amount" : 225000.0,
             "purpose" : "TO PREVENT AND CURE DIABETES."
         }, 
@@ -87,6 +101,8 @@
             "name" : "AMMONIA REFRIGERATION FOUNDATION",
             "city" : "Alexandria",
             "state" : "VA",
+            "country" : "US",
+            "is_foreign" : false,
             "amount" : 76000.0,
             "purpose" : "TO SUPPORT RESEARCH AND EDUCATIONAL EFFORTS IN INDUSTRIAL REFRIGERATION."
         }, 
@@ -94,6 +110,8 @@
             "name" : "ARC OF CARROLL COUNTY INC",
             "city" : "Westminster",
             "state" : "MD",
+            "country" : "US",
+            "is_foreign" : false,
             "amount" : 100000.0,
             "purpose" : "TO SUPPORT PEOPLE WITH INTELLECTUAL AND DEVELOPMENTAL DISABILITIES."
         }, 
@@ -101,6 +119,8 @@
             "name" : "ARC OF HOWARD COUNTY INC",
             "city" : "Ellicott City",
             "state" : "MD",
+            "country" : "US",
+            "is_foreign" : false,
             "amount" : 60000.0,
             "purpose" : "SOCIAL SERVICES."
         }, 
@@ -108,6 +128,8 @@
             "name" : "ARMENIAN HERITAGE FOUNDATION",
             "city" : "Belmont",
             "state" : "MA",
+            "country" : "US",
+            "is_foreign" : false,
             "amount" : 2000.0,
             "purpose" : "ARMENIAN HERITAGE TRIBUTE AND IMMIGRANT EXPERIENCE."
         }, 
@@ -115,6 +137,8 @@
             "name" : "ASSOCIATION OF COMMUNITY SERVICES OF HOWARD COUNTY",
             "city" : "Columbia",
             "state" : "MD",
+            "country" : "US",
+            "is_foreign" : false,
             "amount" : 110500.0,
             "purpose" : "EDUCATION."
         }, 
@@ -122,6 +146,8 @@
             "name" : "BALTIMORE SQUASHWISE INC",
             "city" : "Baltimore",
             "state" : "MD",
+            "country" : "US",
+            "is_foreign" : false,
             "amount" : 35000.0,
             "purpose" : "ENRICH LIVES OF BALTIMORE CITY YOUTH THROUGH ATHLETICS AND ACADEMICS."
         }, 
@@ -129,6 +155,8 @@
             "name" : "BLESSINGS IN A BACKPACK INC",
             "city" : "Frederick",
             "state" : "MD",
+            "country" : "US",
+            "is_foreign" : false,
             "amount" : 12350.0,
             "purpose" : "SOCIAL SERVICES."
         }, 
@@ -136,6 +164,8 @@
             "name" : "BOYS & GIRLS CLUB OF GREATER SALT LAKE",
             "city" : "Murray",
             "state" : "UT",
+            "country" : "US",
+            "is_foreign" : false,
             "amount" : 70000.0,
             "purpose" : "TO INSPIRE AND ENABLE ALL YOUNG PEOPLE."
         }, 
@@ -143,6 +173,8 @@
             "name" : "BOYS & GIRLS CLUB OF WESTMINSTER INC",
             "city" : "Westminster",
             "state" : "MD",
+            "country" : "US",
+            "is_foreign" : false,
             "amount" : 500000.0,
             "purpose" : "TO INSPIRE AND ENABLE ALL YOUNG PEOPLE."
         }, 
@@ -150,6 +182,8 @@
             "name" : "BRENDAN CORPORATION",
             "city" : "Washington",
             "state" : "DC",
+            "country" : "US",
+            "is_foreign" : false,
             "amount" : 25000.0,
             "purpose" : "TO PROVIDE STUDENTS WITH A SAFE LEARNING ENVIRONMENT."
         }, 
@@ -157,6 +191,8 @@
             "name" : "CARING AND SHARING MINISTRIES OF NORTHWEST CARROLL COUNTY INC",
             "city" : "Taneytown",
             "state" : "MD",
+            "country" : "US",
+            "is_foreign" : false,
             "amount" : 15000.0,
             "purpose" : "WORSHIP AND RELIGIOUS EDUCATION."
         }, 
@@ -164,6 +200,8 @@
             "name" : "CARROLL AREA TRANSIT SYSTEM INC",
             "city" : "Westminster",
             "state" : "MD",
+            "country" : "US",
+            "is_foreign" : false,
             "amount" : 50000.0,
             "purpose" : "TRANSPORTATION SERVICES TO ELDERLY, MEDICALLY IMPAIRED, AND OTHER RESIDENTS OF CARROLL COUNTY."
         }, 
@@ -171,6 +209,8 @@
             "name" : "CARROLL CHILD CARE CENTERS INC",
             "city" : "Westminster",
             "state" : "MD",
+            "country" : "US",
+            "is_foreign" : false,
             "amount" : 26000.0,
             "purpose" : "AFFORDABLE DAY CARE."
         }, 
@@ -178,6 +218,8 @@
             "name" : "CARROLL COMMUNITY COLLEGE FOUNDATION INC",
             "city" : "Westminster",
             "state" : "MD",
+            "country" : "US",
+            "is_foreign" : false,
             "amount" : 200000.0,
             "purpose" : "TO PROVIDE SUPPORT TO CARROLL COMMUNITY COLLEGE."
         }, 
@@ -185,6 +227,8 @@
             "name" : "CARROLL COUNTY DEPARTMENT OF SOCIAL SERVICES",
             "city" : "Westminster",
             "state" : "MD",
+            "country" : "US",
+            "is_foreign" : false,
             "amount" : 120000.0,
             "purpose" : "SOCIAL SERVICES."
         }, 
@@ -192,6 +236,8 @@
             "name" : "CARROLL COUNTY FOOD SUNDAY INC",
             "city" : "Westminster",
             "state" : "MD",
+            "country" : "US",
+            "is_foreign" : false,
             "amount" : 20000.0,
             "purpose" : "DISTRIBUTION OF FOOD TO THE NEEDY."
         }, 
@@ -199,6 +245,8 @@
             "name" : "CARROLL COUNTY HEAD START",
             "city" : "Westminster",
             "state" : "MD",
+            "country" : "US",
+            "is_foreign" : false,
             "amount" : 30000.0,
             "purpose" : "EDUCATION."
         }, 
@@ -206,6 +254,8 @@
             "name" : "CARROLL COUNTY PUBLIC SCHOOLS EDUCATION FOUNDATION",
             "city" : "Westminster",
             "state" : "MD",
+            "country" : "US",
+            "is_foreign" : false,
             "amount" : 165000.0,
             "purpose" : "EDUCATION."
         }, 
@@ -213,6 +263,8 @@
             "name" : "CARROLL COUNTY YOUTH SERVICE BUREAU",
             "city" : "Westminster",
             "state" : "MD",
+            "country" : "US",
+            "is_foreign" : false,
             "amount" : 75000.0,
             "purpose" : "SOCIAL SERVICES."
         }, 
@@ -220,6 +272,8 @@
             "name" : "CARROLL HOSPICE",
             "city" : "Westminster",
             "state" : "MD",
+            "country" : "US",
+            "is_foreign" : false,
             "amount" : 125000.0,
             "purpose" : "IMPROVING THE QUALITY OF LIFE FOR PATIENTS NEEDING END-OF-LIFE CARE."
         }, 
@@ -227,6 +281,8 @@
             "name" : "CARROLL HOSPITAL FOUNDATION",
             "city" : "Westminster",
             "state" : "MD",
+            "country" : "US",
+            "is_foreign" : false,
             "amount" : 1500000.0,
             "purpose" : "MEDICAL SERVICES."
         }, 
@@ -234,6 +290,8 @@
             "name" : "CARSON SCHOLARS FUND INC",
             "city" : "Towson",
             "state" : "MD",
+            "country" : "US",
+            "is_foreign" : false,
             "amount" : 72340.0,
             "purpose" : "SCHOLARSHIP FUND."
         }, 
@@ -241,6 +299,8 @@
             "name" : "CHANGE INC",
             "city" : "Westminster",
             "state" : "MD",
+            "country" : "US",
+            "is_foreign" : false,
             "amount" : 62500.0,
             "purpose" : "SUPPORT PEOPLE WITH DISABILITIES."
         }, 
@@ -248,6 +308,8 @@
             "name" : "CHARITYWATCH",
             "city" : "Chicago",
             "state" : "IL",
+            "country" : "US",
+            "is_foreign" : false,
             "amount" : 1000.0,
             "purpose" : "PROVIDE DONORS WITH INFORMATION TO MAKE MORE INFORMED GIVING DECISIONS."
         }, 
@@ -255,6 +317,8 @@
             "name" : "CHESAPEAKE BAY FOUNDATION INC",
             "city" : "Annapolis",
             "state" : "MD",
+            "country" : "US",
+            "is_foreign" : false,
             "amount" : 100000.0,
             "purpose" : "ENVIRONMENTAL CONSERVATION."
         }, 
@@ -262,6 +326,8 @@
             "name" : "CLAUDIA MAYER TINA BROCCOLINO CANCER RESOURCE CENTER",
             "city" : "Columbia",
             "state" : "MD",
+            "country" : "US",
+            "is_foreign" : false,
             "amount" : 30000.0,
             "purpose" : "MEDICAL SERVICES."
         }, 
@@ -269,6 +335,8 @@
             "name" : "COASTAL CONSERVATION ASSOCIATION FLORIDA",
             "city" : "Orlando",
             "state" : "FL",
+            "country" : "US",
+            "is_foreign" : false,
             "amount" : 5000.0,
             "purpose" : "ENVIRONMENTAL CONSERVATION."
         }, 
@@ -276,6 +344,8 @@
             "name" : "COASTAL HOSPICE AND PALLIATIVE CARE",
             "city" : "Salisbury",
             "state" : "MD",
+            "country" : "US",
+            "is_foreign" : false,
             "amount" : 150000.0,
             "purpose" : "MEDICAL AND SOCIAL SERVICES."
         }, 
@@ -283,6 +353,8 @@
             "name" : "COMMUNITY FOUNDATION OF CARROLL COUNTY INC",
             "city" : "Westminster",
             "state" : "MD",
+            "country" : "US",
+            "is_foreign" : false,
             "amount" : 155000.0,
             "purpose" : "MAINTAIN AND ENHANCE THE QUALITY OF LIFE IN THE COMMUNITY OF CARROLL COUNTY."
         }, 
@@ -290,6 +362,8 @@
             "name" : "COMMUNITY FOUNDATION OF HOWARD COUNTY INC",
             "city" : "Columbia",
             "state" : "MD",
+            "country" : "US",
+            "is_foreign" : false,
             "amount" : 92000.0,
             "purpose" : "TO CONNECT PEOPLE, RESOURCES AND CAUSES TO PRODUCE A POSITIVE AND SUSTAINABLE CHANGE IN THE COMMUNITY."
         }, 
@@ -297,6 +371,8 @@
             "name" : "CURES WITHIN REACH",
             "city" : "Skokie",
             "state" : "IL",
+            "country" : "US",
+            "is_foreign" : false,
             "amount" : 250000.0,
             "purpose" : "SCIENTIFIC RESEARCH."
         }, 
@@ -304,6 +380,8 @@
             "name" : "DAYS END FARM HORSE RESCUE INC",
             "city" : "Woodbine",
             "state" : "MD",
+            "country" : "US",
+            "is_foreign" : false,
             "amount" : 20000.0,
             "purpose" : "ANIMAL WELFARE."
         }, 
@@ -311,6 +389,8 @@
             "name" : "DIABETES ACTION RESEARCH AND EDUCATION FOUNDATION",
             "city" : "Washington",
             "state" : "DC",
+            "country" : "US",
+            "is_foreign" : false,
             "amount" : 40000.0,
             "purpose" : "PREVENTION AND TREATMENT OF DIABETES."
         }, 
@@ -318,6 +398,8 @@
             "name" : "DOWNTOWN SAILING CENTER INC",
             "city" : "Baltimore",
             "state" : "MD",
+            "country" : "US",
+            "is_foreign" : false,
             "amount" : 25000.0,
             "purpose" : "EDUCATION AND LIFE ENRICHING PROGRAMS THROUGH SAILING."
         }, 
@@ -325,6 +407,8 @@
             "name" : "FAMILY & CHILDREN'S SERVICES OF CENTRAL MD INC",
             "city" : "Baltimore",
             "state" : "MD",
+            "country" : "US",
+            "is_foreign" : false,
             "amount" : 100750.0,
             "purpose" : "PROVIDE SERVICES TO VULNERABLE FAMILIES & INDIVIDUALS."
         }, 
@@ -332,6 +416,8 @@
             "name" : "FISHER HOUSE FOUNDATION INC",
             "city" : "Rockville",
             "state" : "MD",
+            "country" : "US",
+            "is_foreign" : false,
             "amount" : 150000.0,
             "purpose" : "FINANCIAL ASSISTANCE TO CURRENT MEMBERS OF UNITED STATES ARMED FORCES."
         }, 
@@ -339,6 +425,8 @@
             "name" : "FRIENDS OF THE LYRIC INC",
             "city" : "Stuart",
             "state" : "FL",
+            "country" : "US",
+            "is_foreign" : false,
             "amount" : 10000.0,
             "purpose" : "TO SUPPORT THE PERFORMING ARTS."
         }, 
@@ -346,6 +434,8 @@
             "name" : "FUND FOR JOHNS HOPKINS MEDICINE",
             "city" : "Baltimore",
             "state" : "MD",
+            "country" : "US",
+            "is_foreign" : false,
             "amount" : 170000.0,
             "purpose" : "MEDICAL SERVICES, TRAINING AND RESEARCH."
         }, 
@@ -353,6 +443,8 @@
             "name" : "GBMC HEALTHCARE INC",
             "city" : "Baltimore",
             "state" : "MD",
+            "country" : "US",
+            "is_foreign" : false,
             "amount" : 2000.0,
             "purpose" : "TO PROVIDE HEALTH RELATED SERVICES."
         }, 
@@ -360,6 +452,8 @@
             "name" : "GBMC RESEARCH AND DISCOVERY FUND",
             "city" : "Baltimore",
             "state" : "MD",
+            "country" : "US",
+            "is_foreign" : false,
             "amount" : 250000.0,
             "purpose" : "MEDICAL RESEARCH."
         }, 
@@ -367,6 +461,8 @@
             "name" : "HABITAT FOR HUMANITY OF CARROLL COUNTY INC",
             "city" : "Westminster",
             "state" : "MD",
+            "country" : "US",
+            "is_foreign" : false,
             "amount" : 129000.0,
             "purpose" : "TO BRING PEOPLE TOGETHER TO BUILD HOMES, COMMUNITIES, AND HOPE."
         }, 
@@ -374,6 +470,8 @@
             "name" : "HAMPDEN FAMILY CENTER INC",
             "city" : "Baltimore",
             "state" : "MD",
+            "country" : "US",
+            "is_foreign" : false,
             "amount" : 90000.0,
             "purpose" : "SOCIAL SERVICES."
         }, 
@@ -381,6 +479,8 @@
             "name" : "HAVEN",
             "city" : "Salt Lake City",
             "state" : "UT",
+            "country" : "US",
+            "is_foreign" : false,
             "amount" : 35000.0,
             "purpose" : "MEDICAL AND SOCIAL SERVICES"
         }, 
@@ -388,6 +488,8 @@
             "name" : "HODAN COMMUNITY SERVICES INC",
             "city" : "Mineral Point",
             "state" : "WI",
+            "country" : "US",
+            "is_foreign" : false,
             "amount" : 10000.0,
             "purpose" : "SOCIAL SERVICES."
         }, 
@@ -395,6 +497,8 @@
             "name" : "HOMES FOR OUR TROOPS",
             "city" : "Taunton",
             "state" : "MA",
+            "country" : "US",
+            "is_foreign" : false,
             "amount" : 87000.0,
             "purpose" : "BUILD HOMES FOR INJURED SOLDIERS."
         }, 
@@ -402,6 +506,8 @@
             "name" : "HORIZON DAY CAMP",
             "city" : "Lutherville",
             "state" : "MD",
+            "country" : "US",
+            "is_foreign" : false,
             "amount" : 90000.0,
             "purpose" : "EDUCATION AND SOCIAL SERVICES."
         }, 
@@ -409,6 +515,8 @@
             "name" : "HOSPICE OF FREDERICK COUNTY INC",
             "city" : "Frederick",
             "state" : "MD",
+            "country" : "US",
+            "is_foreign" : false,
             "amount" : 120000.0,
             "purpose" : "MEDICAL AND SOCIAL SERVICES."
         }, 
@@ -416,6 +524,8 @@
             "name" : "HOWARD COMMUNITY COLLEGE EDUCATIONAL FOUNDATION INC",
             "city" : "Columbia",
             "state" : "MD",
+            "country" : "US",
+            "is_foreign" : false,
             "amount" : 200000.0,
             "purpose" : "SUPPORT STUDENTS, PROGRAMS, AND FACILITIES OF HOWARD COMMUNITY COLLEGE."
         }, 
@@ -423,6 +533,8 @@
             "name" : "HOWARD COUNTY CONSERVANCY INC",
             "city" : "Woodstock",
             "state" : "MD",
+            "country" : "US",
+            "is_foreign" : false,
             "amount" : 50000.0,
             "purpose" : "ENVIRONMENTAL CONSERVATION."
         }, 
@@ -430,6 +542,8 @@
             "name" : "HUMAN SERVICES PROGRAMS OF CARROLL COUNTY INC",
             "city" : "Westminster",
             "state" : "MD",
+            "country" : "US",
+            "is_foreign" : false,
             "amount" : 110000.0,
             "purpose" : "TO IMPROVE THE QUALITY OF LIFE OF AT-RISK, LOW-INCOME CARROLL COUNTY RESIDENTS."
         }, 
@@ -437,6 +551,8 @@
             "name" : "HUNSTMAN CANCER FOUNDATION",
             "city" : "Salt Lake City",
             "state" : "UT",
+            "country" : "US",
+            "is_foreign" : false,
             "amount" : 250000.0,
             "purpose" : "MEDICAL AND EDUCATIONAL SERVICES."
         }, 
@@ -444,6 +560,8 @@
             "name" : "INTREPID FALLEN HEROES FUND",
             "city" : "New York",
             "state" : "NY",
+            "country" : "US",
+            "is_foreign" : false,
             "amount" : 150000.0,
             "purpose" : "TO SERVE UNITED STATES MILITARY PERSONNEL WOUNDED OR INJURED IN SERVICE."
         }, 
@@ -451,6 +569,8 @@
             "name" : "IRAQ AND AFGHANISTAN VETERANS OF AMERICA INC",
             "city" : "New York",
             "state" : "NY",
+            "country" : "US",
+            "is_foreign" : false,
             "amount" : 50000.0,
             "purpose" : "TO IMPROVE THE LIVES OF IRAQ AND AFGHANISTAN VETERANS."
         }, 
@@ -458,6 +578,8 @@
             "name" : "IRVINE NATURE CENTER",
             "city" : "Owings Mills",
             "state" : "MD",
+            "country" : "US",
+            "is_foreign" : false,
             "amount" : 40000.0,
             "purpose" : "ENVIRONMENTAL EDUCATION."
         }, 
@@ -465,6 +587,8 @@
             "name" : "JDRF INTERNATIONAL",
             "city" : "Washington",
             "state" : "DC",
+            "country" : "US",
+            "is_foreign" : false,
             "amount" : 100000.0,
             "purpose" : "MEDICAL SERVICES."
         }, 
@@ -472,6 +596,8 @@
             "name" : "LIFEBRIDGE HEALTH",
             "city" : "Baltimore",
             "state" : "MD",
+            "country" : "US",
+            "is_foreign" : false,
             "amount" : 250000.0,
             "purpose" : "MEDICAL SERVICES."
         }, 
@@ -479,6 +605,8 @@
             "name" : "LITERACY COUNCIL OF CARROLL COUNTY INC",
             "city" : "Westminster",
             "state" : "MD",
+            "country" : "US",
+            "is_foreign" : false,
             "amount" : 30000.0,
             "purpose" : "EDUCATION."
         }, 
@@ -486,6 +614,8 @@
             "name" : "MAKE-A-WISH FOUNDATION OF THE MID-ATLANTIC INC",
             "city" : "Bethesda",
             "state" : "MD",
+            "country" : "US",
+            "is_foreign" : false,
             "amount" : 92000.0,
             "purpose" : "GRANT WISHES OF CHILDREN WITH LIFE-THREATENING MEDICAL CONDITIONS."
         }, 
@@ -493,6 +623,8 @@
             "name" : "MAKE-A-WISH FOUNDATION OF UTAH INC",
             "city" : "Salt Lake City",
             "state" : "UT",
+            "country" : "US",
+            "is_foreign" : false,
             "amount" : 250000.0,
             "purpose" : "GRANT WISHES OF CHILDREN WITH LIFE-THREATENING MEDICAL CONDITIONS."
         }, 
@@ -500,6 +632,8 @@
             "name" : "MARINE TOYS FOR TOTS FOUNDATION",
             "city" : "Triangle",
             "state" : "VA",
+            "country" : "US",
+            "is_foreign" : false,
             "amount" : 50000.0,
             "purpose" : "SOCIAL SERVICES."
         }, 
@@ -507,6 +641,8 @@
             "name" : "MARYLAND FOOD BANK INC",
             "city" : "Baltimore",
             "state" : "MD",
+            "country" : "US",
+            "is_foreign" : false,
             "amount" : 175000.0,
             "purpose" : "TO PROVIDE FOOD IN AN ATTEMPT TO END HUNGER."
         }, 
@@ -514,6 +650,8 @@
             "name" : "MARYLAND ZOOLOGICAL SOCIETY INC",
             "city" : "Baltimore",
             "state" : "MD",
+            "country" : "US",
+            "is_foreign" : false,
             "amount" : 39300.0,
             "purpose" : "TO RESEARCH AND CARE FOR THE ANIMALS AND TO EDUCATE THE PUBLIC."
         }, 
@@ -521,6 +659,8 @@
             "name" : "MCDANIEL COLLEGE INC",
             "city" : "Westminster",
             "state" : "MD",
+            "country" : "US",
+            "is_foreign" : false,
             "amount" : 100000.0,
             "purpose" : "EDUCATION."
         }, 
@@ -528,6 +668,8 @@
             "name" : "MEALS ON WHEELS OF CENTRAL MARYLAND INC",
             "city" : "Baltimore",
             "state" : "MD",
+            "country" : "US",
+            "is_foreign" : false,
             "amount" : 100000.0,
             "purpose" : "TO ENHANCE THE QUALITY OF LIFE BY PROVIDING FOOD."
         }, 
@@ -535,6 +677,8 @@
             "name" : "MISSION OF MERCY INC",
             "city" : "Frederick",
             "state" : "MD",
+            "country" : "US",
+            "is_foreign" : false,
             "amount" : 153500.0,
             "purpose" : "TO RESTORE DIGNITY AND HEALING AT MOBILE CLINICS, PROVIDING FREE HEALTHCARE AND MEDICATIONS."
         }, 
@@ -542,6 +686,8 @@
             "name" : "MONTESSORI SCHOOL OF WESTMINSTER",
             "city" : "Westminster",
             "state" : "MD",
+            "country" : "US",
+            "is_foreign" : false,
             "amount" : 50000.0,
             "purpose" : "EDUCATION."
         }, 
@@ -549,6 +695,8 @@
             "name" : "NATIONAL ABILITY CENTER",
             "city" : "Park City",
             "state" : "UT",
+            "country" : "US",
+            "is_foreign" : false,
             "amount" : 100000.0,
             "purpose" : "SOCIAL SERVICES."
         }, 
@@ -556,6 +704,8 @@
             "name" : "NATIONAL MARITIME HERITAGE FOUNDATION INC",
             "city" : "Washington",
             "state" : "DC",
+            "country" : "US",
+            "is_foreign" : false,
             "amount" : 25000.0,
             "purpose" : "AFFORDABLE EDUCATIONAL, RECREATIONAL AND COMPETITIVE SAILING PROGRAMS."
         }, 
@@ -563,6 +713,8 @@
             "name" : "NORTH CARROLL COMMUNITY SCHOOL",
             "city" : "Westminster",
             "state" : "MD",
+            "country" : "US",
+            "is_foreign" : false,
             "amount" : 50500.0,
             "purpose" : "EDUCATION."
         }, 
@@ -570,6 +722,8 @@
             "name" : "OPERATION HOMEFRONT INC",
             "city" : "San Antonio",
             "state" : "TX",
+            "country" : "US",
+            "is_foreign" : false,
             "amount" : 150000.0,
             "purpose" : "TO BUILD STRONG, STABLE AND SECURE MILITARY FAMILIES."
         }, 
@@ -577,6 +731,8 @@
             "name" : "OPERATION KIDS FOUNDATION FOR RED FRED PROJECT",
             "city" : "Salt Lake City",
             "state" : "UT",
+            "country" : "US",
+            "is_foreign" : false,
             "amount" : 45000.0,
             "purpose" : "SOCIAL SERVICES."
         }, 
@@ -584,6 +740,8 @@
             "name" : "OUTWARD BOUND INC",
             "city" : "Baltimore",
             "state" : "MD",
+            "country" : "US",
+            "is_foreign" : false,
             "amount" : 130000.0,
             "purpose" : "EDUCATION."
         }, 
@@ -591,6 +749,8 @@
             "name" : "OUTWARD BOUND INC",
             "city" : "Golden",
             "state" : "CO",
+            "country" : "US",
+            "is_foreign" : false,
             "amount" : 50000.0,
             "purpose" : "EDUCATION."
         }, 
@@ -598,6 +758,8 @@
             "name" : "ROLAND PARK COUNTRY SCHOOL",
             "city" : "Baltimore",
             "state" : "MD",
+            "country" : "US",
+            "is_foreign" : false,
             "amount" : 20000.0,
             "purpose" : "EDUCATION."
         }, 
@@ -605,6 +767,8 @@
             "name" : "RONALD MCDONALD HOUSE CHARITIES OF BALTIMORE INC",
             "city" : "Baltimore",
             "state" : "MD",
+            "country" : "US",
+            "is_foreign" : false,
             "amount" : 205000.0,
             "purpose" : "PROVIDES A HOME AWAY FROM HOME FOR SERIOUSLY ILL CHILDREN AND THEIR FAMILIES."
         }, 
@@ -612,6 +776,8 @@
             "name" : "SALT LAKE COMMUNITY COLLEGE",
             "city" : "Salt Lake City",
             "state" : "UT",
+            "country" : "US",
+            "is_foreign" : false,
             "amount" : 75000.0,
             "purpose" : "EDUCATION."
         }, 
@@ -619,6 +785,8 @@
             "name" : "SHRINERS HOSPITAL FOR CHILDREN",
             "city" : "Salt Lake City",
             "state" : "UT",
+            "country" : "US",
+            "is_foreign" : false,
             "amount" : 75000.0,
             "purpose" : "PEDIATRIC SPECIALTY CARE."
         }, 
@@ -626,6 +794,8 @@
             "name" : "SHRINERS HOSPITAL FOR CHILDREN",
             "city" : "Tampa",
             "state" : "FL",
+            "country" : "US",
+            "is_foreign" : false,
             "amount" : 164000.0,
             "purpose" : "PEDIATRIC SPECIALTY CARE."
         }, 
@@ -633,6 +803,8 @@
             "name" : "SILVER OAK ACADEMY INC",
             "city" : "Keymar",
             "state" : "MD",
+            "country" : "US",
+            "is_foreign" : false,
             "amount" : 40000.0,
             "purpose" : "EDUCATION AND VOCATIONAL TRAINING FOR BOYS IN THE JUVENILE JUSTICE SYSTEM."
         }, 
@@ -640,6 +812,8 @@
             "name" : "ST IGNATIUS LOYOLA ACADEMY INC",
             "city" : "Baltimore",
             "state" : "MD",
+            "country" : "US",
+            "is_foreign" : false,
             "amount" : 2000.0,
             "purpose" : "EDUCATION."
         }, 
@@ -647,6 +821,8 @@
             "name" : "THANKSGIVING POINT INSTITUTE INC",
             "city" : "Lehi",
             "state" : "UT",
+            "country" : "US",
+            "is_foreign" : false,
             "amount" : 50000.0,
             "purpose" : "FAMILY LEARNING."
         }, 
@@ -654,6 +830,8 @@
             "name" : "TOWSON UNIVERSITY FOUNDATION INC",
             "city" : "Towson",
             "state" : "MD",
+            "country" : "US",
+            "is_foreign" : false,
             "amount" : 125000.0,
             "purpose" : "EDUCATION."
         }, 
@@ -661,6 +839,8 @@
             "name" : "TRIANGLE EDUCATION FOUNDATION",
             "city" : "Plainfield",
             "state" : "IN",
+            "country" : "US",
+            "is_foreign" : false,
             "amount" : 50000.0,
             "purpose" : "EDUCATION."
         }, 
@@ -668,6 +848,8 @@
             "name" : "UNITED WAY OF CENTRAL MARYLAND INC",
             "city" : "Baltimore",
             "state" : "MD",
+            "country" : "US",
+            "is_foreign" : false,
             "amount" : 50000.0,
             "purpose" : "SOCIAL SERVICES."
         }, 
@@ -675,6 +857,8 @@
             "name" : "UNIVERSITY HOSPITAL FOUNDATION",
             "city" : "Salt Lake City",
             "state" : "UT",
+            "country" : "US",
+            "is_foreign" : false,
             "amount" : 100000.0,
             "purpose" : "MEDICAL SERVICES."
         }, 
@@ -682,6 +866,8 @@
             "name" : "UNIVERSITY OF MARYLAND R ADAMS COWLEY SHOCK TRAUMA CENTER",
             "city" : "Baltimore",
             "state" : "MD",
+            "country" : "US",
+            "is_foreign" : false,
             "amount" : 100000.0,
             "purpose" : "MEDICAL SERVICES."
         }, 
@@ -689,6 +875,8 @@
             "name" : "UNIVERSITY OF MARYLAND SCHOOL OF MEDICINE",
             "city" : "Baltimore",
             "state" : "MD",
+            "country" : "US",
+            "is_foreign" : false,
             "amount" : 240000.0,
             "purpose" : "MEDICAL EDUCATION AND SERVICES."
         }, 
@@ -696,6 +884,8 @@
             "name" : "UNIVERSITY OF UTAH",
             "city" : "Salt Lake City",
             "state" : "UT",
+            "country" : "US",
+            "is_foreign" : false,
             "amount" : 100000.0,
             "purpose" : "EDUCATION."
         }, 
@@ -703,6 +893,8 @@
             "name" : "UTAH FOOD BANK",
             "city" : "Salt Lake City",
             "state" : "UT",
+            "country" : "US",
+            "is_foreign" : false,
             "amount" : 53000.0,
             "purpose" : "TO FIGHT HUNGER."
         }, 
@@ -710,6 +902,8 @@
             "name" : "UTAH VALLEY HOSPITAL",
             "city" : "Provo",
             "state" : "UT",
+            "country" : "US",
+            "is_foreign" : false,
             "amount" : 600000.0,
             "purpose" : "MEDICAL SERVICES."
         }, 
@@ -717,6 +911,8 @@
             "name" : "UTAH VALLEY UNIVERSITY WOMEN'S CENTER",
             "city" : "Orem",
             "state" : "UT",
+            "country" : "US",
+            "is_foreign" : false,
             "amount" : 100000.0,
             "purpose" : "EDUCATION."
         }, 
@@ -724,6 +920,8 @@
             "name" : "UTAH VALLEY UNIVERSITY",
             "city" : "Orem",
             "state" : "UT",
+            "country" : "US",
+            "is_foreign" : false,
             "amount" : 100000.0,
             "purpose" : "EDUCATION."
         }, 
@@ -731,6 +929,8 @@
             "name" : "VESTRY OF ST DAVID'S",
             "city" : "Baltimore",
             "state" : "MD",
+            "country" : "US",
+            "is_foreign" : false,
             "amount" : 20000.0,
             "purpose" : "WORSHIP AND HELP PEOPLE EMBRACE THE COMPLEXITY OF MODERN LIFE."
         }, 
@@ -738,6 +938,8 @@
             "name" : "WESTMINSTER COLLEGE",
             "city" : "Salt Lake City",
             "state" : "UT",
+            "country" : "US",
+            "is_foreign" : false,
             "amount" : 43000.0,
             "purpose" : "EDUCATION."
         }, 
@@ -745,6 +947,8 @@
             "name" : "WESTMINSTER RESCUE MISSION",
             "city" : "Westminster",
             "state" : "MD",
+            "country" : "US",
+            "is_foreign" : false,
             "amount" : 65000.0,
             "purpose" : "SOCIAL SERVICES."
         }, 
@@ -752,6 +956,8 @@
             "name" : "YMCA OF CENTRAL MARYLAND",
             "city" : "Baltimore",
             "state" : "MD",
+            "country" : "US",
+            "is_foreign" : false,
             "amount" : 200000.0,
             "purpose" : "TO BUILD HEALTHIER, MORE CONNECTED COMMUNITIES."
         }
@@ -806,5 +1012,6 @@
             "compensation" : 0.0
         }
     ],
-    "organization_name_prior_year" : "KAHLERT FOUNDATION INC"
+    "organization_name_prior_year" : "KAHLERT FOUNDATION INC",
+    "organization_name_second_prior_year" : "KAHLERT FOUNDATION INC"
 }
