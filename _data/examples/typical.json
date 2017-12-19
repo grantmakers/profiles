@@ -1,13 +1,15 @@
 {
     "_id" : "050509502",
-    "last_updated" : "2017-06-29T17:54:03.061Z",
-    "last_updated_irs" : "2017-03-11T03:54:49.000Z",
+    "last_updated_grantmakers" : "2017-11-21T17:39:04.163Z",
+    "last_updated_irs" : "2017-03-10T21:54:49",
     "ein" : "050509502",
     "organization_name" : "WHITE FAMILY FOUNDATION",
     "assets" : 2013194.0,
     "website" : "http://www.thewhitefamilyfoundation.com",
     "city" : "Cranston",
     "state" : "RI",
+    "country" : "US",
+    "is_foreign" : false,
     "is_likely_staffed" : false,
     "has_website" : true,
     "has_grants" : true,
@@ -16,6 +18,10 @@
     "grant_min" : 5000.0,
     "grant_median" : 17900.0,
     "grant_count" : 10.0,
+    "grants_to_preselected_only" : null,
+    "grants_application_info" : null,
+    "grants_application_deadlines" : null,
+    "grants_application_restrictions" : null,
     "filings" : [ 
         {
             "object_id_irs" : "201613139349100231",
@@ -41,6 +47,8 @@
             "name" : "Community Preparatory School",
             "city" : "Providence",
             "state" : "RI",
+            "country" : "US",
+            "is_foreign" : false,
             "amount" : 15800.0,
             "purpose" : "Education"
         }, 
@@ -48,6 +56,8 @@
             "name" : "FirstWorks Providence",
             "city" : "Providence",
             "state" : "RI",
+            "country" : "US",
+            "is_foreign" : false,
             "amount" : 15000.0,
             "purpose" : "Culture"
         }, 
@@ -55,6 +65,8 @@
             "name" : "House of Hope",
             "city" : "North Kingstown",
             "state" : "RI",
+            "country" : "US",
+            "is_foreign" : false,
             "amount" : 5000.0,
             "purpose" : "Recovery"
         }, 
@@ -62,6 +74,8 @@
             "name" : "Project Goal",
             "city" : "Providence",
             "state" : "RI",
+            "country" : "US",
+            "is_foreign" : false,
             "amount" : 12500.0,
             "purpose" : "Sports, Youth, Education"
         }, 
@@ -69,6 +83,8 @@
             "name" : "Providence Performing Arts Center",
             "city" : "Kingston",
             "state" : "RI",
+            "country" : "US",
+            "is_foreign" : false,
             "amount" : 250000.0,
             "purpose" : "culture"
         }, 
@@ -76,6 +92,8 @@
             "name" : "RI Free Clinic",
             "city" : "Providence",
             "state" : "RI",
+            "country" : "US",
+            "is_foreign" : false,
             "amount" : 11000.0,
             "purpose" : "Health"
         }, 
@@ -83,6 +101,8 @@
             "name" : "St Andrews School",
             "city" : "Barrington",
             "state" : "RI",
+            "country" : "US",
+            "is_foreign" : false,
             "amount" : 20000.0,
             "purpose" : "Education"
         }, 
@@ -90,6 +110,8 @@
             "name" : "Trinity Repertory Company",
             "city" : "Providence",
             "state" : "RI",
+            "country" : "US",
+            "is_foreign" : false,
             "amount" : 25000.0,
             "purpose" : "arts"
         }, 
@@ -97,6 +119,8 @@
             "name" : "Wheaton College",
             "city" : "Norton",
             "state" : "MA",
+            "country" : "US",
+            "is_foreign" : false,
             "amount" : 100000.0,
             "purpose" : "science center"
         }, 
@@ -104,6 +128,8 @@
             "name" : "Various others",
             "city" : "Providence",
             "state" : "RI",
+            "country" : "US",
+            "is_foreign" : false,
             "amount" : 58100.0,
             "purpose" : "various"
         }
@@ -176,5 +202,6 @@
             "compensation" : 0.0
         }
     ],
-    "organization_name_prior_year" : "WHITE FAMILY FOUNDATION"
+    "organization_name_prior_year" : "WHITE FAMILY FOUNDATION",
+    "organization_name_second_prior_year" : "WHITE FAMILY FOUNDATION"
 }
