@@ -4,6 +4,16 @@ See also [Grantmakers.io main repo](https://github.com/grantmakers/grantmakers.g
 
 If you have a question, feature request, find a bug, or just want to say hi, please open an [issue on GitHub](https://github.com/grantmakers/grantmakers.github.io/issues).
 
+## Development
+- Create an `ein` folder under `_data`
+- Install the `fs` npm package
+  * `npm install fs`
+- Parse through the aggregated.json file (this will populate the `ein` directory with json files)
+  * `cd _data`
+  * `node split_for_jekyll_json`
+- Start the server: `bundle exec jekyll serve`
+- Site should be accesible here:  `http://localhost:4000/profiles/`
+
 # Credits
 - Materialize: [Alvin Wang et al](http://materializecss.com/)
 - Electronic Tax Filings: [Amazon Web Services](https://aws.amazon.com/public-datasets/irs-990/)
