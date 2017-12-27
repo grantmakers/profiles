@@ -8,6 +8,15 @@ $(document).ready(function() {
     });
   });
 
+  // Summary icon clicks
+  $('.js-ga-summary-icon-click').on('click', function() {
+    ga('send', 'event', {
+      'eventCategory': 'Profile Events',
+      'eventAction': 'Profile Summary Icon Click',
+      'eventLabel': $(this).data('ga'),
+    });
+  });
+
   // Clicks to foundation websites
   $('.js-ga-website-click').on('click', function() {
     ga('send', 'event', {
