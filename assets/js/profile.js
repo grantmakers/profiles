@@ -82,22 +82,17 @@ $(document).ready(function() {
 
   // SMOOTH SCROLL
   // =======================================================
+  $('ul.profile-summary-icons li a.scrolly').on('click', function(e) {
+    e.preventDefault();
+    scrolly(this);
+  });
+
   $('.nav-primary li a.scrolly').on('click', function(e) {
     e.preventDefault();
     // collapse mobile header
     $('.button-collapse').sideNav('hide');
 
-    // store hash
-    var hash = this.hash;
-
-    // animate
-    $('html, body').animate({
-      'scrollTop': $(this.hash).offset().top - 120,
-    }, 300, function() {
-      // when done, add hash to url
-      // (default click behaviour)
-      window.location.hash = hash;
-    });
+    scrolly(this);
 
     // google analytics
     var text = $(this).text();
@@ -107,6 +102,20 @@ $(document).ready(function() {
       'eventLabel': text,
     });
   });
+
+  function scrolly(elem) {
+    // store hash
+    var hash = elem.hash;
+
+    // animate
+    $('html, body').animate({
+      'scrollTop': $(elem.hash).offset().top - 120,
+    }, 300, function() {
+      // when done, add hash to url
+      // (default click behaviour)
+      window.location.hash = hash;
+    });
+  }
 
 
   // Enable table sort via StupidTable

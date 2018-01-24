@@ -8,6 +8,15 @@ $(document).ready(function() {
     });
   });
 
+  // Summary icon clicks
+  $('.js-ga-summary-icon-click').on('click', function() {
+    ga('send', 'event', {
+      'eventCategory': 'Profile Events',
+      'eventAction': 'Profile Summary Icon Click',
+      'eventLabel': $(this).data('ga'),
+    });
+  });
+
   // Clicks to foundation websites
   $('.js-ga-website-click').on('click', function() {
     ga('send', 'event', {
@@ -70,4 +79,15 @@ $(document).ready(function() {
       'eventLabel': $(this).text(),
     });
   });
+
+  // Remove UTM parameters
+  const win = window;
+  ga('send', 'pageview', { 'hitCallback': removeUtms() });
+  
+  function removeUtms() {
+    const location = win.location;
+    if (location.search.indexOf('utm_') !== -1 && history.replaceState) {
+      history.replaceState({}, '', window.location.toString().replace(/(\&|\?)utm([_a-z0-9=]+)/g, ''));
+    }
+  }
 });

@@ -5,3 +5,4 @@ _site/
 .DS_Store
 /algolia/secrets.js
 _data/ein/
+node_modules/
