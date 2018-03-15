@@ -50,7 +50,7 @@
   </script>
   <script async src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/js/materialize.min.js"></script>
 
-  {% if page.grant_count > 5 %}
+  {% if page.grant_count > 1 %}
     {% assign algolia = true %}
   {% endif %}
 
@@ -476,7 +476,7 @@
                       <li>Changes in the application process</li>
                     </ul>
                     <div class="action-group center-align">
-                      <a href="mailto:{{ page.ein }}@grantmakers.io?body=%0D%0A%0D%0A{{ page.organization_name}}%0D%0A{{ site.url }}{{ site.baseurl }}/{{ page.ein }}/" class="waves-effect waves-light btn blue-grey white-text" data-ga="Email Share Resource"><i class="material-icons left">email</i> Share a resource</a>
+                      <a href="mailto:{{ page.ein }}@grantmakers.io?body=%0D%0A%0D%0A{{ page.organization_name}}%0D%0A{{ site.url }}{{ site.baseurl }}/{{ page.ein }}/" target="_blank" class="waves-effect waves-light btn blue-grey white-text" data-ga="Email Share Resource"><i class="material-icons left">email</i> Share a resource</a>
                     </div>
                   </div>
                 </div>
@@ -552,7 +552,7 @@
                   <div class="row">
                     <div class="col s12">
                       <div class="small text-muted">
-                        <a href="{{ site.url }}">Try our full search</a>
+                        <a href="{{ site.url }}/profiles-search/">Try our full search</a>
                       </div> 
                     </div>
                   </div>
