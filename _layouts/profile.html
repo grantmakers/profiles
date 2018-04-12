@@ -19,12 +19,19 @@
   <meta content='width=device-width, initial-scale=1.0, minimum-scale=1' name='viewport' />
   <meta name = "format-detection" content = "telephone=no">
 
+  {% if page.grant_count > 1 %}
+    {% assign algolia = true %}
+  {% endif %}
+
   <!-- Fonts and Icons  -->
-  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
 
   <!-- CSS Files -->
-  <link href="{{ site.baseurl }}/assets/css/main.css" rel="stylesheet">
+  {% if algolia == true %}
+  <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.6.3/dist/instantsearch.min.css"> -->
+  {% endif %}
+  <link rel="stylesheet" href="{{ site.baseurl }}/assets/css/main.css">
 
   <!-- Schema.org -->
   <script type='application/ld+json'>
@@ -48,28 +55,27 @@
     integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
     crossorigin="anonymous">
   </script>
-  <script async src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/js/materialize.min.js"></script>
-
-  {% if page.grant_count > 1 %}
-    {% assign algolia = true %}
-  {% endif %}
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/js/materialize.min.js"></script>
 
   <!-- Search and Algolia-related scripts -->
   <script defer src="https://cdn.polyfill.io/v2/polyfill.min.js?features=Object.assign,Intl.~locale.en"></script>
   <script defer src="//cdn.jsdelivr.net/algoliasearch/3/algoliasearch.min.js"></script>
   {% if algolia == true %}
-  <script defer src="//cdn.jsdelivr.net/algoliasearch.helper/2/algoliasearch.helper.min.js"></script>
-  <script defer src="//cdn.jsdelivr.net/hogan.js/3.0.2/hogan.min.common.js"></script>
-  <!-- <script src="//cdn.jsdelivr.net/jquery.ion.rangeslider/2.0.12/js/ion.rangeSlider.min.js"></script> -->
+  <!-- <script defer src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.6.3"></script> --> 
+  <script defer src="//cdn.jsdelivr.net/algoliasearch.helper/2/algoliasearch.helper.min.js"></script> <!-- Not needed w/ Instantsearch -->
+  <script defer src="//cdn.jsdelivr.net/hogan.js/3.0.2/hogan.min.common.js"></script> <!-- Not needed w/ Instantsearch -->
   <script defer src="{{ site.baseurl }}/assets/js/search.js"></script>
   {% endif %}
   <script defer src="https://cdn.jsdelivr.net/autocomplete.js/0.28/autocomplete.min.js"></script>
   <script defer src="{{ site.baseurl }}/assets/js/autocomplete.js"></script>
 
-  <!-- <script async src="https://cdn.polyfill.io/v2/polyfill.min.js?features=Intl.~locale.en"></script> -->
   <script defer src="{{ site.baseurl }}/assets/js/stupidtable.min.js"></script>
   <script defer src="{{ site.baseurl }}/assets/js/jquery.matchHeight-min.js"></script>
   <script src="{{ site.baseurl }}/assets/js/profile.js"></script>
+
+  <!-- Drift Widget -->
+  <script defer src="{{ site.baseurl }}/assets/js/drift-init.js"></script>
+
   {% unless jekyll.environment == 'staging' %}
     <script src="{{ site.baseurl }}/assets/js/ga-events.js"></script>
   {% endunless %}
@@ -574,8 +580,6 @@
   {% unless jekyll.environment == 'staging' %}
     {% include ga.html %}
   {% endunless %}
-  
-  {% include drift.html %}
 
 </body>  
 </html>
