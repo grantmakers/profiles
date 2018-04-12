@@ -6,8 +6,15 @@ $(document).ready(function() {
 
   // INITIALIZATION
   // ==============
-
-  // Replace with your own values
+  /* // Prep for switch to Instantsearch
+  const search = instantsearch({
+    'appId': 'QA1231C5W9',
+    'apiKey': 'cd47ecb3457441878399b20acc8c3fbc',
+    'indexName': 'grantmakers_io',
+    'urlSync': true,
+  });
+  search.start();
+  */
   const APPLICATION_ID = 'QA1231C5W9';
   const SEARCH_ONLY_API_KEY = 'cd47ecb3457441878399b20acc8c3fbc';
   const INDEX_NAME = 'grantmakers_io';
