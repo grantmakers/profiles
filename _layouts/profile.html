@@ -70,6 +70,10 @@
   <script defer src="{{ site.baseurl }}/assets/js/stupidtable.min.js"></script>
   <script defer src="{{ site.baseurl }}/assets/js/jquery.matchHeight-min.js"></script>
   <script src="{{ site.baseurl }}/assets/js/profile.js"></script>
+
+  <!-- Drift Widget -->
+  <script defer src="{{ site.baseurl }}/assets/js/drift-init.js"></script>
+
   {% unless jekyll.environment == 'staging' %}
     <script src="{{ site.baseurl }}/assets/js/ga-events.js"></script>
   {% endunless %}
@@ -574,8 +578,6 @@
   {% unless jekyll.environment == 'staging' %}
     {% include ga.html %}
   {% endunless %}
-  
-  {% include drift.html %}
 
 </body>  
 </html>
