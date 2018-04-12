@@ -1,5 +1,5 @@
-<!-- Start of Async Drift Code -->
-<script>
+// Start of Async Drift Code
+$(document).ready(function() {
   !function() {
     var t;
     if (t = window.driftt = window.drift = window.driftt || [], !t.init) return t.invoked ? void (window.console && console.error && console.error("Drift snippet included twice.")) : (t.invoked = !0, 
@@ -20,33 +20,33 @@
   }();
   drift.SNIPPET_VERSION = '0.3.1';
   drift.load('wmmk7c67hfg2');
-</script>
-<!-- End of Async Drift Code -->
+});
+// End of Async Drift Code -->
 
-<!-- Start of Drift events for Google Analytics -->
-<script>
-  drift.on('ready', function (api) {
+// Start of Drift events for Google Analytics
+$(document).ready(function() {
+  drift.on('ready', function(api) {
     drift.on('welcomeMessage:open', function() {
       ga('send', 'event', {
-        eventCategory: 'Drift Widget',
-        eventAction: 'Drift Clicked Button',
-        eventLabel: event.conversationId,
+        'eventCategory': 'Drift Widget',
+        'eventAction': 'Drift Clicked Button',
+        'eventLabel': event.conversationId,
       });
-    })
-    drift.on('startConversation', function (event) {
+    });
+    drift.on('startConversation', function(event) {
       ga('send', 'event', {
-        eventCategory: 'Drift Widget',
-        eventAction: 'Drift Started Conversation',
-        eventLabel: event.conversationId,
+        'eventCategory': 'Drift Widget',
+        'eventAction': 'Drift Started Conversation',
+        'eventLabel': event.conversationId,
       });
-    })
-    drift.on('sidebarOpen',function(e){
+    });
+    drift.on('sidebarOpen', function(event) {
       ga('send', 'event', {
-        eventCategory: 'Drift Widget',
-        eventAction: 'Drift Continued Conversation',
-        eventLabel: event.conversationId,
+        'eventCategory': 'Drift Widget',
+        'eventAction': 'Drift Continued Conversation',
+        'eventLabel': event.conversationId,
       });
-    })
-  })
-</script>
-<!-- End of Drift events for Google Analytics -->
+    });
+  });
+});
+// End of Drift events for Google Analytics
