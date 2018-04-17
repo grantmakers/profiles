@@ -90,7 +90,7 @@ $(document).ready(function() {
   $('.nav-primary li a.scrolly').on('click', function(e) {
     e.preventDefault();
     // collapse mobile header
-    $('.button-collapse').sidenav('hide');
+    $('.sidenav').sidenav('close');
 
     scrolly(this);
 
