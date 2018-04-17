@@ -1,5 +1,15 @@
 ---
 ---
+/****************************
+Override Materialize variables
+*****************************/
+$font-stack: Roboto, -apple-system, BlinkMacSystemFont, "Segoe UI", Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif !default;
+$primary-color: #999999;
+$secondary-color: #c54e00;
+$error-color: color("yellow", "base");
+$link-color: $secondary-color !default;
+
+// Import Materialize
 @import 'materialize';
 
 /****************************
@@ -321,7 +331,7 @@ nav ul li a {
     .brand-name, .nav-primary a {
 			color: $gray !important;
 		}
-		.button-collapse i {
+		.sidenav-trigger i {
 			color: $gray-light;
 		}
 		.try-it, .algolia-dark-bg {
@@ -521,6 +531,9 @@ nav ul li a {
 			img {
 				vertical-align: middle;
 			}
+		}
+		.input-field .prefix {
+			top: 0;
 		}
 		.input-field .prefix ~ span input {
 			width: 92%;

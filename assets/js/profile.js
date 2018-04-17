@@ -35,7 +35,7 @@ $(document).ready(function() {
   // Materialize components
   // =======================================================
   window.onload = function () {
-    $('.button-collapse').sideNav();
+    $('.sidenav').sidenav();
     $('.collapsible').collapsible({
       accordion : false
     });
@@ -90,7 +90,7 @@ $(document).ready(function() {
   $('.nav-primary li a.scrolly').on('click', function(e) {
     e.preventDefault();
     // collapse mobile header
-    $('.button-collapse').sideNav('hide');
+    $('.button-collapse').sidenav('hide');
 
     scrolly(this);
 
