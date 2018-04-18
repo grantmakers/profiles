@@ -88,7 +88,9 @@ $(document).ready(function() {
   $('.nav-primary li a.scrolly').on('click', function(e) {
     e.preventDefault();
     // collapse mobile header
-    $('.sidenav').sidenav('close');
+    if (isMobile) {
+      $('.sidenav').sidenav('close');
+    }
 
     scrolly(this);
 
