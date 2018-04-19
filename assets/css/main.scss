@@ -73,25 +73,46 @@ a:not(.btn):not(.btn:hover) {
 /****************************
 Helpers
 *****************************/
-
-.text-nowrap {
-   white-space: nowrap;
+/* Sitewide helpers */
+$accent-color: $grantmakers;
+$text-muted: #757575;
+$text-muted-max: #9e9e9e;
+$text-color: rgba(0,0,0,0.87);
+.btn, .accent {
+  background-color: $accent-color;
 }
-
+.text-muted {
+  color: $text-muted !important;
+}
+.text-muted-max {
+  color: $text-muted-max !important;
+}
+.accent-text {
+  color: $accent-color;
+}
+.small {
+  font-size: 85%;
+}
+.hidden {
+  display: none;
+}
+.no-wrap, .text-nowrap {
+  white-space: nowrap;
+}
+/* Inline lists */
+.list-inline {
+  padding-left: 0;
+  margin-left: -5px;
+  list-style: none;
+}
 .list-inline > li {
-	float: none;
-	display: inline-block;
-	padding-left: 5px;
-	padding-right: 5px;
-	margin-bottom: 10px;
+  display: inline-block;
+  padding-right: 5px;
+  padding-left: 5px;
 }
 
 .small {
 	font-size: 85%;
-}
-
-.text-muted {
-	color: #777777 !important;
 }
 
 hr {
@@ -173,7 +194,7 @@ Sitewide layout
 *****************************/
 body, h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4 {
 	color: #333;
-	font-weight: 300;
+	// font-weight: 300;
 	font-style: normal;
 }
 
@@ -697,6 +718,10 @@ nav ul li a {
 		a {
 			color: inherit;
 		}
+		.section-results { // TODO Feels like a hack
+			padding-left: 1rem; 
+			padding-right: 1rem; 
+		}
 		.card-panel-header-wrapper {
 			height: 82px; // Fix for pushpin jump
 			@media #{$small-and-down} {
@@ -733,28 +758,49 @@ nav ul li a {
 				vertical-align: inherit;
 			}
 		}
-		input[id="search-input"] {
-			height: 45px !important; 
-		  margin-top: 10px;
-		  padding-left: 10px;
-		  border-radius: 0px 5px 5px 0px;
-		  border-bottom: none;
-			box-shadow: none;
-			font-size: 16px; // Ensure iOS Safari does not zoom upon focus
-			-webkit-appearance: none; // Ensure iOS Safari does not change border radius
+		/* Searchbar */
+		.nav-search {
+			height: 64px;
 		}
-		.search{
-		  background-color: #fafafa;
-		  height: 45px !important; 
-		  border-radius: 5px;
-		  .input-field {
-		  	margin-top: 0;
-		  	i {
-			  	top: 8px;
-			  	left: 8px;
-			  	cursor: pointer;
-			  }
-		  }
+		.nav-search nav {
+			margin-bottom: 10px;
+			z-index: 3;
+		}
+		.nav-search nav.pinned {
+			width: 100%;
+			z-index: 3;
+		}
+		@media screen and (min-width: 993px) {
+			.ais-search-box {
+				max-width: 400px;
+			}
+		}
+		#ais-widget-search-box input {
+			width: calc(100% - 40px);
+			padding-left: 40px;
+			background-color: white;
+			border: none;
+			box-shadow: none;
+			margin-bottom: 0;
+			border-radius: 3px;
+		}
+		.ais-search-box--magnifier, .ais.ais-search-box--reset {
+			fill: #bfc7d8;
+		}
+		.ais-search-box--magnifier {
+			top: calc(50% - 18px/2)
+		}
+		.ais-search-box--magnifier svg {
+			height: 18px;
+			width: 18px;
+		}
+		.ais-search-box--reset {
+			//top: calc(50% - 12px/2);
+			top: calc(50% - 10px/2);
+			right: 10px;
+			svg {
+				fill: $text-muted;
+			}
 		}
 		.algolia-loading {
 			display: inline-block;
@@ -763,269 +809,163 @@ nav ul li a {
 			margin-left: 10px;
 			font-size: 15px;
 		}
-		#stats {
-			position: relative;
-			top: 15px;
+	}
+	/* Stats */
+	.ais-stats--body {
+		color: $text-muted;
+	}
+	/* Filters - Refinements */
+	.card-header {
+		padding: 15px 10px 20px 20px;
+		border-radius: 2px 2px 0px 0px;
+		@media screen and (max-width: 992px) {
+			line-height: 1.4rem;
 		}
-		#facets {
-			.facet {
-				margin-bottom: 24px;
+	}
+	.section-refinements {
+		[type="checkbox"].filled-in:checked+span:not(.lever):after {
+			border: 2px solid $accent-color;
+			background-color: $accent-color;
+		}
+		label {
+			// TODO Eliminate truncate hack
+			width: 78%;
+			display: inline-block;
+			text-overflow: ellipsis;
+			overflow: hidden;
+		}
+		span.refinement-count {
+			line-height: 25px;
+			height: 25px;
+		}
+		.ais-root__collapsed {
+			.ais-header {
+				-webkit-box-shadow: none;
+				box-shadow: none;
 			}
-			h5 {
-				border-bottom: 1px solid $gray-light;
+			span i {
+				-ms-transform: rotate(180deg);
+				-webkit-transform: rotate(180deg);
+				transform: rotate(180deg);
 			}
-			[data-facet-tooltip] {
+		}
+		label {
+			color: inherit;
+		}
+		.ais-refinement-list--item__active {
+			color: $accent-color;
+			span {
+				color: $accent-color !important;
+			}
+		}
+		.ais-refinement-list--item__active
+		.ais-show-more, .show-more {
+			margin-top: 24px;
+		}
+		.ais-refinement-list--list:empty::after {
+			content: 'No results'; 
+		}
+
+		/* Range slider */
+		.ais-range-slider--handle {
+			border-color: $text-muted;
+		}
+		.ais-range-slider .rheostat-horizontal .rheostat-progress {
+			background-color: #fafafa;
+		}
+	}
+
+	/* Clear all */
+	.btn-custom {
+		&:hover {
+			background-color: lighten($accent-color, 5%)
+		}
+	}
+	.ais-clear-all--link {
+		color: inherit !important;
+		display: inherit !important;
+		background: inherit !important;
+		border-radius: inherit !important;
+		font-size: inherit !important;
+		text-decoration: inherit !important;
+		padding: inherit;
+	}
+	/* Mobile button */
+	#ais-widget-mobile-clear-all {
+		display: inline-block;
+	}
+
+	/* Hits */
+	table tbody {
+		font-weight: 300;
+	}
+	#ais-widget-hits em {
+		font-style: normal;
+		background-color: lighten($accent-color, 27%);
+	}
+	.hits-empty {
+		margin-top: 1em; // To match responsive table wrapper
+	}
+	.ais-current-refined-values--item {
+		display: inline-block;
+	}
+	.btn-clear-refinements {
+		margin: 5px 5px;
+	}
+
+	/* Infinite Hits */
+	.infinite-hits-wrapper {
+		.card-title {
+			font-size: 1rem;
+			line-height: 1rem;
+			font-weight: 600;
+		}
+		.ais-infinite-hits-wrapper {
+			.row > div {
+				padding-top: 2px;
+				padding-bottom: 2px;
+			}
+		}
+		.ais-infinite-hits {
+			span.badge.new::after {
 				display: none;
 			}
-			[data-toggle] { //TODO Eliminate or narrow to tooltips
-				display: inline-block;
-				text-transform: none;
-				text-align: center;
-			}
-			.facet-info {
-				vertical-align: bottom;
-				color: $gray-light;
-			}
-			.facet {
-				margin-bottom: 24px;
-			}
-			.facet h5 {
-				padding: 0 0 10px;
-				font-weight: 400;
-				//text-transform: uppercase;
-				border-bottom: 1px solid $gray-light;
-			}
-			.facet ul {
-				margin: 0;
-				padding: 0;
-				list-style-type: none;
-			}
-			.facet li {
-				margin-bottom: 3px;
-			}
-			.facet-link {
-				font-size: 13px;
-				line-height: 1.2;
-				text-decoration: none;
-				color: black;
-			}
-			.facet-link:hover {
-				text-decoration: none;
-			}
-			.facet-link:hover, .facet-link.facet-refined {
-				color: $grantmakers;
-			}
-			.facet .facet-link.facet-refined:hover {
-				text-decoration: line-through;
-				color: $grantmakers;
-			}
-			.facet-count {
-				position: relative;
-				top: 3px;
-				float: right;
-				color: $gray-light;
-			}
-			/* Checkboxes */
-			.facet-disjunctive {
-				font-weight: normal;
-				position: relative;
-				margin-left: 18px;
-			}
-			.facet-disjunctive:before {
-				position: absolute;
-				top: 0px;
-				left: -18px;
-				width: 16px;
-				height: 16px;
-				font-family: 'Material Icons';
-				color: $gray-light;
-		    display: inline-block;
-		    content: 'radio_button_unchecked';
-		    background: none;
-			}
-			.facet-disjunctive:hover:before {
-				color: $grantmakers;
-			}
-			.facet-disjunctive.facet-refined:before {
-				color: $grantmakers;
-				content: 'radio_button_checked' ;
-			}
-			.facet-disjunctive.facet-refined:hover:before {
-				content: 'close';
-			}
-		}
-		#facets {
-			font-size: 85%;
-			.facet h4 {
-				color: rgba(0, 0, 0, 0.77);
-	    	font-size: 20px;
-	    	line-height: 29px;
-	    	font-weight: 400;
-	    	border-bottom: 1px solid rgba(160,160,160,0.2);
-    	}
-		}
-		#hits {
-			//Tables
-			tr.tab-pane td {
-				border: 0;
-			}
-			.icon-highlight i {
-				//background-color: #feebde;
-				background-color: $grantmakers-lightest;
-		    border-radius: 50%;
-		    &.icon-no-highlight {
-		    	background-color: transparent;
-		    }
-			}
-			//List Groups
-			.hits-list-group {
-				line-height: 1.4em;
-				border-top: 1px solid #ddd;
-				.hits-list-group-header {
-					padding: 0.5em 1em;
-					font-weight: bold;
-					vertical-align: bottom;
-		    	border-bottom: 2px solid #ddd;
+			@media screen and (max-width: 992px) {
+				.right-align {
+					text-align: left;
 				}
-				.hits-list-item {
-					padding: 1em;
-			    vertical-align: top;
-			    //border-top: 1px solid #ddd;
-					&:nth-of-type(odd) {
-						background: #fafafa;
-					}
-					.row:first-child {
-						margin-bottom: 0;
-					}
-					.row:last-child {
-						margin-bottom: 0;
-					}
-					.hits-list-item-name-primary {
-						font-size: 1em;
-		    		//line-height: 29px;
-		    		//font-weight: bold;
-		    		margin-bottom: 0.5em;
-					}
+			}
+		}
+		.infinite-hits-show-more-wrapper {
+			display: block;
+			margin-top: 48px;
+		}
+	}
 
-				}
-				.hits-list-action {
-					//position: relative;
-		    	//right: 16px;
-		    	//top: 16px;
-					i {
-						font-size: 20px;
-			    	color: rgba(0, 0, 0, 0.25);
-			    	cursor: pointer;
-					}
-				}
-			}
-			.list-group-algolia-hits div.list-group-item > div:nth-of-type(odd) {
-		    background: #fafafa;
-		  }
-			.list-group .list-group-item p.ellipsis {
-				white-space: nowrap;
-		    overflow: hidden;
-		    text-overflow: ellipsis;
-			}
-			.list-group .list-group-item .list-group-item-heading {
-		    //color: rgba(0, 0, 0, 0.77);
-		    font-size: 16px;
-		    //line-height: 29px;
-		    font-weight: 400;
-			}
-			.list-group .list-group-item .row-content .action-secondary {
-				position: absolute;
-		    right: 16px;
-		    top: 16px;
-				i {
-					font-size: 20px;
-		    	color: rgba(0, 0, 0, 0.25);
-		    	cursor: pointer;
-				}
-			}
-			//Cards
-			.card:first-child {
-				margin-top: 15px;
-			}
-			.card {
-				margin-top: 15px;
-			}
-			em {
-				font-style: normal;
-				//background-color: $grantmakers-lightest;
-				background-color: $grantmakers-lightest;
-			}
-			.hit-name {
-				min-height: 70px;
-				clear: both;
-				small {
-					color: $grantmakers;
-				}
-				.hit-ein {
-					margin-left: 25px;
-				}
-				a {
-					color: inherit;
-					&:hover {
-						color: $grantmakers;
-						text-decoration: none;
-					}
-				}
-			}
-			.hit-grants-wrapper {
-				border-left: 1px solid $gray-light;
-			}
-			.hit-summary-items {
-				h6 span {
-					float: right;
-				}
-				h6 small {
-					float: left;
-				}
-				.progress {
-					clear: both;
-				}
-			}
-			.progress-assets-wrapper {
-				color: $gray;
-				.material-icons {
-					font-size: 20px;
-					vertical-align: text-bottom;
-					color: $gray-light;
-				}
-			}
-			.progress-bar {
-				background-color: $gray-light;
-			}
-			.hit-summary-icons {
-				//color: $smartergiving;
-				a, i.material-icons {
-					color: $gray-lighter;
-				}
-				i.material-icons-active {
-					color: $grantmakers;
-				}
-				margin-top: 10px; //HACK Match h6 EIN listing
-				.hit-ein {
-					margin-left: 25px;
-					//font-size: 80%;
-					color: $gray-light;
-					text-align: right;
-				}
-			}
-			.list-profile-items {
-				color: $gray-light;
-				font-size: 90%;
-				//text-align: center;
-				li {
-					//text-align: center;
-					span {
-						color: $gray;
-						font-size: 111%;
-					}
-				}
-			}
-		}
+	/* Pagination */
+	.ais-pagination--item {
+		// display: inherit;
+		padding: 0 3px;
+	}
+
+	// http://maxdesign.com.au/articles/simple-responsive-table/
+	.responsive-table-wrapper {
+		width: 100%;
+		overflow-y: auto;
+		_overflow: auto;
+		margin: 0 0 1em;
+	}
+
+	.responsive-table-wrapper::-webkit-scrollbar {
+		-webkit-appearance: none;
+		width: 14px;
+		height: 14px;
+	}
+
+	.responsive-table-wrapper::-webkit-scrollbar-thumb {
+		border-radius: 8px;
+		border: 3px solid #fff;
+		background-color: rgba(0, 0, 0, .3);
 	}
 	ul.collapsible-grants-table {
 		.progress {
@@ -1083,17 +1023,17 @@ nav ul li a {
 	#tips ul li {
 		margin-bottom: 20px;
 	}
-	.pagination .active a.go-to-page {
+	ul.pagination li.active a {
 		color: #fff !important;
 		cursor: default;
 	}
-	.pagination .active a.go-to-page:hover {
+	ul.pagination li.active a.go-to-page:hover {
 		background-color: inherit;
 	}
-	.pagination a.go-to-page:hover {
+	ul.pagination a.go-to-page:hover {
 		background-color: #fff;
 	}
-	.pagination .disabled a {
+	ul.pagination .disabled a {
 		color: $gray-light !important;
 		&:hover {
 			color: $gray-light !important;
@@ -1155,7 +1095,7 @@ td, th {
 }
 
 .card-panel-header {
-	background-color: #eeeeee;
+	background-color: color("grey", "lighten-3");
 	color: rgba(0,0,0, 0.87);
 	padding: 10px 15px;
 	border: 0;
