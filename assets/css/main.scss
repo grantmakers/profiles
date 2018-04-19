@@ -194,7 +194,7 @@ Sitewide layout
 *****************************/
 body, h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4 {
 	color: #333;
-	// font-weight: 300;
+	font-weight: 300;
 	font-style: normal;
 }
 
@@ -823,6 +823,10 @@ nav ul li a {
 		}
 	}
 	.section-refinements {
+		font-weight: 400;
+		[type="checkbox"].filled-in:not(:checked)+span:not(.lever):after {
+			border: 2px solid $text-muted-max;
+		}
 		[type="checkbox"].filled-in:checked+span:not(.lever):after {
 			border: 2px solid $accent-color;
 			background-color: $accent-color;
@@ -899,9 +903,12 @@ nav ul li a {
 	table tbody {
 		font-weight: 300;
 	}
+	.profile-content table th span:hover {
+		cursor: none;
+	}
 	#ais-widget-hits em {
 		font-style: normal;
-		background-color: lighten($accent-color, 27%);
+		background-color: lighten($accent-color, 50%);
 	}
 	.hits-empty {
 		margin-top: 1em; // To match responsive table wrapper

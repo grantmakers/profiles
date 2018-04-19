@@ -1,5 +1,5 @@
 {% raw %}
-  <table class="bordered">
+  <table class="striped">
     <thead>
       <tr>
         <th><span>Year</span></th>
@@ -17,7 +17,7 @@
           <td>{{{ _highlightResult.grant_purpose.value }}}</td>
           <td class="no-wrap">
             {{#grantee_city}}
-              {{ grantee_city }},&nbsp;{{ grantee_state }}
+              {{{ _highlightResult.grantee_city.value }}},&nbsp;{{ grantee_state }}
             {{/grantee_city}}
           </td>
           <td>{{ grant_amount }}</td>

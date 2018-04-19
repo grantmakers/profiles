@@ -42,7 +42,7 @@ $(document).ready(function(){
   const templateShowMoreInactive = `{% include algolia/show-more-inactive.html %}`;
 
   // Define color palette
-  const widgetHeaderClasses = ['card-header', 'grey', 'lighten-3', 'z-depth-1'];
+  const widgetHeaderClasses = ['card-header', 'grey', 'lighten-4'];
 
   // Construct widgets
   search.addWidget(
@@ -136,16 +136,19 @@ $(document).ready(function(){
       container: '#ais-widget-refinement-list--tax_year',
       attributeName: 'tax_year',
       sortBy: ['name:desc'],
-      limit: 5,
+      limit: 7,
       collapsible: {
         collapsed: false
       },
+      showMore: false,
+      /*
       showMore: {
         templates: {
           active: templateShowMoreActive,
           inactive: templateShowMoreInactive,
         },
       },
+      */
       templates: {
         header: 'Tax Year' + templateRefinementHeader,
         item: templateRefinementItem,
@@ -164,16 +167,19 @@ $(document).ready(function(){
     instantsearch.widgets.refinementList({
       container: '#ais-widget-refinement-list--grantee_state',
       attributeName: 'grantee_state',
-      limit: 5,
+      limit: 7,
       collapsible: {
-        collapsed: true
+        collapsed: false
       },
+      showMore: false,
+      /*
       showMore: {
         templates: {
           active: templateShowMoreActive,
           inactive: templateShowMoreInactive,
         },
       },
+      */
       templates: {
         header: 'State' + templateRefinementHeader,
         item: templateRefinementItem,
@@ -192,16 +198,19 @@ $(document).ready(function(){
     instantsearch.widgets.refinementList({
       container: '#ais-widget-refinement-list--grantee_city',
       attributeName: 'grantee_city',
-      limit: 5,
+      limit: 7,
       collapsible: {
-        collapsed: true
+        collapsed: false
       },
+      showMore: false,
+      /*
       showMore: {
         templates: {
           active: templateShowMoreActive,
           inactive: templateShowMoreInactive,
         },
       },
+      */
       templates: {
         header: 'City' + templateRefinementHeader,
         item: templateRefinementItem,
