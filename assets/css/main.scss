@@ -813,6 +813,7 @@ nav ul li a {
 	/* Stats */
 	.ais-stats--body {
 		color: $text-muted;
+		font-weight: 400;
 	}
 	/* Filters - Refinements */
 	.card-header {
@@ -903,8 +904,8 @@ nav ul li a {
 	table tbody {
 		font-weight: 300;
 	}
-	.profile-content table th span:hover {
-		cursor: none;
+	table th span:hover {
+		cursor: default;
 	}
 	#ais-widget-hits em {
 		font-style: normal;
