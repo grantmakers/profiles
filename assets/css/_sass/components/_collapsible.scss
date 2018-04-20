@@ -6,6 +6,10 @@
   @extend .z-depth-1;
 }
 
+.collapsible-header:focus {
+  outline: 0
+}
+
 .collapsible-header {
   display: flex;
   cursor: pointer;
