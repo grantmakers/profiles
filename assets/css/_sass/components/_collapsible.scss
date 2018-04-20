@@ -6,6 +6,10 @@
   @extend .z-depth-1;
 }
 
+.collapsible-header:focus {
+  outline: 0
+}
+
 .collapsible-header {
   display: flex;
   cursor: pointer;
@@ -31,9 +35,9 @@
   padding: 2rem;
 }
 
-// sideNav collapsible styling
-.side-nav,
-.side-nav.fixed {
+// Sidenav collapsible styling
+.sidenav,
+.sidenav.fixed {
 
   .collapsible {
     border: none;

@@ -4,17 +4,15 @@ $(document).ready(function() {
 
   // Navbar
   // =======================================================
+  const header = $('.header');
+  const navbar = $('.navbar-profile');
+  const range = 64;
 
-  var header = $('.header');
-  var navbar = $('.navbar-profile');
-  var range = 64;
-
-  $(window).on('scroll', function () {
-    
-    var scrollTop = $(this).scrollTop(),
-        height = header.outerHeight(),
-        offset = height / 2,
-        calc = 1 - (scrollTop - offset + range) / range;
+  $(window).on('scroll', function() {
+    let scrollTop = $(this).scrollTop();
+    let height = header.outerHeight();
+    let offset = height / 2;
+    let calc = 1 - (scrollTop - offset + range) / range;
 
     header.css({ 'opacity': calc });
 
@@ -22,22 +20,22 @@ $(document).ready(function() {
       header.css({ 'opacity': 1 });
       navbar.addClass('affix-top');
       navbar.removeClass('affix');
-      //$('.algolia-partnership-logo img').attr('src', '{{ site.baseurl}}/assets/img/algolia-partnership-logo.png');
+      // $('.algolia-partnership-logo img').attr('src', '{{ site.baseurl}}/assets/img/algolia-partnership-logo.png');
     } else if ( calc < '0' ) {
       header.css({ 'opacity': 0 });
       navbar.addClass('affix');
       navbar.removeClass('affix-top');
-      //$('.algolia-partnership-logo img').attr('src', '{{ site.baseurl}}/assets/img/algolia-partnership-logo-light.png');
+      // $('.algolia-partnership-logo img').attr('src', '{{ site.baseurl}}/assets/img/algolia-partnership-logo-light.png');
     }
 
   });
 
   // Materialize components
   // =======================================================
-  window.onload = function () {
-    $('.button-collapse').sideNav();
+  window.onload = function() {
+    $('.sidenav').sidenav();
     $('.collapsible').collapsible({
-      accordion : false
+      'accordion': false
     });
     $('.collapsible-grants-table .collapsible-header').click(function() {
       // TODO Show progress bar while data is loading
@@ -49,7 +47,7 @@ $(document).ready(function() {
   // Fixed headers via Pushpin
   // Disable on mobile for now
   const isMobile = window.matchMedia('only screen and (max-width: 992px)');
-  function enableGrantsFixedHeader () {
+  function enableGrantsFixedHeader() {
     const grantsHeader = $('#grants .card-panel-header');
     grantsHeader.addClass('pushpin-nav pushpin-nav-search');
     grantsHeader.attr('data-target', 'grants');
@@ -61,10 +59,10 @@ $(document).ready(function() {
 
   if ($('.pushpin-nav').length) { // TODO checks for Algolia results
     $('.pushpin-nav').each(function() {
-      var $this = $(this);
-      var $target = $('#' + $(this).attr('data-target'));
-      var $id = $(this).attr('data-target');
-      var targetBottom;
+      let $this = $(this);
+      let $target = $('#' + $(this).attr('data-target'));
+      let $id = $(this).attr('data-target');
+      let targetBottom = 0;
       if ($id == 'main-nav') {
         targetBottom = $('#grants').offset().top - $('.pushpin-nav-search').height();
       } else {
@@ -90,7 +88,9 @@ $(document).ready(function() {
   $('.nav-primary li a.scrolly').on('click', function(e) {
     e.preventDefault();
     // collapse mobile header
-    $('.button-collapse').sideNav('hide');
+    if (isMobile) {
+      $('.sidenav').sidenav('close');
+    }
 
     scrolly(this);
 
@@ -105,7 +105,7 @@ $(document).ready(function() {
 
   function scrolly(elem) {
     // store hash
-    var hash = elem.hash;
+    let hash = elem.hash;
 
     // animate
     $('html, body').animate({

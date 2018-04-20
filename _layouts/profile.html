@@ -29,7 +29,7 @@
 
   <!-- CSS Files -->
   {% if algolia == true %}
-  <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.6.3/dist/instantsearch.min.css"> -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.6.3/dist/instantsearch.min.css">
   {% endif %}
   <link rel="stylesheet" href="{{ site.baseurl }}/assets/css/main.css">
 
@@ -55,16 +55,16 @@
     integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
     crossorigin="anonymous">
   </script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/js/materialize.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
 
   <!-- Search and Algolia-related scripts -->
   <script defer src="https://cdn.polyfill.io/v2/polyfill.min.js?features=Object.assign,Intl.~locale.en"></script>
   <script defer src="//cdn.jsdelivr.net/algoliasearch/3/algoliasearch.min.js"></script>
   {% if algolia == true %}
-  <!-- <script defer src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.6.3"></script> --> 
-  <script defer src="//cdn.jsdelivr.net/algoliasearch.helper/2/algoliasearch.helper.min.js"></script> <!-- Not needed w/ Instantsearch -->
-  <script defer src="//cdn.jsdelivr.net/hogan.js/3.0.2/hogan.min.common.js"></script> <!-- Not needed w/ Instantsearch -->
-  <script defer src="{{ site.baseurl }}/assets/js/search.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.6.3"></script> 
+  <!-- <script defer src="//cdn.jsdelivr.net/algoliasearch.helper/2/algoliasearch.helper.min.js"></script> --><!-- Not needed w/ Instantsearch -->
+  <!-- <script defer src="//cdn.jsdelivr.net/hogan.js/3.0.2/hogan.min.common.js"></script> --><!-- Not needed w/ Instantsearch -->
+ <script defer src="{{ site.baseurl }}/assets/js/search-new.js"></script>
   {% endif %}
   <script defer src="https://cdn.jsdelivr.net/autocomplete.js/0.28/autocomplete.min.js"></script>
   <script defer src="{{ site.baseurl }}/assets/js/autocomplete.js"></script>
@@ -74,7 +74,7 @@
   <script src="{{ site.baseurl }}/assets/js/profile.js"></script>
 
   <!-- Drift Widget -->
-  <script defer src="{{ site.baseurl }}/assets/js/drift-init.js"></script>
+  <!-- <script defer src="{{ site.baseurl }}/assets/js/drift-init.js"></script> -->
 
   {% unless jekyll.environment == 'staging' %}
     <script src="{{ site.baseurl }}/assets/js/ga-events.js"></script>
@@ -91,7 +91,7 @@
           In partership with <img src="{{ site.baseurl }}/assets/img/algolia-dark-bg.svg" alt="Algolia Partnership Logo">
         </div>
         <div class="container-custom">
-          <a href="#" data-activates="mobile-nav" class="button-collapse right disable-primary-color"><i class="material-icons">menu</i></a>
+          <a href="#" data-target="mobile-nav" class="sidenav-trigger right disable-primary-color"><i class="material-icons">menu</i></a>
           <div class="row">
             <div class="col s8 m4">
               <a href="https://www.grantmakers.io" data-ga="Homepage" class="brand-logo">
@@ -131,7 +131,7 @@
     </nav>
   </div>
   <!-- Mobile Navbar -->
-  <ul class="nav-primary side-nav" id="mobile-nav" >
+  <ul class="nav-primary sidenav" id="mobile-nav">
     <li><a href="#people" class="scrolly">People</a></li>
     <li><a href="#grants" class="scrolly">Grants</a></li>
     <li><a href="#filings" class="scrolly">Tax Filings</a></li>
@@ -305,15 +305,18 @@
                       <div class="card-panel-header">
                         <div class="row">
                           <div class="col s12 m3">
-                            <h4>Grants{% if algolia == true %} <span class="text-muted algolia-logo right hide-on-med-and-up">Search powered by<br><a href="https://www.algolia.com" class="algolia-light-bg"><img src="{{ site.baseurl }}/assets/img/algolia-light-bg.svg" alt="Powered by Algolia"></a></span><a href="#" data-activates="algolia-mobile" class="button-collapse right hide"><i class="material-icons text-muted">filter_list</i></a>{% endif %}</h4>
+                            <h4>Grants{% if algolia == true %} <span class="text-muted algolia-logo right hide-on-med-and-up">Search powered by<br><a href="https://www.algolia.com" class="algolia-light-bg"><img src="{{ site.baseurl }}/assets/img/algolia-light-bg.svg" alt="Powered by Algolia"></a></span><a href="#" data-target="algolia-mobile" class="sidenav-trigger right hide"><i class="material-icons text-muted">filter_list</i></a>{% endif %}</h4>
                           </div>
                           <div class="col s12 m6">
                             {% if algolia == true %}
                               <div class="search">
                                 <div class="input-field text-muted">
+                                  <!--
                                   <i id="search-input-icon" class="material-icons prefix grey-text text-lighten-1">search</i>
-                                  <input id="search-input" type="search" />
-                                  <label for="search-input"></label>
+                                  <input id="ais-widget-search-box" type="search" />
+                                  <label for="ais-widget-search-box"></label>
+                                  -->
+                                  <div id="ais-widget-search-box"></div>
                                 </div>
                               </div>
                             {% endif %}
@@ -332,51 +335,83 @@
                   {% if algolia == true %}
                   <div class="section section-results">
                     <div class="row">
-                      <div class="col s12">
-                        <!-- Algolia Search -->
-                        <!-- <div id="algolia-mobile" class="side-nav"> -->
-                          <div id="left-column-affix-parent" class="col s12 l2 hide-on-med-and-down">
-                            <div id="left-column">
-                              <div id="facets"></div>
-                              <div id="clear" class="clearfix"></div>
-                              <div id="tips" class="clearfix">
-                                <div class="facets">
+                      <div class="col s12 l3">
+                        <!-- Filters / Refinements header -->
+                        <div class="ais-root ais-stats">
+                          <div class="ais-body ais-stats--body">
+                            <div class="hide-on-med-and-down">
+                              Filters
+                            </div>
+                            <div class="hide-on-large-only center-align">
+                              <ul class="actions">
+                                <li>
+                                  <span id="ais-widget-mobile-clear-all"></span>
+                                  <a href="#" data-target="refinements-slide-out" class="sidenav-trigger show-on-med-and-down waves-effect waves-light button-collapse btn white grey-text text-darken-3"><i class="material-icons right">filter_list</i> Filter</a>
+                                </li>
+                                <li>
                                   
-                                </div>
+                                </li>
+                              </ul>
+                              {% include algolia/refinements-slide-out.html %}
+                            </div>
+                          </div>
+                        </div>
+                        <div class="divider hide-on-med-and-down"></div>
+                        <div class="section section-refinements hide-on-med-and-down">
+                          <div class="row"> <!-- Add row class to remove added white space / padding -->
+                            <div class="col s12">
+                              <!-- 
+                              <div class="card">
+                                <div id="ais-widget-refinement-list--purpose"></div>
+                              </div> 
+                              -->
+                              <div class="card">
+                                <div id="ais-widget-refinement-list--tax_year"></div>
+                              </div>
+                              <div class="card">
+                                <div id="ais-widget-refinement-list--grantee_state"></div>
+                              </div>
+                              <div class="card">
+                                <div id="ais-widget-refinement-list--grantee_city"></div>
+                              </div>
+                              <div class="card">
+                                <div id="ais-widget-range-slider"></div>
+                              </div>
+                            </div>
+                            <div class="col s12">
+                              <div class="section">
+                                <div id="ais-widget-clear-all" class="center-align"></div>
                               </div>
                             </div>
                           </div>
-                        <!-- </div> -->           
-                        <div class="col s12 l9 offset-l1">
-                          <div id="right-column">
-                            <!-- 
-                            <div id="sort-by">Sort by:
-                              <select dir="rtl" id="sort-by-select">
-                                <option value="" selected>Most relevant</option>
-                                <option value="_TaxPeriod_asc">Lowest Price</option>
-                                <option value="_TaxPeriod_desc">Highest Price</option>
-                              </select>
-                              <span class="caret"></span>
-                            </div>
-                            -->
-                            <div id="stats">
-                              <div class="preloader-wrapper small active">
-                                <div class="spinner-layer">
-                                  <div class="circle-clipper left">
-                                    <div class="circle"></div>
-                                  </div><div class="gap-patch">
-                                    <div class="circle"></div>
-                                  </div><div class="circle-clipper right">
-                                    <div class="circle"></div>
+                        </div>
+                      </div>
+                      <div class="col s12 l9">
+                        <div class="col s7 m9 l10">
+                          <div id="ais-widget-stats"></div>
+                        </div>
+                        <div class="col s5 m3 l2">
+                          <div id="ais-widget-sort-by"></div>
+                        </div>
+                        <div class="col s12 divider"></div>
+                        <div class="row">
+                          <div class="col s12"> <!-- Add row class to remove added white space / padding -->
+                            <div class="section">
+                                <div id="ais-widget-current-refined-values"></div>
+                              <div> <!-- Add card class for alt view -->
+                                <div class="card-content">
+                                  <div class="responsive-table-wrapper">
+                                    <div id="ais-widget-hits"></div>
                                   </div>
                                 </div>
                               </div>
-                              <div class="algolia-loading"> Fetching grants data</div>
                             </div>
-                            <div id="rate-limit" class="clearfix"></div>
-                            <div id="hits" class="clearfix"></div>
-                            <div id="pagination" class="center-align"></div>
                           </div>
+                        </div>
+                      </div>
+                      <div class="col s12 l9 offset-l3">
+                        <div class="section center-align">
+                          <div id="ais-widget-pagination"></div>
                         </div>
                       </div>
                     </div>
@@ -476,7 +511,7 @@
                   <div class="card-panel-body" data-mh="match-height-one">
                     <p>We've heard from many of you expressing frustration when trying to find forms referenced in instructions. With only 10% of foundations having websites, it's no surprise.</p>
                     <p>If you have a resource you think would be useful to your fellow grantseekers, send it via the link below and we'll post it here.</p>
-                    <ul class="browser-default community-examples grey lighten-4">
+                    <ul class="browser-default community-examples grey lighten-3">
                       <li>Grant forms</li>
                       <li>Sample submissions</li>
                       <li>Changes in the application process</li>
