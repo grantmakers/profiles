@@ -97,7 +97,7 @@
               <a href="https://www.grantmakers.io" data-ga="Homepage" class="brand-logo">
                 <div class="logo-container">
                   <div class="logo">
-                      <img src="{{ site.baseurl }}/assets/img/logo.png" alt="Grantmakers Logo" class="tooltipped" data-tooltip="<b>Grantmakers.io</b> is a free tool<br>from your friends at<br><b>SmarterGiving.org</b>" data-position="bottom" data-delay="20" data-html="true">
+                      <img src="{{ site.baseurl }}/assets/img/logo.png" alt="Grantmakers Logo" class="tooltipped" data-tooltip="<b>Grantmakers.io</b> is a free tool<br>from your friends at<br><b>SmarterGiving.org</b>" data-position="bottom" data-html="true">
                   </div>
                   <div class="brand brand-name">
                       Grantmakers.io
@@ -150,7 +150,7 @@
           <div class="col s12">
             <div class="alert-fixed-to-top">
               <div class="left">Tax Year {{ page.filings[0].tax_year | round }}</div>
-              <div class="right tooltipped" data-position="bottom" data-delay="20" data-html="true" data-tooltip="<b>Source</b><br>Profile pulled directly<br>from electronically filed<br>IRS Form 990-PF">IRS Form 990-PF</div>
+              <div class="right tooltipped" data-position="bottom" data-html="true" data-tooltip="<b>Source</b><br>Profile pulled directly<br>from electronically filed<br>IRS Form 990-PF">IRS Form 990-PF</div>
             </div>
           </div>
         </div>
@@ -177,32 +177,32 @@
                   <ul class="list-inline org-location profile-summary-icons text-center"> 
                     <li>
                       {% if page.grants_to_preselected_only %}
-                        <a href="#application-info" data-ga="Application Summary Icon" class="js-ga-summary-icon-click tooltipped scrolly" data-delay="20" data-tooltip="Grants to preselected organizations only"><i class="material-icons">lock</i></a>
+                        <a href="#application-info" data-ga="Application Summary Icon" class="js-ga-summary-icon-click tooltipped scrolly" data-tooltip="Grants to preselected organizations only"><i class="material-icons">lock</i></a>
                       {% else %}
-                        <a href="#application-info" data-ga="Application Summary Icon" class="js-ga-summary-icon-click tooltipped scrolly" data-delay="20" data-tooltip="Possibly accepts unsolicited applications"><i class="material-icons material-icons-active">lock_open</i></a>
+                        <a href="#application-info" data-ga="Application Summary Icon" class="js-ga-summary-icon-click tooltipped scrolly" data-tooltip="Possibly accepts unsolicited applications"><i class="material-icons material-icons-active">lock_open</i></a>
                       {% endif %}
                     </li>
                     <li>
                       {% if page.has_recent_grants %}
-                        <i class="material-icons material-icons-active tooltipped" data-delay="20" data-tooltip="Has recent grants">monetization_on</i>
+                        <i class="material-icons material-icons-active tooltipped" data-tooltip="Has recent grants">monetization_on</i>
                       {% else %}
-                        <i class="material-icons tooltipped" data-delay="20" data-tooltip="No recent grants">monetization_on</i>
+                        <i class="material-icons tooltipped" data-tooltip="No recent grants">monetization_on</i>
                       {% endif %}
                     </li>
                     <li>
                       {% if page.is_likely_staffed %}
-                      <i class="material-icons material-icons-active tooltipped" data-delay="20" data-tooltip="Is likely staffed">account_circle</i>
+                      <i class="material-icons material-icons-active tooltipped" data-tooltip="Is likely staffed">account_circle</i>
                       {% else %}
-                        <i class="material-icons tooltipped" data-delay="20" data-tooltip="No paid staff">account_circle</i>
+                        <i class="material-icons tooltipped" data-tooltip="No paid staff">account_circle</i>
                       {% endif %}
                     </li>
                     {% if page.website %}
                       <li>
-                        <a href="{{ page.website }}" data-ga="Website Summary Icon" class="js-ga-website-click tooltipped" data-delay="20" data-tooltip="Click to visit website"><i class="material-icons material-icons-active">public</i></a>
+                        <a href="{{ page.website }}" data-ga="Website Summary Icon" class="js-ga-website-click tooltipped" data-tooltip="Click to visit website"><i class="material-icons material-icons-active">public</i></a>
                       </li>
                     {% else %}
                       <li>
-                        <i class="material-icons tooltipped" data-delay="20" data-tooltip="No website listed">public</i>
+                        <i class="material-icons tooltipped" data-tooltip="No website listed">public</i>
                       </li>
                     {% endif %}
                   </ul>
@@ -325,7 +325,7 @@
                             {% if algolia == true %}
                               <div class="right-align text-muted algolia-logo hide-on-small-only">Search powered by<br><a class="algolia-light-bg" href="{{ site.algolia_referral_link }}"><img src="{{ site.baseurl }}/assets/img/algolia-light-bg.svg" alt="Powered by Algolia"></a></div>
                             {% else %}
-                              <h4 class="right-align text-muted hide-on-small-only"><i class="material-icons tooltipped" data-delay="20" data-tooltip="Grants made in {{ page.filings[0].tax_year | round }} tax year">info</i></h4>
+                              <h4 class="right-align text-muted hide-on-small-only"><i class="material-icons tooltipped" data-tooltip="Grants made in {{ page.filings[0].tax_year | round }} tax year">info</i></h4>
                             {% endif %}
                           </div>
                         </div>
@@ -447,7 +447,7 @@
                     <div class="card-panel-header">
                       <div class="row">
                         <div class="col s12">
-                          <h4>Application Guidelines <i class="material-icons tooltipped right grey-text" data-delay="20" data-position="left" data-html="true" data-tooltip="Form 990PF<br>Part XV<br>Line 2">info</i></h4>
+                          <h4>Application Guidelines <i class="material-icons tooltipped right grey-text" data-position="left" data-html="true" data-tooltip="Form 990PF<br>Part XV<br>Line 2">info</i></h4>
                         </div>
                       </div>
                     </div>
@@ -477,21 +477,21 @@
                     {% if page.grants_application_info %}
                       <ul class="collection">
                         <li class="collection-item avatar">
-                          <i class="material-icons circle grey tooltipped" data-delay="20" data-position="right" data-html="true" data-tooltip="The form in which applications<br>should be submitted and information<br>and materials they should include<br>Line 2b">assignment</i>
+                          <i class="material-icons circle grey tooltipped" data-position="right" data-html="true" data-tooltip="The form in which applications<br>should be submitted and information<br>and materials they should include<br>Line 2b">assignment</i>
                           <span class="title">Instructions</span>
                           <p>{{ page.grants_application_info }}</p>
                           <!-- <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a> -->
                         </li>
 
                         <li class="collection-item avatar">
-                          <i class="material-icons circle grey tooltipped" data-delay="20" data-position="right" data-html="true" data-tooltip="Any submission deadlines<br>Line 2c">history</i>
+                          <i class="material-icons circle grey tooltipped" data-position="right" data-html="true" data-tooltip="Any submission deadlines<br>Line 2c">history</i>
                           <span class="title">Deadlines</span>
                           <p>{{ page.grants_application_deadlines }}</p>
                           <!--<a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>-->
                         </li>
 
                         <li class="collection-item avatar">
-                          <i class="material-icons circle grey tooltipped" data-delay="20" data-position="right" data-html="true" data-tooltip="Any restrictions or limitations on awards,<br>such as by geographical areas, charitable fields,<br>kinds of institutions, or other factors<br>Line 2d">assignment_late</i>
+                          <i class="material-icons circle grey tooltipped" data-position="right" data-html="true" data-tooltip="Any restrictions or limitations on awards,<br>such as by geographical areas, charitable fields,<br>kinds of institutions, or other factors<br>Line 2d">assignment_late</i>
                           <span class="title">Restrictions</span>
                           <p>{{ page.grants_application_restrictions }}</p>
                           <!--<a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>-->
@@ -547,14 +547,14 @@
                   </div>
                   <div class="card-panel-body">
                     <ul class="list-inline">
-                      <li><i class="material-icons tooltipped" data-delay="20" data-html="true" data-tooltip="<b>Human Readable</b><br>Foundation Center PDFs">picture_as_pdf</i> <span class="show-on-medium-and-down text-muted">PDF</span></li>
+                      <li><i class="material-icons tooltipped" data-html="true" data-tooltip="<b>Human Readable</b><br>Foundation Center PDFs">picture_as_pdf</i> <span class="show-on-medium-and-down text-muted">PDF</span></li>
                       {% for each in page.filings %}
                         <li><a class="js-filings-pdf waves-effect waves-light btn grey lighten-3 grey-text text-darken-1" target="_blank" rel="noopener" data-ga="PDF" data-tax-period="{{ each.tax_period | round }}" data-ein="{{ page.ein }}" data-url-xml="{{ each.url }}" title="View 990-PF">{{ each.tax_year | round }}</a></li>
                       {% endfor %}
                     </ul>
                     <hr>
                     <ul class="list-inline">
-                      <li><i class="material-icons tooltipped" data-delay="20" data-html="true" data-tooltip="<b>Machine Readable</b><br>XML Format">code</i> <span class="show-on-medium-and-down text-muted">XML</span></li>
+                      <li><i class="material-icons tooltipped" data-html="true" data-tooltip="<b>Machine Readable</b><br>XML Format">code</i> <span class="show-on-medium-and-down text-muted">XML</span></li>
                       {% for each in page.filings %}
                         <li><a class="waves-effect waves-light btn grey lighten-3 grey-text text-darken-1" href="{{ each.url }}" target="_blank" rel="noopener" data-ga="XML" data-tax-period="{{ each.tax_period | round }}" data-ein="{{ each.ein }}" data-url-xml="{{ each.url }}" title="View 990-PF">{{ each.tax_year | round }}</a></li>
                       {% endfor %}
