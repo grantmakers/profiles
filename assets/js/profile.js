@@ -34,6 +34,7 @@ $(document).ready(function() {
   // =======================================================
   window.onload = function() {
     $('.sidenav').sidenav();
+    $('.tooltipped').tooltip();
     $('.collapsible').collapsible({
       'accordion': false
     });
