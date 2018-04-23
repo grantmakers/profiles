@@ -725,7 +725,8 @@ nav ul li a {
 		.card-panel-header-wrapper {
 			height: 82px; // Fix for pushpin jump
 			@media #{$small-and-down} {
-				height: 121px;
+				// height: 121px;
+				height: inherit;
 			}
 		}
 		.card-panel-header .row:first-child {
@@ -823,6 +824,17 @@ nav ul li a {
 			line-height: 1.4rem;
 		}
 	}
+	.ais-root__collapsed {
+		.ais-header {
+			-webkit-box-shadow: none;
+			box-shadow: none;
+		}
+		span i {
+			-ms-transform: rotate(180deg);
+			-webkit-transform: rotate(180deg);
+			transform: rotate(180deg);
+		}
+	}
 	.section-refinements {
 		font-weight: 400;
 		[type="checkbox"].filled-in:not(:checked)+span:not(.lever):after {
@@ -842,17 +854,6 @@ nav ul li a {
 		span.refinement-count {
 			line-height: 25px;
 			height: 25px;
-		}
-		.ais-root__collapsed {
-			.ais-header {
-				-webkit-box-shadow: none;
-				box-shadow: none;
-			}
-			span i {
-				-ms-transform: rotate(180deg);
-				-webkit-transform: rotate(180deg);
-				transform: rotate(180deg);
-			}
 		}
 		label {
 			color: inherit;
