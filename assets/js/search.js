@@ -276,7 +276,7 @@ $(document).ready(function(){
       templates: {
         link: 'Clear all'
       },
-      autoHideContainer: false,
+      autoHideContainer: true,
       clearsQuery: true,
       cssClasses: {
         root: ['btn', 'btn-custom', 'waves-effect','waves-light', 'white-text'],
@@ -309,7 +309,7 @@ $(document).ready(function(){
       templates: {
         link: '<a class="waves-effect waves-light btn btn grey lighten-5 grey-text text-darken-3">Clear</a>'
       },
-      autoHideContainer: false,
+      autoHideContainer: true,
       clearsQuery: true,
     })
   );

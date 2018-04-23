@@ -350,7 +350,6 @@
                                   
                                 </li>
                               </ul>
-                              {% include algolia/refinements-slide-out.html %}
                             </div>
                           </div>
                         </div>
@@ -610,6 +609,9 @@
   {% unless jekyll.environment == 'staging' %}
     {% include ga.html %}
   {% endunless %}
+  {% if algolia %}
+    {% include algolia/refinements-slide-out.html %}
+  {% endif %}
 
 </body>  
 </html>
