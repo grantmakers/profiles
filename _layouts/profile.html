@@ -29,7 +29,7 @@
 
   <!-- CSS Files -->
   {% if algolia == true %}
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.6.3/dist/instantsearch.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.7.2/dist/instantsearch.min.css">
   {% endif %}
   <link rel="stylesheet" href="{{ site.baseurl }}/assets/css/main.css">
 
@@ -50,9 +50,9 @@
   </script>
 
   <!--   Core JS Files   -->
-  <script
-    src="https://code.jquery.com/jquery-3.2.1.min.js"
-    integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  <script 
+    src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" 
+    integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT" 
     crossorigin="anonymous">
   </script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
@@ -61,10 +61,8 @@
   <script defer src="https://cdn.polyfill.io/v2/polyfill.min.js?features=Object.assign,Intl.~locale.en"></script>
   <script defer src="//cdn.jsdelivr.net/algoliasearch/3/algoliasearch.min.js"></script>
   {% if algolia == true %}
-  <script defer src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.6.3"></script> 
-  <!-- <script defer src="//cdn.jsdelivr.net/algoliasearch.helper/2/algoliasearch.helper.min.js"></script> --><!-- Not needed w/ Instantsearch -->
-  <!-- <script defer src="//cdn.jsdelivr.net/hogan.js/3.0.2/hogan.min.common.js"></script> --><!-- Not needed w/ Instantsearch -->
- <script defer src="{{ site.baseurl }}/assets/js/search-new.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.7.2"></script> 
+ <script defer src="{{ site.baseurl }}/assets/js/search.js"></script>
   {% endif %}
   <script defer src="https://cdn.jsdelivr.net/autocomplete.js/0.28/autocomplete.min.js"></script>
   <script defer src="{{ site.baseurl }}/assets/js/autocomplete.js"></script>
@@ -74,7 +72,7 @@
   <script src="{{ site.baseurl }}/assets/js/profile.js"></script>
 
   <!-- Drift Widget -->
-  <!-- <script defer src="{{ site.baseurl }}/assets/js/drift-init.js"></script> -->
+  <script defer src="{{ site.baseurl }}/assets/js/drift-init.js"></script>
 
   {% unless jekyll.environment == 'staging' %}
     <script src="{{ site.baseurl }}/assets/js/ga-events.js"></script>
@@ -609,9 +607,6 @@
   </div>
   {% include footer.html %}
   {% include footer-license-and-links.html %}
-  <!-- Hogan.js Search Template -->
-  {% include search.html %}
-  <!-- /Hogan.js Search Template -->
   {% unless jekyll.environment == 'staging' %}
     {% include ga.html %}
   {% endunless %}
