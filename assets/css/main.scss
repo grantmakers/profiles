@@ -1218,3 +1218,9 @@ ul#index {
 		transform: rotate(180deg);
 	}
 }
+@media #{$medium-and-up} {
+	.each-index-item {
+		padding-left: 68px;
+		text-indent: -68px;
+	}
+}
