@@ -46,19 +46,21 @@ $(document).ready(function() {
   };
 
   // Fixed headers via Pushpin
-  // Disable on mobile for now
+  // Currently only on non-mobile devices with Algolia enabled
   const isMobile = window.matchMedia('only screen and (max-width: 992px)');
+  const hasAlgolia = $('#grants .card-panel-header .search');
+
   function enableGrantsFixedHeader() {
     const grantsHeader = $('#grants .card-panel-header');
     grantsHeader.addClass('pushpin-nav pushpin-nav-search');
     grantsHeader.attr('data-target', 'grants');
   }
 
-  if (!isMobile.matches) {
+  if (!isMobile.matches && hasAlgolia.length) {
     enableGrantsFixedHeader();
   }
 
-  if ($('.pushpin-nav').length) { // TODO checks for Algolia results
+  if ($('.pushpin-nav').length) {
     $('.pushpin-nav').each(function() {
       let $this = $(this);
       let $target = $('#' + $(this).attr('data-target'));
@@ -67,10 +69,12 @@ $(document).ready(function() {
       if ($id == 'main-nav') {
         targetBottom = $('#grants').offset().top - $('.pushpin-nav-search').height();
       } else {
-        targetBottom = $target.offset().top + 1400;
-        // Due to Algolia delay in displaying results, any element underneath #grants will show the wrong location
         // TODO Fix hard-coded hack
-        // targetBottom = $('#filings').offset().top;
+        targetBottom = $target.offset().top + 800; // Current hack that exists on production site
+        // targetBottom = $target.offset().top + $target.outerHeight() - $this.height() // From Materialize docs
+        // Due to Algolia delay in displaying results, any element underneath #grants will show the wrong location
+        // TODO Solution is to move pushpin to search.js
+        // targetBottom = $('#application-info').offset().top;
       }
       $this.pushpin({
         top: $target.offset().top,

@@ -10,11 +10,9 @@ $(document).ready(function(){
   // using the render method (e.g. search.once('render'...)
   $('.parallax').parallax();
   $('.sidenav').sidenav();
-  /*
-  $('.nav-search nav').pushpin({
-    top: $('.nav-search nav').offset().top
-  });
-  */
+
+
+  // Note - fixed grants header handled by profile.js
 
   // Helper definitions
   const scrollAnchor = $('#grants').offset().top;
@@ -26,7 +24,7 @@ $(document).ready(function(){
     apiKey: 'cd47ecb3457441878399b20acc8c3fbc',
     indexName: 'grantmakers_io',
     numberLocale: 'en-US',
-    urlSync: true,
+    routing: true,
     searchParameters: {
       'filters': 'ein:' + targetEIN
     }
@@ -49,6 +47,7 @@ $(document).ready(function(){
     instantsearch.widgets.searchBox({
       container: '#ais-widget-search-box',
       poweredBy: false,
+      autofocus: false,
       reset: true,
       queryHook: function(query, search) {
         readyToSearchScrollPosition();
