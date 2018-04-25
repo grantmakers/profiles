@@ -62,7 +62,8 @@ $(document).ready(function(){
       container: '#ais-widget-stats',
       autoHideContainer: false,
       cssClasses: {
-        time: 'small text-muted-max'
+        body: 'center-align-on-mobile',
+        time: 'small text-muted-max hide-on-med-and-down',
       },
     })
   );
@@ -288,7 +289,7 @@ $(document).ready(function(){
   search.addWidget(
     instantsearch.widgets.pagination({
       container: '#ais-widget-pagination',
-      padding: 3,
+      padding: 1,
       autoHideContainer: true,
       // maxPages: 100, //TODO Algolia limits results to 1000 - thus 50 pages max
       scrollTo: '#grants',
