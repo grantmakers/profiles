@@ -59,7 +59,7 @@ $gray-lightest: 				 #f5f5f5;
 }
 
 .grantmakers-color, .grantmakers-text {
-	color: $grantmakers;
+	color: $grantmakers !important;
 }
 
 a:not(.btn):not(.btn:hover) {
@@ -815,6 +815,11 @@ nav ul li a {
 	.ais-stats--body {
 		color: $text-muted;
 		font-weight: 400;
+	}
+	.center-align-on-mobile {
+		@media #{$small-and-down} {
+			text-align: center;
+		}
 	}
 	/* Filters - Refinements */
 	.card-header {
