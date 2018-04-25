@@ -10,11 +10,9 @@ $(document).ready(function(){
   // using the render method (e.g. search.once('render'...)
   $('.parallax').parallax();
   $('.sidenav').sidenav();
-  /*
-  $('.nav-search nav').pushpin({
-    top: $('.nav-search nav').offset().top
-  });
-  */
+
+
+  // Note - fixed grants header handled by profile.js
 
   // Helper definitions
   const scrollAnchor = $('#grants').offset().top;

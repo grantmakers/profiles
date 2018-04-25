@@ -46,15 +46,17 @@ $(document).ready(function() {
   };
 
   // Fixed headers via Pushpin
-  // Disable on mobile for now
+  // Currently only on non-mobile devices with Algolia enabled
   const isMobile = window.matchMedia('only screen and (max-width: 992px)');
+  const hasAlgolia = $('#grants .card-panel-header .search');
+
   function enableGrantsFixedHeader() {
     const grantsHeader = $('#grants .card-panel-header');
     grantsHeader.addClass('pushpin-nav pushpin-nav-search');
     grantsHeader.attr('data-target', 'grants');
   }
 
-  if (!isMobile.matches) {
+  if (!isMobile.matches && hasAlgolia.length) {
     enableGrantsFixedHeader();
   }
 
