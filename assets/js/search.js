@@ -49,6 +49,7 @@ $(document).ready(function(){
     instantsearch.widgets.searchBox({
       container: '#ais-widget-search-box',
       poweredBy: false,
+      autofocus: false,
       reset: true,
       queryHook: function(query, search) {
         readyToSearchScrollPosition();
