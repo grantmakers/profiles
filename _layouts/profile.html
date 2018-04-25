@@ -323,7 +323,7 @@
                             {% if algolia == true %}
                               <div class="right-align text-muted algolia-logo hide-on-small-only">Search powered by<br><a class="algolia-light-bg" href="{{ site.algolia_referral_link }}"><img src="{{ site.baseurl }}/assets/img/algolia-light-bg.svg" alt="Powered by Algolia"></a></div>
                             {% else %}
-                              <h4 class="right-align text-muted hide-on-small-only"><i class="material-icons tooltipped" data-tooltip="Grants made in {{ page.filings[0].tax_year | round }} tax year">info</i></h4>
+                              <h4 class="right-align hide-on-small-only"><i class="material-icons grey-text tooltipped" data-tooltip="Grants made in {{ page.filings[0].tax_year | round }} tax year">info</i></h4>
                             {% endif %}
                           </div>
                         </div>
