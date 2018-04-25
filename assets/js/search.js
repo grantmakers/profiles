@@ -24,7 +24,7 @@ $(document).ready(function(){
     apiKey: 'cd47ecb3457441878399b20acc8c3fbc',
     indexName: 'grantmakers_io',
     numberLocale: 'en-US',
-    urlSync: true,
+    routing: true,
     searchParameters: {
       'filters': 'ein:' + targetEIN
     }
