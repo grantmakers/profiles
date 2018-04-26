@@ -70,11 +70,8 @@ $(document).ready(function() {
         targetBottom = $('#grants').offset().top - $('.pushpin-nav-search').height();
       } else {
         // TODO Fix hard-coded hack
-        targetBottom = $target.offset().top + 800; // Current hack that exists on production site
-        // targetBottom = $target.offset().top + $target.outerHeight() - $this.height() // From Materialize docs
-        // Due to Algolia delay in displaying results, any element underneath #grants will show the wrong location
-        // TODO Solution is to move pushpin to search.js
-        // targetBottom = $('#application-info').offset().top;
+        targetBottom = $target.offset().top + 1000;
+
       }
       $this.pushpin({
         top: $target.offset().top,
