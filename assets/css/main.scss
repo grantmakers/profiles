@@ -1087,6 +1087,9 @@ nav ul li a {
 			}
 		}
 		@media #{$medium-and-down} {
+			li {
+				padding-bottom: 10px;
+			}
 			li:first-child {
 				display: block;
 				margin-bottom: 10px;
