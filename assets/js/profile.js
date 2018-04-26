@@ -70,11 +70,8 @@ $(document).ready(function() {
         targetBottom = $('#grants').offset().top - $('.pushpin-nav-search').height();
       } else {
         // TODO Fix hard-coded hack
-        targetBottom = $target.offset().top + 800; // Current hack that exists on production site
-        // targetBottom = $target.offset().top + $target.outerHeight() - $this.height() // From Materialize docs
-        // Due to Algolia delay in displaying results, any element underneath #grants will show the wrong location
-        // TODO Solution is to move pushpin to search.js
-        // targetBottom = $('#application-info').offset().top;
+        targetBottom = $target.offset().top + 1000;
+
       }
       $this.pushpin({
         top: $target.offset().top,
@@ -155,7 +152,9 @@ $(document).ready(function() {
   
   $('.js-filings-pdf').click(function(e) {
     e.preventDefault();
-    M.toast({html: 'Redirecting to latest 990..'})
+    M.toast({
+      html: 'Redirecting to latest 990...'
+    })
     const elem = $(this);
     const target = $(this).attr('href');
     $.ajax({
@@ -169,14 +168,16 @@ $(document).ready(function() {
       } else {
         elem.addClass('disabled');
         M.Toast.dismissAll();
-        M.toast({html: 'PDF not yet available. Try a prior year.'})
+        M.toast({
+          html: 'PDF not yet available. Try a prior year.'
+        });
       }
     })
     .fail(function(xhr, textStatus, error){
-      var $toastContent = $('<span>Something went wrong.</span>').add($('<button href="http://foundationcenter.org/find-funding/990-finder" class="btn-flat toast-action">Try Here.</button>'));
+      var toastContent = '<span>Something went wrong.</span><button href="http://foundationcenter.org/find-funding/990-finder" class="btn-flat toast-action">Try Here.</button>';
       M.Toast.dismissAll();
       M.toast({
-        html: $toastContent, 
+        html: toastContent, 
         displayLength: 10000
       });
     });

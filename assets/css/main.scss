@@ -230,6 +230,12 @@ body, h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4 {
 	}
 }
 
+button.tooltipped {
+	-webkit-appearance: none;
+	border: 0;
+	padding: 0;
+	background: 0;
+}
 i.tooltipped {
 	cursor: default;
 }
@@ -799,6 +805,11 @@ nav ul li a {
 			//top: calc(50% - 12px/2);
 			top: calc(50% - 10px/2);
 			right: 10px;
+			padding: 5px;
+			margin: -5px;
+			&:focus {
+				background-color: inherit;
+			}
 			svg {
 				fill: $text-muted;
 			}
@@ -1087,6 +1098,9 @@ nav ul li a {
 			}
 		}
 		@media #{$medium-and-down} {
+			li {
+				padding-bottom: 10px;
+			}
 			li:first-child {
 				display: block;
 				margin-bottom: 10px;
