@@ -173,10 +173,10 @@ $(document).ready(function() {
       }
     })
     .fail(function(xhr, textStatus, error){
-      var $toastContent = $('<span>Something went wrong.</span>').add($('<button href="http://foundationcenter.org/find-funding/990-finder" class="btn-flat toast-action">Try Here.</button>'));
+      var toastContent = '<span>Something went wrong.</span><button href="http://foundationcenter.org/find-funding/990-finder" class="btn-flat toast-action">Try Here.</button>';
       M.Toast.dismissAll();
       M.toast({
-        html: $toastContent, 
+        html: toastContent, 
         displayLength: 10000
       });
     });
