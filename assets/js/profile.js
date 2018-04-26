@@ -155,7 +155,9 @@ $(document).ready(function() {
   
   $('.js-filings-pdf').click(function(e) {
     e.preventDefault();
-    M.toast({html: 'Redirecting to latest 990..'})
+    M.toast({
+      html: 'Redirecting to latest 990...'
+    })
     const elem = $(this);
     const target = $(this).attr('href');
     $.ajax({
@@ -169,7 +171,9 @@ $(document).ready(function() {
       } else {
         elem.addClass('disabled');
         M.Toast.dismissAll();
-        M.toast({html: 'PDF not yet available. Try a prior year.'})
+        M.toast({
+          html: 'PDF not yet available. Try a prior year.'
+        });
       }
     })
     .fail(function(xhr, textStatus, error){
