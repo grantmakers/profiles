@@ -90,7 +90,7 @@
 														<ul class="list-unstyled">
 															{% for each in state.items %}
 															{% assign org = each[1] %}
-																<li>
+																<li class="each-index-item">
 																	<h6><span class="hide-on-med-and-down"><small>{{ org.ein }}</small></span> <a href="{{ site.url }}{{ site.baseurl }}/v0/{{ org.ein }}-{{ org.organization_name | slugify }}/">{{ org.organization_name }}</a></h6>
 																</li>
 															{% endfor %}

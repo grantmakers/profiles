@@ -155,6 +155,7 @@ $(document).ready(function() {
   
   $('.js-filings-pdf').click(function(e) {
     e.preventDefault();
+    M.toast({html: 'Redirecting to latest 990..'})
     const elem = $(this);
     const target = $(this).attr('href');
     $.ajax({
@@ -167,12 +168,17 @@ $(document).ready(function() {
         window.location.href = target;
       } else {
         elem.addClass('disabled');
-        Materialize.toast('PDF not yet available. Try a prior year.', 5000)
+        M.Toast.dismissAll();
+        M.toast({html: 'PDF not yet available. Try a prior year.'})
       }
     })
     .fail(function(xhr, textStatus, error){
       var $toastContent = $('<span>Something went wrong.</span>').add($('<button href="http://foundationcenter.org/find-funding/990-finder" class="btn-flat toast-action">Try Here.</button>'));
-      Materialize.toast($toastContent, 10000);
+      M.Toast.dismissAll();
+      M.toast({
+        html: $toastContent, 
+        displayLength: 10000
+      });
     });
   });
 });
