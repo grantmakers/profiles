@@ -323,7 +323,7 @@
                             {% if algolia == true %}
                               <div class="right-align text-muted algolia-logo hide-on-small-only">Search powered by<br><a class="algolia-light-bg" href="{{ site.algolia_referral_link }}"><img src="{{ site.baseurl }}/assets/img/algolia-light-bg.svg" alt="Powered by Algolia"></a></div>
                             {% else %}
-                              <h4 class="right-align hide-on-small-only"><i class="material-icons grey-text tooltipped" data-tooltip="Grants made in {{ page.filings[0].tax_year | round }} tax year">info</i></h4>
+                              <h4 class="right-align hide-on-small-only"><button class="tooltipped" data-tooltip="Grants made in {{ page.filings[0].tax_year | round }} tax year"><i class="material-icons grey-text">info</i></button></h4>
                             {% endif %}
                           </div>
                         </div>
@@ -444,7 +444,7 @@
                     <div class="card-panel-header">
                       <div class="row">
                         <div class="col s12">
-                          <h4>Application Guidelines <i class="material-icons tooltipped right grey-text hide-on-med-and-down" data-position="left" data-html="true" data-tooltip="Form 990PF<br>Part XV<br>Line 2">info</i></h4>
+                          <h4>Application Guidelines <button class="tooltipped right" data-position="left" data-html="true" data-tooltip="Form 990PF<br>Part XV<br>Line 2"><i class="material-icons grey-text hide-on-med-and-down">info</i></button></h4>
                         </div>
                       </div>
                     </div>

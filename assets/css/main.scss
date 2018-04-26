@@ -230,6 +230,12 @@ body, h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4 {
 	}
 }
 
+button.tooltipped {
+	-webkit-appearance: none;
+	border: 0;
+	padding: 0;
+	background: 0;
+}
 i.tooltipped {
 	cursor: default;
 }
