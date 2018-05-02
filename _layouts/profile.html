@@ -19,7 +19,9 @@
   <meta content='width=device-width, initial-scale=1.0, minimum-scale=1' name='viewport' />
   <meta name = "format-detection" content = "telephone=no">
 
-  {% if page.grant_count > 1 %}
+  {% if page.grant_count > 5 %}
+    {% assign algolia = true %}
+  {% elsif page.filings[1] and page.grant_count > 0 %}
     {% assign algolia = true %}
   {% endif %}
 
