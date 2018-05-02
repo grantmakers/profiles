@@ -1,24 +1,25 @@
 ---
 ---
 $(document).ready(function(){
-  // Define search globals
+  // Helper definitions
+  // =======================================================
   const targetEIN = $('h1.org-name').data('ein');
+  const scrollAnchor = $('#grants').offset().top;
+  const isMobile = window.matchMedia('only screen and (max-width: 992px)');
+  let gaCheck = window[window['GoogleAnalyticsObject'] || 'ga']; // Check for Google Analytics
+  // Note - fixed grants header handled by profile.js
 
   // Initialize Materialize components
+  // =======================================================
   // Note: if the element is created dynamically via Instantsearch widget,
   // the plugin needs to be initialized in the normal Instantsearch workflow
   // using the render method (e.g. search.once('render'...)
   $('.parallax').parallax();
   $('.sidenav').sidenav();
 
-
-  // Note - fixed grants header handled by profile.js
-
-  // Helper definitions
-  const scrollAnchor = $('#grants').offset().top;
-  const isMobile = window.matchMedia('only screen and (max-width: 992px)');
-
-  // Algolia Instantsearch init
+  // Algolia Instantsearch
+  // =======================================================
+  // Config
   const search = instantsearch({
     appId: 'QA1231C5W9',
     apiKey: 'cd47ecb3457441878399b20acc8c3fbc',
@@ -303,8 +304,8 @@ $(document).ready(function(){
     })
   );
 
-  /* Recreate refinement widgets for mobile views */
-  /* Clear all button */
+  // Recreate refinement widgets for mobile views
+  // Clear all button
   search.addWidget(
     instantsearch.widgets.clearAll({
       container: '#ais-widget-mobile-clear-all',
@@ -315,7 +316,7 @@ $(document).ready(function(){
       clearsQuery: true,
     })
   );
-  /* Slide out */
+  // Slide out
   /*
   search.addWidget(
     instantsearch.widgets.refinementList({
@@ -435,21 +436,24 @@ $(document).ready(function(){
     })
   );
 
+  // Initialize search
+  search.start();
+
   // Initialize Materialize JS components
+  // =======================================================
   search.once('render', function(){
     $('select').formSelect();
     showTableHeaderToast();
   });
 
-  // Initialize search
-  search.start();
-
   // Scroll to top upon input change
+  // =======================================================
   function readyToSearchScrollPosition() {
     $('html, body').animate({scrollTop: scrollAnchor}, '500', 'swing');
   }
 
   // Temp solution for table header clicks
+  // =======================================================
   function showTableHeaderToast() {
     $('.ais-hits th span').click(function() {
       if (typeof gaCheck == 'function') {
@@ -473,9 +477,7 @@ $(document).ready(function(){
   }
 
   // Helper functions
-  // Check for Google Analytics
-  let gaCheck = window[window['GoogleAnalyticsObject'] || 'ga'];
-
+  // =======================================================
   function scrolly(elem) {
     let position = $(elem).position().top;
     // animate
