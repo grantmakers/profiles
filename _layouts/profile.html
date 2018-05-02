@@ -269,8 +269,8 @@
                             <th class="text-center">#</th>
                             <th>Name</th>
                             <th>Title</th>
-                            <th class="text-nowrap text-right">Hours / Wk</th>
-                            <th class="text-right">Comp ($)</th>
+                            <th class="text-nowrap right-align">Hours / Wk</th>
+                            <th class="right-align">Comp ($)</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -283,8 +283,8 @@
                                 <td>{{ each.name }}</td>
                               {% endif %}
                               <td>{{ each.title }}</td>
-                              <td class="text-right">{{ each.hours | round }}</td>
-                              <td class="text-right">{{ each.compensation | round | intcomma }}</td>
+                              <td class="right-align">{{ each.hours | round }}</td>
+                              <td class="right-align">{{ each.compensation | round | intcomma }}</td>
                             </tr>
                           {% endfor %}
                         </tbody>
@@ -417,11 +417,11 @@
                   </div>
                   <ul id="current-year-list-view" class="collapsible collapsible-grants-table">
                     <li title="View all current tax year grants in a single, scrollable list">
-                      {% include progress-bar.html %}
                       <div class="collapsible-header small">
                         <i class="small material-icons">list</i>Current year list view<br>
                       </div>
                       <div class="collapsible-body">
+                        <h6 class="text-muted-max">Tax Year {{ page.filings[0].tax_year | round }}</h6>
                         {% include grants-table.html %}
                       </div>
                     </li>

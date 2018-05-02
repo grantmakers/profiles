@@ -6,7 +6,7 @@
         <th><span>Name</span></th>
         <th><span>Purpose</span></th>
         <th><span>Location</span></th>
-        <th class="text-nowrap text-right"><span>Amount</span></th>
+        <th class="text-nowrap right-align"><span>Amount</span></th>
       </tr>
     </thead>
     <tbody>
@@ -20,7 +20,7 @@
               {{{ _highlightResult.grantee_city.value }}},&nbsp;{{ grantee_state }}
             {{/grantee_city}}
           </td>
-          <td>{{ grant_amount }}</td>
+          <td class="right-align">{{ grant_amount }}</td>
         </tr>
       {{/hits}}
     </tbody>
