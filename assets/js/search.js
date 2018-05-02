@@ -72,11 +72,13 @@ $(document).ready(function(){
     instantsearch.widgets.sortBySelector({
       container: '#ais-widget-sort-by',
       cssClasses: {
-        root: 'input-field'
+        root: 'input-field',
+        select: '',
+        item: ''
       },
       indices: [
-        {name: 'demo', label: 'Most relevant'},
-        {name: 'demo_amount_desc', label: 'Grant size'},
+        {name: 'grantmakers_io', label: 'Most relevant'},
+        // {name: 'demo_amount_desc', label: 'Grant size'},
       ]
     })
   );
@@ -436,6 +438,7 @@ $(document).ready(function(){
   // Initialize Materialize JS components
   search.once('render', function(){
     $('select').formSelect();
+    showTableHeaderToast();
   });
 
   // Initialize search
@@ -446,7 +449,32 @@ $(document).ready(function(){
     $('html, body').animate({scrollTop: scrollAnchor}, '500', 'swing');
   }
 
+  // Temp solution for table header clicks
+  function showTableHeaderToast() {
+    $('.ais-hits th span').click(function() {
+      var toastHTML = '<span>Sorting available for current year only </span><button class="btn-flat toast-action js-toast-action-scroll">Try It</button>';
+      M.toast({
+        html: toastHTML,
+        displayLength: 4000
+      });
+      const targetElem = $('#current-year-list-view');
+      $('.js-toast-action-scroll').click(function() {
+        scrolly(targetElem);
+      })
+    });
+  }
+
   // Helper functions
+  function scrolly(elem) {
+    let position = $(elem).position().top;
+    console.log(position);
+    // animate
+    $('html, body').animate({
+      'scrollTop': position + 100,
+    }, 300, function() {
+    });
+  }
+
   function slugify (text) {
     return text.toLowerCase().replace(/-+/g, '').replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
   };

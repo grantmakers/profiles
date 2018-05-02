@@ -38,10 +38,28 @@ $(document).ready(function() {
     $('.collapsible').collapsible({
       'accordion': false
     });
-    $('.collapsible-grants-table .collapsible-header').click(function() {
-      // TODO Show progress bar while data is loading
-      // Waiting for Materialize v1.0 as plugins are being refactored
-      // https://github.com/Dogfalo/materialize/issues/5004
+
+    $('.collapsible-grants-table').collapsible({
+      'accordion': false,
+      // TODO Use onOpenStart to add spinning icon
+      // onOpenStart: function(el) {
+      //   $(el).find('.collapsible-header i').addClass('md-spin');
+      // }
+      onOpenEnd: function(el) {
+        $(el).find('.collapsible-header i').removeClass('md-spin');
+      }
+    });
+    
+    // TODO Use onOpenStart to add spinning icon
+    // Unsure of root cause - possible Materialize bug?
+    $('.collapsible-grants-table .collapsible-header').click(function(e) {
+      if(!$(this).parent().hasClass('active')){
+        e.stopPropagation();
+        $(this).find('i').addClass('md-spin');
+        setTimeout(function() {
+          $('.collapsible-grants-table').collapsible('open');
+        }, 100);
+      }
     });
   };
 
@@ -118,7 +136,6 @@ $(document).ready(function() {
       window.location.hash = hash;
     });
   }
-
 
   // Enable table sort via StupidTable
   // =======================================================

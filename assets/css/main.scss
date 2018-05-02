@@ -832,6 +832,34 @@ nav ul li a {
 			text-align: center;
 		}
 	}
+	/* Sort By */
+	#ais-widget-sort-by {
+		.input-field {
+			margin-top: 0px !important;
+			margin-bottom: 0px !important;
+		}
+		input, .caret {
+			color: $text-muted-max !important; 
+		}
+		.select-wrapper .caret {
+			fill: $text-muted-max !important;
+		}
+		select, input {
+			margin-bottom: 0 !important;
+			border-bottom: 0 !important;
+			line-height: 1.5rem !important;
+			height: 1.5rem !important;
+			font-size: 15px;
+			font-family: 'Roboto';
+		}
+		.dropdown-content li>a, .dropdown-content li>span {
+			color: $accent-color;
+		}
+	}
+	.divider {
+		clear: both;
+	}
+
 	/* Filters - Refinements */
 	.card-header {
 		padding: 10px;
@@ -921,12 +949,12 @@ nav ul li a {
 	table tbody {
 		font-weight: 300;
 	}
-	table th span:hover {
-		cursor: default;
-	}
 	#ais-widget-hits em {
 		font-style: normal;
 		background-color: lighten($accent-color, 50%);
+	}
+	#ais-widget-hits table th span:hover {
+		cursor: default;
 	}
 	.hits-empty {
 		margin-top: 1em; // To match responsive table wrapper
@@ -997,11 +1025,29 @@ nav ul li a {
 			display: none;
 			margin: 0;
 		}
-		.collapsible-header, i {
+		.collapsible-header {
 			color: $gray-light !important;
+			i {
+				font-size: 20px;
+			}
+			@keyframes md-spin {
+				0% {
+					transform: rotate(0deg);
+				}
+				100% {
+					transform: rotate(359deg);
+				}
+			}
+			.md-spin {
+				animation: md-spin 0.6s infinite linear;
+			}
 		}
-		i {
-			font-size: 20px;
+		.collapsible-body {
+			i.material-icons {
+				font-size: 15px;
+				line-height: 1.5;
+				vertical-align: bottom;
+			}
 		}
 	}
 	.tabs-grants-table {

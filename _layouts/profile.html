@@ -415,10 +415,12 @@
                       </div>
                     </div>
                   </div>
-                  <ul class="collapsible collapsible-grants-table" data-collapsible="accordion">
+                  <ul id="current-year-list-view" class="collapsible collapsible-grants-table">
                     <li title="View all current tax year grants in a single, scrollable list">
                       {% include progress-bar.html %}
-                      <div class="collapsible-header small"><i class="small material-icons">list</i>Current year list view</div>
+                      <div class="collapsible-header small">
+                        <i class="small material-icons">list</i>Current year list view<br>
+                      </div>
                       <div class="collapsible-body">
                         {% include grants-table.html %}
                       </div>
