@@ -452,6 +452,11 @@ $(document).ready(function(){
   // Temp solution for table header clicks
   function showTableHeaderToast() {
     $('.ais-hits th span').click(function() {
+      ga('send', 'event', {
+        'eventCategory': 'Profile Events',
+        'eventAction': 'Profile Table Attempted Sort Click',
+        'eventLabel': $(this).find('span').text(),
+      });
       var toastHTML = '<span>Sorting available for current year only </span><button class="btn-flat toast-action js-toast-action-scroll">Try It</button>';
       M.toast({
         html: toastHTML,
