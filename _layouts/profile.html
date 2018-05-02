@@ -72,7 +72,9 @@
   <script src="{{ site.baseurl }}/assets/js/profile.js"></script>
 
   <!-- Drift Widget -->
-  <script defer src="{{ site.baseurl }}/assets/js/drift-init.js"></script>
+  {% unless jekyll.environment == 'development' %}
+    <script defer src="{{ site.baseurl }}/assets/js/drift-init.js"></script>
+  {% endunless %}
 
   {% unless jekyll.environment == 'staging' %}
     <script src="{{ site.baseurl }}/assets/js/ga-events.js"></script>
