@@ -465,6 +465,7 @@ $(document).ready(function(){
       const targetElem = $('#current-year-list-view');
       $('.js-toast-action-scroll').click(function() {
         scrolly(targetElem);
+        $('.collapsible-header i').addClass('bounce');
       })
     });
   }
@@ -472,7 +473,6 @@ $(document).ready(function(){
   // Helper functions
   function scrolly(elem) {
     let position = $(elem).position().top;
-    console.log(position);
     // animate
     $('html, body').animate({
       'scrollTop': position + 100,
