@@ -6,7 +6,7 @@ $(document).ready(function() {
     const clientPromise = stitch.StitchClientFactory.create('tags-lmqzn');
     const targetEIN = $('h1.org-name').data('ein').toString();
 
-    $('.chips').material_chip();
+    $('.chips').chips();
 
     let client;
     let db;
