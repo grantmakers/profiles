@@ -22,12 +22,15 @@ $(document).ready(function() {
 
     function displayTags() {
       db.collection('tags').findOne({'_id': targetEIN}).then(docs => {
-        if (docs) {
+        let html;
+        if (docs && docs.tags[0]) {
           const tagData = docs.tags;
-          const html = tagData.map(c => '<div class="chip">' + c.term + '</div>').join('');
-          document.getElementById('tags').innerHTML = html;
+          html = tagData.map(c => '<div class="chip">' + c.term + '</div>').join('');
           console.log('Tags fetched successfully');
+        } else {
+          html = 'No tags available for this funder';
         }
+        document.getElementById('tags').innerHTML = html;
       });
     }
 
