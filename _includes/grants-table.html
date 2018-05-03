@@ -1,5 +1,16 @@
 <div id="grantsTableWrapper" class="card-panel-body">
   <div class="responsive-table-wrapper">
+    {% if page.grant_count > 1000 %}
+    <div class="row">
+        <div class="col s12">
+          <div class="card blue-grey lighten-3">
+            <div class="card-content white-text">
+              <i class="material-icons">warning</i> You may experience a delay when sorting. This foundation has a large number of grants. 
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endif %}
     <table id="grantsTable" class="bordered">
       <thead>
         <tr>
@@ -7,7 +18,7 @@
           <th data-sort="string"><span>Name</span></th>
           <th data-sort="string"><span>Location</span></th>
           <th data-sort="string"><span>Purpose</span></th>
-          <th class="text-nowrap text-right" data-sort="int"><span>Amount ($)</span></th>
+          <th class="text-nowrap right-align" data-sort="int"><span>Amount ($)</span></th>
         </tr>
       </thead>
       <tbody>

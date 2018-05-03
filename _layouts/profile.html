@@ -19,12 +19,21 @@
   <meta content='width=device-width, initial-scale=1.0, minimum-scale=1' name='viewport' />
   <meta name = "format-detection" content = "telephone=no">
 
+  {% if page.grant_count > 5 %}
+    {% assign algolia = true %}
+  {% elsif page.filings[1] and page.grant_count > 0 %}
+    {% assign algolia = true %}
+  {% endif %}
+
   <!-- Fonts and Icons  -->
-  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
 
   <!-- CSS Files -->
-  <link href="{{ site.baseurl }}/assets/css/main.css" rel="stylesheet">
+  {% if algolia == true %}
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.7.2/dist/instantsearch.min.css">
+  {% endif %}
+  <link rel="stylesheet" href="{{ site.baseurl }}/assets/css/main.css">
 
   <!-- Schema.org -->
   <script type='application/ld+json'>
@@ -43,33 +52,32 @@
   </script>
 
   <!--   Core JS Files   -->
-  <script
-    src="https://code.jquery.com/jquery-3.2.1.min.js"
-    integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  <script 
+    src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" 
+    integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT" 
     crossorigin="anonymous">
   </script>
-  <script async src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/js/materialize.min.js"></script>
-
-  {% if page.grant_count > 1 %}
-    {% assign algolia = true %}
-  {% endif %}
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.1/js/materialize.min.js"></script>
 
   <!-- Search and Algolia-related scripts -->
   <script defer src="https://cdn.polyfill.io/v2/polyfill.min.js?features=Object.assign,Intl.~locale.en"></script>
   <script defer src="//cdn.jsdelivr.net/algoliasearch/3/algoliasearch.min.js"></script>
   {% if algolia == true %}
-  <script defer src="//cdn.jsdelivr.net/algoliasearch.helper/2/algoliasearch.helper.min.js"></script>
-  <script defer src="//cdn.jsdelivr.net/hogan.js/3.0.2/hogan.min.common.js"></script>
-  <!-- <script src="//cdn.jsdelivr.net/jquery.ion.rangeslider/2.0.12/js/ion.rangeSlider.min.js"></script> -->
-  <script defer src="{{ site.baseurl }}/assets/js/search.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.7.2"></script> 
+ <script defer src="{{ site.baseurl }}/assets/js/search.js"></script>
   {% endif %}
   <script defer src="https://cdn.jsdelivr.net/autocomplete.js/0.28/autocomplete.min.js"></script>
   <script defer src="{{ site.baseurl }}/assets/js/autocomplete.js"></script>
 
-  <!-- <script async src="https://cdn.polyfill.io/v2/polyfill.min.js?features=Intl.~locale.en"></script> -->
   <script defer src="{{ site.baseurl }}/assets/js/stupidtable.min.js"></script>
   <script defer src="{{ site.baseurl }}/assets/js/jquery.matchHeight-min.js"></script>
   <script src="{{ site.baseurl }}/assets/js/profile.js"></script>
+
+  <!-- Drift Widget -->
+  {% unless jekyll.environment == 'development' %}
+    <script defer src="{{ site.baseurl }}/assets/js/drift-init.js"></script>
+  {% endunless %}
+
   {% unless jekyll.environment == 'staging' %}
     <script src="{{ site.baseurl }}/assets/js/ga-events.js"></script>
   {% endunless %}
@@ -89,13 +97,13 @@
           In partership with <img src="{{ site.baseurl }}/assets/img/algolia-dark-bg.svg" alt="Algolia Partnership Logo">
         </div>
         <div class="container-custom">
-          <a href="#" data-activates="mobile-nav" class="button-collapse right disable-primary-color"><i class="material-icons">menu</i></a>
+          <a href="#" data-target="mobile-nav" class="sidenav-trigger right disable-primary-color"><i class="material-icons">menu</i></a>
           <div class="row">
             <div class="col s8 m4">
               <a href="https://www.grantmakers.io" data-ga="Homepage" class="brand-logo">
                 <div class="logo-container">
                   <div class="logo">
-                      <img src="{{ site.baseurl }}/assets/img/logo.png" alt="Grantmakers Logo" class="tooltipped" data-tooltip="<b>Grantmakers.io</b> is a free tool<br>from your friends at<br><b>SmarterGiving.org</b>" data-position="bottom" data-delay="20" data-html="true">
+                      <img src="{{ site.baseurl }}/assets/img/logo.png" alt="Grantmakers Logo" class="tooltipped" data-tooltip="<b>Grantmakers.io</b> is a free tool<br>from your friends at<br><b>SmarterGiving.org</b>" data-position="bottom" data-html="true">
                   </div>
                   <div class="brand brand-name">
                       Grantmakers.io
@@ -129,7 +137,7 @@
     </nav>
   </div>
   <!-- Mobile Navbar -->
-  <ul class="nav-primary side-nav" id="mobile-nav" >
+  <ul class="nav-primary sidenav" id="mobile-nav">
     <li><a href="#people" class="scrolly">People</a></li>
     <li><a href="#grants" class="scrolly">Grants</a></li>
     <li><a href="#filings" class="scrolly">Tax Filings</a></li>
@@ -148,7 +156,7 @@
           <div class="col s12">
             <div class="alert-fixed-to-top">
               <div class="left">Tax Year {{ page.filings[0].tax_year | round }}</div>
-              <div class="right tooltipped" data-position="bottom" data-delay="20" data-html="true" data-tooltip="<b>Source</b><br>Profile pulled directly<br>from electronically filed<br>IRS Form 990-PF">IRS Form 990-PF</div>
+              <div class="right tooltipped" data-position="bottom" data-html="true" data-tooltip="<b>Source</b><br>Profile pulled directly<br>from electronically filed<br>IRS Form 990-PF">IRS Form 990-PF</div>
             </div>
           </div>
         </div>
@@ -175,32 +183,32 @@
                   <ul class="list-inline org-location profile-summary-icons text-center"> 
                     <li>
                       {% if page.grants_to_preselected_only %}
-                        <a href="#application-info" data-ga="Application Summary Icon" class="js-ga-summary-icon-click tooltipped scrolly" data-delay="20" data-tooltip="Grants to preselected organizations only"><i class="material-icons">lock</i></a>
+                        <a href="#application-info" data-ga="Application Summary Icon" class="js-ga-summary-icon-click tooltipped scrolly" data-tooltip="Grants to preselected organizations only"><i class="material-icons">lock</i></a>
                       {% else %}
-                        <a href="#application-info" data-ga="Application Summary Icon" class="js-ga-summary-icon-click tooltipped scrolly" data-delay="20" data-tooltip="Possibly accepts unsolicited applications"><i class="material-icons material-icons-active">lock_open</i></a>
+                        <a href="#application-info" data-ga="Application Summary Icon" class="js-ga-summary-icon-click tooltipped scrolly" data-tooltip="Possibly accepts unsolicited applications"><i class="material-icons material-icons-active">lock_open</i></a>
                       {% endif %}
                     </li>
                     <li>
                       {% if page.has_recent_grants %}
-                        <i class="material-icons material-icons-active tooltipped" data-delay="20" data-tooltip="Has recent grants">monetization_on</i>
+                        <i class="material-icons material-icons-active tooltipped" data-tooltip="Has recent grants">monetization_on</i>
                       {% else %}
-                        <i class="material-icons tooltipped" data-delay="20" data-tooltip="No recent grants">monetization_on</i>
+                        <i class="material-icons tooltipped" data-tooltip="No recent grants">monetization_on</i>
                       {% endif %}
                     </li>
                     <li>
                       {% if page.is_likely_staffed %}
-                      <i class="material-icons material-icons-active tooltipped" data-delay="20" data-tooltip="Is likely staffed">account_circle</i>
+                      <i class="material-icons material-icons-active tooltipped" data-tooltip="Is likely staffed">account_circle</i>
                       {% else %}
-                        <i class="material-icons tooltipped" data-delay="20" data-tooltip="No paid staff">account_circle</i>
+                        <i class="material-icons tooltipped" data-tooltip="No paid staff">account_circle</i>
                       {% endif %}
                     </li>
                     {% if page.website %}
                       <li>
-                        <a href="{{ page.website }}" data-ga="Website Summary Icon" class="js-ga-website-click tooltipped" data-delay="20" data-tooltip="Click to visit website"><i class="material-icons material-icons-active">public</i></a>
+                        <a href="{{ page.website }}" data-ga="Website Summary Icon" class="js-ga-website-click tooltipped" data-tooltip="Click to visit website"><i class="material-icons material-icons-active">public</i></a>
                       </li>
                     {% else %}
                       <li>
-                        <i class="material-icons tooltipped" data-delay="20" data-tooltip="No website listed">public</i>
+                        <i class="material-icons tooltipped" data-tooltip="No website listed">public</i>
                       </li>
                     {% endif %}
                   </ul>
@@ -240,12 +248,12 @@
                       </div>
                       <div class="list-group-item">
                         <div class="row-action-primary">
-                          <i class="material-icons icon-success">attach_money</i>
+                          <i class="material-icons icon-success">poll</i> <!-- alt view_comfy poll local_atm-->
                         </div>
                         <div class="row-content">
                           <div class="least-content"></div>
                           <h4 class="list-group-item-heading">{{ page.grant_count | round | intcomma }}</h4>
-                          <p class="list-group-item-text">Number of Grants</p>
+                          <p class="list-group-item-text">Grants Last Year</p>
                         </div>
                       </div>
                     </div>
@@ -267,8 +275,8 @@
                             <th class="text-center">#</th>
                             <th>Name</th>
                             <th>Title</th>
-                            <th class="text-nowrap text-right">Hours / Wk</th>
-                            <th class="text-right">Comp ($)</th>
+                            <th class="text-nowrap right-align">Hours / Wk</th>
+                            <th class="right-align">Comp ($)</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -281,8 +289,8 @@
                                 <td>{{ each.name }}</td>
                               {% endif %}
                               <td>{{ each.title }}</td>
-                              <td class="text-right">{{ each.hours | round }}</td>
-                              <td class="text-right">{{ each.compensation | round | intcomma }}</td>
+                              <td class="right-align">{{ each.hours | round }}</td>
+                              <td class="right-align">{{ each.compensation | round | intcomma }}</td>
                             </tr>
                           {% endfor %}
                         </tbody>
@@ -303,15 +311,18 @@
                       <div class="card-panel-header">
                         <div class="row">
                           <div class="col s12 m3">
-                            <h4>Grants{% if algolia == true %} <span class="text-muted algolia-logo right hide-on-med-and-up">Search powered by<br><a href="https://www.algolia.com" class="algolia-light-bg"><img src="{{ site.baseurl }}/assets/img/algolia-light-bg.svg" alt="Powered by Algolia"></a></span><a href="#" data-activates="algolia-mobile" class="button-collapse right hide"><i class="material-icons text-muted">filter_list</i></a>{% endif %}</h4>
+                            <h4>Grants{% if algolia == true %} <span class="text-muted algolia-logo right hide-on-med-and-up">Search powered by<br><a href="https://www.algolia.com" class="algolia-light-bg"><img src="{{ site.baseurl }}/assets/img/algolia-light-bg.svg" alt="Powered by Algolia"></a></span><a href="#" data-target="algolia-mobile" class="sidenav-trigger right hide"><i class="material-icons text-muted">filter_list</i></a>{% endif %}</h4>
                           </div>
                           <div class="col s12 m6">
                             {% if algolia == true %}
                               <div class="search">
                                 <div class="input-field text-muted">
+                                  <!--
                                   <i id="search-input-icon" class="material-icons prefix grey-text text-lighten-1">search</i>
-                                  <input id="search-input" type="search" />
-                                  <label for="search-input"></label>
+                                  <input id="ais-widget-search-box" type="search" />
+                                  <label for="ais-widget-search-box"></label>
+                                  -->
+                                  <div id="ais-widget-search-box"></div>
                                 </div>
                               </div>
                             {% endif %}
@@ -320,7 +331,7 @@
                             {% if algolia == true %}
                               <div class="right-align text-muted algolia-logo hide-on-small-only">Search powered by<br><a class="algolia-light-bg" href="{{ site.algolia_referral_link }}"><img src="{{ site.baseurl }}/assets/img/algolia-light-bg.svg" alt="Powered by Algolia"></a></div>
                             {% else %}
-                              <h4 class="right-align text-muted hide-on-small-only"><i class="material-icons tooltipped" data-delay="20" data-tooltip="Grants made in {{ page.filings[0].tax_year | round }} tax year">info</i></h4>
+                              <h4 class="right-align hide-on-small-only"><button class="tooltipped" data-tooltip="Grants made in {{ page.filings[0].tax_year | round }} tax year"><i class="material-icons grey-text">info</i></button></h4>
                             {% endif %}
                           </div>
                         </div>
@@ -330,60 +341,93 @@
                   {% if algolia == true %}
                   <div class="section section-results">
                     <div class="row">
-                      <div class="col s12">
-                        <!-- Algolia Search -->
-                        <!-- <div id="algolia-mobile" class="side-nav"> -->
-                          <div id="left-column-affix-parent" class="col s12 l2 hide-on-med-and-down">
-                            <div id="left-column">
-                              <div id="facets"></div>
-                              <div id="clear" class="clearfix"></div>
-                              <div id="tips" class="clearfix">
-                                <div class="facets">
+                      <div class="col s12 l3">
+                        <!-- Filters / Refinements header -->
+                        <div class="ais-root ais-stats">
+                          <div class="ais-body ais-stats--body">
+                            <div class="hide-on-med-and-down">
+                              Filters
+                            </div>
+                            <div class="hide-on-large-only center-align">
+                              <ul class="actions">
+                                <li>
+                                  <span id="ais-widget-mobile-clear-all"></span>
+                                  <a href="#" data-target="refinements-slide-out" class="sidenav-trigger show-on-med-and-down waves-effect waves-light button-collapse btn white grey-text text-darken-3"><i class="material-icons right">filter_list</i> Filter</a>
+                                </li>
+                                <li>
                                   
-                                </div>
+                                </li>
+                              </ul>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="divider hide-on-med-and-down"></div>
+                        <div class="section section-refinements hide-on-med-and-down">
+                          <div class="row"> <!-- Add row class to remove added white space / padding -->
+                            <div class="col s12">
+                              <!-- 
+                              <div class="card">
+                                <div id="ais-widget-refinement-list--purpose"></div>
+                              </div> 
+                              -->
+                              <div class="card">
+                                <div id="ais-widget-refinement-list--tax_year"></div>
+                              </div>
+                              <div class="card">
+                                <div id="ais-widget-refinement-list--grantee_state"></div>
+                              </div>
+                              <div class="card">
+                                <div id="ais-widget-refinement-list--grantee_city"></div>
+                              </div>
+                              <div class="card">
+                                <div id="ais-widget-range-slider"></div>
+                              </div>
+                            </div>
+                            <div class="col s12">
+                              <div class="section">
+                                <div id="ais-widget-clear-all" class="center-align"></div>
                               </div>
                             </div>
                           </div>
-                        <!-- </div> -->           
-                        <div class="col s12 l9 offset-l1">
-                          <div id="right-column">
-                            <!-- 
-                            <div id="sort-by">Sort by:
-                              <select dir="rtl" id="sort-by-select">
-                                <option value="" selected>Most relevant</option>
-                                <option value="_TaxPeriod_asc">Lowest Price</option>
-                                <option value="_TaxPeriod_desc">Highest Price</option>
-                              </select>
-                              <span class="caret"></span>
-                            </div>
-                            -->
-                            <div id="stats">
-                              <div class="preloader-wrapper small active">
-                                <div class="spinner-layer">
-                                  <div class="circle-clipper left">
-                                    <div class="circle"></div>
-                                  </div><div class="gap-patch">
-                                    <div class="circle"></div>
-                                  </div><div class="circle-clipper right">
-                                    <div class="circle"></div>
+                        </div>
+                      </div>
+                      <div class="col s12 l9">
+                        <div class="col s12 m9 l10">
+                          <div id="ais-widget-stats"></div>
+                        </div>
+                        <div class="col s12 m3 l2">
+                          <div id="ais-widget-sort-by"></div>
+                        </div>
+                        <div class="col s12 divider"></div>
+                        <div class="row">
+                          <div class="col s12"> <!-- Add row class to remove added white space / padding -->
+                            <div class="section">
+                                <div id="ais-widget-current-refined-values"></div>
+                              <div> <!-- Add card class for alt view -->
+                                <div class="card-content">
+                                  <div class="responsive-table-wrapper">
+                                    <div id="ais-widget-hits"></div>
                                   </div>
                                 </div>
                               </div>
-                              <div class="algolia-loading"> Fetching grants data</div>
                             </div>
-                            <div id="rate-limit" class="clearfix"></div>
-                            <div id="hits" class="clearfix"></div>
-                            <div id="pagination" class="center-align"></div>
                           </div>
+                        </div>
+                      </div>
+                      <div class="col s12 l9 offset-l3">
+                        <div class="section center-align">
+                          <div id="ais-widget-pagination"></div>
                         </div>
                       </div>
                     </div>
                   </div>
-                  <ul class="collapsible collapsible-grants-table" data-collapsible="accordion">
+                  <ul id="current-year-list-view" class="collapsible collapsible-grants-table">
                     <li title="View all current tax year grants in a single, scrollable list">
-                      {% include progress-bar.html %}
-                      <div class="collapsible-header small"><i class="small material-icons">list</i>Current year list view</div>
+                      <div class="collapsible-header small">
+                        <i class="small material-icons">list</i>Sortable table - Latest year<br>
+                      </div>
                       <div class="collapsible-body">
+                        <h6 class="text-muted-max">Tax Year {{ page.filings[0].tax_year | round }}</h6>
                         {% include grants-table.html %}
                       </div>
                     </li>
@@ -403,6 +447,18 @@
           </div>
 
           <div class="row">
+            <div class="col s12">
+              <div id="information-source" class="center-align">
+                <ul class="list-inline">
+                  <li>
+                    <h6 class="text-muted">All information pulled directly from the organization's IRS Form 990PF</h6>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
             <div class="col s12 l6">
               <div id="application-info">
                 <div class="card-panel">
@@ -410,7 +466,7 @@
                     <div class="card-panel-header">
                       <div class="row">
                         <div class="col s12">
-                          <h4>Application Guidelines <i class="material-icons tooltipped right grey-text" data-delay="20" data-position="left" data-html="true" data-tooltip="Form 990PF<br>Part XV<br>Line 2">info</i></h4>
+                          <h4>Application Guidelines <button class="tooltipped right" data-position="left" data-html="true" data-tooltip="Form 990PF<br>Part XV<br>Line 2"><i class="material-icons grey-text hide-on-med-and-down">info</i></button></h4>
                         </div>
                       </div>
                     </div>
@@ -440,21 +496,21 @@
                     {% if page.grants_application_info %}
                       <ul class="collection">
                         <li class="collection-item avatar">
-                          <i class="material-icons circle grey tooltipped" data-delay="20" data-position="right" data-html="true" data-tooltip="The form in which applications<br>should be submitted and information<br>and materials they should include<br>Line 2b">assignment</i>
+                          <i class="material-icons circle grey tooltipped" data-position="right" data-html="true" data-tooltip="The form in which applications<br>should be submitted and information<br>and materials they should include<br>Line 2b">assignment</i>
                           <span class="title">Instructions</span>
                           <p>{{ page.grants_application_info }}</p>
                           <!-- <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a> -->
                         </li>
 
                         <li class="collection-item avatar">
-                          <i class="material-icons circle grey tooltipped" data-delay="20" data-position="right" data-html="true" data-tooltip="Any submission deadlines<br>Line 2c">history</i>
+                          <i class="material-icons circle grey tooltipped" data-position="right" data-html="true" data-tooltip="Any submission deadlines<br>Line 2c">history</i>
                           <span class="title">Deadlines</span>
                           <p>{{ page.grants_application_deadlines }}</p>
                           <!--<a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>-->
                         </li>
 
                         <li class="collection-item avatar">
-                          <i class="material-icons circle grey tooltipped" data-delay="20" data-position="right" data-html="true" data-tooltip="Any restrictions or limitations on awards,<br>such as by geographical areas, charitable fields,<br>kinds of institutions, or other factors<br>Line 2d">assignment_late</i>
+                          <i class="material-icons circle grey tooltipped" data-position="right" data-html="true" data-tooltip="Any restrictions or limitations on awards,<br>such as by geographical areas, charitable fields,<br>kinds of institutions, or other factors<br>Line 2d">assignment_late</i>
                           <span class="title">Restrictions</span>
                           <p>{{ page.grants_application_restrictions }}</p>
                           <!--<a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>-->
@@ -480,7 +536,7 @@
                     <hr>
                     <p>We've heard from many of you expressing frustration when trying to find forms referenced in instructions. With only 10% of foundations having websites, it's no surprise.</p>
                     <p>If you have a resource you think would be useful to your fellow grantseekers, send it via the link below and we'll post it here.</p>
-                    <ul class="browser-default community-examples grey lighten-4">
+                    <ul class="browser-default community-examples grey lighten-3">
                       <li>Grant forms</li>
                       <li>Sample submissions</li>
                       <li>Changes in the application process</li>
@@ -495,17 +551,17 @@
           </div>
 
           <div class="row">
-              <div class="col s12">
-                <div id="feedback" class="center-align">
-                  <ul class="list-inline">
-                    <li>
-                      <h5>What additional information would you find useful?</h5>
-                      <a href="mailto:feedback@grantmakers.io?body=%0D%0A%0D%0A{{ page.organization_name}}%0D%0A{{ site.url }}{{ site.baseurl }}/{{ page.ein }}/" target="_blank" class="waves-effect waves-light btn white grey-text text-darken-1" data-ga="Email Feedback"><i class="material-icons left">email</i> Give us feedback</a>
-                    </li>
-                  </ul>
-                </div>
+            <div class="col s12">
+              <div id="feedback" class="center-align">
+                <ul class="list-inline">
+                  <li>
+                    <h5>What additional information would you find useful?</h5>
+                    <a href="mailto:feedback@grantmakers.io?body=%0D%0A%0D%0A{{ page.organization_name}}%0D%0A{{ site.url }}{{ site.baseurl }}/{{ page.ein }}/" target="_blank" class="waves-effect waves-light btn white grey-text text-darken-1" data-ga="Email Feedback"><i class="material-icons left">email</i> Give us feedback</a>
+                  </li>
+                </ul>
               </div>
             </div>
+          </div>
 
           <div class="row">
             <div class="col s12">
@@ -516,14 +572,14 @@
                   </div>
                   <div class="card-panel-body">
                     <ul class="list-inline">
-                      <li><i class="material-icons tooltipped" data-delay="20" data-html="true" data-tooltip="<b>Human Readable</b><br>Foundation Center PDFs">picture_as_pdf</i> <span class="show-on-medium-and-down text-muted">PDF</span></li>
+                      <li><i class="material-icons tooltipped" data-html="true" data-tooltip="<b>Human Readable</b><br>Foundation Center PDFs">picture_as_pdf</i> <span class="show-on-medium-and-down text-muted">PDF</span></li>
                       {% for each in page.filings %}
                         <li><a class="js-filings-pdf waves-effect waves-light btn grey lighten-3 grey-text text-darken-1" target="_blank" rel="noopener" data-ga="PDF" data-tax-period="{{ each.tax_period | round }}" data-ein="{{ page.ein }}" data-url-xml="{{ each.url }}" title="View 990-PF">{{ each.tax_year | round }}</a></li>
                       {% endfor %}
                     </ul>
                     <hr>
                     <ul class="list-inline">
-                      <li><i class="material-icons tooltipped" data-delay="20" data-html="true" data-tooltip="<b>Machine Readable</b><br>XML Format">code</i> <span class="show-on-medium-and-down text-muted">XML</span></li>
+                      <li><i class="material-icons tooltipped" data-html="true" data-tooltip="<b>Machine Readable</b><br>XML Format">code</i> <span class="show-on-medium-and-down text-muted">XML</span></li>
                       {% for each in page.filings %}
                         <li><a class="waves-effect waves-light btn grey lighten-3 grey-text text-darken-1" href="{{ each.url }}" target="_blank" rel="noopener" data-ga="XML" data-tax-period="{{ each.tax_period | round }}" data-ein="{{ each.ein }}" data-url-xml="{{ each.url }}" title="View 990-PF">{{ each.tax_year | round }}</a></li>
                       {% endfor %}
@@ -578,14 +634,12 @@
   </div>
   {% include footer.html %}
   {% include footer-license-and-links.html %}
-  <!-- Hogan.js Search Template -->
-  {% include search.html %}
-  <!-- /Hogan.js Search Template -->
   {% unless jekyll.environment == 'staging' %}
     {% include ga.html %}
   {% endunless %}
-  
-  {% include drift.html %}
+  {% if algolia %}
+    {% include algolia/refinements-slide-out.html %}
+  {% endif %}
 
 </body>  
 </html>

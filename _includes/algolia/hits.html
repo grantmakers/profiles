@@ -1,0 +1,28 @@
+{% raw %}
+  <table class="striped">
+    <thead>
+      <tr>
+        <th><span>Year</span></th>
+        <th><span>Name</span></th>
+        <th><span>Purpose</span></th>
+        <th><span>Location</span></th>
+        <th class="text-nowrap right-align"><span>Amount</span></th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#hits}}
+        <tr>
+          <td>{{ tax_year }}</td>
+          <td>{{{ _highlightResult.grantee_name.value }}}</td>
+          <td>{{{ _highlightResult.grant_purpose.value }}}</td>
+          <td class="no-wrap">
+            {{#grantee_city}}
+              {{{ _highlightResult.grantee_city.value }}},&nbsp;{{ grantee_state }}
+            {{/grantee_city}}
+          </td>
+          <td class="right-align">{{ grant_amount }}</td>
+        </tr>
+      {{/hits}}
+    </tbody>
+  </table>
+{% endraw %}

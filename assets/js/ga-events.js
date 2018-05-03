@@ -26,7 +26,10 @@ $(document).ready(function() {
     });
   });
 
-  // Table sort
+  // Table sort (Algolia table)
+  // See search.js
+
+  // Table sort (static table)
   $('#grantsTable th').on('click', function() {
     ga('send', 'event', {
       'eventCategory': 'Profile Events',

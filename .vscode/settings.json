@@ -1,0 +1,11 @@
+{
+  //-------- Search configuration --------
+
+// The folders to exclude when doing a full text search in the workspace.
+  "search.exclude": { 
+    "assets/css/_sass": true,
+    ".sass-cache": true,
+    "/node_modules": true, 
+    "/.git": true 
+  }
+}
