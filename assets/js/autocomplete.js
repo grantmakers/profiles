@@ -40,7 +40,10 @@ $(document).ready(function() {
       location.href = target;
     } else {
       var $toastContent = $('<span>Something went wrong</span>').add($('<button class="btn-flat toast-action toast-action-redirect">Try main search page</button>'));
-      Materialize.toast($toastContent, 10000);
+      M.toast({
+        html: $toastContent, 
+        displayLength: 10000
+      });
       $('.toast-action-redirect').on('click', function(){
         location.href = 'https://www.grantmakers.io';
       });

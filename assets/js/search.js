@@ -1,527 +1,527 @@
-/* eslint-disable guard-for-in */
-$(document).ready(function() {
-  // Define search globals
+---
+---
+$(document).ready(function(){
+  // Helper definitions
+  // =======================================================
   const targetEIN = $('h1.org-name').data('ein');
+  const scrollAnchor = $('#grants').offset().top;
   const isMobile = window.matchMedia('only screen and (max-width: 992px)');
+  let gaCheck = window[window['GoogleAnalyticsObject'] || 'ga']; // Check for Google Analytics
+  // Note - fixed grants header handled by profile.js
 
-  // INITIALIZATION
-  // ==============
-  /* // Prep for switch to Instantsearch
+  // Initialize Materialize components
+  // =======================================================
+  // Note: if the element is created dynamically via Instantsearch widget,
+  // the plugin needs to be initialized in the normal Instantsearch workflow
+  // using the render method (e.g. search.once('render'...)
+  $('.parallax').parallax();
+  $('.sidenav').sidenav();
+
+  // Algolia Instantsearch
+  // =======================================================
+  // Config
   const search = instantsearch({
-    'appId': 'QA1231C5W9',
-    'apiKey': 'cd47ecb3457441878399b20acc8c3fbc',
-    'indexName': 'grantmakers_io',
-    'urlSync': true,
+    appId: 'QA1231C5W9',
+    apiKey: 'cd47ecb3457441878399b20acc8c3fbc',
+    indexName: 'grantmakers_io',
+    numberLocale: 'en-US',
+    routing: true,
+    searchParameters: {
+      'filters': 'ein:' + targetEIN
+    }
   });
-  search.start();
+
+  // Define templates
+  const templateHits = `{% include algolia/hits.html %}`;
+  const templateHitsEmpty = `{% include algolia/hits-empty.html %}`;
+  const templateRefinementItem = `{% include algolia/refinement-item.html %}`;
+  const templateRefinementHeader = `{% include algolia/refinement-header.html %}`;
+  const templateCurrentRefinedValues = `{% include algolia/current-refined-values.html %}`;
+  const templateShowMoreActive = `{% include algolia/show-more-active.html %}`;
+  const templateShowMoreInactive = `{% include algolia/show-more-inactive.html %}`;
+
+  // Define color palette
+  const widgetHeaderClasses = ['card-header', 'grey', 'lighten-4'];
+
+  // Construct widgets
+  search.addWidget(
+    instantsearch.widgets.searchBox({
+      container: '#ais-widget-search-box',
+      poweredBy: false,
+      autofocus: false,
+      reset: true,
+      queryHook: function(query, search) {
+        readyToSearchScrollPosition();
+        search(query);
+      }
+    })
+  );
+
+  search.addWidget(
+    instantsearch.widgets.stats({
+      container: '#ais-widget-stats',
+      autoHideContainer: false,
+      cssClasses: {
+        body: 'center-align-on-mobile',
+        time: 'small text-muted-max hide-on-med-and-down',
+      },
+    })
+  );
+
+  /*
+  search.addWidget(
+    instantsearch.widgets.sortBySelector({
+      container: '#ais-widget-sort-by',
+      cssClasses: {
+        root: 'input-field',
+        select: '',
+        item: ''
+      },
+      indices: [
+        {name: 'grantmakers_io', label: 'Most relevant'},
+        // {name: 'demo_amount_desc', label: 'Grant size'},
+      ]
+    })
+  );
   */
-  const APPLICATION_ID = 'QA1231C5W9';
-  const SEARCH_ONLY_API_KEY = 'cd47ecb3457441878399b20acc8c3fbc';
-  const INDEX_NAME = 'grantmakers_io';
-  let PARAMS = {
-    'hitsPerPage': 15,
-    'maxValuesPerFacet': 8,
-    'facets': [],
-    'disjunctiveFacets': ['tax_year', 'grantee_city', 'grantee_state'],
-    'index': INDEX_NAME,
-    'filters': 'ein:' + targetEIN,
+
+  // TODO Use infiniteHits template if isMobile.matches (aka on mobile devices)
+  search.addWidget(
+    instantsearch.widgets.hits({
+      container: '#ais-widget-hits',
+      templates: {
+        empty: templateHitsEmpty,
+        allItems: templateHits,
+      },
+      transformData: function(arr) {
+        for (var i = 0, len = arr.hits.length; i < len; i++) {
+          let n = arr.hits[i].grant_amount;
+          let formattedNumber = '$' + formatter.format(n);
+          arr.hits[i].grant_amount = formattedNumber;
+        }
+        return arr;
+      }
+    })
+  );
+
+  /*
+  search.addWidget(
+    instantsearch.widgets.refinementList({
+      container: '#ais-widget-refinement-list--purpose',
+      attributeName: 'grant_purpose',
+      limit: 5,
+      collapsible: {
+        collapsed: true
+      },
+      showMore: {
+        templates: {
+          active: templateShowMoreActive,
+          inactive: templateShowMoreInactive,
+        },
+      },
+      templates: {
+        header: 'Program' + templateRefinementHeader,
+        item: templateRefinementItem,
+      },
+      cssClasses: {
+        header: widgetHeaderClasses,
+        body: 'card-content',
+      },
+      transformData: function(item) {
+        return formatRefinements(item);
+      }
+    })
+  );
+  */
+
+  search.addWidget(
+    instantsearch.widgets.refinementList({
+      container: '#ais-widget-refinement-list--tax_year',
+      attributeName: 'tax_year',
+      sortBy: ['name:desc'],
+      limit: 7,
+      collapsible: {
+        collapsed: false
+      },
+      showMore: false,
+      /*
+      showMore: {
+        templates: {
+          active: templateShowMoreActive,
+          inactive: templateShowMoreInactive,
+        },
+      },
+      */
+      templates: {
+        header: 'Tax Year' + templateRefinementHeader,
+        item: templateRefinementItem,
+      },
+      cssClasses: {
+        header: widgetHeaderClasses,
+        body: 'card-content',
+      },
+      transformData: function(item) {
+        return formatRefinements(item);
+      }
+    })
+  )
+
+  search.addWidget(
+    instantsearch.widgets.refinementList({
+      container: '#ais-widget-refinement-list--grantee_state',
+      attributeName: 'grantee_state',
+      limit: 7,
+      collapsible: {
+        collapsed: false
+      },
+      showMore: false,
+      /*
+      showMore: {
+        templates: {
+          active: templateShowMoreActive,
+          inactive: templateShowMoreInactive,
+        },
+      },
+      */
+      templates: {
+        header: 'State' + templateRefinementHeader,
+        item: templateRefinementItem,
+      },
+      cssClasses: {
+        header: widgetHeaderClasses,
+        body: 'card-content',
+      },
+      transformData: function(item) {
+        return formatRefinements(item);
+      }
+    })
+  );
+
+  search.addWidget(
+    instantsearch.widgets.refinementList({
+      container: '#ais-widget-refinement-list--grantee_city',
+      attributeName: 'grantee_city',
+      limit: 7,
+      collapsible: {
+        collapsed: false
+      },
+      showMore: false,
+      /*
+      showMore: {
+        templates: {
+          active: templateShowMoreActive,
+          inactive: templateShowMoreInactive,
+        },
+      },
+      */
+      templates: {
+        header: 'City' + templateRefinementHeader,
+        item: templateRefinementItem,
+      },
+      cssClasses: {
+        header: widgetHeaderClasses,
+        body: 'card-content',
+      },
+      transformData: function(item) {
+        return formatRefinements(item);
+      }
+    })
+  );
+
+  search.addWidget(
+    instantsearch.widgets.rangeSlider({
+      container: '#ais-widget-range-slider',
+      attributeName: 'grant_amount',
+      collapsible: {
+        collapsed: true
+      },
+      cssClasses: {
+        header: widgetHeaderClasses,
+        body: 'card-content',
+      },
+      templates: {
+        header: 'Amount' + templateRefinementHeader
+      },
+      tooltips: {
+        format: function(rawValue) {
+          return '$' + Math.round(rawValue).toLocaleString();
+        }
+      },
+      pips: false,
+    })
+  );
+
+  search.addWidget(
+    instantsearch.widgets.currentRefinedValues({
+      container: '#ais-widget-current-refined-values',
+      clearAll: false,
+      clearsQuery: true,
+      onlyListedAttributes: true,
+      attributes: [
+        {name: 'grant_purpose', label: 'Program'},
+        {name: 'tax_year', label: 'Tax Year'},
+        {name: 'grantee_state', label: 'State'},
+        {name: 'grantee_city', label: 'City'},
+      ],
+      cssClasses: {
+        link: ['waves-effect', 'btn', 'btn-custom', 'btn-clear-refinements', 'blue-grey', 'lighten-3'],
+        clearAll: ['waves-effect', 'btn', 'btn-custom', 'btn-clear-refinements']
+      },
+      templates: {
+        item: templateCurrentRefinedValues,
+      },
+    })
+  );
+
+  search.addWidget(
+    instantsearch.widgets.clearAll({
+      container: '#ais-widget-clear-all',
+      templates: {
+        link: 'Clear all'
+      },
+      autoHideContainer: true,
+      clearsQuery: true,
+      cssClasses: {
+        root: ['btn', 'btn-custom', 'waves-effect','waves-light', 'white-text'],
+      }
+    })
+  );
+
+  // TODO remove pagination on mobile when infiniteHits widgets is used
+  search.addWidget(
+    instantsearch.widgets.pagination({
+      container: '#ais-widget-pagination',
+      padding: 1,
+      autoHideContainer: true,
+      // maxPages: 100, //TODO Algolia limits results to 1000 - thus 50 pages max
+      scrollTo: '#grants',
+      cssClasses: {
+        root: 'pagination',
+        page: 'waves-effect',
+        active: 'active',
+        disabled: 'disabled'
+      }
+    })
+  );
+
+  // Recreate refinement widgets for mobile views
+  // Clear all button
+  search.addWidget(
+    instantsearch.widgets.clearAll({
+      container: '#ais-widget-mobile-clear-all',
+      templates: {
+        link: '<a class="waves-effect waves-light btn btn grey lighten-5 grey-text text-darken-3">Clear</a>'
+      },
+      autoHideContainer: true,
+      clearsQuery: true,
+    })
+  );
+  // Slide out
+  /*
+  search.addWidget(
+    instantsearch.widgets.refinementList({
+      container: '#ais-widget-mobile-refinement-list--purpose',
+      attributeName: 'grant_purpose',
+      autoHideContainer: false,
+      limit: 5,
+      collapsible: {
+        collapsed: false
+      },
+      showMore: {
+        templates: {
+          active: templateShowMoreActive,
+          inactive: templateShowMoreInactive,
+        },
+      },
+      templates: {
+        header: 'Program' + templateRefinementHeader,
+        item: templateRefinementItem,
+      },
+      cssClasses: {
+        header: widgetHeaderClasses,
+        body: 'card-content',
+      },
+      transformData: function(item) {
+        return formatRefinements(item);
+      }
+    })
+  );
+  */
+
+  search.addWidget(
+    instantsearch.widgets.refinementList({
+      container: '#ais-widget-mobile-refinement-list--tax_year',
+      attributeName: 'tax_year',
+      autoHideContainer: false,
+      sortBy: ['name:desc'],
+      limit: 5,
+      collapsible: {
+        collapsed: false
+      },
+      showMore: {
+        templates: {
+          active: templateShowMoreActive,
+          inactive: templateShowMoreInactive,
+        },
+      },
+      templates: {
+        header: 'Tax Year' + templateRefinementHeader,
+        item: templateRefinementItem,
+      },
+      cssClasses: {
+        header: widgetHeaderClasses,
+        body: 'card-content',
+      },
+      transformData: function(item) {
+        return formatRefinements(item);
+      }
+    })
+  )
+
+  search.addWidget(
+    instantsearch.widgets.refinementList({
+      container: '#ais-widget-mobile-refinement-list--grantee_state',
+      attributeName: 'grantee_state',
+      autoHideContainer: false,
+      limit: 5,
+      collapsible: {
+        collapsed: true
+      },
+      showMore: {
+        templates: {
+          active: templateShowMoreActive,
+          inactive: templateShowMoreInactive,
+        },
+      },
+      templates: {
+        header: 'State' + templateRefinementHeader,
+        item: templateRefinementItem,
+      },
+      cssClasses: {
+        header: widgetHeaderClasses,
+        body: 'card-content',
+      },
+      transformData: function(item) {
+        return formatRefinements(item);
+      }
+    })
+  );
+
+  search.addWidget(
+    instantsearch.widgets.refinementList({
+      container: '#ais-widget-mobile-refinement-list--grantee_city',
+      attributeName: 'grantee_city',
+      autoHideContainer: false,
+      limit: 5,
+      collapsible: {
+        collapsed: true
+      },
+      showMore: {
+        templates: {
+          active: templateShowMoreActive,
+          inactive: templateShowMoreInactive,
+        },
+      },
+      templates: {
+        header: 'City' + templateRefinementHeader,
+        item: templateRefinementItem,
+      },
+      cssClasses: {
+        header: widgetHeaderClasses,
+        body: 'card-content',
+      },
+      transformData: function(item) {
+        return formatRefinements(item);
+      }
+    })
+  );
+
+  // Initialize search
+  search.start();
+
+  // Initialize Materialize JS components
+  // =======================================================
+  search.once('render', function(){
+    $('select').formSelect();
+    showTableHeaderToast();
+  });
+
+  // Scroll to top upon input change
+  // =======================================================
+  function readyToSearchScrollPosition() {
+    $('html, body').animate({scrollTop: scrollAnchor}, '500', 'swing');
+  }
+
+  // Temp solution for table header clicks
+  // =======================================================
+  function showTableHeaderToast() {
+    $('.ais-hits th span').click(function() {
+      if (typeof gaCheck == 'function') {
+        ga('send', 'event', {
+          'eventCategory': 'Profile Events',
+          'eventAction': 'Profile Table Attempted Sort Click',
+          'eventLabel': $(this).find('span').text(),
+        });
+      }
+      var toastHTML = '<span>Sorting available for current year only </span><button class="btn-flat toast-action js-toast-action-scroll">Try It</button>';
+      M.toast({
+        html: toastHTML,
+        displayLength: 4000
+      });
+      const targetElem = $('#current-year-list-view');
+      $('.js-toast-action-scroll').click(function() {
+        scrolly(targetElem);
+        $('.collapsible-header i').addClass('bounce');
+      })
+    });
+  }
+
+  // Helper functions
+  // =======================================================
+  function scrolly(elem) {
+    let position = $(elem).position().top;
+    // animate
+    $('html, body').animate({
+      'scrollTop': position + 100,
+    }, 300, function() {
+    });
+  }
+
+  function slugify (text) {
+    return text.toLowerCase().replace(/-+/g, '').replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
   };
-  let FACETS_SLIDER = [];
-  let FACETS_ORDER_OF_DISPLAY = ['tax_year', 'grantee_state', 'grantee_city'];
-  let FACETS_LABELS = {'tax_year': 'Tax Year', 'grantee_state': 'State', 'grantee_city': 'City'};
 
-  // Client + Helper initialization
-  const algolia = algoliasearch(APPLICATION_ID, SEARCH_ONLY_API_KEY);
-  const algoliaHelper = algoliasearchHelper(algolia, INDEX_NAME, PARAMS);
+  function randomId() {
+    return Math.random()
+      .toString(36)
+      .substr(2, 10);
+  }
 
-  // DOM BINDING
-  const $searchInput = $('#search-input');
-  const $searchInputIcon = $('#search-input-icon');
-  const $main = $('#grants');
-  const $sortBySelect = $('#sort-by-select');
-  const $hits = $('#hits');
-  const $hitsModal = $('#hitsModal');
-  const $stats = $('#stats');
-  const $facets = $('#facets');
-  const $clear = $('#clear');
-  const $pagination = $('#pagination');
-  const $rateLimit = $('#rate-limit');
-
-  // Hogan templates binding
-  const hitTemplate = Hogan.compile($('#hit-template').text());
-  const hitModalTemplate = Hogan.compile($('#hit-modal-template').text());
-  const statsTemplate = Hogan.compile($('#stats-template').text());
-  const facetTemplate = Hogan.compile($('#facet-template').text());
-  const sliderTemplate = Hogan.compile($('#slider-template').text());
-  const clearTemplate = Hogan.compile($('#clear-template').text());
-  const paginationTemplate = Hogan.compile($('#pagination-template').text());
-  const noResultsTemplate = Hogan.compile($('#no-results-template').text());
-  const rateLimitTemplate = Hogan.compile($('#rate-limit-template').text());
-
-  // FORMATTING
-  // ==========
-
-  // Format numbers and currency
-  let formatter = new Intl.NumberFormat('en-US', {
+  const formatter = new Intl.NumberFormat('en-US', {
     'style': 'decimal',
     'minimumFractionDigits': 0,
   });
 
-  // Hide footer tip on scroll
-  $(window).scroll(function() {
-    if ($(this).scrollTop() > 0) {
-      $('#footer-alert').fadeOut();
-    } else {
-      $('#footer-alert').fadeIn();
-    }
-  });
-
-
-  // SEARCH BINDING
-  // ==============
-
-  // Input binding
-  $searchInput
-    .on('input propertychange', function(e) {
-      // var query = e.currentTarget.value.replace('-',''); //Handle EINs entered with a hyphen
-      const query = e.currentTarget.value;
-      if ($('#search-input').val().length > 0) {
-        $searchInputIcon.html('close');
-        // $('#stats ul li a').html('MOST RELEVANT');
-      } else {
-        $searchInputIcon.html('search');
-        // $('#stats ul li a').html('MOST RECENT');
-      }
-      
-      algoliaHelper.setQuery(query).search();
-    });
-  // .focus();
-
-  // Search errors
-  algoliaHelper.on('error', function(error) {
-    console.log(error);
-    if (error.statusCode === 429) {
-      $('#stats').css('visibility', 'hidden');
-      renderRateLimit();
-      console.log('Rate limit reached');
-    }
-  });
-
-  // Update URL
-  algoliaHelper.on('change', function() {
-    setURLParams();
-  });
-
-  // Search results
-  algoliaHelper.on('result', function(content, state) {
-    renderStats(content);
-    renderHits(content);
-    renderFacets(content, state);
-    bindSearchObjects(state);
-    renderPagination(content);
-    handleNoResults(content);
-    // console.log(content);
-  });
-
-  // Initial search
-  initFromURLParams();
-  algoliaHelper.search();
-
-
-  // RENDER SEARCH COMPONENTS
-  // ========================
-
-  function renderStats(content) {
-    let stats = {
-      'nbHits': content.nbHits,
-      'nbHits_plural': content.nbHits !== 1,
-      'processingTimeMS': content.processingTimeMS,
-    };
-    $stats.html(statsTemplate.render(stats));
-
-    if ($('#search-input').val().length > 0) {
-      $('#stats ul li a').html('MOST RELEVANT');
-    } else {
-      $('#stats ul li a').html('MOST RECENT');
-    }
-
-    $('.format-number').each(function() {
-      let n = $(this).text();
-      let formattedNumber = formatter.format(n);
-      $(this).text(formattedNumber);
-    });
-  }
-
-  function renderHits(content) {
-    $hits.html(hitTemplate.render(content));
-    $hitsModal.html(hitModalTemplate.render(content));
-
-    // Format EIN results
-    $('.hit-ein').each(function() {
-      let string = $(this).text();
-      $(this).text(string.substring(0, 2) + '-' + string.substring(2, 9));
-    });
-
-    // Format Website results to provide proper href
-    $('.hit-website').each(function() {
-      let site = $(this).data('website');
-           
-      // Check if properly formatted url
-      if (site && site.match(/(?:(?:https?):\/\/)/i)) {
-        site = site;
-        $(this).attr('href', site);
-      } else {
-        // Alert if malformed url
-        $(this).removeAttr('href');
-        $(this).bind('click', function() {
-          alert(
-            'Hmm, looks like the website url is not properly formatted.' +
-            '\n\n' + site + '\n\n'
-          );
-        });
-      }
-    });
-
-    // Format dollar amounts and currency figures
-    $('.hit-format-currency').each(function() {
-      let n = $(this).text();
-      let formattedNumber = '$' + formatter.format(n);
-      $(this).text(formattedNumber);
-    });
-
+  function formatNumbersOnly(item) {
     // Format numbers
-    $('.hit-format-number').each(function() {
-      let n = $(this).text();
-      let formattedNumber = formatter.format(n);
-      $(this).text(formattedNumber);
-    });
+    let n = item.grant_amount;
+    let formattedNumber = formatter.format(n);
+    item.grant_amount = formattedNumber;
+    return item;
   }
 
-
-  function renderFacets(content, state) {
-    let facetsHtml = '';
-    for (let facetIndex = 0; facetIndex < FACETS_ORDER_OF_DISPLAY.length; ++facetIndex) {
-      let facetName = FACETS_ORDER_OF_DISPLAY[facetIndex];
-      let facetResult = content.getFacetByName(facetName);
-      if (!facetResult) continue;
-      let facetContent = {};
-
-      // Slider facets
-      if ($.inArray(facetName, FACETS_SLIDER) !== -1) {
-        facetContent = {
-          'facet': facetName,
-          'title': FACETS_LABELS[facetName] || facetName,
-        };
-        facetContent.min = facetResult.stats.min;
-        facetContent.max = facetResult.stats.max;
-        facetContent.min = 0;
-        facetContent.max = 1000000;
-        let from = state.getNumericRefinement(facetName, '>=') || facetContent.min;
-        let to = state.getNumericRefinement(facetName, '<=') || facetContent.max;
-        facetContent.from = Math.min(facetContent.max, Math.max(facetContent.min, from));
-        facetContent.to = Math.min(facetContent.max, Math.max(facetContent.min, to));
-        facetsHtml += sliderTemplate.render(facetContent);
-      } else {
-        // Conjunctive + Disjunctive facets
-        if (facetName === 'tax_year') {
-          facetContent = {
-            'facet': facetName,
-            'title': FACETS_LABELS[facetName] || facetName,
-            'values': content.getFacetValues(facetName, {'sortBy': ['name:desc']}),
-            'disjunctive': $.inArray(facetName, PARAMS.disjunctiveFacets) !== -1,
-          };
-          facetsHtml += facetTemplate.render(facetContent);
-          $clear.html(clearTemplate.render());
-        } else {
-          facetContent = {
-            'facet': facetName,
-            'title': FACETS_LABELS[facetName] || facetName,
-            'values': content.getFacetValues(facetName, {'sortBy': ['isRefined:desc', 'count:desc']}),
-            'disjunctive': $.inArray(facetName, PARAMS.disjunctiveFacets) !== -1,
-          };
-          facetsHtml += facetTemplate.render(facetContent);
-          $clear.html(clearTemplate.render());
-        }
-      }
-    }
-    $facets.html(facetsHtml);
-    $('[data-facet="Filings.TaxPeriod"] .facet-value').each(function() {
-      let string = $.trim($(this).text());
-      $(this).html(string.substring(0, 4) + '-' + string.substring(4, 6));
-    });
-
-    $('.format-number-facet').each(function() {
-      let n = $(this).text();
-      let formattedNumber = formatter.format(n);
-      $(this).text(formattedNumber);
-    });
-  }
-
-  function bindSearchObjects(state) {
-    function createOnFinish(facetName) {
-      return function onFinish(data) {
-        let lowerBound = state.getNumericRefinement(facetName, '>=');
-        lowerBound = lowerBound && lowerBound[0] || data.min;
-        if (data.from !== lowerBound) {
-          algoliaHelper.removeNumericRefinement(facetName, '>=');
-          algoliaHelper.addNumericRefinement(facetName, '>=', data.from).search();
-        }
-        let upperBound = state.getNumericRefinement(facetName, '<=');
-        upperBound = upperBound && upperBound[0] || data.max;
-        if (data.to !== upperBound) {
-          algoliaHelper.removeNumericRefinement(facetName, '<=');
-          algoliaHelper.addNumericRefinement(facetName, '<=', data.to).search();
-        }
-      };
-    }
-    
-    // Bind Sliders
-    for (let facetIndex = 0; facetIndex < FACETS_SLIDER.length; ++facetIndex) {
-      let facetName = FACETS_SLIDER[facetIndex];
-      let slider = $('#' + facetName + '-slider');
-      let sliderOptions = {
-        'type': 'double',
-        // values: [0, 1000000, 100000000, 1000000000, 50000000000],
-        'grid': true,
-        'min': slider.data('min'),
-        'max': slider.data('max'),
-        'from': slider.data('from'),
-        'to': slider.data('to'),
-        'keyboard': true,
-        'keyboard_step': 0.5,
-        'prettify_enabled': true,
-        'prettify_separator': ',',
-        'force_edges': true,
-        'prefix': '$',
-        'onFinish': createOnFinish(facetName),
-      };
-      slider.ionRangeSlider(sliderOptions);
-    }
-  }
-
-  function renderPagination(content) {
-    let pages = [];
-    if (content.page > 3) {
-      pages.push({'current': false, 'number': 1});
-      pages.push({'current': false, 'number': '...', 'disabled': true});
-    }
-    for (let p = content.page - 3; p < content.page + 3; ++p) {
-      if (p < 0 || p >= content.nbPages) continue;
-      pages.push({'current': content.page === p, 'number': p + 1});
-    }
-    if (content.page + 3 < content.nbPages) {
-      pages.push({'current': false, 'number': '...', 'disabled': true});
-      pages.push({'current': false, 'number': content.nbPages});
-    }
-    let pagination = {
-      'pages': pages,
-      'prev_page': content.page > 0 ? content.page : false,
-      'next_page': content.page + 1 < content.nbPages ? content.page + 2 : false,
-    };
-    $pagination.html(paginationTemplate.render(pagination));
-
-    // Prevent default click behavior on disabled buttons
-    $(document).on('click', 'ul.pagination li.disabled a', function(e) {
-      e.preventDefault();
-    });
-  }
-
-  function renderRateLimit(content) {
-    $rateLimit.html(rateLimitTemplate.render(content));
-  }
-
-
-  // NO RESULTS
-  // ==========
-
-  function handleNoResults(content) {
-    if (content.nbHits > 0) {
-      $main.removeClass('no-results');
-      return;
-    }
-    // Hide Algolia search elements if initial search results are empty
-    // Covers edge case where a new profile is pushed live prior to the related grants being indexed
-    if (algoliaHelper.state.query === '') {
-      $main.addClass('no-results');
-      $('.search').hide();
-      $('#grants .algolia-logo').hide();
-      $('.section-results').hide();
-      $('.collapsible').collapsible('open', 0);
-      return;
-    }
-
-    $main.addClass('no-results');
-
-    let filters = [];
-    let i;
-    let j;
-    for (i in algoliaHelper.state.facetsRefinements) {
-      filters.push({
-        'class': 'toggle-refine',
-        'facet': i, 'facet_value': algoliaHelper.state.facetsRefinements[i],
-        'label': FACETS_LABELS[i] + ': ',
-        'label_value': algoliaHelper.state.facetsRefinements[i],
-      });
-    }
-    for (i in algoliaHelper.state.disjunctiveFacetsRefinements) {
-      for (j in algoliaHelper.state.disjunctiveFacetsRefinements[i]) {
-        filters.push({
-          'class': 'toggle-refine',
-          'facet': i,
-          'facet_value': algoliaHelper.state.disjunctiveFacetsRefinements[i][j],
-          'label': FACETS_LABELS[i] + ': ',
-          'label_value': algoliaHelper.state.disjunctiveFacetsRefinements[i][j],
-        });
-      }
-    }
-    for (i in algoliaHelper.state.numericRefinements) {
-      for (j in algoliaHelper.state.numericRefinements[i]) {
-        filters.push({
-          'class': 'remove-numeric-refine',
-          'facet': i,
-          'facet_value': j,
-          'label': FACETS_LABELS[i] + ' ',
-          'label_value': j + ' ' + algoliaHelper.state.numericRefinements[i][j],
-        });
-      }
-    }
-    $hits.html(noResultsTemplate.render({'query': content.query, 'filters': filters}));
-  }
-
-
-  // EVENTS BINDING
-  // ==============
-
-  const scrollAnchor = $('.section-results').offset().top - 82;
-
-  $searchInput.on('focusin', function(e) { // HACK Mobile Safari
-    if (isMobile.matches) {
-      e.preventDefault();
-      e.stopPropagation();
-      readyToSearchScrollPosition();
-      $('.navbar-search').addClass('safari-scroll-hack');
-    }
-  });
-  $searchInput.on('focusout', function(e) { // HACK Mobile Safari
-    if (isMobile.matches) {
-      e.preventDefault();
-      e.stopPropagation();
-      readyToSearchScrollPosition();
-      $('.navbar-search').removeClass('safari-scroll-hack');
-    }
-  });
-  $searchInput.on('input', function() {
-    const page = $('html, body');
-    if (!isMobile.matches) {
-      page.on('scroll mousedown wheel DOMMouseScroll mousewheel touchmove', function() {
-        page.stop();
-      });
-      readyToSearchScrollPosition();
-      return false;
+  function formatRefinements(item) {
+    // Format numbers
+    let n = item.count;
+    let formattedNumber = formatter.format(n);
+    item.count = formattedNumber;
+    // Ensure css IDs are properly formatted and unique
+    if(item.label) {
+      item.cssId = 'id-' + slugify(item.label);
     } else {
-      return true;
+      // Fallback
+      item.cssId = 'id-' + randomId();
     }
-  });
-  $(document).on('click', '.toggle-refine', function(e) {
-    e.preventDefault();
-    algoliaHelper.toggleRefine($(this).data('facet'), $(this).data('value')).search();
-  });
-  $(document).on('click', '.go-to-page', function(e) {
-    e.preventDefault();
-    readyToSearchScrollPosition();
-    algoliaHelper.setCurrentPage(+$(this).data('page') - 1).search();
-  });
-  $sortBySelect.on('change', function(e) {
-    e.preventDefault();
-    algoliaHelper.setIndex(INDEX_NAME + $(this).val()).search();
-  });
-  $searchInputIcon.on('click', function(e) {
-    e.preventDefault();
-    $searchInput.val('').keyup().focus();
-    algoliaHelper.setQuery('').search();
-    $searchInputIcon.html('search');
-    readyToSearchScrollPosition();
-  });
-  $(document).on('click', '.remove-numeric-refine', function(e) {
-    e.preventDefault();
-    algoliaHelper.removeNumericRefinement($(this).data('facet'), $(this).data('value')).search();
-  });
-  $(document).on('click', '.clear-all', function(e) {
-    e.preventDefault();
-    $searchInput.val('').focus();
-    $searchInputIcon.html('search');
-    algoliaHelper.setQuery('').clearRefinements().search();
-  });
-  $(document).on('click', '.clear-search', function(e) {
-    e.preventDefault();
-    $searchInput.val('').focus();
-    $searchInputIcon.html('search');
-    algoliaHelper.setQuery('').search();
-  });
-  $(document).on('click', '.clear-refinements', function(e) {
-    e.preventDefault();
-    $searchInput.focus();
-    $searchInputIcon.html('search');
-    algoliaHelper.setQuery('').clearRefinements().search();
-  });
-  $(document).on('click', '.try-it li a', function(e) {
-    e.preventDefault();
-    let target = $(this).text();
-    // $searchInput.val(target.replace('-','')); //Handle hyphen in EIN
-    // algoliaHelper.setQuery(target.replace('-','')).search();
-    $searchInput.val(target);
-    algoliaHelper.setQuery(target).search();
-    readyToSearchScrollPosition();
-  });
-
-
-  // URL MANAGEMENT
-  // ==============
-
-  function initFromURLParams() {
-    let URLString = window.location.search.slice(1);
-    let URLParams = algoliasearchHelper.url.getStateFromQueryString(URLString);
-    let stateFromURL = Object.assign({}, PARAMS, URLParams);
-    $searchInput.val(stateFromURL.query);
-    $sortBySelect.val(stateFromURL.index.replace(INDEX_NAME, ''));
-    algoliaHelper.overrideStateWithoutTriggeringChangeEvent(stateFromURL);
-  }
-
-  let URLHistoryTimer = Date.now();
-  let URLHistoryThreshold = 700;
-  function setURLParams() {
-    let trackedParameters = ['attribute:*'];
-    if (algoliaHelper.state.query.trim() !== '')  trackedParameters.push('query');
-    if (algoliaHelper.state.page !== 0)           trackedParameters.push('page');
-    if (algoliaHelper.state.index !== INDEX_NAME) trackedParameters.push('index');
-
-    let URLParams = window.location.search.slice(1);
-    let nonAlgoliaURLParams = algoliasearchHelper.url.getUnrecognizedParametersInQueryString(URLParams);
-    let nonAlgoliaURLHash = window.location.hash;
-    let helperParams = algoliaHelper.getStateAsQueryString({'filters': trackedParameters, 'moreAttributes': nonAlgoliaURLParams});
-    if (URLParams === helperParams) return;
-
-    let now = Date.now();
-    if (URLHistoryTimer > now) {
-      window.history.replaceState(null, '', '?' + helperParams + nonAlgoliaURLHash);
-    } else {
-      window.history.pushState(null, '', '?' + helperParams + nonAlgoliaURLHash);
-    }
-    URLHistoryTimer = now + URLHistoryThreshold;
-  }
-
-  window.addEventListener('popstate', function() {
-    initFromURLParams();
-    algoliaHelper.search();
-  });
-
-
-  // HELPER METHODS
-  // ==============
-
-  function readyToSearchScrollPosition() {
-    if (!isMobile.matches) {
-      $('html, body').animate({'scrollTop': scrollAnchor}, '500', 'swing');
-    }
-  }
+  return item;
+}
 });

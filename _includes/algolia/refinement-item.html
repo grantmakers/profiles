@@ -1,0 +1,9 @@
+{% raw %}
+  <div class="refinement-item">
+    <label for="{{cssId}}" title="{{label}}">
+      <input type="checkbox" class="filled-in" id="{{cssId}}" {{#isRefined}}checked="checked"{{/isRefined}} />
+      <span>{{value}}</span>
+    </label>
+    <span class="refinement-count right small text-muted-max">{{count}}</span>
+  </div>
+{% endraw %}

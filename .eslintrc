@@ -1,5 +1,8 @@
 {
   "parser": "babel-eslint",
+  "plugins": [
+    // "frontmatter"
+  ],
   "env": {
     "browser": true,
     "node": true
