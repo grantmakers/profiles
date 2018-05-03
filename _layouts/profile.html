@@ -74,6 +74,10 @@
     <script src="{{ site.baseurl }}/assets/js/ga-events.js"></script>
   {% endunless %}
 
+  <!-- Stich -->
+  <script src="{{ site.baseurl }}/assets/js/stitch-init.js"></script>
+  <script src="https://s3.amazonaws.com/stitch-sdks/js/library/v3/stable/stitch.min.js"></script>
+
 </head>
 
 <body class="profile-page">
@@ -465,9 +469,15 @@
               <div id="community">
                 <div class="card-panel">
                   <div class="card-panel-header">
-                    <h4>Community Tips & Resources</h4>
+                    <h4>Community Insights<span class="new badge blue" data-badge-caption="BETA"></span></h4>
                   </div>
                   <div class="card-panel-body" data-mh="match-height-one">
+                    <p class="text-muted"><img class="img-icon-16" src="{{ site.baseurl }}/assets/img/icon-smartergiving.svg" alt="SmarterGiving Icon"> SmarterGiving tags</p>
+                    <div id="tags"></div>
+                    <hr>
+                    <p class="text-muted">Question & Answers</p>
+                    <p><a href="#">Submit a question</a></p>
+                    <hr>
                     <p>We've heard from many of you expressing frustration when trying to find forms referenced in instructions. With only 10% of foundations having websites, it's no surprise.</p>
                     <p>If you have a resource you think would be useful to your fellow grantseekers, send it via the link below and we'll post it here.</p>
                     <ul class="browser-default community-examples grey lighten-4">
