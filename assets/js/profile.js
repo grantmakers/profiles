@@ -56,6 +56,7 @@ $(document).ready(function() {
       if(!$(this).parent().hasClass('active')){
         e.stopPropagation();
         $(this).find('i').addClass('md-spin');
+        $(this).find('i').removeClass('bounce');
         setTimeout(function() {
           $('.collapsible-grants-table').collapsible('open');
         }, 100);
