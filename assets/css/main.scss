@@ -110,11 +110,18 @@ $text-color: rgba(0,0,0,0.87);
   padding-right: 5px;
   padding-left: 5px;
 }
-
-.small {
-	font-size: 85%;
+// Match icon size with font
+p i.material-icons {
+	font-size: 15px;
+	line-height: 1.5;
+	vertical-align: bottom;
 }
-
+.card {
+	&.info-card {
+		transition: unset;
+		box-shadow: none;
+	}
+}
 hr {
 	margin-top: 20px;
 	margin-bottom: 20px;
