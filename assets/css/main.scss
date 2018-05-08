@@ -314,7 +314,11 @@ i.suffix {
   top: auto !important;
   right: auto !important;
   bottom: 10%;
-  left:7%;
+	left:7%;
+	@media #{$small-and-down} {
+		left: 0;
+		bottom: 0;
+	}
 }
 
 .algolia-partnership-alert {

@@ -6,6 +6,7 @@ $(document).ready(function(){
   const targetEIN = $('h1.org-name').data('ein');
   const scrollAnchor = $('#grants').offset().top;
   const isMobile = window.matchMedia('only screen and (max-width: 992px)');
+  const isPhone = window.matchMedia('only screen and (max-width: 600px)');
   let gaCheck = window[window['GoogleAnalyticsObject'] || 'ga']; // Check for Google Analytics
   // Note - fixed grants header handled by profile.js
 
@@ -480,7 +481,12 @@ $(document).ready(function(){
           'eventLabel': $(this).find('span').text(),
         });
       }
-      var toastHTML = '<span>Sorting available for current year only </span><button class="btn-flat toast-action js-toast-action-scroll">Try It</button>';
+      let toastHTML;
+      if (isPhone.matches) {
+        toastHTML = '<span>Sorting available for current year only </span><button class="btn-flat toast-action js-toast-action-scroll">GO</button>';
+      } else {
+        toastHTML = '<span>Sorting available for current year only </span><button class="btn-flat toast-action js-toast-action-scroll">Try It</button>';
+      }
       M.toast({
         html: toastHTML,
         displayLength: 4000
