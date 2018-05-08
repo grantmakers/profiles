@@ -950,6 +950,14 @@ nav ul li a {
 	}
 
 	/* Clear all */
+	.section-clear-all {
+		&.no-hits {
+			padding-top: 0rem;
+			padding-bottom: 0px;
+			position: relative;
+			top: -10px;
+		}
+	}
 	.btn-custom {
 		&:hover {
 			background-color: lighten($accent-color, 5%)
@@ -981,6 +989,7 @@ nav ul li a {
 		cursor: default;
 	}
 	.hits-empty {
+		margin: 0.5em;
 		margin-top: 1em; // To match responsive table wrapper
 	}
 	.ais-current-refined-values--item {
