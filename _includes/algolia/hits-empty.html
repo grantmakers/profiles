@@ -1,5 +1,13 @@
 {% raw %}
   <div class="hits-empty">
-    We didn't find any results for the search <strong>"{{query}}"</strong>
+    <div class="card">
+      <div class="card-content">
+        <p>We didn't find any results for the search <strong>"{{query}}"</strong></p>
+      </div>
+    </div>
+    <div class="card-actions">
+      <a href="{{ site.url }}/profiles-search/" class="btn-flat grantmakers-text">Find a Different Foundation</a>
+      <a href="{{ site.url }}/grants-search/" class="btn-flat blue-grey-text">Search all Grants</a>
+    </div>
   </div>
 {% endraw %}

@@ -6,6 +6,7 @@ $(document).ready(function(){
   const targetEIN = $('h1.org-name').data('ein');
   const scrollAnchor = $('#grants').offset().top;
   const isMobile = window.matchMedia('only screen and (max-width: 992px)');
+  const isPhone = window.matchMedia('only screen and (max-width: 600px)');
   let gaCheck = window[window['GoogleAnalyticsObject'] || 'ga']; // Check for Google Analytics
   // Note - fixed grants header handled by profile.js
 
@@ -93,13 +94,30 @@ $(document).ready(function(){
         empty: templateHitsEmpty,
         allItems: templateHits,
       },
-      transformData: function(arr) {
-        for (var i = 0, len = arr.hits.length; i < len; i++) {
-          let n = arr.hits[i].grant_amount;
-          let formattedNumber = '$' + formatter.format(n);
-          arr.hits[i].grant_amount = formattedNumber;
+      transformData: {
+        empty: function(arr) {
+          // Handle edge case
+          // E.g. https://grantmakers.io/profiles/v0/136114244-pulvermacher-family-foundation-inc-co-jo-k-pulvermacher/?query=ho&refinementList%5Btax_year%5D%5B0%5D=2016&refinementList%5Btax_year%5D%5B1%5D=2015
+          // See diff when searching for 'hi' and 'ho'
+          const check = arr._rawResults[1];
+          if (check && check.nbHits != 0) {
+            $('.section-clear-all').removeClass('no-hits');
+          } else {
+            $('.section-clear-all').addClass('no-hits');
+          }
+          return arr;
+        },
+        allItems: function(arr) {
+          // Handle edge case (as per 'empty')
+          $('.section-clear-all').removeClass('no-hits');
+          // Change sort-by text
+          for (var i = 0, len = arr.hits.length; i < len; i++) {
+            let n = arr.hits[i].grant_amount;
+            let formattedNumber = '$' + formatter.format(n);
+            arr.hits[i].grant_amount = formattedNumber;
+          }
+          return(arr);
         }
-        return arr;
       }
     })
   );
@@ -258,14 +276,14 @@ $(document).ready(function(){
       clearsQuery: true,
       onlyListedAttributes: true,
       attributes: [
-        {name: 'grant_purpose', label: 'Program'},
+        // {name: 'grant_purpose', label: 'Program'},
         {name: 'tax_year', label: 'Tax Year'},
         {name: 'grantee_state', label: 'State'},
         {name: 'grantee_city', label: 'City'},
       ],
       cssClasses: {
         link: ['waves-effect', 'btn', 'btn-custom', 'btn-clear-refinements', 'blue-grey', 'lighten-3'],
-        clearAll: ['waves-effect', 'btn', 'btn-custom', 'btn-clear-refinements']
+        clearAll: ['waves-effect', 'btn', 'btn-custom', 'btn-clear-refinements white-text']
       },
       templates: {
         item: templateCurrentRefinedValues,
@@ -463,7 +481,12 @@ $(document).ready(function(){
           'eventLabel': $(this).find('span').text(),
         });
       }
-      var toastHTML = '<span>Sorting available for current year only </span><button class="btn-flat toast-action js-toast-action-scroll">Try It</button>';
+      let toastHTML;
+      if (isPhone.matches) {
+        toastHTML = '<span>Sorting available for current year only </span><button class="btn-flat toast-action js-toast-action-scroll">GO</button>';
+      } else {
+        toastHTML = '<span>Sorting available for current year only </span><button class="btn-flat toast-action js-toast-action-scroll">Try It</button>';
+      }
       M.toast({
         html: toastHTML,
         displayLength: 4000
