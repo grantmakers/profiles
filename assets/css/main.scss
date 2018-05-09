@@ -322,6 +322,7 @@ i.suffix {
   right: auto !important;
   bottom: 10%;
 	left:7%;
+	z-index: 2147483648; // Add 1 point to z-index of Drift widget
 	@media #{$small-and-down} {
 		left: 0;
 		bottom: 0;
