@@ -384,7 +384,7 @@
                               </div>
                             </div>
                             <div class="col s12">
-                              <div class="section">
+                              <div class="section section-clear-all">
                                 <div id="ais-widget-clear-all" class="center-align"></div>
                               </div>
                             </div>
@@ -392,11 +392,13 @@
                         </div>
                       </div>
                       <div class="col s12 l9">
-                        <div class="col s12 m9 l10">
+                        <div class="col s12 m9 l9">
                           <div id="ais-widget-stats"></div>
                         </div>
-                        <div class="col s12 m3 l2">
-                          <div id="ais-widget-sort-by"></div>
+                        <div class="col s12 m3 l3">
+                          <div id="ais-widget-sort-by" class="ais-stats--body right-align">
+                            <!-- <span class="ais-stats--time small text-muted-max hide-on-med-and-down right-align">MOST RECENT</span> -->
+                          </div>
                         </div>
                         <div class="col s12 divider"></div>
                         <div class="row">
@@ -408,6 +410,7 @@
                                   <div class="responsive-table-wrapper">
                                     <div id="ais-widget-hits"></div>
                                   </div>
+                                  {% include grants-reference-attachment.html %}
                                 </div>
                               </div>
                             </div>
@@ -437,6 +440,7 @@
                     <div class="row">
                       <div class="col s12">
                         {% include grants-table.html %}
+                        {% include grants-reference-attachment.html %}
                       </div>
                     </div>
                   </div>
@@ -636,6 +640,7 @@
   {% include footer-license-and-links.html %}
   {% unless jekyll.environment == 'staging' %}
     {% include ga.html %}
+    {% include survicate.html %}
   {% endunless %}
   {% if algolia %}
     {% include algolia/refinements-slide-out.html %}
