@@ -116,6 +116,15 @@ p i.material-icons {
 	line-height: 1.5;
 	vertical-align: bottom;
 }
+.card-action-community-alert {
+	display: none;
+	a {
+		text-transform: none !important;
+	}
+	i.material-icons {
+		vertical-align: bottom;
+	}
+}
 .card {
 	&.info-card {
 		transition: unset;
@@ -127,7 +136,12 @@ hr {
 	margin-bottom: 20px;
 	border: 0;
 	border-top: 1px solid #eee;
+	&.slim {
+		margin-top: 5px;
+		margin-bottom: 5px;
+	}
 }
+
 /* Animations */
 /* Source: https://codepen.io/levineuland/pen/AmwCL */
 @keyframes pulse {
@@ -1167,6 +1181,18 @@ nav ul li a {
 		}
 		.card-panel-body {
 			padding: 15px 20px;
+		}
+		.collection, .collection-item {
+			border: none;
+		}
+		.collection-item {
+			padding-left: 0;
+			p {
+				white-space: pre-wrap;
+			}
+		}
+		.collection-item-empty-state p {
+			margin-bottom: 1em;
 		}
 		.community-examples {
 			padding-top: 20px;

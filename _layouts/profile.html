@@ -82,9 +82,9 @@
     <script src="{{ site.baseurl }}/assets/js/ga-events.js"></script>
   {% endunless %}
 
-  <!-- Stich -->
-  <script src="{{ site.baseurl }}/assets/js/stitch-init.js"></script>
+  <!-- Stitch -->
   <script src="https://s3.amazonaws.com/stitch-sdks/js/library/v3/stable/stitch.min.js"></script>
+  <script src="{{ site.baseurl }}/assets/js/stitch-init.js"></script>
 
 </head>
 
@@ -263,11 +263,11 @@
             </div>
             <div class="col s12 l7 offset-l1">
               <div id="people">
-                <div class="card-panel">
+                <div class="card card-panel">
                   <div class="card-panel-header">
-                    <h4>People</h4>
+                    <h4>People <button class="tooltipped right" data-position="left" data-html="true" data-tooltip="Form 990-PF<br>Part VIII"><i class="material-icons grey-text hide-on-med-and-down">info</i></button></h4>
                   </div>
-                  <div class="card-panel-body">
+                  <div class="card-content card-panel-body">
                     <div class="responsive-table-wrapper">
                       <table class="bordered">
                         <thead>
@@ -297,6 +297,7 @@
                       </table>
                     </div>
                   </div>
+                  {% include stitch/insights-alert.html %}
                 </div>
               </div>
             </div>
@@ -455,7 +456,7 @@
               <div id="information-source" class="center-align">
                 <ul class="list-inline">
                   <li>
-                    <h6 class="text-muted">All information pulled directly from the organization's IRS Form 990PF</h6>
+                    <h6>Information pulled directly from IRS Form 990-PF</h6>
                   </li>
                 </ul>
               </div>
@@ -470,7 +471,7 @@
                     <div class="card-panel-header">
                       <div class="row">
                         <div class="col s12">
-                          <h4>Application Guidelines <button class="tooltipped right" data-position="left" data-html="true" data-tooltip="Form 990PF<br>Part XV<br>Line 2"><i class="material-icons grey-text hide-on-med-and-down">info</i></button></h4>
+                          <h4>Application Guidelines <button class="tooltipped right" data-position="left" data-html="true" data-tooltip="Form 990-PF<br>Part XV<br>Line 2"><i class="material-icons grey-text hide-on-med-and-down">info</i></button></h4>
                         </div>
                       </div>
                     </div>
@@ -487,7 +488,7 @@
                     {% endif %}
 
                     {% unless page.grants_to_preselected_only or page.grants_application_info %}
-                      The foundation does not provide any guidance in its latest Form 990PF Part XV, Lines 2-2d
+                      The foundation does not provide any guidance in its latest Form 990-PF Part XV, Lines 2-2d
                     {% endunless %}
 
                     {% if page.grants_to_preselected_only %}
@@ -529,25 +530,30 @@
               <div id="community">
                 <div class="card-panel">
                   <div class="card-panel-header">
-                    <h4>Community Insights<span class="new badge blue" data-badge-caption="BETA"></span></h4>
+                    <h4>Community Insights & Updates<span class="new badge blue" data-badge-caption="BETA"></span></h4>
                   </div>
                   <div class="card-panel-body" data-mh="match-height-one">
-                    <p class="text-muted"><img class="img-icon-16" src="{{ site.baseurl }}/assets/img/icon-smartergiving.svg" alt="SmarterGiving Icon"> SmarterGiving tags</p>
-                    <div id="tags"></div>
-                    <hr>
-                    <p class="text-muted">Question & Answers</p>
-                    <p><a href="#">Submit a question</a></p>
-                    <hr>
-                    <p>We've heard from many of you expressing frustration when trying to find forms referenced in instructions. With only 10% of foundations having websites, it's no surprise.</p>
-                    <p>If you have a resource you think would be useful to your fellow grantseekers, send it via the link below and we'll post it here.</p>
-                    <ul class="browser-default community-examples grey lighten-3">
-                      <li>Grant forms</li>
-                      <li>Sample submissions</li>
-                      <li>Changes in the application process</li>
+                    <ul id="insights" class="collection">
+                      <li class="collection-item collection-item-empty-state avatar">
+                        <span class="title">Have something to share?</span><br>
+                        <p>Help keep the community up to date and informed</p>
+                        <ul class="browser-default community-examples grey lighten-3">
+                          <li>Updates</li>
+                          <li>Grant forms</li>
+                          <li>Sample submissions</li>
+                        </ul>
+                        <div class="action-group center-align">
+                          {% unless page.ein == '650971968' %}
+                            <!-- <a href="{{ site.url }}{{ site.baseurl }}/v0/650971968-floyd-c-johnson-and-flo-singer-johnson-foundation/#community" class="waves-effect waves-light btn white grey-text text-darken-4"><i class="material-icons left">visibility</i> View an example</a> -->
+                          {% endunless %}
+                          <a href="mailto:{{ page.ein }}@grantmakers.io?body=%0D%0A%0D%0A{{ page.organization_name}}%0D%0A{{ site.url }}{{ site.baseurl }}/{{ page.ein }}/" target="_blank" class="waves-effect waves-light btn blue-grey white-text" data-ga="Email Share Resource"><i class="material-icons left">email</i> Share a resource</a>
+                        </div>
+                        {% unless page.ein == '650971968' %}
+                          <p class="center"><a href="https://www.grantmakers.io/profiles/v0/650971968-floyd-c-johnson-and-flo-singer-johnson-foundation/" class="blue-grey-text">View an example</a></p>
+                        {% endunless %}
+                      </li>
                     </ul>
-                    <div class="action-group center-align">
-                      <a href="mailto:{{ page.ein }}@grantmakers.io?body=%0D%0A%0D%0A{{ page.organization_name}}%0D%0A{{ site.url }}{{ site.baseurl }}/{{ page.ein }}/" target="_blank" class="waves-effect waves-light btn blue-grey white-text" data-ga="Email Share Resource"><i class="material-icons left">email</i> Share a resource</a>
-                    </div>
+                    <div id="tags"></div>
                   </div>
                 </div>
               </div>

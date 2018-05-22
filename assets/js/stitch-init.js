@@ -1,40 +1,39 @@
+---
+---
 $(document).ready(function() {
+  const targetEIN = $('h1.org-name').data('ein').toString();
   // Stitch
+  const appID = 'insights-xavlz';
+  let stitchClient;
 
-  // Tags
-  function tags() {
-    const clientPromise = stitch.StitchClientFactory.create('tags-lmqzn');
-    const targetEIN = $('h1.org-name').data('ein').toString();
+  initializeClient().then(() => {
+    // Call Stitch Function to fetch insights
+    return stitchClient.executeFunction('getInsights', targetEIN)
+  })
+    .then(displayInsights)
+    .catch(console.error);
 
-    $('.chips').chips();
-
-    let client;
-    let db;
-
-    function displayTagsOnLoad() {
-      clientPromise.then(stitchClient => {
-        client = stitchClient;
-        db = client.service('mongodb', 'mongodb-atlas').db('grantmakers');
-        console.log('Connected to tags data source');
-        return client.login().then(displayTags);
+  function initializeClient() {
+  // Creates a new StitchClient and assigns it to a global variable,
+  // then authenticates a user anonymously. Returns a promise.
+    return stitch
+      .StitchClientFactory
+      .create(appID)
+      .then(client => {
+        stitchClient = client;
+        return stitchClient.login();
       });
-    }
-
-    function displayTags() {
-      db.collection('tags').findOne({'_id': targetEIN}).then(docs => {
-        let html;
-        if (docs && docs.tags[0]) {
-          const tagData = docs.tags;
-          html = tagData.map(c => '<div class="chip">' + c.term + '</div>').join('');
-          console.log('Tags fetched successfully');
-        } else {
-          html = 'No tags available for this funder';
-        }
-        document.getElementById('tags').innerHTML = html;
-      });
-    }
-
-    displayTagsOnLoad();
   }
-  tags();
+
+  function displayInsights(items) {
+    if (items.length) {
+      const insightsDiv = '#insights';
+      const stitchResults = items.map(item => {
+        return `{% include stitch/insights-item.html %}`
+      }).join('');
+      $(insightsDiv).prepend(stitchResults);
+      $.fn.matchHeight._update();
+      $('.card-action-community-alert').show();
+    }
+  }
 });
