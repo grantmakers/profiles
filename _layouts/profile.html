@@ -520,6 +520,36 @@
                           <p>{{ page.grants_application_restrictions }}</p>
                           <!--<a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>-->
                         </li>
+
+                        <li><hr class="divider"></li>
+                        <!--sse-->
+                          <li class="collection-item avatar">
+                            <i class="material-icons circle grey tooltipped" data-position="right" data-html="true" data-tooltip="The name, address, and telephone number<br>or e-mail address of the person to<br>whom applications should be addressed<br>Line 2a">contact_phone</i>
+                            <span class="title">Contact</span>
+                            {% if page.grants_application_contact %}
+                              <p>{{ page.grants_application_contact.name }}</p>
+                              {% if page.grants_application_contact.email contains '@' %}
+                                <p><a href="mailto:{{ page.grants_application_contact.email | downcase }}" class="blue-grey-text">{{ page.grants_application_contact.email | downcase }}</a></p>
+                              {% else %}
+                                <p class="blue-grey-text">{{ page.grants_application_contact.email }}</p>
+                              {% endif %}
+                              <p>{{ page.grants_application_contact.address.street }}</p>
+                              <p>{{ page.grants_application_contact.address.street2 }}</p>
+                              <p>{{ page.grants_application_contact.address.city }}, {{ page.grants_application_contact.address.state }} {{ page.grants_application_contact.address.country }} {{ page.grants_application_contact.address.zip }}</p>
+                              {% if page.grants_application_contact.phone %}
+                                {% assign ph = page.grants_application_contact.phone %}
+                                {% if page.grants_application_contact.is_foreign == true %}
+                                  <p>tel: {{ ph }}</p>
+                                {% else %}
+                                <p>({{ ph | slice: 0, 3 }}) {{ ph | slice: 3, 3 }}-{{ ph | slice: 6, 4 }}</p>
+                                {% endif %}
+                              {% endif %}
+                            {% else %}
+                              <p>This foundation's latest IRS Form 990-PF does not list contact information specific to their grant application process.</p>
+                              <p>Tip: General contact information can often be found elsewhere in the funders most recent Form 990-PF (see PDF links below).</p>
+                            {% endif %}
+                          </li>
+                        <!--/sse-->
                       </ul>
                     {% endif %}
                   </div>
