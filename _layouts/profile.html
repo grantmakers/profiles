@@ -46,7 +46,9 @@
       "address": {
         "@type": "PostalAddress",
         "addressLocality": "{{ page.city }}",
-        "addressRegion": "{{ page.state }}"
+        "addressRegion": "{{ page.state }}",
+        "postalCode": "{{ page.zip }}",
+        "streetAddress": "{{ page.street }} {{ page.street2 }}"
       }
     }
   </script>
