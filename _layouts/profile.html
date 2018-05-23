@@ -36,13 +36,14 @@
   <link rel="stylesheet" href="{{ site.baseurl }}/assets/css/main.css">
 
   <!-- Schema.org -->
+  {% if page.website %}
   <script type='application/ld+json'>
     {
       "@context": "http://schema.org/",
       "@type": "NGO",
       "legalName": "{{ page.organization_name }}",
       "taxID": "{{ page.ein }}",
-      "url": "{% if page.website %}{{ page.website }}{% endif %}",
+      "url": "{{ page.website }}",
       "address": {
         "@type": "PostalAddress",
         "addressLocality": "{{ page.city }}",
@@ -52,6 +53,23 @@
       }
     }
   </script>
+  {% else %}
+  <script type='application/ld+json'>
+    {
+      "@context": "http://schema.org/",
+      "@type": "NGO",
+      "legalName": "{{ page.organization_name }}",
+      "taxID": "{{ page.ein }}",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "{{ page.city }}",
+        "addressRegion": "{{ page.state }}",
+        "postalCode": "{{ page.zip }}",
+        "streetAddress": "{{ page.street }} {{ page.street2 }}"
+      }
+    }
+  </script>
+  {% endif %}
 
   <!--   Core JS Files   -->
   <script 
