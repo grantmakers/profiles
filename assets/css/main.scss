@@ -344,15 +344,41 @@ i.suffix {
 }
 
 .algolia-partnership-alert {
-	display: none;
 	@extend .grey, .darken-4;
-	color: white;
+	@extend .grey-text;
+	padding: 0 170px;
 	height: 30px;
 	line-height: 30px;
 	font-size: 12px;
+	i {
+		line-height: 30px !important;
+		height: 30px !important;
+	}
 	img {
 		height: 15px;
 		vertical-align: middle;
+	}
+	.breadcrumb-wrapper {
+		.breadcrumb {
+			font-size: 12px;
+			@extend .grey-text;
+			&:before {
+				@extend .grey-text;
+			}
+			i {
+				font-size: 20px;
+				height: inherit;
+				line-height: inherit;
+			}
+		}
+	}
+}
+
+.affix .algolia-partnership-alert {
+	@extend .grey, .darken-4;
+	// visibility: visible;
+	a, i {
+		@extend .grey-text;
 	}
 }
 
@@ -398,6 +424,13 @@ nav ul li a {
 }
 .navbar-profile {
 	font-weight: 400;
+	height: 94px; // 64 + 30
+	&.navbar-profile-index {
+		height: 64px;
+	}
+	@media #{$medium-and-down} {
+		height: 64px;
+	}
 	&.transparent {
 		background-color: transparent !important;
 		border: 0 !important;
@@ -405,8 +438,11 @@ nav ul li a {
 	&.affix {
     background-color: $gray-lighter;
     box-shadow: 0 10px 20px -12px rgba(0, 0, 0, 0.42), 0 3px 20px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2);
-    .brand-name, .nav-primary a {
+    .brand-name, .nav-primary a, .nav-profile-action-bar a {
 			color: $gray !important;
+		}
+		.nav-profile-action-bar {
+			display: block;
 		}
 		.sidenav-trigger i {
 			color: $gray-light;
@@ -421,15 +457,10 @@ nav ul li a {
 			display: none;
 		}
 	}
+	.nav-profile-action-bar {
+		display: none;
+	}
 	.algolia-partnership-logo {
-		display: inline-block;
-		position: relative;
-		top: 5px; 
-		left: 200px;
-		border-left: 1px solid white;
-		padding-left: 28px;
-		line-height: 14px;
-		font-size: 75%;
 		span.text-spread {
 			letter-spacing: 0.5px;
 		}
@@ -437,10 +468,10 @@ nav ul li a {
 			color: #ffffff !important; // Safari fix
 		}
 		img {
-			padding-left: 2px;
-			width: 51px;
-			height: 13px;
-			vertical-align: text-top;
+			width: 85px;
+			height: 30px;
+			vertical-align: middle;
+			margin-right: 10px; // TODO Undo HACK
 		}
 	}
 	i.left-tighten {
