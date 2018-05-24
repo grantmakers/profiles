@@ -6,7 +6,7 @@ $(document).ready(function() {
   // =======================================================
   const header = $('.header');
   const navbar = $('.navbar-profile');
-  const range = 64;
+  const range = 90; // Was 64
 
   $(window).on('scroll', function() {
     let scrollTop = $(this).scrollTop();
