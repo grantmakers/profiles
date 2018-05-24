@@ -143,8 +143,8 @@
       <div class="nav-wrapper">
         <div class="algolia-partnership-alert hide-on-med-and-down">
           <div class="breadcrumb-wrapper left">
-            <a href="{{ site.url }}" class="breadcrumb"><i class="material-icons tiny">home</i></a>
-            <a href="{{ site.url }}/profiles-search/" class="breadcrumb">Foundation Profiles</a>
+            <a href="{{ site.url }}" class="breadcrumb" data-ga="Breadcrumb Home"><i class="material-icons tiny">home</i></a>
+            <a href="{{ site.url }}/profiles-search/" class="breadcrumb" data-ga="Breadcrumb Profile Search">Foundation Profiles</a>
             <span class="breadcrumb">{{ page.organization_name }}</span>
           </div>
           <div class="right">
@@ -179,7 +179,7 @@
               {% endif %}
               <ul class="nav-profile-action-bar right hide-on-med-and-down">
                 <!-- <li><a href="#" data-ga="Star"><i class="material-icons right">star_border</i>Save</a></li> -->
-                <li><a href="#" data-ga="Share"><i class="material-icons right">send</i>Share</a></li>
+                <li><a href="mailto:?to=&subject=Grantmakers.io%20Profile%20-%20{{ page.organization_name | url_encode }}&body=%0D%0A%0D%0A{{ page.organization_name}}%0D%0A{{ site.url }}{{ site.baseurl }}/{{ page.ein }}/" target="_blank" data-ga="Share Profile via Action Bar"><i class="material-icons right">send</i>Share</a></li>
               </ul>
   
               
