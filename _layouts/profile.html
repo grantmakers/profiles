@@ -113,8 +113,15 @@
   <div id="main-nav" class="navbar-fixed">
     <nav class="navbar-profile affix-top pushpin-nav" data-target="main-nav">
       <div class="nav-wrapper">
-        <div class="algolia-partnership-alert center-align">
-          In partership with <img src="{{ site.baseurl }}/assets/img/algolia-dark-bg.svg" alt="Algolia Partnership Logo">
+        <div class="algolia-partnership-alert hide-on-med-and-down">
+          <div class="breadcrumb-wrapper left">
+            <a href="{{ site.url }}" class="breadcrumb"><i class="material-icons tiny">home</i></a>
+            <a href="{{ site.url }}/profiles-search/" class="breadcrumb">Foundation Profiles</a>
+            <span class="breadcrumb">{{ page.organization_name }}</span>
+          </div>
+          <div class="right">
+            <a class="grey-text" href="{{ site.url }}/faq/" data-ga="FAQ">FAQ</a>
+          </div>
         </div>
         <div class="container-custom">
           <a href="#" data-target="mobile-nav" class="sidenav-trigger right disable-primary-color"><i class="material-icons">menu</i></a>
@@ -123,21 +130,13 @@
               <a href="https://www.grantmakers.io" data-ga="Homepage" class="brand-logo">
                 <div class="logo-container">
                   <div class="logo">
-                      <img src="{{ site.baseurl }}/assets/img/logo.png" alt="Grantmakers Logo" class="tooltipped" data-tooltip="<b>Grantmakers.io</b> is a free tool<br>from your friends at<br><b>SmarterGiving.org</b>" data-position="bottom" data-html="true">
+                    <img src="{{ site.baseurl }}/assets/img/logo.png" alt="Grantmakers.io Logo" class="tooltipped" data-tooltip="<b>Grantmakers.io</b> is a free tool<br>from your friends at<br><b>SmarterGiving.org</b>" data-position="bottom" data-html="true">
                   </div>
                   <div class="brand brand-name">
-                      Grantmakers.io
+                    Grantmakers.io
                   </div>
                 </div>
               </a>
-              {% if algolia == true %}
-              <div class="algolia-partnership-logo hide-on-med-and-down">
-                <a href="{{ site.algolia_referral_link }}">
-                  <span><span class="text-spread">In partnership</span><br>with </span>
-                  <img src="{{ site.baseurl }}/assets/img/algolia-dark-bg.svg" alt="Algolia Partnership Logo">
-                </a>
-              </div>
-              {% endif %}
             </div>
             <div class="col m4">
               <ul class="nav-primary nav-center hide-on-med-and-down">
@@ -147,9 +146,15 @@
               </ul>
             </div>
             <div class="col m4">
-              <ul class="nav-primary nav-right hide-on-med-and-down">
-                <li class="right"><a href="{{ site.url }}/faq/" data-ga="FAQ">FAQ</a></li>
+              {% if algolia == true %}
+                <span class="right algolia-partnership-logo hide-on-med-and-down"><a href="{{ site.algolia_referral_link }}"><img src="{{ site.baseurl}}/assets/img/algolia-partnership-logo.svg" alt="Algolia Partnership Logo"></a></span>
+              {% endif %}
+              <ul class="nav-profile-action-bar right hide-on-med-and-down">
+                <!-- <li><a href="#" data-ga="Star"><i class="material-icons right">star_border</i>Save</a></li> -->
+                <li><a href="#" data-ga="Share"><i class="material-icons right">send</i>Share</a></li>
               </ul>
+  
+              
             </div>
           </div>
         </div>
@@ -332,7 +337,7 @@
                       <div class="card-panel-header">
                         <div class="row">
                           <div class="col s12 m3">
-                            <h4>Grants{% if algolia == true %} <span class="text-muted algolia-logo right hide-on-med-and-up">Search powered by<br><a href="https://www.algolia.com" class="algolia-light-bg"><img src="{{ site.baseurl }}/assets/img/algolia-light-bg.svg" alt="Powered by Algolia"></a></span><a href="#" data-target="algolia-mobile" class="sidenav-trigger right hide"><i class="material-icons text-muted">filter_list</i></a>{% endif %}</h4>
+                            <h4>Grants{% if algolia == true %} <span class="text-muted algolia-logo right hide-on-med-and-up">Search powered by<br><a href="{{ site.algolia_referral_link }}" class="algolia-light-bg"><img src="{{ site.baseurl }}/assets/img/algolia-light-bg.svg" alt="Powered by Algolia"></a></span><a href="#" data-target="algolia-mobile" class="sidenav-trigger right hide"><i class="material-icons text-muted">filter_list</i></a>{% endif %}</h4>
                           </div>
                           <div class="col s12 m6">
                             {% if algolia == true %}
@@ -654,7 +659,7 @@
             <div class="col s12">
               <div id="profile-share" class="center-align">
                 <ul class="list-inline">
-                  <li><a href="mailto:?to=&subject=Grantmakers.io%20Profile%20-%20{{ page.organization_name | url_encode }}&body=%0D%0A%0D%0A{{ page.organization_name}}%0D%0A{{ site.url }}{{ site.baseurl }}/{{ page.ein }}/" target="_blank" class="waves-effect waves-light btn" data-ga="Share Profile via Email"><i class="material-icons left">email</i> Share this profile</a></li>
+                  <li><a href="mailto:?to=&subject=Grantmakers.io%20Profile%20-%20{{ page.organization_name | url_encode }}&body=%0D%0A%0D%0A{{ page.organization_name}}%0D%0A{{ site.url }}{{ site.baseurl }}/{{ page.ein }}/" target="_blank" class="waves-effect waves-light btn" data-ga="Share Profile via Email"><i class="material-icons left">send</i> Share this profile</a></li>
                 </ul>
               </div>
             </div>
