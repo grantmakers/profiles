@@ -4,7 +4,7 @@ $(document).ready(function(){
   // Helper definitions
   // =======================================================
   const targetEIN = $('h1.org-name').data('ein');
-  const scrollAnchor = $('#grants').offset().top;
+  const scrollAnchor = $('#grants').offset().top - 64; // 64 is height of profile-nav
   const isMobile = window.matchMedia('only screen and (max-width: 992px)');
   const isPhone = window.matchMedia('only screen and (max-width: 600px)');
   let gaCheck = window[window['GoogleAnalyticsObject'] || 'ga']; // Check for Google Analytics
