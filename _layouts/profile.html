@@ -141,47 +141,46 @@
   <div id="main-nav" class="navbar-fixed">
     <nav class="navbar-profile affix-top pushpin-nav" data-target="main-nav">
       <div class="nav-wrapper">
-        <div class="algolia-partnership-alert hide-on-med-and-down">
-          <div class="breadcrumb-wrapper left">
-            <a href="{{ site.url }}" class="breadcrumb" data-ga="Breadcrumb Home"><i class="material-icons tiny">home</i></a>
-            <a href="{{ site.url }}/profiles-search/" class="breadcrumb" data-ga="Breadcrumb Profile Search">Foundation Profiles</a>
-            <span class="breadcrumb">{{ page.organization_name }}</span>
-          </div>
-          <div class="right">
-            <a class="grey-text" href="{{ site.url }}/faq/" data-ga="FAQ">FAQ</a>
-          </div>
-        </div>
         <div class="container-custom">
           <a href="#" data-target="mobile-nav" class="sidenav-trigger right disable-primary-color"><i class="material-icons">menu</i></a>
           <div class="row">
-            <div class="col s8 m4">
+            <div class="col s8 m6 l2">
               <a href="https://www.grantmakers.io" data-ga="Homepage" class="brand-logo">
                 <div class="logo-container">
                   <div class="logo">
                     <img src="{{ site.baseurl }}/assets/img/logo.png" alt="Grantmakers.io Logo" class="tooltipped" data-tooltip="<b>Grantmakers.io</b> is a free tool<br>from your friends at<br><b>SmarterGiving.org</b>" data-position="bottom" data-html="true">
                   </div>
                   <div class="brand brand-name">
-                    Grantmakers.io
+                    Grantmakers.io 
                   </div>
                 </div>
               </a>
             </div>
-            <div class="col m4">
-              <ul class="nav-primary nav-center hide-on-med-and-down">
+            <div class="col l6 hide-on-med-and-down">
+              <div class="breadcrumb-wrapper left">
+                <a href="{{ site.url }}/profiles-search/" class="breadcrumb" data-ga="Breadcrumb Profile Search">Foundation Profiles</a>
+                <span class="breadcrumb">{{ page.organization_name }}</span>
+              </div>
+              {% if algolia == true %}
+                <span class="algolia-partnership-logo"><a href="{{ site.algolia_referral_link }}"><img src="{{ site.baseurl}}/assets/img/algolia-partnership-logo.svg" alt="Algolia Partnership Logo"></a></span>
+              {% endif %}
+            </div>
+            <div class="col m6 l4 hide-on-med-and-down">
+              <ul class="nav-primary right">
                 <li><a href="#people" class="scrolly">People</a></li>
                 <li><a href="#grants" class="scrolly">Grants</a></li>
                 <li><a href="#filings" class="scrolly">Tax Filings</a></li>
               </ul>
             </div>
+            <!--
             <div class="col m4">
               {% if algolia == true %}
                 <span class="right algolia-partnership-logo hide-on-med-and-down"><a href="{{ site.algolia_referral_link }}"><img src="{{ site.baseurl}}/assets/img/algolia-partnership-logo.svg" alt="Algolia Partnership Logo"></a></span>
               {% endif %}
               <ul class="nav-profile-action-bar right hide-on-med-and-down">
-                <!-- <li><a href="#" data-ga="Star"><i class="material-icons right">star_border</i>Save</a></li> -->
                 <li><a href="mailto:?to=&subject=Grantmakers.io%20Profile%20-%20{{ page.organization_name | url_encode }}&body=%0D%0A%0D%0A{{ page.organization_name}}%0D%0A{{ site.url }}{{ site.baseurl }}/{{ page.ein }}/" target="_blank" data-ga="Share Profile via Action Bar"><i class="material-icons right">send</i>Share</a></li>
               </ul>
-  
+            -->
               
             </div>
           </div>

@@ -6,7 +6,7 @@ $(document).ready(function() {
   // =======================================================
   const header = $('.header');
   const navbar = $('.navbar-profile');
-  const range = 90; // Was 64
+  const range = 64;
 
   $(window).on('scroll', function() {
     let scrollTop = $(this).scrollTop();
@@ -85,16 +85,19 @@ $(document).ready(function() {
       let $target = $('#' + $(this).attr('data-target'));
       let $id = $(this).attr('data-target');
       let targetBottom = 0;
+      let targetOffset = 0;
       if ($id == 'main-nav') {
-        targetBottom = $('#grants').offset().top - $('.pushpin-nav-search').height();
+        //targetBottom = $('#grants').offset().top - $('.pushpin-nav-search').height();
+        targetBottom = Infinity;
       } else {
         // TODO Fix hard-coded hack
         targetBottom = $target.offset().top + 1000;
-
+        targetOffset = range;
       }
       $this.pushpin({
         top: $target.offset().top,
-        bottom: targetBottom
+        bottom: targetBottom,
+        offset: targetOffset,
       });
     });
   }
