@@ -461,6 +461,7 @@ $(document).ready(function(){
   // =======================================================
   search.once('render', function(){
     $('select').formSelect();
+    reInitPushpin();
     showTableHeaderToast();
   });
 
@@ -468,6 +469,19 @@ $(document).ready(function(){
   // =======================================================
   function readyToSearchScrollPosition() {
     $('html, body').animate({scrollTop: scrollAnchor}, '500', 'swing');
+  }
+
+  // Re-init grants header pushpin
+  // =======================================================
+  function reInitPushpin() {
+    const target = $('.pushpin-nav-search');
+    if (target.length) {
+      target.pushpin({
+        top: $('#grants').offset().top,
+        bottom: $('#grants').offset().top + $('#grants').height() - target.height(),
+        offset: 64,
+      });
+    }
   }
 
   // Temp solution for table header clicks
