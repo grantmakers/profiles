@@ -6,7 +6,7 @@ $(document).ready(function() {
   // =======================================================
   const header = $('.header');
   const navbar = $('.navbar-profile');
-  const range = 64;
+  const range = 64; // Height of navbar
 
   $(window).on('scroll', function() {
     let scrollTop = $(this).scrollTop();
@@ -64,8 +64,9 @@ $(document).ready(function() {
     });
   };
 
-  // Fixed headers via Pushpin
-  // Currently only on non-mobile devices with Algolia enabled
+  // Fixed headers via Pushpin plugin
+  // Grants header is fixed only on non-mobile devices with Algolia enabled
+  // See also search.js - Need to re-init grants header after search results populate to capture proper div height
   const isMobile = window.matchMedia('only screen and (max-width: 992px)');
   const hasAlgolia = $('#grants .card-panel-header .search');
 
@@ -82,16 +83,13 @@ $(document).ready(function() {
   if ($('.pushpin-nav').length) {
     $('.pushpin-nav').each(function() {
       let $this = $(this);
-      let $target = $('#' + $(this).attr('data-target'));
       let $id = $(this).attr('data-target');
-      let targetBottom = 0;
+      let $target = $('#' + $(this).attr('data-target'));
+      let targetBottom = $target.offset().top + $target.height();
       let targetOffset = 0;
       if ($id == 'main-nav') {
-        //targetBottom = $('#grants').offset().top - $('.pushpin-nav-search').height();
         targetBottom = Infinity;
       } else {
-        // TODO Fix hard-coded hack
-        targetBottom = $target.offset().top + 1000;
         targetOffset = range;
       }
       $this.pushpin({
