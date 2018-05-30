@@ -6,15 +6,21 @@ $(document).ready(function() {
   // =======================================================
   const header = $('.header');
   const navbar = $('.navbar-profile');
+  const actionbar = $('.left-action-bar');
   const range = 64; // Height of navbar
+  let persistActionBar;
 
   $(window).on('scroll', function() {
     let scrollTop = $(this).scrollTop();
     let height = header.outerHeight();
     let offset = height / 2;
     let calc = 1 - (scrollTop - offset + range) / range;
+    let calcInverse = (scrollTop - offset + range) / range;
 
     header.css({ 'opacity': calc });
+    if (!persistActionBar) {
+      actionbar.css({ 'opacity': calcInverse});
+    }
 
     if (calc > '1') {
       header.css({ 'opacity': 1 });
@@ -23,6 +29,8 @@ $(document).ready(function() {
       // $('.algolia-partnership-logo img').attr('src', '{{ site.baseurl}}/assets/img/algolia-partnership-logo.png');
     } else if ( calc < '0' ) {
       header.css({ 'opacity': 0 });
+      persistActionBar = true;
+      actionbar.css({ 'opacity': 1});
       navbar.addClass('affix');
       navbar.removeClass('affix-top');
       // $('.algolia-partnership-logo img').attr('src', '{{ site.baseurl}}/assets/img/algolia-partnership-logo-light.png');
@@ -99,6 +107,22 @@ $(document).ready(function() {
       });
     });
   }
+
+  // LEFT ACTION BAR
+  // =======================================================
+  var clipboard = new ClipboardJS('.js-clipboard');
+
+  clipboard.on('success', function(e) {
+      M.toast({
+        html: 'Copied to clipboard'
+      })
+      e.clearSelection();
+  });
+
+  clipboard.on('error', function(e) {
+      console.error('Action:', e.action);
+      console.error('Trigger:', e.trigger);
+  });
 
   // SMOOTH SCROLL
   // =======================================================

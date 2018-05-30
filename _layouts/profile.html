@@ -119,6 +119,7 @@
 
   <script defer src="{{ site.baseurl }}/assets/js/stupidtable.min.js"></script>
   <script defer src="{{ site.baseurl }}/assets/js/jquery.matchHeight-min.js"></script>
+  <script defer src="{{ site.baseurl }}/assets/js/clipboard.min.js"></script>
   <script src="{{ site.baseurl }}/assets/js/profile.js"></script>
 
   <!-- Drift Widget -->
@@ -172,17 +173,6 @@
                 <li><a href="#filings" class="scrolly">Tax Filings</a></li>
               </ul>
             </div>
-            <!--
-            <div class="col m4">
-              {% if algolia == true %}
-                <span class="right algolia-partnership-logo hide-on-med-and-down"><a href="{{ site.algolia_referral_link }}"><img src="{{ site.baseurl}}/assets/img/algolia-partnership-logo.svg" alt="Algolia Partnership Logo"></a></span>
-              {% endif %}
-              <ul class="nav-profile-action-bar right hide-on-med-and-down">
-                <li><a href="mailto:?to=&subject=Grantmakers.io%20Profile%20-%20{{ page.organization_name | url_encode }}&body=%0D%0A%0D%0A{{ page.organization_name}}%0D%0A{{ site.url }}{{ site.baseurl }}/{{ page.ein }}/" target="_blank" data-ga="Share Profile via Action Bar"><i class="material-icons right">send</i>Share</a></li>
-              </ul>
-            -->
-              
-            </div>
           </div>
         </div>
       </div>
@@ -198,6 +188,9 @@
   </ul>
   <!-- End Mobile Navbar -->
   <!-- End Navbar -->
+
+  <!-- Left Action Bar-->
+  {% include left-action-bar.html %}
 
   <div class="wrapper">
     <!-- <div class="header header-filter" style="background-image: url('{{ site.baseurl }}/assets/img/{{ page.state }}.jpg');"></div> -->
