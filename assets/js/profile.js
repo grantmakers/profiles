@@ -1,7 +1,6 @@
 ---
 ---
 $(document).ready(function() {
-
   // Navbar
   // =======================================================
   const header = $('.header');
@@ -35,7 +34,6 @@ $(document).ready(function() {
       navbar.removeClass('affix-top');
       // $('.algolia-partnership-logo img').attr('src', '{{ site.baseurl}}/assets/img/algolia-partnership-logo-light.png');
     }
-
   });
 
   // Materialize components
@@ -44,7 +42,7 @@ $(document).ready(function() {
     $('.sidenav').sidenav();
     $('.tooltipped').tooltip();
     $('.collapsible').collapsible({
-      'accordion': false
+      'accordion': false,
     });
 
     $('.collapsible-grants-table').collapsible({
@@ -53,15 +51,15 @@ $(document).ready(function() {
       // onOpenStart: function(el) {
       //   $(el).find('.collapsible-header i').addClass('md-spin');
       // }
-      onOpenEnd: function(el) {
+      'onOpenEnd': function(el) {
         $(el).find('.collapsible-header i').removeClass('md-spin');
-      }
+      },
     });
     
     // TODO Use onOpenStart to add spinning icon
     // Unsure of root cause - possible Materialize bug?
     $('.collapsible-grants-table .collapsible-header').click(function(e) {
-      if(!$(this).parent().hasClass('active')){
+      if (!$(this).parent().hasClass('active')) {
         e.stopPropagation();
         $(this).find('i').addClass('md-spin');
         $(this).find('i').removeClass('bounce');
@@ -95,44 +93,47 @@ $(document).ready(function() {
       let $target = $('#' + $(this).attr('data-target'));
       let targetBottom = $target.offset().top + $target.height();
       let targetOffset = 0;
-      if ($id == 'main-nav') {
+      if ($id === 'main-nav') {
         targetBottom = Infinity;
       } else {
         targetOffset = range;
       }
       $this.pushpin({
-        top: $target.offset().top,
-        bottom: targetBottom,
-        offset: targetOffset,
+        'top': $target.offset().top,
+        'bottom': targetBottom,
+        'offset': targetOffset,
       });
     });
   }
 
   // LEFT ACTION BAR
   // =======================================================
-  var clipboard = new ClipboardJS('.js-clipboard');
+  const clipboard = new ClipboardJS('.js-clipboard');
 
   clipboard.on('success', function(e) {
-      M.toast({
-        html: 'Copied to clipboard'
-      })
-      e.clearSelection();
+    M.toast({
+      'html': 'Copied to clipboard',
+    });
+    e.clearSelection();
   });
 
   clipboard.on('error', function(e) {
-      console.error('Action:', e.action);
-      console.error('Trigger:', e.trigger);
+    M.toast({
+      'html': 'Failed to copy. Try again.',
+    });
+    console.error('Action:', e.action);
+    console.error('Trigger:', e.trigger);
   });
 
   // SMOOTH SCROLL
   // =======================================================
-  $('.scrolly').click(function(e){
-    var target = $(this).attr('href');
-    var new_position = ($(target).offset().top - 64);
-    $('html, body').stop().animate({ scrollTop: new_position }, 500);
+  $('.scrolly').click(function() {
+    const target = $(this).attr('href');
+    const newPosition = $(target).offset().top - 64;
+    $('html, body').stop().animate({ 'scrollTop': newPosition }, 500);
   });
 
-  $('.nav-primary li a.scrolly').on('click', function(e) {
+  $('.nav-primary li a.scrolly').on('click', function() {
     // collapse mobile header
     if (isMobile) {
       $('.sidenav').sidenav('close');
@@ -141,7 +142,7 @@ $(document).ready(function() {
 
   // Enable table sort via StupidTable
   // =======================================================
-  if( $( "#grantsTable" ).length ) {
+  if ( $( '#grantsTable' ).length ) {
     $('#grantsTable').stupidtable();
   }
 
@@ -153,11 +154,11 @@ $(document).ready(function() {
   });
   
   function addFilingURL(el) {
-    var ein = el.data('ein');
-    var einShort = ein.toString().substring(0, 3);
-    var taxPeriod = el.data('tax-period');
+    const ein = el.data('ein');
+    const einShort = ein.toString().substring(0, 3);
+    const taxPeriod = el.data('tax-period');
     // Foundation Center: http://990s.foundationcenter.org/990pf_pdf_archive/272/272624875/272624875_201412_990PF.pdf
-    var urlPDF = 'http://990s.foundationcenter.org/990pf_pdf_archive/' +
+    const urlPDF = 'http://990s.foundationcenter.org/990pf_pdf_archive/' +
                  einShort + '/' +
                  ein + '/' +
                  ein + '_' +
@@ -172,33 +173,34 @@ $(document).ready(function() {
   $('.js-filings-pdf').click(function(e) {
     e.preventDefault();
     M.toast({
-      html: 'Redirecting to latest 990...'
-    })
+      'html': 'Redirecting to latest 990...',
+    });
     const elem = $(this);
     const target = $(this).attr('href');
     $.ajax({
-      method: 'POST',
-      url: gcf,
-      data: { target: target }
+      'method': 'POST',
+      'url': gcf,
+      'data': { 'target': target },
     })
-    .done(function( res ) {
-      if (res) {
-        window.location.href = target;
-      } else {
-        elem.addClass('disabled');
+      .done(function( res ) {
+        if (res) {
+          window.location.href = target;
+        } else {
+          elem.addClass('disabled');
+          M.Toast.dismissAll();
+          M.toast({
+            'html': 'PDF not yet available. Try a prior year.',
+          });
+        }
+      })
+      .fail(function(xhr, textStatus, error) {
+        const toastContent = '<span>Something went wrong.</span><button href="http://foundationcenter.org/find-funding/990-finder" class="btn-flat toast-action">Try Here.</button>';
         M.Toast.dismissAll();
         M.toast({
-          html: 'PDF not yet available. Try a prior year.'
+          'html': toastContent,
+          'displayLength': 10000,
         });
-      }
-    })
-    .fail(function(xhr, textStatus, error){
-      var toastContent = '<span>Something went wrong.</span><button href="http://foundationcenter.org/find-funding/990-finder" class="btn-flat toast-action">Try Here.</button>';
-      M.Toast.dismissAll();
-      M.toast({
-        html: toastContent, 
-        displayLength: 10000
+        console.log(error);
       });
-    });
   });
 });
