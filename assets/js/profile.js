@@ -102,47 +102,18 @@ $(document).ready(function() {
 
   // SMOOTH SCROLL
   // =======================================================
-  $('ul.profile-summary-icons li a.scrolly').on('click', function(e) {
-    e.preventDefault();
-    scrolly(this);
+  $('.scrolly').click(function(e){
+    var target = $(this).attr('href');
+    var new_position = ($(target).offset().top - 64);
+    $('html, body').stop().animate({ scrollTop: new_position }, 500);
   });
 
-  $('.card-action-community-alert a.scrolly').on('click', function(e) {
-    e.preventDefault();
-    scrolly(this);
-  })
-
   $('.nav-primary li a.scrolly').on('click', function(e) {
-    e.preventDefault();
     // collapse mobile header
     if (isMobile) {
       $('.sidenav').sidenav('close');
     }
-
-    scrolly(this);
-
-    // google analytics
-    var text = $(this).text();
-    ga('send', 'event', {
-      'eventCategory': 'Profile Events',
-      'eventAction': 'Profile Header Click',
-      'eventLabel': text,
-    });
   });
-
-  function scrolly(elem) {
-    // store hash
-    let hash = elem.hash;
-
-    // animate
-    $('html, body').animate({
-      'scrollTop': $(elem.hash).offset().top - 120,
-    }, 300, function() {
-      // when done, add hash to url
-      // (default click behaviour)
-      window.location.hash = hash;
-    });
-  }
 
   // Enable table sort via StupidTable
   // =======================================================

@@ -1,5 +1,5 @@
 $(document).ready(function() {
-  // Profile header links (except scrolly click events for center three links...already included in profile.js)
+  // Profile header links
   $('.navbar-profile [data-ga]').on('click', function() {
     ga('send', 'event', {
       'eventCategory': 'Profile Events',

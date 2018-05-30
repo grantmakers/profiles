@@ -1329,6 +1329,8 @@ footer .copyright {
 .footer-terms {
 	background-color: $gray;
 	color: $gray-light !important;
+	position: absolute;
+	width: 100%;
 	.row {
 		margin: 0; //Feels like a HACK
 	}
