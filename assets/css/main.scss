@@ -590,6 +590,14 @@ nav ul li a {
 	background-color: $gray-lightest;
 	//z-index: 2000; //HACK Fixed header loses transparent background
 }
+.fixed-action-btn {
+	right: 3rem;
+	bottom: 2rem;
+	@media #{$small-and-down} {
+		right: 2rem;
+		bottom: 1rem;
+	}
+}
 .left-action-bar {
 	opacity: 0;
 	display: -ms-flexbox;
