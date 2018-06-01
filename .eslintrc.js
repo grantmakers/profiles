@@ -1,30 +1,17 @@
-{
-  "parser": "babel-eslint",
-  "plugins": [
-    // "frontmatter"
-  ],
+module.exports = {
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "sourceType": "module",
+  },
   "env": {
     "browser": true,
-    "node": true
+    "node": true,
+    "commonjs": true,
+    "es6": true
   },
-  "ecmaFeatures": {
-    "arrowFunctions": true,
-    "blockBindings": true,
-    "classes": true,
-    "defaultParams": true,
-    "destructuring": true,
-    "forOf": true,
-    "generators": false,
-    "modules": true,
-    "objectLiteralComputedProperties": true,
-    "objectLiteralDuplicateProperties": false,
-    "objectLiteralShorthandMethods": true,
-    "objectLiteralShorthandProperties": true,
-    "spread": true,
-    "superInFunctions": true,
-    "templateStrings": true,
-    "jsx": true
-  },
+  "plugins": [
+    "frontmatter"
+  ],
   "rules": {
 /**
  * Strict mode
@@ -130,7 +117,7 @@
       "allowSingleLine": true
     }],
     "quotes": [
-      2, "single", "avoid-escape"    // http://eslint.org/docs/rules/quotes
+      2, "single", { "avoidEscape": true, "allowTemplateLiterals": true }    // http://eslint.org/docs/rules/quotes
     ],
     "camelcase": [2, {               // http://eslint.org/docs/rules/camelcase
       "properties": "never"
@@ -140,7 +127,8 @@
       "after": true
     }],
     "comma-style": [2, "last"],      // http://eslint.org/docs/rules/comma-style
-    "eol-last": 2,                   // http://eslint.org/docs/rules/eol-last
+    "eol-last": [2, "always"],                   // http://eslint.org/docs/rules/eol-last
+    "linebreak-style": [2, "unix"],
     "func-names": [0, "as-needed"],                 // http://eslint.org/docs/rules/func-names
     "func-style": [2, "declaration"], // http://eslint.org/docs/rules/func-style
     "key-spacing": [2, {             // http://eslint.org/docs/rules/key-spacing
@@ -157,7 +145,7 @@
     "no-new-object": 2,              // http://eslint.org/docs/rules/no-new-object
     "no-array-constructor": 2,       // http://eslint.org/docs/rules/no-array-constructor
     "no-spaced-func": 2,             // http://eslint.org/docs/rules/no-spaced-func
-    "no-trailing-spaces": [2, "skipBlankLines": true],         // http://eslint.org/docs/rules/no-trailing-spaces
+    "no-trailing-spaces": [2, {"skipBlankLines": true}],         // http://eslint.org/docs/rules/no-trailing-spaces
 //Deprecated    "no-wrap-func": 2,               // http://eslint.org/docs/rules/no-wrap-func
     "no-extra-parens": 2,
     "no-underscore-dangle": 0,       // http://eslint.org/docs/rules/no-underscore-dangle
@@ -175,5 +163,5 @@
     "space-infix-ops": 2,            // http://eslint.org/docs/rules/space-infix-ops
 //Deprecated    "space-return-throw-case": 2,    // http://eslint.org/docs/rules/space-return-throw-case
     "spaced-comment": 2,        // http://eslint.org/docs/rules/spaced-comment
-  }
+  },
 }

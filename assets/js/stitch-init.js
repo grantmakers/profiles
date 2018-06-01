@@ -8,7 +8,7 @@ $(document).ready(function() {
 
   initializeClient().then(() => {
     // Call Stitch Function to fetch insights
-    return stitchClient.executeFunction('getInsights', targetEIN)
+    return stitchClient.executeFunction('getInsights', targetEIN);
   })
     .then(displayInsights)
     .catch(console.error);
@@ -28,8 +28,8 @@ $(document).ready(function() {
   function displayInsights(items) {
     if (items.length) {
       const insightsDiv = '#insights';
-      const stitchResults = items.map(item => {
-        return `{% include stitch/insights-item.html %}`
+      const stitchResults = items.map(item => { // eslint-disable-line no-unused-vars
+        return `{% include stitch/insights-item.html %}`;
       }).join('');
       $(insightsDiv).prepend(stitchResults);
       $.fn.matchHeight._update();

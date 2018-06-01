@@ -402,7 +402,7 @@ nav ul li a {
 	&.affix {
     background-color: $gray-lighter;
     box-shadow: 0 10px 20px -12px rgba(0, 0, 0, 0.42), 0 3px 20px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2);
-    .brand-name, .nav-primary a, .nav-profile-action-bar a {
+    .brand-name, .nav-primary a {
 			color: $gray !important;
 		}
 		.breadcrumb-wrapper {
@@ -433,9 +433,6 @@ nav ul li a {
 		.algolia-partnership-logo {
 			display: none;
 		}
-	}
-	.nav-profile-action-bar {
-		display: none;
 	}
 	
 	.algolia-partnership-logo {
@@ -592,6 +589,147 @@ nav ul li a {
 .profile-page .main, .profile-index-page .main {
 	background-color: $gray-lightest;
 	//z-index: 2000; //HACK Fixed header loses transparent background
+}
+// Primary FAB
+.fixed-action-btn {
+	right: 3rem;
+	bottom: 2rem;
+	@media #{$small-and-down} {
+		right: 2rem;
+		bottom: 1rem;
+	}
+}
+// Community Sidebar
+#community-sidebar.sidenav {
+	@media #{$large-and-up} {
+		width: 450px;
+	}
+	ul {
+		margin-top: 0px;
+	}
+	li {
+		line-height: 1.6;
+	}
+	.card-panel {
+		border-radius: 0;
+		padding: 10px;
+		margin: 0;
+	}
+	.row.valign-wrapper {
+		margin-bottom: 0;
+	}
+	.collapsible-header {
+		font-size: 85%;
+		text-transform: uppercase;
+		color: rgba(0, 0, 0, 0.54);
+    font-weight: 500;
+    line-height: 48px;
+	}
+	.collapsible-body li {
+		//min-height: 84px;
+		border: none;
+    background-color: #fff;
+    //line-height: 1.5rem;
+    padding: 10px 20px;
+		margin: 0;
+	}
+	.collection-item .title {
+		font-weight: bold;
+	}
+	ul.list-nested {
+		margin: 0 20px;
+		li:first-child {
+			padding-top: 20px;
+		}
+	}
+	h6.small {
+		line-height: 1.2rem;
+	}
+	$left: 12px;
+	label {
+		color: color("blue-grey", "base");
+		padding-left: $left;
+	}
+	textarea {
+		padding-left: $left;
+		padding-right: $left;
+	}
+	textarea.materialize-textarea:focus {
+		border-bottom: 1px solid color("blue-grey", "base");
+    box-shadow: 0 1px 0 0 color("blue-grey", "base");
+	}
+	.helper-text a {
+		padding: 0;
+		padding-left: $left;
+	}
+	.action-bar {
+		padding: 10px 0;
+	}
+	.collection-item p {
+		margin: 0;
+		white-space: pre-wrap;
+	}
+}
+.card-profile-title	{
+	font-size: 16px;
+	padding: 20px;
+	border-radius: 0 0 2px 2px;
+}
+
+// Login
+form#login {
+	img {
+		width: 150px;
+		height: 150px;
+		margin: auto;
+	}
+}
+
+// Left Action Bar
+.left-action-bar {
+	opacity: 0;
+	display: -ms-flexbox;
+	display: flex;
+	position: fixed;
+	left: 0;
+	top: 0;
+	bottom: 0;
+	z-index: 10;
+	ul {
+		background: color("blue-grey", "base");
+    border-radius: 0 5px 5px 0;
+    margin: auto;
+    overflow: hidden;
+    padding: 0;
+	}
+	li {
+		font-size: 10px;
+		cursor: pointer;
+    list-style: none;
+    height: 64px;
+    width: 64px;
+		transition: background .2s;
+		text-align: center;
+		border-bottom: 1px solid color("blue-grey", "lighten-1");
+		&:last-child {
+			border-bottom: none;
+		}
+		a {
+			color: #fff;
+			// color: color("grey", "darken-3");
+			display: block;
+			padding: 9px 0px;
+			text-transform: uppercase;
+		}
+		a span {
+			display: block;
+			color: color("blue-grey", "lighten-4");
+		}
+	}
+	i.material-icons {
+		display: block;
+		font-size: 28px;
+	}
 }
 .profile-content {
 	#profile, #feedback, #profile-share, #information-source {
