@@ -36,6 +36,7 @@ $(document).ready(function() {
   // =======================================================
   window.onload = function() {
     $('.sidenav').sidenav();
+    $('#community-sidebar').sidenav({ 'edge': 'right'});
     $('.tooltipped').tooltip();
     $('.collapsible').collapsible({
       'accordion': false,

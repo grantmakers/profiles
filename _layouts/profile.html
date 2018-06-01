@@ -130,8 +130,10 @@
   {% endunless %}
 
   <!-- Stitch -->
+  {% unless jekyll.environment == 'development' %}
   <script src="https://s3.amazonaws.com/stitch-sdks/js/library/v3/stable/stitch.min.js"></script>
   <script src="{{ site.baseurl }}/assets/js/stitch-init.js"></script>
+  {% endunless %}
 
 </head>
 
@@ -620,9 +622,12 @@
                             <!-- <a href="{{ site.url }}{{ site.baseurl }}/v0/650971968-floyd-c-johnson-and-flo-singer-johnson-foundation/#community" class="waves-effect waves-light btn white grey-text text-darken-4"><i class="material-icons left">visibility</i> View an example</a> -->
                           {% endunless %}
                           <a href="mailto:{{ page.ein }}@grantmakers.io?body=%0D%0A%0D%0A{{ page.organization_name}}%0D%0A{{ site.url }}{{ site.baseurl }}/{{ page.ein }}/" target="_blank" class="waves-effect waves-light btn blue-grey white-text" data-ga="Email Share Resource"><i class="material-icons left">email</i> Share a resource</a>
+                          <a href="#" class="sidenav-trigger bwaves-effect waves-light btn grantmakers white-text tooltipped" data-target="community-sidebar" data-html="true" data-tooltip="Community Insights<br>Q&A" data-position="left">
+                            <i class="material-icons left">question_answer</i> Ask a Question
+                          </a>
                         </div>
                         {% unless page.ein == '650971968' %}
-                          <p class="center"><a href="https://www.grantmakers.io/profiles/v0/650971968-floyd-c-johnson-and-flo-singer-johnson-foundation/" class="blue-grey-text">View an example</a></p>
+                          <p class="center"><a href="{{ site.url }}{{ site.baseurl }}/v0/650971968-floyd-c-johnson-and-flo-singer-johnson-foundation/" class="blue-grey-text">View an example</a></p>
                         {% endunless %}
                       </li>
                     </ul>
@@ -715,7 +720,9 @@
     </div>
 
   </div>
+  {% include login.html %}
   {% include fixed-action-button.html %}
+  {% include community-sidebar.html %}
   {% include footer.html %}
   {% include footer-license-and-links.html %}
   {% unless jekyll.environment == 'staging' %}
