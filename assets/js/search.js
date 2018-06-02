@@ -1,13 +1,19 @@
 ---
 ---
-$(document).ready(function(){
+/* eslint quote-props: ["error", "as-needed"] */
+$(document).ready(function() {
   // Helper definitions
   // =======================================================
   const targetEIN = $('h1.org-name').data('ein');
-  const scrollAnchor = $('#grants').offset().top;
-  const isMobile = window.matchMedia('only screen and (max-width: 992px)');
+  const scrollAnchor = $('#grants').offset().top - 64; // 64 is height of profile-nav
   const isPhone = window.matchMedia('only screen and (max-width: 600px)');
-  let gaCheck = window[window['GoogleAnalyticsObject'] || 'ga']; // Check for Google Analytics
+  // const isMobile = window.matchMedia('only screen and (max-width: 992px)');
+  let gaCheck = window[window['GoogleAnalyticsObject'] || 'ga']; // eslint-disable-line dot-notation
+
+  const formatter = new Intl.NumberFormat('en-US', {
+    style: 'decimal',
+    minimumFractionDigits: 0,
+  });
   // Note - fixed grants header handled by profile.js
 
   // Initialize Materialize components
@@ -28,8 +34,8 @@ $(document).ready(function(){
     numberLocale: 'en-US',
     routing: true,
     searchParameters: {
-      'filters': 'ein:' + targetEIN
-    }
+      filters: 'ein:' + targetEIN,
+    },
   });
 
   // Define templates
@@ -51,10 +57,10 @@ $(document).ready(function(){
       poweredBy: false,
       autofocus: false,
       reset: true,
-      queryHook: function(query, search) {
+      queryHook: function(query, searchInstance) {
         readyToSearchScrollPosition();
-        search(query);
-      }
+        searchInstance(query);
+      },
     })
   );
 
@@ -100,7 +106,7 @@ $(document).ready(function(){
           // E.g. https://grantmakers.io/profiles/v0/136114244-pulvermacher-family-foundation-inc-co-jo-k-pulvermacher/?query=ho&refinementList%5Btax_year%5D%5B0%5D=2016&refinementList%5Btax_year%5D%5B1%5D=2015
           // See diff when searching for 'hi' and 'ho'
           const check = arr._rawResults[1];
-          if (check && check.nbHits != 0) {
+          if (check && check.nbHits !== 0) {
             $('.section-clear-all').removeClass('no-hits');
           } else {
             $('.section-clear-all').addClass('no-hits');
@@ -111,14 +117,14 @@ $(document).ready(function(){
           // Handle edge case (as per 'empty')
           $('.section-clear-all').removeClass('no-hits');
           // Change sort-by text
-          for (var i = 0, len = arr.hits.length; i < len; i++) {
+          for (let i = 0, len = arr.hits.length; i < len; i++) {
             let n = arr.hits[i].grant_amount;
             let formattedNumber = '$' + formatter.format(n);
             arr.hits[i].grant_amount = formattedNumber;
           }
-          return(arr);
-        }
-      }
+          return arr;
+        },
+      },
     })
   );
 
@@ -159,7 +165,7 @@ $(document).ready(function(){
       sortBy: ['name:desc'],
       limit: 7,
       collapsible: {
-        collapsed: false
+        collapsed: false,
       },
       showMore: false,
       /*
@@ -180,9 +186,9 @@ $(document).ready(function(){
       },
       transformData: function(item) {
         return formatRefinements(item);
-      }
+      },
     })
-  )
+  );
 
   search.addWidget(
     instantsearch.widgets.refinementList({
@@ -190,7 +196,7 @@ $(document).ready(function(){
       attributeName: 'grantee_state',
       limit: 7,
       collapsible: {
-        collapsed: false
+        collapsed: false,
       },
       showMore: false,
       /*
@@ -211,7 +217,7 @@ $(document).ready(function(){
       },
       transformData: function(item) {
         return formatRefinements(item);
-      }
+      },
     })
   );
 
@@ -221,7 +227,7 @@ $(document).ready(function(){
       attributeName: 'grantee_city',
       limit: 7,
       collapsible: {
-        collapsed: false
+        collapsed: false,
       },
       showMore: false,
       /*
@@ -242,7 +248,7 @@ $(document).ready(function(){
       },
       transformData: function(item) {
         return formatRefinements(item);
-      }
+      },
     })
   );
 
@@ -251,19 +257,19 @@ $(document).ready(function(){
       container: '#ais-widget-range-slider',
       attributeName: 'grant_amount',
       collapsible: {
-        collapsed: true
+        collapsed: true,
       },
       cssClasses: {
         header: widgetHeaderClasses,
         body: 'card-content',
       },
       templates: {
-        header: 'Amount' + templateRefinementHeader
+        header: 'Amount' + templateRefinementHeader,
       },
       tooltips: {
         format: function(rawValue) {
           return '$' + Math.round(rawValue).toLocaleString();
-        }
+        },
       },
       pips: false,
     })
@@ -283,7 +289,7 @@ $(document).ready(function(){
       ],
       cssClasses: {
         link: ['waves-effect', 'btn', 'btn-custom', 'btn-clear-refinements', 'blue-grey', 'lighten-3'],
-        clearAll: ['waves-effect', 'btn', 'btn-custom', 'btn-clear-refinements white-text']
+        clearAll: ['waves-effect', 'btn', 'btn-custom', 'btn-clear-refinements white-text'],
       },
       templates: {
         item: templateCurrentRefinedValues,
@@ -295,13 +301,13 @@ $(document).ready(function(){
     instantsearch.widgets.clearAll({
       container: '#ais-widget-clear-all',
       templates: {
-        link: 'Clear all'
+        link: 'Clear all',
       },
       autoHideContainer: true,
       clearsQuery: true,
       cssClasses: {
-        root: ['btn', 'btn-custom', 'waves-effect','waves-light', 'white-text'],
-      }
+        root: ['btn', 'btn-custom', 'waves-effect', 'waves-light', 'white-text'],
+      },
     })
   );
 
@@ -317,8 +323,8 @@ $(document).ready(function(){
         root: 'pagination',
         page: 'waves-effect',
         active: 'active',
-        disabled: 'disabled'
-      }
+        disabled: 'disabled',
+      },
     })
   );
 
@@ -328,7 +334,7 @@ $(document).ready(function(){
     instantsearch.widgets.clearAll({
       container: '#ais-widget-mobile-clear-all',
       templates: {
-        link: '<a class="waves-effect waves-light btn btn grey lighten-5 grey-text text-darken-3">Clear</a>'
+        link: '<a class="waves-effect waves-light btn btn grey lighten-5 grey-text text-darken-3">Clear</a>',
       },
       autoHideContainer: true,
       clearsQuery: true,
@@ -374,7 +380,7 @@ $(document).ready(function(){
       sortBy: ['name:desc'],
       limit: 5,
       collapsible: {
-        collapsed: false
+        collapsed: false,
       },
       showMore: {
         templates: {
@@ -392,9 +398,9 @@ $(document).ready(function(){
       },
       transformData: function(item) {
         return formatRefinements(item);
-      }
+      },
     })
-  )
+  );
 
   search.addWidget(
     instantsearch.widgets.refinementList({
@@ -403,7 +409,7 @@ $(document).ready(function(){
       autoHideContainer: false,
       limit: 5,
       collapsible: {
-        collapsed: true
+        collapsed: true,
       },
       showMore: {
         templates: {
@@ -421,7 +427,7 @@ $(document).ready(function(){
       },
       transformData: function(item) {
         return formatRefinements(item);
-      }
+      },
     })
   );
 
@@ -432,7 +438,7 @@ $(document).ready(function(){
       autoHideContainer: false,
       limit: 5,
       collapsible: {
-        collapsed: true
+        collapsed: true,
       },
       showMore: {
         templates: {
@@ -450,7 +456,7 @@ $(document).ready(function(){
       },
       transformData: function(item) {
         return formatRefinements(item);
-      }
+      },
     })
   );
 
@@ -459,8 +465,9 @@ $(document).ready(function(){
 
   // Initialize Materialize JS components
   // =======================================================
-  search.once('render', function(){
+  search.once('render', function() {
     $('select').formSelect();
+    reInitPushpin();
     showTableHeaderToast();
   });
 
@@ -470,15 +477,28 @@ $(document).ready(function(){
     $('html, body').animate({scrollTop: scrollAnchor}, '500', 'swing');
   }
 
+  // Re-init grants header pushpin
+  // =======================================================
+  function reInitPushpin() {
+    const target = $('.pushpin-nav-search');
+    if (target.length) {
+      target.pushpin({
+        top: $('#grants').offset().top,
+        bottom: $('#grants').offset().top + $('#grants').height() - target.height(),
+        offset: 64,
+      });
+    }
+  }
+
   // Temp solution for table header clicks
   // =======================================================
   function showTableHeaderToast() {
     $('.ais-hits th span').click(function() {
-      if (typeof gaCheck == 'function') {
+      if (typeof gaCheck === 'function') {
         ga('send', 'event', {
-          'eventCategory': 'Profile Events',
-          'eventAction': 'Profile Table Attempted Sort Click',
-          'eventLabel': $(this).find('span').text(),
+          eventCategory: 'Profile Events',
+          eventAction: 'Profile Table Attempted Sort Click',
+          eventLabel: $(this).find('span').text(),
         });
       }
       let toastHTML;
@@ -489,13 +509,13 @@ $(document).ready(function(){
       }
       M.toast({
         html: toastHTML,
-        displayLength: 4000
+        displayLength: 4000,
       });
       const targetElem = $('#current-year-list-view');
       $('.js-toast-action-scroll').click(function() {
         scrolly(targetElem);
         $('.collapsible-header i').addClass('bounce');
-      })
+      });
     });
   }
 
@@ -505,14 +525,14 @@ $(document).ready(function(){
     let position = $(elem).position().top;
     // animate
     $('html, body').animate({
-      'scrollTop': position + 100,
+      scrollTop: position + 100,
     }, 300, function() {
     });
   }
 
-  function slugify (text) {
+  function slugify(text) {
     return text.toLowerCase().replace(/-+/g, '').replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
-  };
+  }
 
   function randomId() {
     return Math.random()
@@ -520,11 +540,7 @@ $(document).ready(function(){
       .substr(2, 10);
   }
 
-  const formatter = new Intl.NumberFormat('en-US', {
-    'style': 'decimal',
-    'minimumFractionDigits': 0,
-  });
-
+  /*
   function formatNumbersOnly(item) {
     // Format numbers
     let n = item.grant_amount;
@@ -532,6 +548,7 @@ $(document).ready(function(){
     item.grant_amount = formattedNumber;
     return item;
   }
+  */
 
   function formatRefinements(item) {
     // Format numbers
@@ -539,12 +556,12 @@ $(document).ready(function(){
     let formattedNumber = formatter.format(n);
     item.count = formattedNumber;
     // Ensure css IDs are properly formatted and unique
-    if(item.label) {
+    if (item.label) {
       item.cssId = 'id-' + slugify(item.label);
     } else {
       // Fallback
       item.cssId = 'id-' + randomId();
     }
-  return item;
-}
+    return item;
+  }
 });

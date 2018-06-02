@@ -343,45 +343,6 @@ i.suffix {
 	}
 }
 
-.algolia-partnership-alert {
-	@extend .grey, .darken-4;
-	@extend .grey-text;
-	padding: 0 170px;
-	height: 30px;
-	line-height: 30px;
-	font-size: 12px;
-	i {
-		line-height: 30px !important;
-		height: 30px !important;
-	}
-	img {
-		height: 15px;
-		vertical-align: middle;
-	}
-	.breadcrumb-wrapper {
-		.breadcrumb {
-			font-size: 12px;
-			@extend .grey-text;
-			&:before {
-				@extend .grey-text;
-			}
-			i {
-				font-size: 20px;
-				height: inherit;
-				line-height: inherit;
-			}
-		}
-	}
-}
-
-.affix .algolia-partnership-alert {
-	@extend .grey, .darken-4;
-	// visibility: visible;
-	a, i {
-		@extend .grey-text;
-	}
-}
-
 /* Navbar */
 .navbar-fixed {
 	position: fixed;
@@ -424,7 +385,7 @@ nav ul li a {
 }
 .navbar-profile {
 	font-weight: 400;
-	height: 94px; // 64 + 30
+	height: 64px;
 	&.navbar-profile-index {
 		height: 64px;
 	}
@@ -435,11 +396,27 @@ nav ul li a {
 		background-color: transparent !important;
 		border: 0 !important;
 	}
+	.breadcrumb-wrapper {
+		display: none;
+	}
 	&.affix {
     background-color: $gray-lighter;
     box-shadow: 0 10px 20px -12px rgba(0, 0, 0, 0.42), 0 3px 20px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2);
-    .brand-name, .nav-primary a, .nav-profile-action-bar a {
+    .brand-name, .nav-primary a {
 			color: $gray !important;
+		}
+		.breadcrumb-wrapper {
+			display: block;
+			color: $gray;
+			max-width: 98%; // handle ellipsis
+    	overflow: hidden;
+    	text-overflow: ellipsis;
+    	white-space: nowrap;
+			.breadcrumb, .breadcrumb:before, .breadcrumb:last-child {
+				color: $gray;
+				font-size: 85%;
+				display: inline;
+			}
 		}
 		.nav-profile-action-bar {
 			display: block;
@@ -457,9 +434,7 @@ nav ul li a {
 			display: none;
 		}
 	}
-	.nav-profile-action-bar {
-		display: none;
-	}
+	
 	.algolia-partnership-logo {
 		span.text-spread {
 			letter-spacing: 0.5px;
@@ -468,10 +443,11 @@ nav ul li a {
 			color: #ffffff !important; // Safari fix
 		}
 		img {
-			width: 85px;
+			width: 105px; // Image dimensions are 85w x 30h
 			height: 30px;
 			vertical-align: middle;
-			margin-right: 10px; // TODO Undo HACK
+			padding-left: 20px;
+			border-left: 1px solid white;
 		}
 	}
 	i.left-tighten {
@@ -613,6 +589,147 @@ nav ul li a {
 .profile-page .main, .profile-index-page .main {
 	background-color: $gray-lightest;
 	//z-index: 2000; //HACK Fixed header loses transparent background
+}
+// Primary FAB
+.fixed-action-btn {
+	right: 3rem;
+	bottom: 2rem;
+	@media #{$small-and-down} {
+		right: 2rem;
+		bottom: 1rem;
+	}
+}
+// Community Sidebar
+#community-sidebar.sidenav {
+	@media #{$large-and-up} {
+		width: 450px;
+	}
+	ul {
+		margin-top: 0px;
+	}
+	li {
+		line-height: 1.6;
+	}
+	.card-panel {
+		border-radius: 0;
+		padding: 10px;
+		margin: 0;
+	}
+	.row.valign-wrapper {
+		margin-bottom: 0;
+	}
+	.collapsible-header {
+		font-size: 85%;
+		text-transform: uppercase;
+		color: rgba(0, 0, 0, 0.54);
+    font-weight: 500;
+    line-height: 48px;
+	}
+	.collapsible-body li {
+		//min-height: 84px;
+		border: none;
+    background-color: #fff;
+    //line-height: 1.5rem;
+    padding: 10px 20px;
+		margin: 0;
+	}
+	.collection-item .title {
+		font-weight: bold;
+	}
+	ul.list-nested {
+		margin: 0 20px;
+		li:first-child {
+			padding-top: 20px;
+		}
+	}
+	h6.small {
+		line-height: 1.2rem;
+	}
+	$left: 12px;
+	label {
+		color: color("blue-grey", "base");
+		padding-left: $left;
+	}
+	textarea {
+		padding-left: $left;
+		padding-right: $left;
+	}
+	textarea.materialize-textarea:focus {
+		border-bottom: 1px solid color("blue-grey", "base");
+    box-shadow: 0 1px 0 0 color("blue-grey", "base");
+	}
+	.helper-text a {
+		padding: 0;
+		padding-left: $left;
+	}
+	.action-bar {
+		padding: 10px 0;
+	}
+	.collection-item p {
+		margin: 0;
+		white-space: pre-wrap;
+	}
+}
+.card-profile-title	{
+	font-size: 16px;
+	padding: 20px;
+	border-radius: 0 0 2px 2px;
+}
+
+// Login
+form#login {
+	img {
+		width: 150px;
+		height: 150px;
+		margin: auto;
+	}
+}
+
+// Left Action Bar
+.left-action-bar {
+	opacity: 0;
+	display: -ms-flexbox;
+	display: flex;
+	position: fixed;
+	left: 0;
+	top: 0;
+	bottom: 0;
+	z-index: 10;
+	ul {
+		background: color("blue-grey", "base");
+    border-radius: 0 5px 5px 0;
+    margin: auto;
+    overflow: hidden;
+    padding: 0;
+	}
+	li {
+		font-size: 10px;
+		cursor: pointer;
+    list-style: none;
+    height: 64px;
+    width: 64px;
+		transition: background .2s;
+		text-align: center;
+		border-bottom: 1px solid color("blue-grey", "lighten-1");
+		&:last-child {
+			border-bottom: none;
+		}
+		a {
+			color: #fff;
+			// color: color("grey", "darken-3");
+			display: block;
+			padding: 9px 0px;
+			text-transform: uppercase;
+		}
+		a span {
+			display: block;
+			color: color("blue-grey", "lighten-4");
+		}
+	}
+	i.material-icons {
+		display: block;
+		font-size: 28px;
+	}
 }
 .profile-content {
 	#profile, #feedback, #profile-share, #information-source {
@@ -1350,6 +1467,8 @@ footer .copyright {
 .footer-terms {
 	background-color: $gray;
 	color: $gray-light !important;
+	position: absolute;
+	width: 100%;
 	.row {
 		margin: 0; //Feels like a HACK
 	}
