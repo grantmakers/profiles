@@ -65,6 +65,15 @@ $(document).ready(function() {
     });
   });
 
+  // Left Action Bar
+  $('.left-action-bar a').on('click', function() {
+    ga('send', 'event', {
+      'eventCategory': 'Profile Events',
+      'eventAction': 'Profile Left Action Bar Click',
+      'eventLabel': $(this).data('ga'),
+    });
+  });
+
   // Bottom CTAs: Share and feedback buttons
   $('#profile-share a, #community a, #feedback a, #application-info a').on('click', function() {
     ga('send', 'event', {
