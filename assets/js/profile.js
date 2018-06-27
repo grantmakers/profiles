@@ -121,6 +121,24 @@ $(document).ready(function() {
     console.error('Action:', e.action);
     console.error('Trigger:', e.trigger);
   });
+  // Capture current org info for localStorage
+  function checkForLocalStorage() {
+    const test = 'test';
+    try {
+      localStorage.setItem(test, test);
+      localStorage.removeItem(test);
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+  
+  if ($('body').hasClass('profile-page')) {
+    // Save Profile
+    if (checkForLocalStorage() !== true) {
+      $('[data-js="save"]').parent().hide();
+    }
+  }
 
   // SMOOTH SCROLL
   // =======================================================
