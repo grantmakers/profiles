@@ -1,3 +1,5 @@
+---
+---
 $(document).ready(function() {
   // Navbar
   // =======================================================
@@ -38,6 +40,7 @@ $(document).ready(function() {
     $('.sidenav').sidenav();
     $('#community-sidebar').sidenav({ 'edge': 'right'});
     $('.tooltipped').tooltip();
+    // $('.modal').modal();
     $('.collapsible').collapsible({
       'accordion': false,
     });
@@ -105,22 +108,6 @@ $(document).ready(function() {
 
   // LEFT ACTION BAR
   // =======================================================
-  const clipboard = new ClipboardJS('.js-clipboard');
-
-  clipboard.on('success', function(e) {
-    M.toast({
-      'html': 'Copied to clipboard',
-    });
-    e.clearSelection();
-  });
-
-  clipboard.on('error', function(e) {
-    M.toast({
-      'html': 'Failed to copy. Try again.',
-    });
-    console.error('Action:', e.action);
-    console.error('Trigger:', e.trigger);
-  });
   // Capture current org info for localStorage
   function checkForLocalStorage() {
     const test = 'test';

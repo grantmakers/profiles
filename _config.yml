@@ -41,3 +41,7 @@ exclude:
   - _data/split_for_jekyll_json.js
   - split_for_markdown.js
   - pages
+  - webpack
+  - webpack.config.js
+  - package.json
+  - package-lock.json
