@@ -39,8 +39,7 @@ $(document).ready(function() {
   window.onload = function() {
     $('.sidenav').sidenav();
     $('#community-sidebar').sidenav({ 'edge': 'right'});
-    $('.tooltipped').tooltip();
-    // $('.modal').modal();
+    $('.tooltipped:not(.v-tooltipped)').tooltip(); // :not ensures Vue handles relevant initiation for Vue-controlled elements
     $('.collapsible').collapsible({
       'accordion': false,
     });
@@ -202,7 +201,6 @@ $(document).ready(function() {
           'html': toastContent,
           'displayLength': 10000,
         });
-        console.log(error);
       });
   });
 });
