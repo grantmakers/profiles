@@ -1,3 +1,5 @@
+---
+---
 $(document).ready(function() {
   // Navbar
   // =======================================================
@@ -37,7 +39,7 @@ $(document).ready(function() {
   window.onload = function() {
     $('.sidenav').sidenav();
     $('#community-sidebar').sidenav({ 'edge': 'right'});
-    $('.tooltipped').tooltip();
+    $('.tooltipped:not(.v-tooltipped)').tooltip(); // :not ensures Vue handles relevant initiation for Vue-controlled elements
     $('.collapsible').collapsible({
       'accordion': false,
     });
@@ -105,22 +107,24 @@ $(document).ready(function() {
 
   // LEFT ACTION BAR
   // =======================================================
-  const clipboard = new ClipboardJS('.js-clipboard');
-
-  clipboard.on('success', function(e) {
-    M.toast({
-      'html': 'Copied to clipboard',
-    });
-    e.clearSelection();
-  });
-
-  clipboard.on('error', function(e) {
-    M.toast({
-      'html': 'Failed to copy. Try again.',
-    });
-    console.error('Action:', e.action);
-    console.error('Trigger:', e.trigger);
-  });
+  // Capture current org info for localStorage
+  function checkForLocalStorage() {
+    const test = 'test';
+    try {
+      localStorage.setItem(test, test);
+      localStorage.removeItem(test);
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+  
+  if ($('body').hasClass('profile-page')) {
+    // Save Profile
+    if (checkForLocalStorage() !== true) {
+      $('[data-js="save"]').parent().hide();
+    }
+  }
 
   // SMOOTH SCROLL
   // =======================================================
@@ -197,7 +201,6 @@ $(document).ready(function() {
           'html': toastContent,
           'displayLength': 10000,
         });
-        console.log(error);
       });
   });
 });

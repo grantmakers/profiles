@@ -1,0 +1,50 @@
+---
+---
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<link rel="apple-touch-icon" sizes="76x76" href="{{ site.baseurl }}/assets/img/apple-icon.png">
+	<link rel="icon" type="image/png" href="{{ site.baseurl }}/assets/img/favicon.png">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+	{% if jekyll.environment == 'staging' %}
+  	<meta name="robots" content="noindex, nofollow">
+ 	{% endif %}
+
+	<title>Grantmakers.io {{ page.title }}</title>
+	<meta name="description" content="{{ page.description }}">
+
+	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+	<meta name = "format-detection" content = "telephone=no">
+
+	<!-- Fonts and Icons  -->
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+
+	<!-- CSS Files -->
+	<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.1/css/materialize.min.css"> -->
+	<link href="{{ site.baseurl }}/assets/css/main.css" rel="stylesheet">
+	
+	<!--   Core JS Files   -->
+  <script 
+    src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" 
+    integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT" 
+    crossorigin="anonymous">
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.1/js/materialize.min.js"></script>
+  <script async src="https://cdn.polyfill.io/v2/polyfill.min.js?features=Intl.~locale.en"></script>
+  <script src="{{ site.baseurl }}/assets/js/profile.js"></script>
+
+</head>
+
+<body class="simple-page">
+	{% include nav-no-search.html %}
+	{{ content }}
+	{% include footer.html %}
+	{% include footer-license-and-links.html %}
+	{% unless jekyll.environment == 'staging' %}
+    {% include ga.html %}
+  {% endunless %}
+</body>
+</html>

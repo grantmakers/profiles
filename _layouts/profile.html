@@ -112,14 +112,13 @@
   <script defer src="//cdn.jsdelivr.net/algoliasearch/3/algoliasearch.min.js"></script>
   {% if algolia == true %}
   <script defer src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.7.2"></script> 
- <script defer src="{{ site.baseurl }}/assets/js/search.js"></script>
+  <script defer src="{{ site.baseurl }}/assets/js/search.js"></script>
   {% endif %}
   <script defer src="https://cdn.jsdelivr.net/autocomplete.js/0.28/autocomplete.min.js"></script>
   <script defer src="{{ site.baseurl }}/assets/js/autocomplete.js"></script>
 
   <script defer src="{{ site.baseurl }}/assets/js/stupidtable.min.js"></script>
   <script defer src="{{ site.baseurl }}/assets/js/jquery.matchHeight-min.js"></script>
-  <script defer src="{{ site.baseurl }}/assets/js/clipboard.min.js"></script>
   <script src="{{ site.baseurl }}/assets/js/profile.js"></script>
 
   <!-- Drift Widget -->
@@ -157,7 +156,7 @@
                 </div>
               </a>
             </div>
-            <div class="col l6 hide-on-med-and-down">
+            <div class="col l5 hide-on-med-and-down">
               <div class="breadcrumb-wrapper left">
                 <a href="{{ site.url }}/profiles-search/" class="breadcrumb" data-ga="Breadcrumb Profile Search">Foundation Profiles</a>
                 <span class="breadcrumb">{{ page.organization_name }}</span>
@@ -166,11 +165,12 @@
                 <span class="algolia-partnership-logo"><a href="{{ site.algolia_referral_link }}"><img src="{{ site.baseurl}}/assets/img/algolia-partnership-logo.svg" alt="Algolia Partnership Logo"></a></span>
               {% endif %}
             </div>
-            <div class="col m6 l4 hide-on-med-and-down">
+            <div class="col m6 l5 hide-on-med-and-down">
               <ul class="nav-primary right">
                 <li><a href="#people" class="scrolly">People</a></li>
                 <li><a href="#grants" class="scrolly">Grants</a></li>
                 <li><a href="#filings" class="scrolly">Tax Filings</a></li>
+                <li><a href="#modal-saved-profiles" class="account modal-trigger"><i id="account-icon" class="material-icons">account_circle</i></a></li>
               </ul>
             </div>
           </div>
@@ -188,9 +188,6 @@
   </ul>
   <!-- End Mobile Navbar -->
   <!-- End Navbar -->
-
-  <!-- Left Action Bar-->
-  {% include left-action-bar.html %}
 
   <div class="wrapper">
     <!-- <div class="header header-filter" style="background-image: url('{{ site.baseurl }}/assets/img/{{ page.state }}.jpg');"></div> -->
@@ -213,7 +210,7 @@
                     <img src="{{ site.baseurl }}/assets/img/icons-letters/{{ page.organization_name | split: '' | first | upcase }}.svg" alt="Circle Image" class="circle responsive-img">
                 </div>
                 <div class="name">
-                  <h1 class="org-name" data-ein="{{ page.ein }}">
+                  <h1 id="org-data" class="org-name" data-ein="{{ page.ein }}" data-name="{{ page.organization_name }}" data-url="{{ site.url }}{{ site.baseurl }}/{{ page.ein }}/" data-tax-year="{{ page.filings[0].tax_year | round }}">
                     {% if page.website %}
                       <a href="{{ page.website}}" class="js-ga-website-click disable-primary-color" title="Click to visit website" data-ga="Website H1 Click">{{ page.organization_name }}</a>
                     {% else %}
@@ -719,6 +716,15 @@
     </div>
 
   </div>
+  <!-- Vue -->
+  <div id="root"></div>
+  <script type="text/javascript" src="{{ site.baseurl }}/assets/js/bundle.js" charset="utf-8"></script>
+  <!-- End Vue -->
+  {% include saved-profiles-feature-discovery.html %}
+  {% comment %}
+  {% include fixed-action-button.html %}
+  {% include community-sidebar.html %}
+  {% endcomment %}
   {% include footer.html %}
   {% include footer-license-and-links.html %}
   {% unless jekyll.environment == 'staging' %}
