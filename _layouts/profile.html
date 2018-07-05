@@ -122,7 +122,7 @@
   <script src="{{ site.baseurl }}/assets/js/profile.js"></script>
 
   <!-- Drift Widget -->
-  <!-- <script defer src="{{ site.baseurl }}/assets/js/drift-init.js"></script> -->
+  <script defer src="{{ site.baseurl }}/assets/js/drift-init.js"></script>
 
   {% unless jekyll.environment == 'staging' %}
     <script src="{{ site.baseurl }}/assets/js/ga-events.js"></script>
@@ -188,11 +188,6 @@
   </ul>
   <!-- End Mobile Navbar -->
   <!-- End Navbar -->
-
-  <!-- Left Action Bar-->
-  {% comment %}
-  {% include left-action-bar.html %}
-  {% endcomment %}
 
   <div class="wrapper">
     <!-- <div class="header header-filter" style="background-image: url('{{ site.baseurl }}/assets/img/{{ page.state }}.jpg');"></div> -->
@@ -726,8 +721,10 @@
   <script type="text/javascript" src="{{ site.baseurl }}/assets/js/bundle.js" charset="utf-8"></script>
   <!-- End Vue -->
   {% include saved-profiles-feature-discovery.html %}
+  {% comment %}
   {% include fixed-action-button.html %}
   {% include community-sidebar.html %}
+  {% endcomment %}
   {% include footer.html %}
   {% include footer-license-and-links.html %}
   {% unless jekyll.environment == 'staging' %}
