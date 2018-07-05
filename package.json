@@ -6,6 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "webpack --mode development --watch & bundle exec jekyll serve --livereload",
+    "webpack": "webpack --mode production",
     "stage": "webpack --mode production & JEKYLL_ENV=staging bundle exec jekyll build --config=_config.yml,_config_staging.yml",
     "build": "webpack --mode production & bundle exec jekyll build"
   },
