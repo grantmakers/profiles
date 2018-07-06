@@ -1,9 +1,6 @@
 const path = require('path');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 
-console.log('path.resolve() : ', path.resolve());
-console.log('path.resolve(_dirname) : ', path.resolve(__dirname, 'assets/js/'));
-
 module.exports = {
   // webpack folder's entry js - excluded from jekll's build process.
   entry: './webpack/entry.js',
