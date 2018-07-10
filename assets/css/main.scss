@@ -145,6 +145,10 @@ hr {
 	}
 }
 
+input::-ms-clear {
+  display: none;
+}
+
 /* Animations */
 /* Source: https://codepen.io/levineuland/pen/AmwCL */
 @keyframes pulse {
@@ -413,13 +417,13 @@ nav ul li a {
 		}
 		.breadcrumb-wrapper {
 			display: block;
-			color: $gray;
+			color: $gray !important;
 			max-width: 98%; // handle ellipsis
     	overflow: hidden;
     	text-overflow: ellipsis;
     	white-space: nowrap;
 			.breadcrumb, .breadcrumb:before, .breadcrumb:last-child {
-				color: $gray;
+				color: $gray !important;
 				font-size: 85%;
 				display: inline;
 			}
@@ -739,7 +743,7 @@ form#login {
 			border-bottom: none;
 		}
 		a {
-			color: #fff;
+			color: #fff !important;
 			// color: color("grey", "darken-3");
 			display: block;
 			padding: 9px 0px;
@@ -747,7 +751,7 @@ form#login {
 		}
 		a span {
 			display: block;
-			color: color("blue-grey", "lighten-4");
+			color: color("blue-grey", "lighten-4") !important;
 		}
 	}
 	i.material-icons {
@@ -1421,7 +1425,7 @@ form#login {
 	}
 }
 a.saved-profile-link {
-	color: $text-color;
+	color: $text-color !important;
 	margin-right: 10px;
 }
 #saved-blank-state {
