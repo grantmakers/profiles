@@ -99,6 +99,9 @@ $text-color: rgba(0,0,0,0.87);
 .no-wrap, .text-nowrap {
   white-space: nowrap;
 }
+.modal:focus {
+	outline: 0;
+}
 /* Inline lists */
 .list-inline {
   padding-left: 0;
@@ -140,6 +143,10 @@ hr {
 		margin-top: 5px;
 		margin-bottom: 5px;
 	}
+}
+
+input::-ms-clear {
+  display: none;
 }
 
 /* Animations */
@@ -375,6 +382,9 @@ nav ul li a {
 		color: inherit;
 	}
 }
+.nav-primary a.account {
+	vertical-align: top; // HACK Materialize has icon class right/left, but requires text
+}
 
 @media #{$medium-and-down} {
 	nav .brand-logo {
@@ -407,13 +417,13 @@ nav ul li a {
 		}
 		.breadcrumb-wrapper {
 			display: block;
-			color: $gray;
+			color: $gray !important;
 			max-width: 98%; // handle ellipsis
     	overflow: hidden;
     	text-overflow: ellipsis;
     	white-space: nowrap;
 			.breadcrumb, .breadcrumb:before, .breadcrumb:last-child {
-				color: $gray;
+				color: $gray !important;
 				font-size: 85%;
 				display: inline;
 			}
@@ -527,7 +537,7 @@ nav ul li a {
 	background-color: rgba(0,0,0,0.4);
 }
 
-.profile-page, .profile-index-page {
+.profile-page, .profile-index-page, .simple-page {
 	background-color: #ccc;
 	.navbar-transparent {
 		&.affix {
@@ -575,7 +585,25 @@ nav ul li a {
 		}
 	}
 }
-.profile-page .header, .profile-index-page .header {
+.header-filter .container {
+	z-index: 2;
+	position: relative;
+}
+.header-filter:after {
+	position: absolute;
+	z-index: 1;
+	width: 100%;
+	height: 380px; // HACK 
+	display: block;
+	left: 0;
+	top: 0;
+	content: "";
+	background: rgba(44,45,51,0.9);
+	background: linear-gradient(rgba(44,45,51,0.9), rgba(44,45,51,0.9));
+	background: -moz-linear-gradient(rgba(44,45,51,0.9), rgba(44,45,51,0.9));
+	background: -webkit-linear-gradient(rgba(44,45,51,0.9), rgba(44,45,51,0.9));
+}
+.profile-page .header, .profile-index-page .header, .simple-page .header {
 	background-position: center center;
 	height: 380px;
 	min-height: 300px;
@@ -586,7 +614,7 @@ nav ul li a {
 	max-height: 160px;
 	margin: -80px auto 0;
 }
-.profile-page .main, .profile-index-page .main {
+.profile-page .main, .profile-index-page .main, .simple-page .main {
 	background-color: $gray-lightest;
 	//z-index: 2000; //HACK Fixed header loses transparent background
 }
@@ -715,7 +743,7 @@ form#login {
 			border-bottom: none;
 		}
 		a {
-			color: #fff;
+			color: #fff !important;
 			// color: color("grey", "darken-3");
 			display: block;
 			padding: 9px 0px;
@@ -723,7 +751,7 @@ form#login {
 		}
 		a span {
 			display: block;
-			color: color("blue-grey", "lighten-4");
+			color: color("blue-grey", "lighten-4") !important;
 		}
 	}
 	i.material-icons {
@@ -731,6 +759,8 @@ form#login {
 		font-size: 28px;
 	}
 }
+
+// Profiles
 .profile-content {
 	#profile, #feedback, #profile-share, #information-source {
 		margin-bottom: 75px;
@@ -1377,6 +1407,58 @@ form#login {
 					display: inline-block !important;
 			}
 		}
+	}
+}
+
+// Sub pages e.g. non-profile, non-search pages
+.section-simple-intro {
+	margin-top: 64px;
+	z-index: 2;
+	h1.title {
+		color: #fff;
+	}
+}
+.main-account-page {
+	.saved-profiles {
+		min-height: 400px;
+		padding: 80px 0;
+	}
+}
+a.saved-profile-link {
+	color: $text-color !important;
+	margin-right: 10px;
+}
+#saved-blank-state {
+	margin-bottom: -10px;
+}
+.saved-profiles {
+	h1 {
+		font-weight: 500;
+		font-size: 1.825em;
+    line-height: 1.4em;
+    margin: 20px 0 10px;
+	}
+	.collection-item .secondary-content {
+		@extend .blue-grey-text;
+		margin-right: 10px;
+		cursor: pointer;
+		&:focus {
+			outline: 0;
+		}
+		&:first-child {
+			margin-right: 0;
+		}
+		&:last-child {
+			margin-left: 10px;
+		}
+	}
+	.collection-item i.material-icons {
+		@extend .blue-grey-text;
+	}
+}
+.card-user-profile {
+	@media #{$medium-and-up} {
+		top: -200px;
 	}
 }
 

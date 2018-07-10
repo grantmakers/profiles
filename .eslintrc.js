@@ -1,5 +1,7 @@
 module.exports = {
+  "root": true,
   "parserOptions": {
+    "parser": "babel-eslint",
     "ecmaVersion": 6,
     "sourceType": "module",
   },
@@ -7,10 +9,22 @@ module.exports = {
     "browser": true,
     "node": true,
     "commonjs": true,
-    "es6": true
+    "es6": true,
+    "jquery": true,
+  },
+  "globals": {
+    "M": true,
+    "instantsearch": true,
+    "stitch": true,
+    "ga": true,
   },
   "plugins": [
-    "frontmatter"
+    "frontmatter",
+    "vue"
+  ],
+  "extends": [
+    "eslint:recommended",
+    "plugin:vue/recommended"
   ],
   "rules": {
 /**
@@ -28,6 +42,7 @@ module.exports = {
 /**
  * Variables
  */
+    "linebreak-style": [2, "unix"],
     "no-shadow": 2,                  // http://eslint.org/docs/rules/no-shadow
     "no-shadow-restricted-names": 2, // http://eslint.org/docs/rules/no-shadow-restricted-names
     "no-unused-vars": [2, {          // http://eslint.org/docs/rules/no-unused-vars
@@ -57,7 +72,7 @@ module.exports = {
     "no-irregular-whitespace": 2,    // http://eslint.org/docs/rules/no-irregular-whitespace
     "no-obj-calls": 2,               // http://eslint.org/docs/rules/no-obj-calls
 //Deprecated   "no-reserved-keys": 2,           // http://eslint.org/docs/rules/no-reserved-keys
-    "quote-props": 1,
+    // "quote-props": 1, // Removed due to use of Vue
     "no-sparse-arrays": 2,           // http://eslint.org/docs/rules/no-sparse-arrays
     "no-unreachable": 2,             // http://eslint.org/docs/rules/no-unreachable
     "use-isnan": 2,                  // http://eslint.org/docs/rules/use-isnan
@@ -112,6 +127,9 @@ module.exports = {
  * Style
  */
     "indent": [2, 2],                // http://eslint.org/docs/rules/indent
+    /*'vue/script-indent': ['warn', 2, {
+      'baseIndent': 1
+    }],*/
     "brace-style": [2,               // http://eslint.org/docs/rules/brace-style
       "1tbs", {
       "allowSingleLine": true

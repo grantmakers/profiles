@@ -6,3 +6,5 @@ _site/
 /algolia/secrets.js
 _data/ein/
 node_modules/
+
+assets/js/bundle.js

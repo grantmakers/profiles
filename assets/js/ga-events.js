@@ -99,7 +99,7 @@ $(document).ready(function() {
   function removeUtms() {
     const location = win.location;
     if (location.search.indexOf('utm_') !== -1 && history.replaceState) {
-      history.replaceState({}, '', window.location.toString().replace(/(\&|\?)utm([_a-z0-9=]+)/g, ''));
+      history.replaceState({}, '', window.location.toString().replace(/(&|\?)utm([_a-z0-9=]+)/g, ''));
     }
   }
 });

@@ -1,0 +1,46 @@
+<script id='saved-list' type='text/x-handlebars-template'>
+  <div class="saved-profiles">
+    <div> <!-- on full page, use container-custom -->
+      <div class="row">
+        <div class="col s12"> <!-- on full page, use l8 offset-l2 -->
+          <h5>Saved Profiles</h5>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col s12">
+          {% raw %}
+            {{#if (noItems)}}
+              <div id="saved-blank-state" class="row">
+                <div class="col l4 offset-l4 center-align">
+                  {% endraw %}
+                    <img class="responsive-img" src="{{ site.baseurl }}/assets/img/illustration-save.png" alt="Save illustration">
+                  {% raw %}
+                  <p>Save profiles to this list by clicking the <i class="material-icons">star</i> button on any profile</p>
+                </div>
+              </div>
+            {{else}}
+              <ul class="collection">
+                {{#each savedItems}}
+                  <li class="collection-item">
+                    <a class="secondary-content js-clipboard-modal" data-clipboard-text="{{ url }}" href="#!" title="Copy link to clipboard" data-ga="Copy Link via Saved Profile Modal"><i class="material-icons">link</i></a>
+                    <a class="secondary-content" data-js="share" href="mailto:?to=&subject=Grantmakers.io%20Profile%20-%20{{ name }}&body=%0D%0A%0D%0A{{ name }}%0D%0A{{ url }}" title="Share this profile via email" target="_blank" data-ga="Share Profile via Saved Profile Modal"><i class="material-icons">email</i></a>
+                    <a class="secondary-content" data-js="unsave-hbs" data-ein="{{ ein }}" href="#!" title="Unsave this profile" data-ga="Unsave Profile via Saved Profiles Modal">
+                      <i class="material-icons">star</i>
+                    </a>
+                    <a href="{{url}}" class="saved-profile-link">{{name}}</a>
+                  </li>
+                {{/each}}
+              </ul>
+              <div class="row">
+                <div class="col s12"> <!-- on full page, use l8 offset-l2 -->
+                  <p>Data is saved in this browser only<br><span class="small text-muted-max">So don't clear your browser data!</span></p>
+                  <!-- <p><a href="#!" class="blue-grey-text">Permanently delete all saved data</a></p> -->
+                </div>
+              </div>
+            {{/if}}
+          {% endraw %}
+        </div>
+      </div>
+    </div>
+  </div>
+</script>

@@ -1,3 +1,5 @@
+---
+---
 $(document).ready(function() {
   // Navbar
   // =======================================================
@@ -37,7 +39,7 @@ $(document).ready(function() {
   window.onload = function() {
     $('.sidenav').sidenav();
     $('#community-sidebar').sidenav({ 'edge': 'right'});
-    $('.tooltipped').tooltip();
+    $('.tooltipped:not(.v-tooltipped)').tooltip(); // :not ensures Vue handles relevant initiation for Vue-controlled elements
     $('.collapsible').collapsible({
       'accordion': false,
     });
@@ -67,6 +69,28 @@ $(document).ready(function() {
     });
   };
 
+  // IE11 messaging
+  // Note: no messaging for <IE11
+  const isIE11 = !!window.MSInputMethodContext && !!document.documentMode;
+  if (isIE11) {
+    // Provide alert message
+    const toastContent = '<span>Your browser is currently not supported.<br>Many useful features will not work.</span><button href="http://outdatedbrowser.com/en" class="btn-flat yellow-text toast-action-browser-suggestion">Browser Suggestions</button>';
+    M.Toast.dismissAll();
+    M.toast({
+      'html': toastContent,
+      'displayLength': 10000,
+    });
+    $('.toast-action-browser-suggestion').on('click', function() {
+      const target = $(this).attr('href');
+      window.location.href = target;
+    });
+    // Hide dynamic elements
+    // Note existing community insights div simply won't add any items from MongoDB Stitch
+    $('.js-ie-check').addClass( 'hidden' );
+    // Show static table instead of Algolia
+    // $('.collapsible-grants-table').collapsible('open'); // Does not work in IE11 :(
+  }
+
   // Fixed headers via Pushpin plugin
   // Grants header is fixed only on non-mobile devices with Algolia enabled
   // See also search.js - Need to re-init grants header after search results populate to capture proper div height
@@ -79,7 +103,7 @@ $(document).ready(function() {
     grantsHeader.attr('data-target', 'grants');
   }
 
-  if (!isMobile.matches && hasAlgolia.length) {
+  if (!isMobile.matches && hasAlgolia.length && !isIE11) {
     enableGrantsFixedHeader();
   }
 
@@ -105,22 +129,24 @@ $(document).ready(function() {
 
   // LEFT ACTION BAR
   // =======================================================
-  const clipboard = new ClipboardJS('.js-clipboard');
-
-  clipboard.on('success', function(e) {
-    M.toast({
-      'html': 'Copied to clipboard',
-    });
-    e.clearSelection();
-  });
-
-  clipboard.on('error', function(e) {
-    M.toast({
-      'html': 'Failed to copy. Try again.',
-    });
-    console.error('Action:', e.action);
-    console.error('Trigger:', e.trigger);
-  });
+  // Capture current org info for localStorage
+  function checkForLocalStorage() {
+    const test = 'test';
+    try {
+      localStorage.setItem(test, test);
+      localStorage.removeItem(test);
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+  
+  if ($('body').hasClass('profile-page')) {
+    // Save Profile
+    if (checkForLocalStorage() !== true) {
+      $('[data-js="save"]').parent().hide();
+    }
+  }
 
   // SMOOTH SCROLL
   // =======================================================
@@ -197,7 +223,6 @@ $(document).ready(function() {
           'html': toastContent,
           'displayLength': 10000,
         });
-        console.log(error);
       });
   });
 });
