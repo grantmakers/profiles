@@ -69,7 +69,7 @@ $(document).ready(function() {
     });
   };
 
-  // IE11 messaging 
+  // IE11 messaging
   // Note: no messaging for <IE11
   const isIE11 = !!window.MSInputMethodContext && !!document.documentMode;
   if (isIE11) {

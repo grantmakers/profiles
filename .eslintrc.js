@@ -14,6 +14,9 @@ module.exports = {
   },
   "globals": {
     "M": true,
+    "instantsearch": true,
+    "stitch": true,
+    "ga": true,
   },
   "plugins": [
     "frontmatter",
