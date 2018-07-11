@@ -33,7 +33,7 @@
   {% if algolia == true %}
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.7.2/dist/instantsearch.min.css">
   {% endif %}
-  <link rel="stylesheet" href="{{ site.baseurl }}/assets/css/main.css">
+  <link rel="stylesheet" href="{{ site.baseurl }}/assets/css/main.css?v={{ site.time | date: '%Y%m%d'}}">
 
   <!-- Schema.org -->
   {% if page.website %}
@@ -112,14 +112,14 @@
   <script defer src="//cdn.jsdelivr.net/algoliasearch/3/algoliasearch.min.js"></script>
   {% if algolia == true %}
   <script defer src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.7.2"></script> 
-  <script defer src="{{ site.baseurl }}/assets/js/search.js"></script>
+  <script defer src="{{ site.baseurl }}/assets/js/search.js?v={{ site.time | date: '%Y%m%d'}}"></script>
   {% endif %}
   <script defer src="https://cdn.jsdelivr.net/autocomplete.js/0.28/autocomplete.min.js"></script>
   <script defer src="{{ site.baseurl }}/assets/js/autocomplete.js"></script>
 
   <script defer src="{{ site.baseurl }}/assets/js/stupidtable.min.js"></script>
   <script defer src="{{ site.baseurl }}/assets/js/jquery.matchHeight-min.js"></script>
-  <script src="{{ site.baseurl }}/assets/js/profile.js"></script>
+  <script src="{{ site.baseurl }}/assets/js/profile.js?v={{ site.time | date: '%Y%m%d'}}"></script>
 
   <!-- Drift Widget -->
   <script defer src="{{ site.baseurl }}/assets/js/drift-init.js"></script>
@@ -131,7 +131,7 @@
   <!-- Stitch -->
   {% unless jekyll.environment == 'development' %}
   <script src="https://s3.amazonaws.com/stitch-sdks/js/library/v3/stable/stitch.min.js"></script>
-  <script src="{{ site.baseurl }}/assets/js/stitch-init.js"></script>
+  <script src="{{ site.baseurl }}/assets/js/stitch-init.js?v={{ site.time | date: '%Y%m%d'}}"></script>
   {% endunless %}
 
 </head>
@@ -718,7 +718,7 @@
   </div>
   <!-- Vue -->
   <div id="root"></div>
-  <script type="text/javascript" src="{{ site.baseurl }}/assets/js/bundle.js" charset="utf-8"></script>
+  <script type="text/javascript" src="{{ site.baseurl }}/assets/js/bundle.js?v={{ site.time | date: '%Y%m%d'}}" charset="utf-8"></script>
   <!-- End Vue -->
   {% include saved-profiles-feature-discovery.html %}
   {% comment %}
