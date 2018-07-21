@@ -35,6 +35,7 @@
     "eslint": "^4.19.1",
     "eslint-plugin-frontmatter": "^0.0.6",
     "eslint-plugin-vue": "^4.5.0",
+    "mongodb-stitch-browser-sdk": "^4.0.7",
     "path": "^0.12.7",
     "vue": "^2.5.16",
     "vue-clipboard2": "^0.2.0",
