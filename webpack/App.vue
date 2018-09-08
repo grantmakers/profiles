@@ -51,7 +51,9 @@ export default {
 
   methods: {
     initializeStitchAndLogin: function() {
-      const client = Stitch.initializeDefaultAppClient('insights-xavlz');
+      Stitch.initializeDefaultAppClient('insights-xavlz');
+
+      const client = Stitch.defaultAppClient;
       client.auth.loginWithCredential(new AnonymousCredential())
         .then(user => {
           this.stitchClientObj = client;
