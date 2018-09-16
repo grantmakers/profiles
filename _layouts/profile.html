@@ -128,12 +128,6 @@
     <script src="{{ site.baseurl }}/assets/js/ga-events.js"></script>
   {% endunless %}
 
-  <!-- Stitch -->
-  {% unless jekyll.environment == 'development' %}
-  <script src="https://s3.amazonaws.com/stitch-sdks/js/library/v3/stable/stitch.min.js"></script>
-  <script src="{{ site.baseurl }}/assets/js/stitch-init.js?v={{ site.time | date: '%Y%m%d'}}"></script>
-  {% endunless %}
-
 </head>
 
 <body class="profile-page">
@@ -170,7 +164,7 @@
                 <li><a href="#people" class="scrolly">People</a></li>
                 <li><a href="#grants" class="scrolly">Grants</a></li>
                 <li><a href="#filings" class="scrolly">Tax Filings</a></li>
-                <li class="js-ie-check hidden"><a href="#modal-saved-profiles" class="account modal-trigger"><i id="account-icon" class="material-icons">account_circle</i></a></li>
+                <li class="js-ie-check"><a href="#modal-saved-profiles" class="account modal-trigger"><i id="account-icon" class="material-icons">account_circle</i></a></li>
               </ul>
             </div>
           </div>
@@ -339,7 +333,7 @@
                       </table>
                     </div>
                   </div>
-                  {% include stitch/insights-alert.html %}
+                  <div id="insights-alert"></div>
                 </div>
               </div>
             </div>
@@ -605,7 +599,8 @@
                     <h4>Community Insights & Updates<span class="new badge blue" data-badge-caption="BETA"></span></h4>
                   </div>
                   <div class="card-panel-body" data-mh="match-height-one">
-                    <ul id="insights" class="collection">
+                    <div id="insights"></div>
+                    <ul class="collection">
                       <li class="collection-item collection-item-empty-state avatar">
                         <span class="title">Have something to share?</span><br>
                         <p>Help keep the community up to date and informed</p>
@@ -627,7 +622,6 @@
                         {% endunless %}
                       </li>
                     </ul>
-                    <div id="tags"></div>
                   </div>
                 </div>
               </div>
