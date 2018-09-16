@@ -58,6 +58,7 @@ export default {
       type: Array,
       default: () => [],
     },
+    // TODO Add stitchUserObject from parent?
   },
 
   data: function() {
@@ -103,6 +104,18 @@ export default {
     },
 
     addProfile(data) {
+      // TODO Call Stitch function
+      /*
+      this.stitchClientObj.callFunction('addSavedProfile', [this.stitchUserObject.id, this.org.ein])
+        .then(result => {
+          // TODO What is 'result'?
+          this.insights = result;
+        })
+        .catch(error => {
+          console.log('Error from calling getInsights function');
+          // console.log(error);
+        });
+      */
       let arr = JSON.parse(localStorage.getItem('profiles'));
       if (!Array.isArray(arr) || !arr.length) {
         arr = [];
@@ -110,11 +123,14 @@ export default {
       data.saved_on = new Date().toISOString();
       arr.unshift(data);
       localStorage.setItem('profiles', JSON.stringify(arr));
+      // TODO After moving to Stitch, ensure 'arr' is defined properly in order to update parent props
       this.$emit('update', arr);
     },
 
     removeProfile(data) {
       let ein = data.ein;
+      // TODO Call Stitch function
+      // TODO Update parent props
       let arr = JSON.parse(localStorage.getItem('profiles'));
       const after = arr.filter(function(a) { return a.ein !== ein;});
       localStorage.setItem('profiles', JSON.stringify(after));

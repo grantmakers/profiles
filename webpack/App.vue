@@ -62,7 +62,8 @@ export default {
           this.getUserDataFromStitch(user.id);
         })
         .catch(error => {
-          console.log(error);
+          console.log('Error connecting to Stitch');
+          // console.log(error);
         });
     },
 
@@ -73,7 +74,7 @@ export default {
         })
         .catch(error => {
           console.log('Error from calling getUserData function');
-          console.log(error);
+          // console.log(error);
         });
     },
 
@@ -84,6 +85,7 @@ export default {
         })
         .catch(error => {
           console.log('Error from calling getInsights function');
+          // console.log(error);
         });
     },
     

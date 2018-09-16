@@ -8,7 +8,12 @@
         <div> <!-- on full page, use container-custom -->
           <div class="row">
             <div class="col s12"> <!-- on full page, use l8 offset-l2 -->
-              <h5>Saved Profiles</h5>
+              <h5>Saved Profiles
+                <span
+                  class="new badge blue"
+                  data-badge-caption="BETA"
+                />
+              </h5>
             </div>
           </div>
           <div class="row">
@@ -25,7 +30,7 @@
                 <div class="row">
                   <div class="col s12"> <!-- on full page, use l8 offset-l2 -->
                     <p>
-                      Data is saved in this browser only<br>
+                      BETA: While we're testing this feature, if you reset your browser your saved profiles will be lost.<br>
                       <span class="small text-muted-max">
                         So don't clear your browser data!
                       </span>
