@@ -8,12 +8,9 @@
         <div> <!-- on full page, use container-custom -->
           <div class="row">
             <div class="col s12"> <!-- on full page, use l8 offset-l2 -->
-              <h5>Saved Profiles
-                <span
-                  class="new badge blue"
-                  data-badge-caption="BETA"
-                />
+              <h5 class="left">Saved Profiles
               </h5>
+              <p class="right">Visitor <i class="material-icons">account_circle</i></p>
             </div>
           </div>
           <div class="row">
@@ -29,11 +26,8 @@
                 </ul>
                 <div class="row">
                   <div class="col s12"> <!-- on full page, use l8 offset-l2 -->
-                    <p>
-                      BETA: While we're testing this feature, if you reset your browser your saved profiles will be lost.<br>
-                      <span class="small text-muted-max">
-                        So don't clear your browser data!
-                      </span>
+                    <p class="small text-muted">
+                      CAUTION: If you reset your browser your saved profiles will be lost
                     </p>
                   </div>
                 </div>
@@ -80,7 +74,7 @@ export default {
   
   methods: {
     addProfile(data) {
-      // TODO make asynchronous
+      // TODO If used, update to use MongoDb Stitch and not localstorage
       let arr = JSON.parse(localStorage.getItem('profiles'));
       if (!Array.isArray(arr) || !arr.length) {
         arr = [];
@@ -92,6 +86,7 @@ export default {
     },
 
     removeProfile(data) {
+      // TODO If used, update to use MongoDb Stitch and not localstorage
       let ein = data.ein;
       let arr = JSON.parse(localStorage.getItem('profiles'));
       const after = arr.filter(function(a) { return a.ein !== ein;});

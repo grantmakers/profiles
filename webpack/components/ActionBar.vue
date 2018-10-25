@@ -9,7 +9,12 @@
           data-position="right"
           @click="handleSaveClick"
         >
-          <i class="material-icons">{{ save ? 'star_outline' : 'star' }}</i>
+          <i
+            :class="{ 'md-spin': isLoading }"
+            class="material-icons"
+          >
+            {{ save ? 'star_outline' : 'star' }}
+          </i>
           <span>{{ save ? 'SAVE' : 'SAVED' }}</span>
         </a>
       </li>
@@ -58,33 +63,32 @@ export default {
       type: Array,
       default: () => [],
     },
-    // TODO Add stitchUserObject from parent?
+    stitchClientObj: {
+      type: Object,
+      default: () => this.stitchClientObj,
+    },
   },
 
   data: function() {
     return  {
-      save: true,
+      isLoading: false,
     };
   },
 
-  mounted: function() {
-    this.setInitialSaveState();
+  computed: {
+    save: {
+      get: function() {
+        return this.computeSaveStatus();
+      },
+      set: function() {
+        return this.computeSaveStatus();
+      },
+    },
   },
 
   methods: {
-    setInitialSaveState: function() {
-      const profiles = this.$props.profiles;
-      const org = this.$props.org;
-      if (profiles) {
-        for (let i = 0; i < profiles.length; i++) {
-          if (profiles[i].ein === org.ein) {
-            this.save = false;
-          }
-        }
-      }
-    },
-
     handleSaveClick: function(e) {
+      this.isLoading = true;
       this.hideTooltip(e);
       this.save ? this.addProfile(this.org) : this.removeProfile(this.org);
       this.save = !this.save;
@@ -103,38 +107,70 @@ export default {
         });
     },
 
+    computeSaveStatus: function() {
+      const profiles = this.$props.profiles;
+      const org = this.$props.org;
+      let output = true;
+      if (profiles.length > 0) {
+        for (let i = 0; i < profiles.length; i++) {
+          if (profiles[i].ein === org.ein) {
+            output = false;
+          }
+        }
+      }
+      return output;
+    },
+
     addProfile(data) {
-      // TODO Call Stitch function
-      /*
-      this.stitchClientObj.callFunction('addSavedProfile', [this.stitchUserObject.id, this.org.ein])
+      this.stitchClientObj.callFunction('addSavedProfile', [data])
         .then(result => {
-          // TODO What is 'result'?
-          this.insights = result;
+          // TODO Currently assume any response means a successful insertion
+          // TODO If not successful, retry call?
+          this.$emit('updateAdd', data);
+          this.isLoading = false;
+          // If new user, show FeatureDiscovery
+          if (result.upsertedId) {
+            this.showFeatureDiscovery();
+          } else {
+            M.toast({
+              'html': 'Profile saved',
+              'displayLength': 1500,
+            });
+          }
         })
         .catch(error => {
-          console.log('Error from calling getInsights function');
-          // console.log(error);
+          console.log('Error calling addSavedProfile function');
+          // TODO Set up client side error reporting tool?
         });
-      */
-      let arr = JSON.parse(localStorage.getItem('profiles'));
-      if (!Array.isArray(arr) || !arr.length) {
-        arr = [];
-      }
-      data.saved_on = new Date().toISOString();
-      arr.unshift(data);
-      localStorage.setItem('profiles', JSON.stringify(arr));
-      // TODO After moving to Stitch, ensure 'arr' is defined properly in order to update parent props
-      this.$emit('update', arr);
     },
 
     removeProfile(data) {
       let ein = data.ein;
-      // TODO Call Stitch function
-      // TODO Update parent props
-      let arr = JSON.parse(localStorage.getItem('profiles'));
-      const after = arr.filter(function(a) { return a.ein !== ein;});
-      localStorage.setItem('profiles', JSON.stringify(after));
-      this.$emit('update', after);
+      this.stitchClientObj.callFunction('removeSavedProfile', [ein])
+        .then(result => {
+          // TODO Currently assume any response means a successful insertion
+          // TODO If not successful, retry call?
+          // Error is anything other than:
+          // {matchedCount: 1, modifiedCount: 1}
+
+          this.$emit('updateRemove', ein);
+          this.isLoading = false;
+          M.toast({
+            'html': 'Profile removed',
+            'displayLength': 1500,
+          });
+        })
+        .catch(error => {
+          console.log('Error from calling addSavedProfile function');
+          // TODO Set up client side error reporting tool?
+        });
+    },
+
+    showFeatureDiscovery() {
+      const el = document.getElementById('tap-target-saved-profiles');
+      M.TapTarget.init(el);
+      const instance = M.TapTarget.getInstance(el);
+      instance.open();
     },
   },
 };

@@ -150,6 +150,17 @@ input::-ms-clear {
 }
 
 /* Animations */
+@keyframes md-spin {
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(359deg);
+	}
+}
+.md-spin {
+	animation: md-spin 0.6s infinite linear;
+}
 /* Source: https://codepen.io/levineuland/pen/AmwCL */
 @keyframes pulse {
   0% {transform: scale(1);}
@@ -753,6 +764,10 @@ form#login {
 			display: block;
 			color: color("blue-grey", "lighten-4") !important;
 		}
+		&.disabled a {
+			cursor: default;
+			color: color("blue-grey", "lighten-4") !important;
+		}
 	}
 	i.material-icons {
 		display: block;
@@ -1263,17 +1278,6 @@ form#login {
 			i {
 				font-size: 20px;
 			}
-			@keyframes md-spin {
-				0% {
-					transform: rotate(0deg);
-				}
-				100% {
-					transform: rotate(359deg);
-				}
-			}
-			.md-spin {
-				animation: md-spin 0.6s infinite linear;
-			}
 		}
 		.collapsible-body {
 			i.material-icons {
@@ -1440,6 +1444,10 @@ a.saved-profile-link {
 		font-size: 1.825em;
     line-height: 1.4em;
     margin: 20px 0 10px;
+	}
+	.right .material-icons {
+		font-size: 20px;
+		line-height: 23px;
 	}
 	.collection-item .secondary-content {
 		@extend .blue-grey-text;
