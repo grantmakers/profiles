@@ -1,7 +1,7 @@
 <template>
   <div class="left-action-bar hide-on-med-and-down">
     <ul class="z-depth-3">
-      <li class="hidden">
+      <li>
         <a
           :data-tooltip="save ? 'Save this profile' : 'Unsave this profile'"
           :data-ga=" save ? 'Save profile via Left Action Bar' : 'Unsave profile via Left Action Bar' "
