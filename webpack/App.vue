@@ -68,9 +68,20 @@ export default {
         .then(user => {
           console.log(`nested user nextTimeout: ${user.auth.accessTokenRefresher.nextTimeout}`);
           this.stitchClientObj = client;
+          return client;
+        })
+        .then(() => {
+          console.log('Calling getInsightsFromStitch');
+          console.log(`nested user nextTimeout(2): ${this.stitchClientObj.auth.accessTokenRefresher.nextTimeout}`);
+          console.log(`nested user (via client) nextTimeout(2): ${client.auth.accessTokenRefresher.nextTimeout}`);
+          // TODO Shouldn't need to protect this using an if statment(?) e.g.
+          // if (this.sitchClientOjb...nextTimeout > 0)
           return this.getInsightsFromStitch();
         })
         .then(() => {
+          console.log('Calling getUserDataFromStitch');
+          console.log(`nested user nextTimeout(3): ${this.stitchClientObj.auth.accessTokenRefresher.nextTimeout}`);
+          console.log(`nested user (via client) nextTimeout(3): ${client.auth.accessTokenRefresher.nextTimeout}`);
           return this.getUserDataFromStitch();
         })
         .catch(error => {
@@ -84,7 +95,7 @@ export default {
     },
 
     getUserDataFromStitch: function() {
-      this.stitchClientObj.callFunction('getUserData', [])
+      return this.stitchClientObj.callFunction('getUserData', [])
         .then(result => {
           if (result) {
             this.profiles = result.profiles.sort(function(a, b) {
@@ -106,7 +117,7 @@ export default {
     },
 
     getInsightsFromStitch: function() {
-      this.stitchClientObj.callFunction('getInsights', [this.org.ein])
+      return this.stitchClientObj.callFunction('getInsights', [this.org.ein])
         .then(result => {
           this.insights = result;
         })
