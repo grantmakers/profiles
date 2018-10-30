@@ -59,34 +59,28 @@ export default {
       Stitch.initializeDefaultAppClient('insights-xavlz');
 
       const client = Stitch.defaultAppClient;
-      client.auth.loginWithCredential(new AnonymousCredential())
+      console.log('Client Object');
+      console.log(client);
+      return client.auth.loginWithCredential(new AnonymousCredential())
         .then(user => {
-          console.log(`logged in anonymously as user ${user.id} || Next timout ${user.auth.accessTokenRefresher.nextTimeout}`);
+          console.log(`logged in anonymously as user ${user.id} || First thenable nextTimeout ${user.auth.accessTokenRefresher.nextTimeout}`);
           console.log(user);
           return user;
         })
         .then(user => {
-          console.log(`nested user nextTimeout: ${user.auth.accessTokenRefresher.nextTimeout}`);
+          console.log(`Second thenable nextTimeout: ${user.auth.accessTokenRefresher.nextTimeout}`);
           this.stitchClientObj = client;
           return client;
         })
-        .then(() => {
-          console.log('Calling getInsightsFromStitch');
-          console.log(`nested user nextTimeout(2): ${this.stitchClientObj.auth.accessTokenRefresher.nextTimeout}`);
-          console.log(`nested user (via client) nextTimeout(2): ${client.auth.accessTokenRefresher.nextTimeout}`);
-          // TODO Shouldn't need to protect this using an if statment(?) e.g.
-          // if (this.sitchClientOjb...nextTimeout > 0)
-          return this.getInsightsFromStitch();
-        })
-        .then(() => {
-          console.log('Calling getUserDataFromStitch');
-          console.log(`nested user nextTimeout(3): ${this.stitchClientObj.auth.accessTokenRefresher.nextTimeout}`);
-          console.log(`nested user (via client) nextTimeout(3): ${client.auth.accessTokenRefresher.nextTimeout}`);
-          return this.getUserDataFromStitch();
+        .then(clientObj => {
+          console.log('Calling Stitch functions');
+          console.log(`Third thenable nextTimeout: ${clientObj.auth.accessTokenRefresher.nextTimeout}`);
+          console.log(`Third thenable nextTimeout(client): ${client.auth.accessTokenRefresher.nextTimeout}`);
+          this.getInsightsFromStitch(clientObj, 0);
+          this.getUserDataFromStitch(clientObj, 0);
         })
         .catch(error => {
           console.log('Error connecting to Stitch');
-          console.log(error);
           // TODO Not reliable as toasts may not yet be initialized - occurs in mounted
           M.toast({
             'html': 'Something went wrong. Try refreshing the page.',
@@ -94,9 +88,33 @@ export default {
         });
     },
 
-    getUserDataFromStitch: function() {
-      return this.stitchClientObj.callFunction('getUserData', [])
+    getInsightsFromStitch: function(clientObj, count) {
+      let retryCount = count;
+      // Stitch functions return a promise
+      clientObj.callFunction('getInsights', [this.org.ein])
         .then(result => {
+          console.log('Result from getInsights');
+          console.log(result);
+          this.insights = result;
+        })
+        .catch(error => {
+          // TODO DRY-up retry attempts
+          console.log('Error from calling getInsights function');
+          if (retryCount < 2) {
+            console.log('Retrying getInsightsFromStitch');
+            this.getInsightsFromStitch(clientObj, retryCount++);
+          } else {
+            throw new Error('getInsightsFromStitch failed after retry');
+          }
+        });
+    },
+
+    getUserDataFromStitch: function(clientObj, count) {
+      let retryCount = count;
+      clientObj.callFunction('getUserData', [])
+        .then(result => {
+          console.log('Result from getUserData');
+          console.log(result);
           if (result) {
             this.profiles = result.profiles.sort(function(a, b) {
               // Descending - last saved appears first
@@ -111,19 +129,14 @@ export default {
           }
         })
         .catch(error => {
+          // TODO DRY-up retry attempts
           console.log('Error from calling getUserData function');
-          console.log(error);
-        });
-    },
-
-    getInsightsFromStitch: function() {
-      return this.stitchClientObj.callFunction('getInsights', [this.org.ein])
-        .then(result => {
-          this.insights = result;
-        })
-        .catch(error => {
-          console.log('Error from calling getInsights function');
-          console.log(error);
+          if (retryCount < 2) {
+            console.log('Retrying getUserDataFromStitch');
+            this.getUserDataFromStitch(clientObj, retryCount++);
+          } else {
+            throw new Error('getUserDataFromStitch failed after retry');
+          }
         });
     },
 
