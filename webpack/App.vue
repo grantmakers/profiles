@@ -59,23 +59,12 @@ export default {
       Stitch.initializeDefaultAppClient('insights-xavlz');
 
       const client = Stitch.defaultAppClient;
-      console.log('Client Object');
-      console.log(client);
       return client.auth.loginWithCredential(new AnonymousCredential())
-        .then(user => {
-          console.log(`logged in anonymously as user ${user.id} || First thenable nextTimeout ${user.auth.accessTokenRefresher.nextTimeout}`);
-          console.log(user);
-          return user;
-        })
-        .then(user => {
-          console.log(`Second thenable nextTimeout: ${user.auth.accessTokenRefresher.nextTimeout}`);
-          this.stitchClientObj = client;
+        .then(() => {
+          this.stitchClientObj = client; // TODO Can remove if not storing client object in Vue data
           return client;
         })
         .then(clientObj => {
-          console.log('Calling Stitch functions');
-          console.log(`Third thenable nextTimeout: ${clientObj.auth.accessTokenRefresher.nextTimeout}`);
-          console.log(`Third thenable nextTimeout(client): ${client.auth.accessTokenRefresher.nextTimeout}`);
           this.getInsightsFromStitch(clientObj, 0);
           this.getUserDataFromStitch(clientObj, 0);
         })
@@ -99,7 +88,7 @@ export default {
         })
         .catch(error => {
           // TODO DRY-up retry attempts
-          console.log('Error from calling getInsights function');
+          console.log('Error calling getInsights function');
           if (retryCount < 2) {
             console.log('Retrying getInsightsFromStitch');
             this.getInsightsFromStitch(clientObj, retryCount++);
@@ -130,7 +119,7 @@ export default {
         })
         .catch(error => {
           // TODO DRY-up retry attempts
-          console.log('Error from calling getUserData function');
+          console.log('Error calling getUserData function');
           if (retryCount < 2) {
             console.log('Retrying getUserDataFromStitch');
             this.getUserDataFromStitch(clientObj, retryCount++);
