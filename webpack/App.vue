@@ -1,10 +1,14 @@
 <template>
   <div id="app">
+    <!-- eslint-disable vue/attribute-hyphenation -->
     <ActionBar
       :org="org"
       :profiles="profiles"
-      @update="updateProfilesList"
+      :stitchClientObj="stitchClientObj"
+      @updateAdd="updateProfilesListAdd"
+      @updateRemove="updateProfilesListRemove"
     />
+    <!-- eslint-enable vue/attribute-hyphenation -->
     <SavedProfilesList
       :profiles="profiles"
     />
@@ -29,24 +33,25 @@ export default {
 
   data: function() {
     return {
-      profiles: this.getListFromLocalStorage(),
+      profiles: [],
       org: this.getCurrentOrgData(),
       stitchClientObj: {},
-      stitchUserObj: {},
       insights: [],
-      userData: {},
     };
   },
 
+  created: function() {
+    // Initialize Stitch
+    this.initializeStitchAndLogin();
+  },
+
   mounted: function() {
-    // Initialize Materialize components modal
+    // Initialize Materialize components
     const el = document.getElementById('modal-saved-profiles');
     M.Modal.init(el);
 
     const elems = document.querySelectorAll('.v-tooltipped');
     M.Tooltip.init(elems);
-
-    this.initializeStitchAndLogin();
   },
 
   methods: {
@@ -54,41 +59,79 @@ export default {
       Stitch.initializeDefaultAppClient('insights-xavlz');
 
       const client = Stitch.defaultAppClient;
-      client.auth.loginWithCredential(new AnonymousCredential())
-        .then(user => {
-          this.stitchClientObj = client;
-          this.stitchUserObj = user;
-          this.getInsightsFromStitch();
-          this.getUserDataFromStitch(user.id);
+      return client.auth.loginWithCredential(new AnonymousCredential())
+        .then(() => {
+          this.stitchClientObj = client; // TODO Can remove if not storing client object in Vue data
+          return client;
+        })
+        .then(clientObj => {
+          this.getInsightsFromStitch(clientObj, 0);
+          this.getUserDataFromStitch(clientObj, 0);
         })
         .catch(error => {
-          console.log(error);
+          // console.log('Error connecting to Stitch');
+          bugsnagClient.notify(new Error('Error connecting to Stitch'));
+          bugsnagClient.notify(error);
+          // TODO Not reliable as toasts may not yet be initialized - occurs in mounted
+          M.toast({
+            'html': 'Something went wrong. Try refreshing the page.',
+          });
         });
     },
 
-    getUserDataFromStitch: function(id) {
-      this.stitchClientObj.callFunction('getUserData', [id])
-        .then(result => {
-          this.userData = result;
-        })
-        .catch(error => {
-          console.log('Error from calling getUserData function');
-          console.log(error);
-        });
-    },
-
-    getInsightsFromStitch: function() {
-      this.stitchClientObj.callFunction('getInsights', [this.org.ein])
+    getInsightsFromStitch: function(clientObj, count) {
+      let retryCount = count;
+      // Stitch functions return a promise
+      clientObj.callFunction('getInsights', [this.org.ein])
         .then(result => {
           this.insights = result;
         })
         .catch(error => {
-          console.log('Error from calling getInsights function');
+          // TODO DRY-up retry attempts
+          // console.log('Error calling getInsights function');
+          bugsnagClient.notify(new Error('Error calling getInsightsFromStitch function'));
+          if (retryCount < 2) {
+            // console.log('Retrying getInsightsFromStitch');
+            this.getInsightsFromStitch(clientObj, retryCount++);
+          } else {
+            bugsnagClient.notify(new Error('getInsightsFromStitch failed after retry'));
+            bugsnagClient.notify(error);
+            // throw new Error('getInsightsFromStitch failed after retry');
+          }
         });
     },
-    
-    getListFromLocalStorage: function() {
-      return JSON.parse(localStorage.getItem('profiles')) || [];
+
+    getUserDataFromStitch: function(clientObj, count) {
+      let retryCount = count;
+      clientObj.callFunction('getUserData', [])
+        .then(result => {
+          if (result) {
+            this.profiles = result.profiles.sort(function(a, b) {
+              // Descending - last saved appears first
+              if (a.saved_on < b.saved_on) {
+                return 1;
+              }
+              if (a.saved_on > b.saved_on) {
+                return -1;
+              }
+              return 0;
+            });
+          }
+        })
+        .catch(error => {
+          // TODO DRY-up retry attempts
+          // console.log('Error calling getUserData function');
+          bugsnagClient.notify(new Error('Error calling getUserData Stitch function'));
+          bugsnagClient.notify(error);
+          if (retryCount < 2) {
+            // console.log('Retrying getUserDataFromStitch');
+            this.getUserDataFromStitch(clientObj, retryCount++);
+          } else {
+            bugsnagClient.notify(new Error('getUserDataFromStitch failed after retry'));
+            bugsnagClient.notify(error);
+            // throw new Error('getUserDataFromStitch failed after retry');
+          }
+        });
     },
 
     getCurrentOrgData: function() {
@@ -100,9 +143,16 @@ export default {
       obj.url = data.dataset.url;
       return obj;
     },
-    
-    updateProfilesList: function(data) {
-      this.profiles = data;
+
+    updateProfilesListAdd: function(data) {
+      this.profiles.unshift(data);
+    },
+    updateProfilesListRemove: function(ein) {
+      let before = this.profiles;
+      let after = before.filter( function(a) {
+        return a.ein !== ein;
+      });
+      this.profiles = after;
     },
   },
 };
