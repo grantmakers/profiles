@@ -43,5 +43,9 @@
     "vue-template-compiler": "^2.5.17",
     "webpack": "^4.23.1",
     "webpack-cli": "^3.1.2"
+  },
+  "dependencies": {
+    "bugsnag-js": "^4.7.3",
+    "bugsnag-vue": "^1.0.1"
   }
 }
