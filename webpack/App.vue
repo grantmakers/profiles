@@ -69,8 +69,9 @@ export default {
           this.getUserDataFromStitch(clientObj, 0);
         })
         .catch(error => {
-          console.log('Error connecting to Stitch');
-          Bugsnag.notify(error);
+          // console.log('Error connecting to Stitch');
+          bugsnagClient.notify(new Error('Error connecting to Stitch'));
+          bugsnagClient.notify(error);
           // TODO Not reliable as toasts may not yet be initialized - occurs in mounted
           M.toast({
             'html': 'Something went wrong. Try refreshing the page.',
@@ -83,19 +84,19 @@ export default {
       // Stitch functions return a promise
       clientObj.callFunction('getInsights', [this.org.ein])
         .then(result => {
-          console.log('Result from getInsights');
-          console.log(result);
           this.insights = result;
         })
         .catch(error => {
           // TODO DRY-up retry attempts
-          console.log('Error calling getInsights function');
-          Bugsnag.notify(error);
+          // console.log('Error calling getInsights function');
+          bugsnagClient.notify(new Error('Error calling getInsightsFromStitch function'));
           if (retryCount < 2) {
-            console.log('Retrying getInsightsFromStitch');
+            // console.log('Retrying getInsightsFromStitch');
             this.getInsightsFromStitch(clientObj, retryCount++);
           } else {
-            throw new Error('getInsightsFromStitch failed after retry');
+            bugsnagClient.notify(new Error('getInsightsFromStitch failed after retry'));
+            bugsnagClient.notify(error);
+            // throw new Error('getInsightsFromStitch failed after retry');
           }
         });
     },
@@ -104,8 +105,6 @@ export default {
       let retryCount = count;
       clientObj.callFunction('getUserData', [])
         .then(result => {
-          console.log('Result from getUserData');
-          console.log(result);
           if (result) {
             this.profiles = result.profiles.sort(function(a, b) {
               // Descending - last saved appears first
@@ -121,13 +120,16 @@ export default {
         })
         .catch(error => {
           // TODO DRY-up retry attempts
-          console.log('Error calling getUserData function');
-          Bugsnag.notify(error);
+          // console.log('Error calling getUserData function');
+          bugsnagClient.notify(new Error('Error calling getUserData Stitch function'));
+          bugsnagClient.notify(error);
           if (retryCount < 2) {
-            console.log('Retrying getUserDataFromStitch');
+            // console.log('Retrying getUserDataFromStitch');
             this.getUserDataFromStitch(clientObj, retryCount++);
           } else {
-            throw new Error('getUserDataFromStitch failed after retry');
+            bugsnagClient.notify(new Error('getUserDataFromStitch failed after retry'));
+            bugsnagClient.notify(error);
+            // throw new Error('getUserDataFromStitch failed after retry');
           }
         });
     },
