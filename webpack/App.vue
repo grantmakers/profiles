@@ -70,6 +70,7 @@ export default {
         })
         .catch(error => {
           console.log('Error connecting to Stitch');
+          Bugsnag.notify(error);
           // TODO Not reliable as toasts may not yet be initialized - occurs in mounted
           M.toast({
             'html': 'Something went wrong. Try refreshing the page.',
@@ -89,6 +90,7 @@ export default {
         .catch(error => {
           // TODO DRY-up retry attempts
           console.log('Error calling getInsights function');
+          Bugsnag.notify(error);
           if (retryCount < 2) {
             console.log('Retrying getInsightsFromStitch');
             this.getInsightsFromStitch(clientObj, retryCount++);
@@ -120,6 +122,7 @@ export default {
         .catch(error => {
           // TODO DRY-up retry attempts
           console.log('Error calling getUserData function');
+          Bugsnag.notify(error);
           if (retryCount < 2) {
             console.log('Retrying getUserDataFromStitch');
             this.getUserDataFromStitch(clientObj, retryCount++);

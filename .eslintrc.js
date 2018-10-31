@@ -17,6 +17,7 @@ module.exports = {
     "instantsearch": true,
     "stitch": true,
     "ga": true,
+    "Bugsnag": true,
   },
   "plugins": [
     "frontmatter",
