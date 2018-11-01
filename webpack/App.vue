@@ -70,7 +70,6 @@ export default {
           this.getUserDataFromStitch(clientObj, 0);
         })
         .catch(error => {
-          // console.log('Error connecting to Stitch');
           bugsnagClient.notify(new Error('Error connecting to Stitch'));
           bugsnagClient.notify(error);
           // TODO Not reliable as toasts may not yet be initialized - occurs in mounted
@@ -89,15 +88,12 @@ export default {
         })
         .catch(error => {
           // TODO DRY-up retry attempts
-          // console.log('Error calling getInsights function');
           bugsnagClient.notify(new Error('Error calling getInsightsFromStitch function'));
           if (retryCount < 2) {
-            // console.log('Retrying getInsightsFromStitch');
             this.getInsightsFromStitch(clientObj, retryCount++);
           } else {
             bugsnagClient.notify(new Error('getInsightsFromStitch failed after retry'));
             bugsnagClient.notify(error);
-            // throw new Error('getInsightsFromStitch failed after retry');
           }
         });
     },
@@ -121,16 +117,13 @@ export default {
         })
         .catch(error => {
           // TODO DRY-up retry attempts
-          // console.log('Error calling getUserData function');
           bugsnagClient.notify(new Error('Error calling getUserData Stitch function'));
           bugsnagClient.notify(error);
           if (retryCount < 2) {
-            // console.log('Retrying getUserDataFromStitch');
             this.getUserDataFromStitch(clientObj, retryCount++);
           } else {
             bugsnagClient.notify(new Error('getUserDataFromStitch failed after retry'));
             bugsnagClient.notify(error);
-            // throw new Error('getUserDataFromStitch failed after retry');
           }
         });
     },
