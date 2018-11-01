@@ -1,11 +1,10 @@
-import bugsnag from 'bugsnag-js';
-import bugsnagVue from 'bugsnag-vue';
+import bugsnagClient from './utils/bugsnag.js';
 import Vue from 'vue';
 import App from './App';
 import VueClipboard from 'vue-clipboard2';
 
 // Bugsnag error reporting
-const bugsnagClient = bugsnag('00805536ffe700bc0b6bf8452b547742');
+import bugsnagVue from 'bugsnag-vue';
 bugsnagClient.use(bugsnagVue(Vue));
 
 // VueClipboard.config.autoSetContainer = true // add this line if allowing copy from SavedProfile component
