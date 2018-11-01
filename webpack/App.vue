@@ -23,6 +23,7 @@ import { Stitch, AnonymousCredential } from 'mongodb-stitch-browser-core';
 import ActionBar from './components/ActionBar';
 import SavedProfilesList from './components/SavedProfilesList';
 import Insights from './components/Insights';
+import bugsnagClient from './utils/bugsnag.js';
 
 export default {
   components: {
