@@ -59,6 +59,7 @@
 
 <script>
 import SavedProfile from './SavedProfile.vue';
+import bugsnagClient from '../utils/bugsnag.js';
 
 export default {
   components: {

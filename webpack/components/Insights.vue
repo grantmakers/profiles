@@ -20,7 +20,7 @@
 </template>
 
 <script>
-
+import bugsnagClient from '../utils/bugsnag.js';
 export default {
   props: {
     insights: {

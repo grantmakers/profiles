@@ -50,6 +50,7 @@
 
 <script>
 import mixins from '../mixins.js';
+import bugsnagClient from '../utils/bugsnag.js';
 
 export default {
   mixins: [mixins],
@@ -139,8 +140,8 @@ export default {
           }
         })
         .catch(error => {
-          console.log('Error calling addSavedProfile function');
-          // TODO Set up client side error reporting tool?
+          bugsnagClient.notify(new Error('Error calling addSavedProfile Stitch function'));
+          bugsnagClient.notify(error);
         });
     },
 
@@ -161,8 +162,8 @@ export default {
           });
         })
         .catch(error => {
-          console.log('Error from calling addSavedProfile function');
-          // TODO Set up client side error reporting tool?
+          bugsnagClient.notify(new Error('Error calling removeProfile Stitch function'));
+          bugsnagClient.notify(error);
         });
     },
 
