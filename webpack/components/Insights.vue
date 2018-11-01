@@ -30,10 +30,16 @@ export default {
   },
 
   mounted: function() {
-    // Render to insights element outside Vue app
-    document.getElementById('insights').prepend(this.$el);
-    // TODO Results in duplicates in Vue DevTools
-    // https://github.com/vuejs/vue-devtools/issues/645
+    // Render to insights element outside Vue app if
+    // Limit to browsers supporting prepend()
+    try {
+      document.getElementById('insights').prepend(this.$el);
+      // TODO Results in duplicates in Vue DevTools
+      // https://github.com/vuejs/vue-devtools/issues/645
+    } catch (e) {
+      // Destroy Insights component only
+      this.$destroy();
+    }
   },
 };
 </script>
