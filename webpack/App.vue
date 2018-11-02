@@ -89,8 +89,9 @@ export default {
         .catch(error => {
           // TODO DRY-up retry attempts
           bugsnagClient.notify(new Error('Error calling getInsightsFromStitch function'));
-          if (retryCount < 2) {
-            this.getInsightsFromStitch(clientObj, retryCount++);
+          if (retryCount < 1) {
+            retryCount++;
+            this.getInsightsFromStitch(clientObj, retryCount);
           } else {
             bugsnagClient.notify(new Error('getInsightsFromStitch failed after retry'));
             bugsnagClient.notify(error);
@@ -119,8 +120,9 @@ export default {
           // TODO DRY-up retry attempts
           bugsnagClient.notify(new Error('Error calling getUserData Stitch function'));
           bugsnagClient.notify(error);
-          if (retryCount < 2) {
-            this.getUserDataFromStitch(clientObj, retryCount++);
+          if (retryCount < 1) {
+            retryCount++;
+            this.getUserDataFromStitch(clientObj, retryCount);
           } else {
             bugsnagClient.notify(new Error('getUserDataFromStitch failed after retry'));
             bugsnagClient.notify(error);

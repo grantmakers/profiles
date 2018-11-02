@@ -36,6 +36,7 @@ export default {
       document.getElementById('insights').prepend(this.$el);
     } catch (e) {
       this.$destroy();
+      bugsnagClient.notify(new Error('Unable to add Insights. Vue Insights component destroyed.'));
     }
   },
 };
