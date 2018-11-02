@@ -31,9 +31,13 @@ export default {
 
   mounted: function() {
     // Render to insights element outside Vue app
-    document.getElementById('insights').prepend(this.$el);
-    // TODO Results in duplicates in Vue DevTools
-    // https://github.com/vuejs/vue-devtools/issues/645
+    // Limit to browsers supporting prepend(), else destroy Insights component
+    try {
+      document.getElementById('insights').prepend(this.$el);
+    } catch (e) {
+      this.$destroy();
+      bugsnagClient.notify(new Error('Unable to add Insights. Vue Insights component destroyed.'));
+    }
   },
 };
 </script>
