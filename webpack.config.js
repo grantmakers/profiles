@@ -1,7 +1,7 @@
 const path = require('path');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 
-module.exports = {
+let config = {
   // webpack folder's entry js - excluded from jekll's build process.
   entry: './webpack/entry.js',
   output: {
@@ -46,4 +46,12 @@ module.exports = {
   plugins: [
     new VueLoaderPlugin(),
   ],
+};
+
+module.exports = (env, argv) => {
+  if (argv.mode === 'production') {
+    config.devtool = 'hidden-source-map';
+  }
+
+  return config;
 };
