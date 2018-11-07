@@ -69,12 +69,26 @@ $(document).ready(function() {
     });
   };
 
-  // IE11 messaging
-  // Note: no messaging for <IE11
-  const isIE11 = !!window.MSInputMethodContext && !!document.documentMode;
-  if (isIE11) {
+  // Unsupported browser messaging
+  // TODO Feels verbose
+  const isIE11 = !!window.MSInputMethodContext && !!document.documentMode; // Note: does not detect <IE11
+  let notSupported = false;
+  function browserTest() {
+    const parent = document.createElement('div');
+    const el = document.createElement('span');
+    try {
+      // Use ParentNode.prepend() as proxy for supported browsers
+      // https://caniuse.com/#search=prepend
+      parent.prepend(el);
+    } catch (e) {
+      notSupported = true;
+    }
+  }
+  browserTest();
+
+  if (isIE11 || notSupported) {
     // Provide alert message
-    const toastContent = '<span>Your browser is currently not supported.<br>Many useful features will not work.</span><button href="http://outdatedbrowser.com/en" class="btn-flat yellow-text toast-action-browser-suggestion">Browser Suggestions</button>';
+    const toastContent = '<span>Your browser is currently not supported.<br>Many useful features may not work.</span><button href="http://outdatedbrowser.com/en" class="btn-flat yellow-text toast-action-browser-suggestion">Browser Suggestions</button>';
     M.Toast.dismissAll();
     M.toast({
       'html': toastContent,
