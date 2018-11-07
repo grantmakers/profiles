@@ -43,7 +43,11 @@ export default {
 
   created: function() {
     // Initialize Stitch
-    this.initializeStitchAndLogin();
+    if (navigator.cookieEnabled) {
+      this.initializeStitchAndLogin();
+    } else {
+      bugsnagClient.notify(new Error('Cookies disabled'));
+    }
   },
 
   mounted: function() {
