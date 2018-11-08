@@ -34,9 +34,11 @@ export default {
     // Limit to browsers supporting prepend(), else destroy Insights component
     try {
       document.getElementById('insights').prepend(this.$el);
-    } catch (e) {
+    } catch (error) {
       this.$destroy();
-      bugsnagClient.notify(new Error('Unable to add Insights. Vue Insights component destroyed.'));
+      bugsnagClient.notify(new Error('Unable to add Insights to DOM. Vue Insights component destroyed. - ' + error), {
+        metaData: {'vue': 'insert insights to DOM using prepend()'},
+      });
     }
   },
 };

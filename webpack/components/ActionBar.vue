@@ -133,6 +133,7 @@ export default {
           if (result.upsertedId) {
             this.showFeatureDiscovery();
           } else {
+            // TODO Ensure M is available
             M.toast({
               'html': 'Profile saved',
               'displayLength': 1500,
@@ -140,8 +141,9 @@ export default {
           }
         })
         .catch(error => {
-          bugsnagClient.notify(new Error('Error calling addSavedProfile Stitch function'));
-          bugsnagClient.notify(error);
+          bugsnagClient.notify(new Error('Stitch addProfile - ' + error), {
+            metaData: {'stitch': 'addProfile'},
+          });
         });
     },
 
@@ -156,19 +158,22 @@ export default {
 
           this.$emit('updateRemove', ein);
           this.isLoading = false;
+          // TODO Ensure M is available
           M.toast({
             'html': 'Profile removed',
             'displayLength': 1500,
           });
         })
         .catch(error => {
-          bugsnagClient.notify(new Error('Error calling removeProfile Stitch function'));
-          bugsnagClient.notify(error);
+          bugsnagClient.notify(new Error('Stitch removeProfile - ' + error), {
+            metaData: {'stitch': 'removeProfile'},
+          });
         });
     },
 
     showFeatureDiscovery() {
       const el = document.getElementById('tap-target-saved-profiles');
+      // TODO Ensure M is available
       M.TapTarget.init(el);
       const instance = M.TapTarget.getInstance(el);
       instance.open();
