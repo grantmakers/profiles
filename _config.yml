@@ -45,4 +45,3 @@ exclude:
   - webpack.config.js
   - package.json
   - package-lock.json
-  - assets/js/bundle.js.map
