@@ -140,8 +140,9 @@ export default {
           }
         })
         .catch(error => {
-          bugsnagClient.notify(new Error('Error calling addSavedProfile Stitch function'));
-          bugsnagClient.notify(error);
+          bugsnagClient.notify(new Error('Stitch addProfile - ' + error), {
+            metaData: {'stitch': 'addProfile'},
+          });
         });
     },
 
@@ -162,8 +163,9 @@ export default {
           });
         })
         .catch(error => {
-          bugsnagClient.notify(new Error('Error calling removeProfile Stitch function'));
-          bugsnagClient.notify(error);
+          bugsnagClient.notify(new Error('Stitch removeProfile - ' + error), {
+            metaData: {'stitch': 'removeProfile'},
+          });
         });
     },
 

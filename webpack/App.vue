@@ -46,7 +46,12 @@ export default {
     if (navigator.cookieEnabled) {
       this.initializeStitchAndLogin();
     } else {
-      bugsnagClient.notify(new Error('Cookies disabled'));
+      bugsnagClient.notify(new Error('Vue - Cookies disabled - '), {
+        metaData: {'vue': 'cookies disabled'},
+      });
+      M.toast({
+        'html': 'Enable cookies to view available profile updates',
+      });
     }
   },
 
@@ -74,9 +79,10 @@ export default {
           this.getUserDataFromStitch(clientObj, 0);
         })
         .catch(error => {
-          bugsnagClient.notify(new Error('Error connecting to Stitch'));
-          bugsnagClient.notify(error);
-          // TODO Not reliable as toasts may not yet be initialized - occurs in mounted
+          bugsnagClient.notify(new Error('Stitch initialize - ' + error), {
+            metaData: {'stitch': 'initializeStitchAndLogin'},
+          });
+
           M.toast({
             'html': 'Something went wrong. Try refreshing the page.',
           });
@@ -92,13 +98,16 @@ export default {
         })
         .catch(error => {
           // TODO DRY-up retry attempts
-          bugsnagClient.notify(new Error('Error calling getInsightsFromStitch function'));
+          bugsnagClient.notify(new Error('Stitch getInsights - ' + error), {
+            metaData: {'stitch': 'getInsightsFromStitch'},
+          });
           if (retryCount < 1) {
             retryCount++;
             this.getInsightsFromStitch(clientObj, retryCount);
           } else {
-            bugsnagClient.notify(new Error('getInsightsFromStitch failed after retry'));
-            bugsnagClient.notify(error);
+            bugsnagClient.notify(new Error('Stitch getInsights retry - ' + error), {
+              metaData: {'stitch': 'getInsightsFromStitch retry'},
+            });
           }
         });
     },
@@ -122,14 +131,16 @@ export default {
         })
         .catch(error => {
           // TODO DRY-up retry attempts
-          bugsnagClient.notify(new Error('Error calling getUserData Stitch function'));
-          bugsnagClient.notify(error);
+          bugsnagClient.notify(new Error('Stitch getUserData - ' + error), {
+            metaData: {'stitch': 'getUserDataFromStitch'},
+          });
           if (retryCount < 1) {
             retryCount++;
             this.getUserDataFromStitch(clientObj, retryCount);
           } else {
-            bugsnagClient.notify(new Error('getUserDataFromStitch failed after retry'));
-            bugsnagClient.notify(error);
+            bugsnagClient.notify(new Error('Stitch getUserData retry - ' + error), {
+              metaData: {'stitch': 'getUserDataFromStitch retry'},
+            });
           }
         });
     },
