@@ -49,6 +49,7 @@ export default {
       bugsnagClient.notify(new Error('Vue - Cookies disabled - '), {
         metaData: {'vue': 'cookies disabled'},
       });
+      // TODO Ensure M is available
       M.toast({
         'html': 'Enable cookies to view available profile updates',
       });
@@ -57,6 +58,7 @@ export default {
 
   mounted: function() {
     // Initialize Materialize components
+    // TODO Ensure M is available
     const el = document.getElementById('modal-saved-profiles');
     M.Modal.init(el);
 
@@ -79,10 +81,11 @@ export default {
           this.getUserDataFromStitch(clientObj, 0);
         })
         .catch(error => {
+          // TODO Does not capture certain Stitch errors, e.g. CouldNotLoadPersistedAuthInfo
           bugsnagClient.notify(new Error('Stitch initialize - ' + error), {
             metaData: {'stitch': 'initializeStitchAndLogin'},
           });
-
+          // TODO Ensure M is available
           M.toast({
             'html': 'Something went wrong. Try refreshing the page.',
           });

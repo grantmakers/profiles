@@ -133,6 +133,7 @@ export default {
           if (result.upsertedId) {
             this.showFeatureDiscovery();
           } else {
+            // TODO Ensure M is available
             M.toast({
               'html': 'Profile saved',
               'displayLength': 1500,
@@ -157,6 +158,7 @@ export default {
 
           this.$emit('updateRemove', ein);
           this.isLoading = false;
+          // TODO Ensure M is available
           M.toast({
             'html': 'Profile removed',
             'displayLength': 1500,
@@ -171,6 +173,7 @@ export default {
 
     showFeatureDiscovery() {
       const el = document.getElementById('tap-target-saved-profiles');
+      // TODO Ensure M is available
       M.TapTarget.init(el);
       const instance = M.TapTarget.getInstance(el);
       instance.open();
