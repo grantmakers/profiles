@@ -11,7 +11,9 @@ If you have a question, feature request, find a bug, or just want to say hi, ple
   * `cd _data`
   * Rename `aggregated.json.example` to `aggregated.json`
   * `node split_for_jekyll_json`
-- Start the server (from project root): `bundle exec jekyll serve`
+- From project root:
+  * Install Vue / Webpack dependencies: `npm install`
+  * Start the server: `npm run dev`
 - Site should be accesible here:  `http://localhost:4000/profiles/`
 
 # Credits
