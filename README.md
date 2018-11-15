@@ -3,6 +3,9 @@
 See also [Grantmakers.io main repo](https://github.com/grantmakers/grantmakers.github.io)
 
 If you have a question, feature request, find a bug, or just want to say hi, please open an [issue on GitHub](https://github.com/grantmakers/grantmakers.github.io/issues).
+
+Assumes Ruby, Node, and npm are installed. Then...
+
 - From project root: `gem install jekyll bundler`
 - Create an `ein` folder under `_data`
 - Install the `fs` npm package
