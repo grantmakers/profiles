@@ -1,6 +1,7 @@
 ---
 ---
 $(document).ready(function() {
+  'use strict';
   // Navbar
   // =======================================================
   const header = $('.header');

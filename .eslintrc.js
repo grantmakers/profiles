@@ -183,4 +183,16 @@ module.exports = {
 //Deprecated    "space-return-throw-case": 2,    // http://eslint.org/docs/rules/space-return-throw-case
     "spaced-comment": 2,        // http://eslint.org/docs/rules/spaced-comment
   },
+  "overrides": [
+    {
+      "files": ["*profile.js","*search.js"],
+      "parserOptions": {
+        "ecmaVersion": 6,
+        "sourceType": "script",
+      },
+      "rules": {
+        "strict": [2, "function"],
+      }
+    }
+  ]
 }

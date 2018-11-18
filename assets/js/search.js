@@ -2,6 +2,7 @@
 ---
 /* eslint quote-props: ["error", "as-needed"] */
 $(document).ready(function() {
+  'use strict';
   // Helper definitions
   // =======================================================
   const targetEIN = $('h1.org-name').data('ein');
