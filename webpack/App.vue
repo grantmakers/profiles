@@ -24,6 +24,7 @@ import ActionBar from './components/ActionBar';
 import SavedProfilesList from './components/SavedProfilesList';
 import Insights from './components/Insights';
 import bugsnagClient from './utils/bugsnag.js';
+import M from 'materialize';
 
 export default {
   components: {

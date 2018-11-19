@@ -43,6 +43,9 @@ let config = {
     },
     extensions: ['*', '.js', '.vue', '.json'],
   },
+  externals: {
+    materialize: 'M',
+  },
   plugins: [
     new VueLoaderPlugin(),
   ],
