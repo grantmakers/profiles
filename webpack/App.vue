@@ -26,6 +26,8 @@ import Insights from './components/Insights';
 import bugsnagClient from './utils/bugsnag.js';
 import M from 'materialize';
 
+const stitchAppId = 'insights-xavlz';
+
 export default {
   components: {
     ActionBar,
@@ -50,7 +52,6 @@ export default {
       bugsnagClient.notify(new Error('Vue - Cookies disabled - '), {
         metaData: {'vue': 'cookies disabled'},
       });
-      // TODO Ensure M is available
       M.toast({
         'html': 'Enable cookies to view available profile updates',
       });
@@ -59,7 +60,6 @@ export default {
 
   mounted: function() {
     // Initialize Materialize components
-    // TODO Ensure M is available
     const el = document.getElementById('modal-saved-profiles');
     M.Modal.init(el);
 
@@ -68,57 +68,62 @@ export default {
   },
 
   methods: {
-    initializeStitchAndLogin: function() {
-      Stitch.initializeDefaultAppClient('insights-xavlz');
-
-      const client = Stitch.defaultAppClient;
-      return client.auth.loginWithCredential(new AnonymousCredential())
-        .then(() => {
-          this.stitchClientObj = client; // TODO Can remove if not storing client object in Vue data
-          return client;
-        })
-        .then(clientObj => {
-          this.getInsightsFromStitch(clientObj, 0);
-          this.getUserDataFromStitch(clientObj, 0);
-        })
-        .catch(error => {
-          // TODO Does not capture certain Stitch errors, e.g. CouldNotLoadPersistedAuthInfo
-          bugsnagClient.notify(new Error('Stitch initialize - ' + error), {
-            metaData: {'stitch': 'initializeStitchAndLogin'},
-          });
-          // TODO Ensure M is available
-          M.toast({
-            'html': 'Something went wrong. Try refreshing the page.',
-          });
+    initializeStitchAndLogin: async function() {
+      try {
+        await this.stitchInit();
+        await this.stitchLogin();
+        await this.stitchGetInsights(0);
+        await this.stitchGetUserData(0);
+      } catch (error) {
+        bugsnagClient.notify(new Error('Stitch error - ' + error), {
+          metaData: {'stitch': 'initializeStitchAndLogin'},
         });
+        M.toast({
+          'html': 'Something went wrong. Try refreshing the page.',
+        });
+      }
     },
 
-    getInsightsFromStitch: function(clientObj, count) {
+    stitchInit: async function() {
+      if (!Stitch.hasAppClient(stitchAppId)) {
+        this.stitchClientObj = await Stitch.initializeDefaultAppClient(stitchAppId);
+      }
+    },
+
+    stitchLogin: async function() {
+      if (!this.stitchClientObj.auth.isLoggedIn) {
+        const credential = new AnonymousCredential();
+        await this.stitchClientObj.auth.loginWithCredential(credential);
+        // TODO set stitch auth state
+      }
+    },
+
+    stitchGetInsights: function(count) {
       let retryCount = count;
       // Stitch functions return a promise
-      clientObj.callFunction('getInsights', [this.org.ein])
+      this.stitchClientObj.callFunction('getInsights', [this.org.ein])
         .then(result => {
           this.insights = result;
         })
         .catch(error => {
           // TODO DRY-up retry attempts
           bugsnagClient.notify(new Error('Stitch getInsights - ' + error), {
-            metaData: {'stitch': 'getInsightsFromStitch'},
+            metaData: {'stitch': 'stitchGetInsights'},
           });
           if (retryCount < 1) {
             retryCount++;
-            this.getInsightsFromStitch(clientObj, retryCount);
+            this.stitchGetInsights(retryCount);
           } else {
             bugsnagClient.notify(new Error('Stitch getInsights retry - ' + error), {
-              metaData: {'stitch': 'getInsightsFromStitch retry'},
+              metaData: {'stitch': 'stitchGetInsights retry'},
             });
           }
         });
     },
 
-    getUserDataFromStitch: function(clientObj, count) {
+    stitchGetUserData: function(count) {
       let retryCount = count;
-      clientObj.callFunction('getUserData', [])
+      this.stitchClientObj.callFunction('getUserData', [])
         .then(result => {
           if (result) {
             this.profiles = result.profiles.sort(function(a, b) {
@@ -136,14 +141,14 @@ export default {
         .catch(error => {
           // TODO DRY-up retry attempts
           bugsnagClient.notify(new Error('Stitch getUserData - ' + error), {
-            metaData: {'stitch': 'getUserDataFromStitch'},
+            metaData: {'stitch': 'stitchGetUserData'},
           });
           if (retryCount < 1) {
             retryCount++;
-            this.getUserDataFromStitch(clientObj, retryCount);
+            this.stitchGetUserData(retryCount);
           } else {
             bugsnagClient.notify(new Error('Stitch getUserData retry - ' + error), {
-              metaData: {'stitch': 'getUserDataFromStitch retry'},
+              metaData: {'stitch': 'stitchGetUserData retry'},
             });
           }
         });
