@@ -72,8 +72,8 @@ export default {
       try {
         await this.stitchInit();
         await this.stitchLogin();
-        await this.stitchGetInsights(0);
-        await this.stitchGetUserData(0);
+        this.stitchGetInsights(0);
+        this.stitchGetUserData(0);
       } catch (error) {
         bugsnagClient.notify(new Error('Stitch error - ' + error), {
           metaData: {'stitch': 'initializeStitchAndLogin'},
@@ -84,17 +84,19 @@ export default {
       }
     },
 
-    stitchInit: async function() {
+    stitchInit: function() {
       if (!Stitch.hasAppClient(stitchAppId)) {
-        this.stitchClientObj = await Stitch.initializeDefaultAppClient(stitchAppId);
+        this.stitchClientObj = Stitch.initializeDefaultAppClient(stitchAppId);
+      } else {
+        this.stitchClientObj = Stitch.defaultAppClient;
       }
+      return this.stitchClientObj;
     },
 
-    stitchLogin: async function() {
+    stitchLogin: function() {
       if (!this.stitchClientObj.auth.isLoggedIn) {
         const credential = new AnonymousCredential();
-        await this.stitchClientObj.auth.loginWithCredential(credential);
-        // TODO set stitch auth state
+        this.stitchClientObj.auth.loginWithCredential(credential);
       }
     },
 
