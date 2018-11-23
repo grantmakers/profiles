@@ -94,10 +94,6 @@ export default {
 
     stitchLogin: async function() {
       if (!this.stitchClientObj.auth.isLoggedIn) {
-        console.log('Need to login');
-        bugsnagClient.notify(new Error('Stitch user was logged out'), {
-          metaData: {'stitch': 'initializeStitchAndLogin'},
-        });
         const credential = new AnonymousCredential();
         await this.stitchClientObj.auth.loginWithCredential(credential);
       }
