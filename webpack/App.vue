@@ -79,24 +79,27 @@ export default {
           metaData: {'stitch': 'initializeStitchAndLogin'},
         });
         M.toast({
+          // TODO Make this more useful
+          // e.g. Unable to check for updates. Try refreshing the page.
           'html': 'Something went wrong. Try refreshing the page.',
         });
       }
     },
 
-    stitchInit: function() {
+    stitchInit: async function() {
       if (!Stitch.hasAppClient(stitchAppId)) {
-        this.stitchClientObj = Stitch.initializeDefaultAppClient(stitchAppId);
-      } else {
-        this.stitchClientObj = Stitch.defaultAppClient;
+        this.stitchClientObj = await Stitch.initializeDefaultAppClient(stitchAppId);
       }
-      return this.stitchClientObj;
     },
 
-    stitchLogin: function() {
+    stitchLogin: async function() {
       if (!this.stitchClientObj.auth.isLoggedIn) {
+        console.log('Need to login');
+        bugsnagClient.notify(new Error('Stitch user was logged out'), {
+          metaData: {'stitch': 'initializeStitchAndLogin'},
+        });
         const credential = new AnonymousCredential();
-        this.stitchClientObj.auth.loginWithCredential(credential);
+        await this.stitchClientObj.auth.loginWithCredential(credential);
       }
     },
 
