@@ -1,5 +1,7 @@
+const webpack = require('webpack');
 const path = require('path');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
+const pkg = require('./package.json');
 
 let config = {
   // webpack folder's entry js - excluded from jekll's build process.
@@ -48,6 +50,9 @@ let config = {
   },
   plugins: [
     new VueLoaderPlugin(),
+    new webpack.DefinePlugin({
+      appVersion: JSON.stringify(pkg.version),
+    }),
   ],
 };
 

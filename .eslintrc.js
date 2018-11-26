@@ -18,6 +18,7 @@ module.exports = {
     "stitch": true,
     "ga": true,
     "bugsnagClient": true,
+    "appVersion": true,
   },
   "plugins": [
     "frontmatter",
