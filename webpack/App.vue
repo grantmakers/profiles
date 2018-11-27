@@ -44,6 +44,16 @@ export default {
     };
   },
 
+  beforeCreate: function() {
+    try {
+      Stitch.initializeDefaultAppClient(stitchAppId);
+    } catch (error) {
+      bugsnagClient.notify(new Error('Stitch error - ' + error), {
+        metaData: {'stitch': 'stitchInit beforeCreate'},
+      });
+    }
+  },
+
   created: function() {
     // Initialize Stitch
     if (navigator.cookieEnabled) {
@@ -88,7 +98,13 @@ export default {
 
     stitchInit: async function() {
       if (!Stitch.hasAppClient(stitchAppId)) {
+        // This should never be called as Stitch.init... occurs in the beforeCreate lifecycle event
         this.stitchClientObj = await Stitch.initializeDefaultAppClient(stitchAppId);
+        bugsnagClient.notify(new Error('Stitch error - Second attempt at Stitch.init required - beforeCreate failed'), {
+          metaData: {'stitch': 'stitchInit beforeCreate'},
+        });
+      } else {
+        this.stitchClientObj = await Stitch.defaultAppClient;
       }
     },
 
