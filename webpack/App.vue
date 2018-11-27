@@ -89,29 +89,37 @@ export default {
           metaData: {'stitch': 'initializeStitchAndLogin'},
         });
         M.toast({
-          // TODO Make this more useful
-          // e.g. Unable to check for updates. Try refreshing the page.
-          'html': 'Something went wrong. Try refreshing the page.',
+          'html': 'Something went wrong while checking for updates. Try refreshing the page.',
         });
       }
     },
 
     stitchInit: async function() {
       if (!Stitch.hasAppClient(stitchAppId)) {
-        // This should never be called as Stitch.init... occurs in the beforeCreate lifecycle event
+        // This should never be called as Stitch.init... occurs in the beforeCreate lifecycle hook
         this.stitchClientObj = await Stitch.initializeDefaultAppClient(stitchAppId);
         bugsnagClient.notify(new Error('Stitch error - Second attempt at Stitch.init required - beforeCreate failed'), {
           metaData: {'stitch': 'stitchInit beforeCreate'},
         });
       } else {
+        // console.log(await Stitch.defaultAppClient);
         this.stitchClientObj = await Stitch.defaultAppClient;
+        // TODO defaultAppClient sometimes shows as a promise (e.g. with getters/setters)
+        // console.log(this.stitchClientObj);
       }
     },
 
     stitchLogin: async function() {
+      // console.log('isLoggedIn? ' + this.stitchClientObj.auth.isLoggedIn);
       if (!this.stitchClientObj.auth.isLoggedIn) {
+        // console.log('No longer logged in');
         const credential = new AnonymousCredential();
-        await this.stitchClientObj.auth.loginWithCredential(credential);
+        await this.stitchClientObj.auth.loginWithCredential(credential)
+          .catch(error => {
+            bugsnagClient.notify(new Error('Stitch Login - ' + error), {
+              metaData: {'stitch': 'stitchLogin'},
+            });
+          });
       }
     },
 
