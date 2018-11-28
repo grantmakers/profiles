@@ -143,6 +143,10 @@ export default {
               });
             }
           });
+      } else {
+        bugsnagClient.notify(new Error('Stitch getInsights'), {
+          metaData: {'stitch': 'stitchGetInsights called but not logged in'},
+        });
       }
     },
 
@@ -180,6 +184,10 @@ export default {
               });
             }
           });
+      } else {
+        bugsnagClient.notify(new Error('Stitch getUserData'), {
+          metaData: {'stitch': 'stitchGetUserData called but not logged in'},
+        });
       }
     },
 
