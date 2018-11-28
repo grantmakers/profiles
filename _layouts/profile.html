@@ -30,9 +30,6 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
 
-  <!-- Preload images -->
-  <link rel="preconnect" href="https://res.cloudinary.com/" crossorigin>
-
   <!-- CSS Files -->
   {% if algolia == true %}
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.7.2/dist/instantsearch.min.css">
@@ -189,7 +186,7 @@
 
   <div class="wrapper">
     <!-- <div class="header header-filter" style="background-image: url('{{ site.baseurl }}/assets/img/{{ page.state }}.jpg');"></div> -->
-    <div class="header header-bg" style="background-image: url('https://res.cloudinary.com/grantmakers/image/upload/v1543441681/NY.jpg');"></div>
+    <div class="header header-bg" style="background-image: url('{{ site.baseurl }}/assets/img/NY.jpg');"></div>
     <div class="main main-raised">
       <div class="profile-content">
         <div class="row row-alert-fixed-to-top">
