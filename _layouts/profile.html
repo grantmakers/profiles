@@ -26,8 +26,14 @@
   {% endif %}
 
   <!-- Fonts and Icons  -->
+  <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+
+  <!-- Prefetch images -->
+  <link rel="prefetch" href="{{ site.baseurl }}/assets/img/NY.jpg">
+  <link rel="prefetch" href="{{ site.baseurl }}/assets/img/icons-letters/{{ page.organization_name | split: '' | first | upcase }}.svg">
+  <link rel="prefetch" href="{{ site.baseurl }}/assets/img/logo.png"> 
 
   <!-- CSS Files -->
   {% if algolia == true %}
