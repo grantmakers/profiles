@@ -30,6 +30,10 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
 
+  <!-- Prefetch -->
+  <link rel="prefetch" href="{{ site.baseurl }}/assets/img/NY.jpg">
+  <link rel="prefetch" href="{{ site.baseurl }}/assets/js/bundle.js?v={{ site.time | date: '%Y%m%d'}}" as="script">
+
   <!-- CSS Files -->
   {% if algolia == true %}
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.7.2/dist/instantsearch.min.css">
@@ -186,7 +190,7 @@
 
   <div class="wrapper">
     <!-- <div class="header header-filter" style="background-image: url('{{ site.baseurl }}/assets/img/{{ page.state }}.jpg');"></div> -->
-    <div class="header header-bg" style="background-image: url('{{ site.baseurl }}/assets/img/NY.jpg');"></div>
+    <div id="image-swap" class="header header-bg" style="background-image: url('{{ site.baseurl }}/assets/img/NY-reduced.jpg');"></div>
     <div class="main main-raised">
       <div class="profile-content">
         <div class="row row-alert-fixed-to-top">
@@ -728,7 +732,9 @@
   </div>
   <!-- Vue -->
   <div id="root"></div>
+  <!--
   <script type="text/javascript" src="{{ site.baseurl }}/assets/js/bundle.js?v={{ site.time | date: '%Y%m%d'}}" charset="utf-8"></script>
+  -->
   <!-- End Vue -->
   {% include saved-profiles-feature-discovery.html %}
   {% comment %}
