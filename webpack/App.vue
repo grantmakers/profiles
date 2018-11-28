@@ -80,8 +80,9 @@ export default {
   methods: {
     initializeStitchAndLogin: async function() {
       try {
-        await this.stitchInit();
+        await this.stitchSetClient();
         await this.stitchLogin();
+        // TODO Ensure login succeeded prior to calling Stitch functions
         this.stitchGetInsights(0);
         this.stitchGetUserData(0);
       } catch (error) {
@@ -94,7 +95,7 @@ export default {
       }
     },
 
-    stitchInit: async function() {
+    stitchSetClient: async function() {
       if (!Stitch.hasAppClient(stitchAppId)) {
         // This should never be called as Stitch.init... occurs in the beforeCreate lifecycle hook
         this.stitchClientObj = await Stitch.initializeDefaultAppClient(stitchAppId);
@@ -102,17 +103,12 @@ export default {
           metaData: {'stitch': 'stitchInit beforeCreate'},
         });
       } else {
-        // console.log(await Stitch.defaultAppClient);
         this.stitchClientObj = await Stitch.defaultAppClient;
-        // TODO defaultAppClient sometimes shows as a promise (e.g. with getters/setters)
-        // console.log(this.stitchClientObj);
       }
     },
 
     stitchLogin: async function() {
-      // console.log('isLoggedIn? ' + this.stitchClientObj.auth.isLoggedIn);
       if (!this.stitchClientObj.auth.isLoggedIn) {
-        // console.log('No longer logged in');
         const credential = new AnonymousCredential();
         await this.stitchClientObj.auth.loginWithCredential(credential)
           .catch(error => {
