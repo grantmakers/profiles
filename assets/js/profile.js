@@ -2,12 +2,6 @@
 ---
 $(document).ready(function() {
   'use strict';
-  // Load full bg image
-  $('#image-swap').attr('style', 'background-image: url("{{ site.baseurl }}/assets/img/NY.jpg")');
-  // Load Vue bundle.js
-  const vue = document.createElement('script');
-  vue.src = '{{ site.baseurl }}/assets/js/bundle.js?v={{ site.time | date: "%Y%m%d"}}';
-  document.body.appendChild(vue);
   // Navbar
   // =======================================================
   const header = $('.header');
