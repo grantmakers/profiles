@@ -82,7 +82,8 @@ export default {
       try {
         await this.stitchSetClient();
         await this.stitchLogin();
-        // TODO Ensure login succeeded prior to calling Stitch functions
+        // TODO Improve readability of isLoggedIn protection
+        // Currently this happens in each Stitch function call below (e.g. is duplicative)
         this.stitchGetInsights(0);
         this.stitchGetUserData(0);
       } catch (error) {
@@ -122,57 +123,64 @@ export default {
     stitchGetInsights: function(count) {
       let retryCount = count;
       // Stitch functions return a promise
-      this.stitchClientObj.callFunction('getInsights', [this.org.ein])
-        .then(result => {
-          this.insights = result;
-        })
-        .catch(error => {
-          // TODO DRY-up retry attempts
-          bugsnagClient.notify(new Error('Stitch getInsights - ' + error), {
-            metaData: {'stitch': 'stitchGetInsights'},
-          });
-          if (retryCount < 1) {
-            retryCount++;
-            this.stitchGetInsights(retryCount);
-          } else {
-            bugsnagClient.notify(new Error('Stitch getInsights retry - ' + error), {
-              metaData: {'stitch': 'stitchGetInsights retry'},
+      // TODO Move isLoggedIn protection to initializeStitchandLogin method for improved readability?
+      if (this.stitchClientObj.auth.isLoggedIn) {
+        this.stitchClientObj.callFunction('getInsights', [this.org.ein])
+          .then(result => {
+            this.insights = result;
+          })
+          .catch(error => {
+            // TODO DRY-up retry attempts
+            bugsnagClient.notify(new Error('Stitch getInsights - ' + error), {
+              metaData: {'stitch': 'stitchGetInsights'},
             });
-          }
-        });
+            if (retryCount < 1) {
+              retryCount++;
+              this.stitchGetInsights(retryCount);
+            } else {
+              bugsnagClient.notify(new Error('Stitch getInsights retry - ' + error), {
+                metaData: {'stitch': 'stitchGetInsights retry'},
+              });
+            }
+          });
+      }
     },
 
     stitchGetUserData: function(count) {
       let retryCount = count;
-      this.stitchClientObj.callFunction('getUserData', [])
-        .then(result => {
-          if (result) {
-            this.profiles = result.profiles.sort(function(a, b) {
-              // Descending - last saved appears first
-              if (a.saved_on < b.saved_on) {
-                return 1;
-              }
-              if (a.saved_on > b.saved_on) {
-                return -1;
-              }
-              return 0;
+      // Stitch functions return a promise
+      // TODO Move isLoggedIn protection to initializeStitchandLogin method for improved readability?
+      if (this.stitchClientObj.auth.isLoggedIn) {
+        this.stitchClientObj.callFunction('getUserData', [])
+          .then(result => {
+            if (result) {
+              this.profiles = result.profiles.sort(function(a, b) {
+                // Descending - last saved appears first
+                if (a.saved_on < b.saved_on) {
+                  return 1;
+                }
+                if (a.saved_on > b.saved_on) {
+                  return -1;
+                }
+                return 0;
+              });
+            }
+          })
+          .catch(error => {
+            // TODO DRY-up retry attempts
+            bugsnagClient.notify(new Error('Stitch getUserData - ' + error), {
+              metaData: {'stitch': 'stitchGetUserData'},
             });
-          }
-        })
-        .catch(error => {
-          // TODO DRY-up retry attempts
-          bugsnagClient.notify(new Error('Stitch getUserData - ' + error), {
-            metaData: {'stitch': 'stitchGetUserData'},
+            if (retryCount < 1) {
+              retryCount++;
+              this.stitchGetUserData(retryCount);
+            } else {
+              bugsnagClient.notify(new Error('Stitch getUserData retry - ' + error), {
+                metaData: {'stitch': 'stitchGetUserData retry'},
+              });
+            }
           });
-          if (retryCount < 1) {
-            retryCount++;
-            this.stitchGetUserData(retryCount);
-          } else {
-            bugsnagClient.notify(new Error('Stitch getUserData retry - ' + error), {
-              metaData: {'stitch': 'stitchGetUserData retry'},
-            });
-          }
-        });
+      }
     },
 
     getCurrentOrgData: function() {
