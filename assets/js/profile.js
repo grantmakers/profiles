@@ -2,6 +2,21 @@
 ---
 $(document).ready(function() {
   'use strict';
+  const isIE11 = !!window.MSInputMethodContext && !!document.documentMode; // Note: does not detect <IE11
+  const isMobile = window.matchMedia('only screen and (max-width: 992px)');
+  const hasAlgolia = $('#grants .card-panel-header .search');
+  let isSupported = true;
+
+  browserTest();
+  cookieTest();
+
+  // Load Vue bundle.js
+  const vue = document.createElement('script');
+  vue.src = '{{ site.baseurl }}/assets/js/bundle.js?v={{ site.time | date: "%Y%m%d"}}';
+  if (!isMobile.matches && isSupported) {
+    document.body.appendChild(vue);
+  }
+
   // Navbar
   // =======================================================
   const header = $('.header');
@@ -72,8 +87,6 @@ $(document).ready(function() {
 
   // Unsupported browser messaging
   // TODO Feels verbose
-  const isIE11 = !!window.MSInputMethodContext && !!document.documentMode; // Note: does not detect <IE11
-  let notSupported = false;
   function browserTest() {
     const parent = document.createElement('div');
     const el = document.createElement('span');
@@ -82,12 +95,25 @@ $(document).ready(function() {
       // https://caniuse.com/#search=prepend
       parent.prepend(el);
     } catch (e) {
-      notSupported = true;
+      isSupported = false;
     }
   }
-  browserTest();
 
-  if (isIE11 || notSupported) {
+  function cookieTest() {
+    let cookieEnabled = navigator.cookieEnabled;
+    if (!cookieEnabled) { 
+      document.cookie = 'testcookie';
+      cookieEnabled = document.cookie.indexOf('testcookie') !== -1;
+    }
+    return cookieEnabled || showCookieFail();
+  }
+
+  function showCookieFail() {
+    // do something here
+    // Can't show toasts until materialize initialized
+  }
+
+  if (isIE11 || !isSupported) {
     // Provide alert message
     const toastContent = '<span>Your browser is currently not supported.<br>Many useful features may not work.</span><button href="http://outdatedbrowser.com/en" class="btn-flat yellow-text toast-action-browser-suggestion">Browser Suggestions</button>';
     M.Toast.dismissAll();
@@ -109,8 +135,6 @@ $(document).ready(function() {
   // Fixed headers via Pushpin plugin
   // Grants header is fixed only on non-mobile devices with Algolia enabled
   // See also search.js - Need to re-init grants header after search results populate to capture proper div height
-  const isMobile = window.matchMedia('only screen and (max-width: 992px)');
-  const hasAlgolia = $('#grants .card-panel-header .search');
 
   function enableGrantsFixedHeader() {
     const grantsHeader = $('#grants .card-panel-header');
@@ -173,7 +197,7 @@ $(document).ready(function() {
 
   $('.nav-primary li a.scrolly').on('click', function() {
     // collapse mobile header
-    if (isMobile) {
+    if (isMobile.matches) {
       $('.sidenav').sidenav('close');
     }
   });
