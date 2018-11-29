@@ -61,6 +61,7 @@ export default {
     } else {
       bugsnagClient.notify(new Error('Vue - Cookies disabled - '), {
         metaData: {'vue': 'cookies disabled'},
+        severity: 'info',
       });
       M.toast({
         'html': 'Enable cookies to view available profile updates',
@@ -144,8 +145,9 @@ export default {
             }
           });
       } else {
-        bugsnagClient.notify(new Error('Stitch getInsights'), {
+        bugsnagClient.notify(new Error('Stitch getInsights - Vue function reached but Stitch function not called'), {
           metaData: {'stitch': 'stitchGetInsights called but not logged in'},
+          severity: 'info',
         });
       }
     },
@@ -185,8 +187,9 @@ export default {
             }
           });
       } else {
-        bugsnagClient.notify(new Error('Stitch getUserData'), {
+        bugsnagClient.notify(new Error('Stitch getUserData - Vue function reached but Stitch function not called'), {
           metaData: {'stitch': 'stitchGetUserData called but not logged in'},
+          severity: 'info',
         });
       }
     },
