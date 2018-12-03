@@ -185,6 +185,13 @@ input::-ms-clear {
   animation-iteration-count: 1;
 }
 
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s;
+}
+.fade-enter, .fade-leave-to {
+  opacity: 0;
+}
+
 /************************************
 List Groups Component
 *************************************/
@@ -726,7 +733,6 @@ form#login {
 
 // Left Action Bar
 .left-action-bar {
-	opacity: 0;
 	display: -ms-flexbox;
 	display: flex;
 	position: fixed;

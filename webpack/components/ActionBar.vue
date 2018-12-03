@@ -1,51 +1,56 @@
 <template>
-  <div class="left-action-bar hide-on-med-and-down">
-    <ul class="z-depth-3">
-      <li class="hidden">
-        <a
-          :data-tooltip="save ? 'Save this profile' : 'Unsave this profile'"
-          :data-ga=" save ? 'Save profile via Left Action Bar' : 'Unsave profile via Left Action Bar' "
-          class="tooltipped v-tooltipped"
-          data-position="right"
-          @click="handleSaveClick"
-        >
-          <i
-            :class="{ 'md-spin': isLoading }"
-            class="material-icons"
+  <transition name="fade">
+    <div
+      v-if="showLeftActionBar"
+      class="left-action-bar hide-on-med-and-down"
+    >
+      <ul class="z-depth-3">
+        <li class="hidden">
+          <a
+            :data-tooltip="save ? 'Save this profile' : 'Unsave this profile'"
+            :data-ga=" save ? 'Save profile via Left Action Bar' : 'Unsave profile via Left Action Bar' "
+            class="tooltipped v-tooltipped"
+            data-position="right"
+            @click="handleSaveClick"
           >
-            {{ save ? 'star_outline' : 'star' }}
-          </i>
-          <span>{{ save ? 'SAVE' : 'SAVED' }}</span>
-        </a>
-      </li>
-      <li>
-        <a
-          :href="buildProfileMailto(org)"
-          target="_blank"
-          class="tooltipped v-tooltipped"
-          data-tooltip="Share this profile via email"
-          data-position="right"
-          data-ga="Share Profile via Left Action Bar"
-        >
-          <i class="material-icons">email</i>
-          <span>Share</span>
-        </a>
-      </li>
-      <li>
-        <a
-          v-clipboard:copy="org.url"
-          class="tooltipped v-tooltipped"
-          data-tooltip="Copy link to clipboard"
-          data-position="right"
-          data-ga="Copy Link via Left Action Bar"
-          @click="handleCopy"
-        >
-          <i class="material-icons">link</i>
-          <span>Copy link</span>
-        </a>
-      </li>
-    </ul>
-  </div>
+            <i
+              :class="{ 'md-spin': isLoading }"
+              class="material-icons"
+            >
+              {{ save ? 'star_outline' : 'star' }}
+            </i>
+            <span>{{ save ? 'SAVE' : 'SAVED' }}</span>
+          </a>
+        </li>
+        <li>
+          <a
+            :href="buildProfileMailto(org)"
+            target="_blank"
+            class="tooltipped v-tooltipped"
+            data-tooltip="Share this profile via email"
+            data-position="right"
+            data-ga="Share Profile via Left Action Bar"
+          >
+            <i class="material-icons">email</i>
+            <span>Share</span>
+          </a>
+        </li>
+        <li>
+          <a
+            v-clipboard:copy="org.url"
+            class="tooltipped v-tooltipped"
+            data-tooltip="Copy link to clipboard"
+            data-position="right"
+            data-ga="Copy Link via Left Action Bar"
+            @click="handleCopy"
+          >
+            <i class="material-icons">link</i>
+            <span>Copy link</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </transition>
 </template>
 
 <script>
@@ -73,6 +78,7 @@ export default {
   data: function() {
     return  {
       isLoading: false,
+      showLeftActionBar: false,
     };
   },
 
@@ -87,7 +93,23 @@ export default {
     },
   },
 
+  created() {
+    window.addEventListener('scroll', this.scrollSpy);
+  },
+
+  destroyed: function() {
+    window.removeEventListener('scroll', this.scrollSpy);
+  },
+
   methods: {
+    scrollSpy: function() {
+      const target = document.getElementById('scrollspy-target');
+      if (target.classList.contains('affix')) {
+        this.showLeftActionBar = true;
+        window.removeEventListener('scroll', this.scrollSpy);
+      }
+    },
+
     handleSaveClick: function(e) {
       this.isLoading = true;
       this.hideTooltip(e);
