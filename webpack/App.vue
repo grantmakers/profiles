@@ -47,10 +47,8 @@ export default {
   beforeCreate: function() {
     try {
       Stitch.initializeDefaultAppClient(stitchAppId);
-    } catch (error) {
-      bugsnagClient.notify(new Error('Stitch error - ' + error), {
-        metaData: {'stitch': 'stitchInit beforeCreate'},
-      });
+    } catch (err) {
+      this.handleError('Stitch', 'stitchInit beforeCreate', err, 'error');
     }
   },
 
@@ -59,10 +57,7 @@ export default {
     if (navigator.cookieEnabled) {
       this.initializeStitchAndLogin();
     } else {
-      bugsnagClient.notify(new Error('Vue - Cookies disabled - '), {
-        metaData: {'vue': 'cookies disabled'},
-        severity: 'info',
-      });
+      this.handleError('Vue', 'Cookies disabled', '', 'info');
       M.toast({
         'html': 'Enable cookies to view available profile updates',
       });
@@ -87,10 +82,8 @@ export default {
           this.stitchGetInsights(0);
           this.stitchGetUserData(0);
         }
-      } catch (error) {
-        bugsnagClient.notify(new Error('Stitch error - ' + error), {
-          metaData: {'stitch': 'initializeStitchAndLogin'},
-        });
+      } catch (err) {
+        this.handleError('Stitch', 'initializeStitchAndLogin', err, 'error');
         M.toast({
           'html': 'Something went wrong while checking for updates. Try refreshing the page.',
         });
@@ -101,9 +94,7 @@ export default {
       if (!Stitch.hasAppClient(stitchAppId)) {
         // This should never be called as Stitch.init... occurs in the beforeCreate lifecycle hook
         this.stitchClientObj = await Stitch.initializeDefaultAppClient(stitchAppId);
-        bugsnagClient.notify(new Error('Stitch error - Second attempt at Stitch.init required - beforeCreate failed'), {
-          metaData: {'stitch': 'stitchInit beforeCreate'},
-        });
+        this.handleError('Vue', 'stitchSetClient', 'beforeCreate failed - should never happen', 'error');
         return this.stitchClientObj;
       } else {
         this.stitchClientObj = await Stitch.defaultAppClient;
@@ -115,10 +106,8 @@ export default {
       if (!this.stitchClientObj.auth.isLoggedIn) {
         const credential = new AnonymousCredential();
         return this.stitchClientObj.auth.loginWithCredential(credential)
-          .catch(error => {
-            bugsnagClient.notify(new Error('Stitch Login - ' + error), {
-              metaData: {'stitch': 'stitchLogin'},
-            });
+          .catch(err => {
+            this.handleError('Stitch', 'stitchLogin', err, 'error');
           });
       } else {
         return true;
@@ -131,18 +120,14 @@ export default {
         .then(result => {
           this.insights = result;
         })
-        .catch(error => {
+        .catch(err => {
           // TODO DRY-up retry attempts
-          bugsnagClient.notify(new Error('Stitch getInsights - ' + error), {
-            metaData: {'stitch': 'stitchGetInsights'},
-          });
+          this.handleError('Stitch', 'stitchGetInsights', err, 'error');
           if (retryCount < 1) {
             retryCount++;
             this.stitchGetInsights(retryCount);
           } else {
-            bugsnagClient.notify(new Error('Stitch getInsights retry - ' + error), {
-              metaData: {'stitch': 'stitchGetInsights retry'},
-            });
+            this.handleError('Stitch', 'stitchGetInsights retry', err, 'error');
           }
         });
     },
@@ -164,18 +149,14 @@ export default {
             });
           }
         })
-        .catch(error => {
+        .catch(err => {
           // TODO DRY-up retry attempts
-          bugsnagClient.notify(new Error('Stitch getUserData - ' + error), {
-            metaData: {'stitch': 'stitchGetUserData'},
-          });
+          this.handleError('Stitch', 'stitchGetUserData', err, 'error');
           if (retryCount < 1) {
             retryCount++;
             this.stitchGetUserData(retryCount);
           } else {
-            bugsnagClient.notify(new Error('Stitch getUserData retry - ' + error), {
-              metaData: {'stitch': 'stitchGetUserData retry'},
-            });
+            this.handleError('Stitch', 'stitchGetUserData retry', err, 'error');
           }
         });
     },
@@ -193,12 +174,21 @@ export default {
     updateProfilesListAdd: function(data) {
       this.profiles.unshift(data);
     },
+
     updateProfilesListRemove: function(ein) {
       let before = this.profiles;
       let after = before.filter( function(a) {
         return a.ein !== ein;
       });
       this.profiles = after;
+    },
+
+    handleError: function(context, fname, err, priority) {
+      let obj = {};
+      obj.metaData = {};
+      obj.metaData[context] = fname;
+      obj.severity = priority;
+      return bugsnagClient.notify(new Error(context + ' ' + fname + ' - ' + err), obj);
     },
   },
 };
