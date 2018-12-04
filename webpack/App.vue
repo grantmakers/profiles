@@ -48,7 +48,7 @@ export default {
     try {
       Stitch.initializeDefaultAppClient(stitchAppId);
     } catch (err) {
-      this.handleError('Stitch', 'stitchInit beforeCreate', err, 'error');
+      this.handleError('Stitch', 'stitchInit beforeCreate', err, 'warning');
     }
   },
 
@@ -83,7 +83,7 @@ export default {
           this.stitchGetUserData(0);
         }
       } catch (err) {
-        this.handleError('Stitch', 'initializeStitchAndLogin', err, 'error');
+        this.handleError('Stitch', 'initializeStitchAndLogin', err, 'warning');
         M.toast({
           'html': 'Something went wrong while checking for updates. Try refreshing the page.',
         });
@@ -94,7 +94,7 @@ export default {
       if (!Stitch.hasAppClient(stitchAppId)) {
         // This should never be called as Stitch.init... occurs in the beforeCreate lifecycle hook
         this.stitchClientObj = await Stitch.initializeDefaultAppClient(stitchAppId);
-        this.handleError('Vue', 'stitchSetClient', 'beforeCreate failed - should never happen', 'error');
+        this.handleError('Vue', 'stitchSetClient', 'beforeCreate failed - should never happen', 'warning');
         return this.stitchClientObj;
       } else {
         this.stitchClientObj = await Stitch.defaultAppClient;
@@ -107,7 +107,7 @@ export default {
         const credential = new AnonymousCredential();
         return this.stitchClientObj.auth.loginWithCredential(credential)
           .catch(err => {
-            this.handleError('Stitch', 'stitchLogin', err, 'error');
+            this.handleError('Stitch', 'stitchLogin', err, 'warning');
           });
       } else {
         return true;
@@ -122,12 +122,12 @@ export default {
         })
         .catch(err => {
           // TODO DRY-up retry attempts
-          this.handleError('Stitch', 'stitchGetInsights', err, 'error');
+          this.handleError('Stitch', 'stitchGetInsights', err, 'warning');
           if (retryCount < 1) {
             retryCount++;
             this.stitchGetInsights(retryCount);
           } else {
-            this.handleError('Stitch', 'stitchGetInsights retry', err, 'error');
+            this.handleError('Stitch', 'stitchGetInsights retry', err, 'warning');
           }
         });
     },
@@ -151,12 +151,12 @@ export default {
         })
         .catch(err => {
           // TODO DRY-up retry attempts
-          this.handleError('Stitch', 'stitchGetUserData', err, 'error');
+          this.handleError('Stitch', 'stitchGetUserData', err, 'warning');
           if (retryCount < 1) {
             retryCount++;
             this.stitchGetUserData(retryCount);
           } else {
-            this.handleError('Stitch', 'stitchGetUserData retry', err, 'error');
+            this.handleError('Stitch', 'stitchGetUserData retry', err, 'warning');
           }
         });
     },
