@@ -2,22 +2,74 @@
 ---
 $(document).ready(function() {
   'use strict';
+  // BROWSER CHECKS
+  // =======================================================
+  // TODO Need to refactor initial browser checks - this is a mess!
   const isIE11 = !!window.MSInputMethodContext && !!document.documentMode; // Note: does not detect <IE11
   const isMobile = window.matchMedia('only screen and (max-width: 992px)');
   const hasAlgolia = $('#grants .card-panel-header .search');
-  let isSupported = true;
+  let isSupported = browserTest();
+  let allowsCookies = cookieTest();
 
-  browserTest();
-  cookieTest();
-
-  // Load Vue bundle.js
+  // Load Vue if supported
   const vue = document.createElement('script');
   vue.src = '{{ site.baseurl }}/assets/js/bundle.js?v={{ site.time | date: "%Y%m%d"}}';
-  if (!isMobile.matches && isSupported) {
+  // TODO Add cookieTest to checks
+  if (!isIE11 && !isMobile.matches && allowsCookies && isSupported) {
     document.body.appendChild(vue);
+  } else {
+    $('.js-vue-check').addClass( 'hidden' );
   }
 
-  // Navbar
+  // Show message if not supported
+  if (isIE11 || !isSupported) {
+    const toastContent = '<span>Your browser is currently not supported.<br>Many useful features may not work.</span><button href="http://outdatedbrowser.com/en" class="btn-flat yellow-text toast-action-browser-suggestion">Browser Suggestions</button>';
+    M.Toast.dismissAll();
+    M.toast({
+      'html': toastContent,
+      'displayLength': 10000,
+    });
+    $('.toast-action-browser-suggestion').on('click', function() {
+      const target = $(this).attr('href');
+      window.location.href = target;
+    });
+    // Hide Algolia elements
+    $('.js-ie-check').addClass( 'hidden' );
+  }
+
+  // Unsupported browser messaging
+  // Using ParentNode.prepend() as proxy for supported browsers
+  function browserTest() {
+    const parent = document.createElement('div');
+    const el = document.createElement('span');
+    try {
+      parent.prepend(el);
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  function cookieTest() {
+    let cookieEnabled = navigator.cookieEnabled;
+    if (!cookieEnabled) {
+      document.cookie = 'testcookie';
+      cookieEnabled = document.cookie.indexOf('testcookie') !== -1;
+      document.cookie = 'testcookie; expires=Thu, 01-Jan-1970 00:00:01 GMT';
+    }
+    return cookieEnabled || showCookieFail();
+  }
+
+  function showCookieFail() {
+    if (!isIE11 && isSupported) {
+      M.toast({
+        'html': 'Enable cookies to view available profile updates',
+      });
+    }
+    return false;
+  }
+
+  // NAVBAR
   // =======================================================
   const header = $('.header');
   const navbar = $('.navbar-profile');
@@ -28,7 +80,6 @@ $(document).ready(function() {
     let height = header.outerHeight();
     let offset = height / 2;
     let calc = 1 - (scrollTop - offset + range) / range;
-    let calcInverse = (scrollTop - offset + range) / range;
 
     header.css({ 'opacity': calc });
 
@@ -43,7 +94,7 @@ $(document).ready(function() {
     }
   });
 
-  // Materialize components
+  // INIT MATERIALIZE COMPONENTS
   // =======================================================
   window.onload = function() {
     $('.sidenav').sidenav();
@@ -78,54 +129,8 @@ $(document).ready(function() {
     });
   };
 
-  // Unsupported browser messaging
-  // TODO Feels verbose
-  function browserTest() {
-    const parent = document.createElement('div');
-    const el = document.createElement('span');
-    try {
-      // Use ParentNode.prepend() as proxy for supported browsers
-      // https://caniuse.com/#search=prepend
-      parent.prepend(el);
-    } catch (e) {
-      isSupported = false;
-    }
-  }
-
-  function cookieTest() {
-    let cookieEnabled = navigator.cookieEnabled;
-    if (!cookieEnabled) { 
-      document.cookie = 'testcookie';
-      cookieEnabled = document.cookie.indexOf('testcookie') !== -1;
-    }
-    return cookieEnabled || showCookieFail();
-  }
-
-  function showCookieFail() {
-    // do something here
-    // Can't show toasts until materialize initialized
-  }
-
-  if (isIE11 || !isSupported) {
-    // Provide alert message
-    const toastContent = '<span>Your browser is currently not supported.<br>Many useful features may not work.</span><button href="http://outdatedbrowser.com/en" class="btn-flat yellow-text toast-action-browser-suggestion">Browser Suggestions</button>';
-    M.Toast.dismissAll();
-    M.toast({
-      'html': toastContent,
-      'displayLength': 10000,
-    });
-    $('.toast-action-browser-suggestion').on('click', function() {
-      const target = $(this).attr('href');
-      window.location.href = target;
-    });
-    // Hide dynamic elements
-    // Note existing community insights div simply won't add any items from MongoDB Stitch
-    $('.js-ie-check').addClass( 'hidden' );
-    // Show static table instead of Algolia
-    // $('.collapsible-grants-table').collapsible('open'); // Does not work in IE11 :(
-  }
-
-  // Fixed headers via Pushpin plugin
+  // FIXED HEADERS
+  // =======================================================
   // Grants header is fixed only on non-mobile devices with Algolia enabled
   // See also search.js - Need to re-init grants header after search results populate to capture proper div height
 
@@ -159,27 +164,6 @@ $(document).ready(function() {
     });
   }
 
-  // LEFT ACTION BAR
-  // =======================================================
-  // Capture current org info for localStorage
-  function checkForLocalStorage() {
-    const test = 'test';
-    try {
-      localStorage.setItem(test, test);
-      localStorage.removeItem(test);
-      return true;
-    } catch (e) {
-      return false;
-    }
-  }
-  
-  if ($('body').hasClass('profile-page')) {
-    // Save Profile
-    if (checkForLocalStorage() !== true) {
-      $('[data-js="save"]').parent().hide();
-    }
-  }
-
   // SMOOTH SCROLL
   // =======================================================
   $('.scrolly').click(function() {
@@ -195,13 +179,13 @@ $(document).ready(function() {
     }
   });
 
-  // Enable table sort via StupidTable
+  // TABLE SORT :: Stupidtable
   // =======================================================
   if ( $( '#grantsTable' ).length ) {
     $('#grantsTable').stupidtable();
   }
 
-  // Filings
+  // FILINGS
   // =======================================================
   // Add filing links
   $('.js-filings-pdf').each(function() {
