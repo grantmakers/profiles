@@ -1,3 +1,4 @@
+import bugsnagClient from './utils/bugsnag.js';
 export default {
   methods: {
     buildProfileMailto: function(data) {
@@ -23,6 +24,13 @@ export default {
       M.toast({
         'html': 'Sorry, copy failed. Try again.',
       });
+    },
+    handleError: function(context, fname, err, priority) {
+      let obj = {};
+      obj.metaData = {};
+      obj.metaData[context] = fname;
+      obj.severity = priority;
+      return bugsnagClient.notify(new Error(context + ' ' + fname + ' - ' + err), obj);
     },
   },
 };
