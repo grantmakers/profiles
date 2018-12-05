@@ -10,11 +10,12 @@ $(document).ready(function() {
   const hasAlgolia = $('#grants .card-panel-header .search');
   let isSupported = browserTest();
   let allowsCookies = cookieTest();
+  let allowsLocalStorage = storageTest();
 
   // Load Vue if supported
   const vue = document.createElement('script');
   vue.src = '{{ site.baseurl }}/assets/js/bundle.js?v={{ site.time | date: "%Y%m%d"}}';
-  if (!isIE11 && !isMobile.matches && allowsCookies && isSupported) {
+  if (!isIE11 && !isMobile.matches && allowsCookies && allowsLocalStorage && isSupported) {
     document.body.appendChild(vue);
   } else {
     $('.js-vue-check').addClass( 'hidden' ); // Hide UI elements created in DOM, but handled by Vue
@@ -64,6 +65,17 @@ $(document).ready(function() {
       });
     }
     return false;
+  }
+
+  function storageTest() {
+    const test = 'test';
+    try {
+      localStorage.setItem(test, test);
+      localStorage.removeItem(test);
+      return true;
+    } catch (e) {
+      return false;
+    }
   }
 
   // NAVBAR
