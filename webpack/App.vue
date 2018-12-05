@@ -48,7 +48,9 @@ export default {
     try {
       Stitch.initializeDefaultAppClient(stitchAppId);
     } catch (err) {
-      this.handleError('Stitch', 'stitchInit beforeCreate', err, 'warning');
+      bugsnagClient.notify(new Error('Stitch error - ' + err), {
+        metaData: {'stitch': 'stitchInit beforeCreate'},
+      });
     }
   },
 
