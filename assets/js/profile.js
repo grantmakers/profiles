@@ -14,11 +14,10 @@ $(document).ready(function() {
   // Load Vue if supported
   const vue = document.createElement('script');
   vue.src = '{{ site.baseurl }}/assets/js/bundle.js?v={{ site.time | date: "%Y%m%d"}}';
-  // TODO Add cookieTest to checks
   if (!isIE11 && !isMobile.matches && allowsCookies && isSupported) {
     document.body.appendChild(vue);
   } else {
-    $('.js-vue-check').addClass( 'hidden' );
+    $('.js-vue-check').addClass( 'hidden' ); // Hide UI elements created in DOM, but handled by Vue
   }
 
   // Show message if not supported
@@ -36,14 +35,12 @@ $(document).ready(function() {
     // Hide Algolia elements
     $('.js-ie-check').addClass( 'hidden' );
   }
-
-  // Unsupported browser messaging
-  // Using ParentNode.prepend() as proxy for supported browsers
+  
   function browserTest() {
     const parent = document.createElement('div');
     const el = document.createElement('span');
     try {
-      parent.prepend(el);
+      parent.prepend(el); // Using ParentNode.prepend() as proxy for supported browsers
       return true;
     } catch (e) {
       return false;
