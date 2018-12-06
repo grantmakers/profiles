@@ -112,7 +112,7 @@ export default {
 
     handleSaveClick: function(e) {
       this.isLoading = true;
-      this.hideTooltip(e);
+      // this.hideTooltip(e);
       this.save ? this.addProfile(this.org) : this.removeProfile(this.org);
       this.save = !this.save;
     },
@@ -123,7 +123,7 @@ export default {
       // this.$copyText("Text to copy", container)
       this.$copyText('Text to copy')
         .then(function() {
-          self.hideTooltip(e);
+          // self.hideTooltip(e);
           self.handleCopyClick();
         }, function() {
           self.handleFailedCopy();
