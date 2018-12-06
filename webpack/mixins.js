@@ -1,4 +1,5 @@
 import bugsnagClient from './utils/bugsnag.js';
+import M from 'materialize';
 export default {
   methods: {
     buildProfileMailto: function(data) {
