@@ -73,8 +73,7 @@ export default {
       try {
         await this.stitchSetClient();
         await this.stitchLogin();
-        // if (this.stitchClientObj.auth.isLoggedIn) {
-        if (Stitch.defaultAppClient.auth.isLoggedIn) {
+        if (this.stitchClientObj.auth.isLoggedIn) {
           this.stitchGetInsights(0);
           this.stitchGetUserData(0);
         }
@@ -89,24 +88,20 @@ export default {
     stitchSetClient: async function() {
       if (!Stitch.hasAppClient(stitchAppId)) {
         // This should never be called as Stitch.init... occurs in the beforeCreate lifecycle hook
-        // this.stitchClientObj = await Stitch.initializeDefaultAppClient(stitchAppId);
-        let client = await Stitch.initializeDefaultAppClient(stitchAppId);
         this.handleError('Vue', 'stitchSetClient', 'beforeCreate failed - should never happen', 'warning');
-        // return this.stitchClientObj;
-        return client;
+        this.stitchClientObj = await Stitch.initializeDefaultAppClient(stitchAppId);
+        return this.stitchClientObj;
       } else {
-        // this.stitchClientObj = await Stitch.defaultAppClient;
-        return Stitch.defaultAppClient;
+        this.stitchClientObj = await Stitch.defaultAppClient;
+        return this.stitchClientObj;
       }
     },
 
     stitchLogin: async function() {
       const credential = new AnonymousCredential();
-      // if (!this.stitchClientObj.auth.isLoggedIn || this.stitchClientObj.auth.user === undefined) {
-      if (!Stitch.defaultAppClient.auth.isLoggedIn) {
-        // return await this.stitchClientObj.auth.loginWithCredential(credential)
-        return await Stitch.defaultAppClient.auth.loginWithCredential(credential)
+        return await this.stitchClientObj.auth.loginWithCredential(credential)
           .then(user => {
+            this.stitchClientObj = Stitch.getAppClient; // Potentially redundant
             return user;
           })
           .catch(err => {
@@ -119,8 +114,7 @@ export default {
 
     stitchGetInsights: function(count) {
       let retryCount = count;
-      // return this.stitchClientObj.callFunction('getInsights', [this.org.ein])
-      return Stitch.defaultAppClient.callFunction('getInsights', [this.org.ein])
+      return this.stitchClientObj.callFunction('getInsights', [this.org.ein])
         .then(result => {
           this.insights = result;
         })
@@ -137,8 +131,7 @@ export default {
 
     stitchGetUserData: function(count) {
       let retryCount = count;
-      // return this.stitchClientObj.callFunction('getUserData', [])
-      return Stitch.defaultAppClient.callFunction('getUserData', [])
+      return this.stitchClientObj.callFunction('getUserData', [])
         .then(result => {
           if (result) {
             this.profiles = result.profiles.sort(function(a, b) {
