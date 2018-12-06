@@ -99,6 +99,7 @@ export default {
 
     stitchLogin: async function() {
       const credential = new AnonymousCredential();
+      if (!this.stitchClientObj.auth.isLoggedIn || this.stitchClientObj.auth.user === undefined) {
         return await this.stitchClientObj.auth.loginWithCredential(credential)
           .then(user => {
             this.stitchClientObj = Stitch.getAppClient; // Potentially redundant
