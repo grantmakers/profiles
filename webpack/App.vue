@@ -81,7 +81,8 @@ export default {
       try {
         await this.stitchSetClient();
         await this.stitchLogin();
-        if (this.stitchClientObj.auth.isLoggedIn) {
+        // if (this.stitchClientObj.auth.isLoggedIn) {
+        if (Stitch.defaultAppClient.auth.isLoggedIn) {
           this.stitchGetInsights(0);
           this.stitchGetUserData(0);
         }
@@ -96,19 +97,26 @@ export default {
     stitchSetClient: async function() {
       if (!Stitch.hasAppClient(stitchAppId)) {
         // This should never be called as Stitch.init... occurs in the beforeCreate lifecycle hook
-        this.stitchClientObj = await Stitch.initializeDefaultAppClient(stitchAppId);
+        // this.stitchClientObj = await Stitch.initializeDefaultAppClient(stitchAppId);
+        let client = await Stitch.initializeDefaultAppClient(stitchAppId);
         this.handleError('Vue', 'stitchSetClient', 'beforeCreate failed - should never happen', 'warning');
-        return this.stitchClientObj;
+        // return this.stitchClientObj;
+        return client;
       } else {
-        this.stitchClientObj = await Stitch.defaultAppClient;
-        return this.stitchClientObj;
+        // this.stitchClientObj = await Stitch.defaultAppClient;
+        return Stitch.defaultAppClient;
       }
     },
 
-    stitchLogin: function() {
-      if (!this.stitchClientObj.auth.isLoggedIn) {
-        const credential = new AnonymousCredential();
-        return this.stitchClientObj.auth.loginWithCredential(credential)
+    stitchLogin: async function() {
+      const credential = new AnonymousCredential();
+      // if (!this.stitchClientObj.auth.isLoggedIn || this.stitchClientObj.auth.user === undefined) {
+      if (!Stitch.defaultAppClient.auth.isLoggedIn) {
+        // return await this.stitchClientObj.auth.loginWithCredential(credential)
+        return await Stitch.defaultAppClient.auth.loginWithCredential(credential)
+          .then(user => {
+            return user;
+          })
           .catch(err => {
             this.handleError('Stitch', 'stitchLogin', err, 'warning');
           });
@@ -119,12 +127,12 @@ export default {
 
     stitchGetInsights: function(count) {
       let retryCount = count;
-      return this.stitchClientObj.callFunction('getInsights', [this.org.ein])
+      // return this.stitchClientObj.callFunction('getInsights', [this.org.ein])
+      return Stitch.defaultAppClient.callFunction('getInsights', [this.org.ein])
         .then(result => {
           this.insights = result;
         })
         .catch(err => {
-          // TODO DRY-up retry attempts
           this.handleError('Stitch', 'stitchGetInsights', err, 'warning');
           if (retryCount < 1) {
             retryCount++;
@@ -137,7 +145,8 @@ export default {
 
     stitchGetUserData: function(count) {
       let retryCount = count;
-      return this.stitchClientObj.callFunction('getUserData', [])
+      // return this.stitchClientObj.callFunction('getUserData', [])
+      return Stitch.defaultAppClient.callFunction('getUserData', [])
         .then(result => {
           if (result) {
             this.profiles = result.profiles.sort(function(a, b) {
@@ -153,7 +162,6 @@ export default {
           }
         })
         .catch(err => {
-          // TODO DRY-up retry attempts
           this.handleError('Stitch', 'stitchGetUserData', err, 'warning');
           if (retryCount < 1) {
             retryCount++;
