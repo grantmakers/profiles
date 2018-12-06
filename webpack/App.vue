@@ -102,7 +102,7 @@ export default {
       if (!this.stitchClientObj.auth.isLoggedIn || this.stitchClientObj.auth.user === undefined) {
         return await this.stitchClientObj.auth.loginWithCredential(credential)
           .then(user => {
-            this.stitchClientObj = Stitch.getAppClient; // Potentially redundant
+            // this.stitchClientObj = Stitch.defaultAppClient; // Potentially redundant
             return user;
           })
           .catch(err => {
