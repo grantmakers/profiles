@@ -56,15 +56,7 @@ export default {
 
   created: function() {
     // Initialize Stitch
-    if (navigator.cookieEnabled) {
-      this.initializeStitchAndLogin();
-    } else {
-      // This should never be called - handled in profile.js
-      this.handleError('Vue', 'Cookies disabled', '', 'info');
-      M.toast({
-        'html': 'Enable cookies to view available profile updates',
-      });
-    }
+    this.initializeStitchAndLogin();
   },
 
   mounted: function() {
