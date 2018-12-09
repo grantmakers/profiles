@@ -44,19 +44,13 @@ export default {
     };
   },
 
-  beforeCreate: function() {
-    try {
-      Stitch.initializeDefaultAppClient(stitchAppId);
-    } catch (err) {
-      bugsnagClient.notify(new Error('Stitch error - ' + err), {
-        metaData: {'stitch': 'stitchInit beforeCreate'},
-      });
-    }
-  },
-
   created: function() {
     // Initialize Stitch
-    this.initializeStitchAndLogin();
+    try {
+      this.initializeStitchAndLogin();
+    } catch (err) {
+      this.handleError('Stitch', 'initializeStitchAndLogin created', err, 'warning'); // Redundant?
+    }
   },
 
   mounted: function() {
@@ -79,22 +73,21 @@ export default {
         }
       } catch (err) {
         this.handleError('Stitch', 'initializeStitchAndLogin', err, 'warning');
+        /*
         M.toast({
           'html': 'Something went wrong while checking for updates. Try refreshing the page.',
         });
+        */
       }
     },
 
     stitchSetClient: async function() {
       if (!Stitch.hasAppClient(stitchAppId)) {
-        // This should never be called as Stitch.init... occurs in the beforeCreate lifecycle hook
-        this.handleError('Vue', 'stitchSetClient', 'beforeCreate failed - should never happen', 'warning');
         this.stitchClientObj = await Stitch.initializeDefaultAppClient(stitchAppId);
-        return this.stitchClientObj;
       } else {
         this.stitchClientObj = await Stitch.defaultAppClient;
-        return this.stitchClientObj;
       }
+      return this.stitchClientObj;
     },
 
     stitchLogin: async function() {
@@ -102,7 +95,6 @@ export default {
       if (!this.stitchClientObj.auth.isLoggedIn || this.stitchClientObj.auth.user === undefined) {
         return await this.stitchClientObj.auth.loginWithCredential(credential)
           .then(user => {
-            // this.stitchClientObj = Stitch.defaultAppClient; // Potentially redundant
             return user;
           })
           .catch(err => {
