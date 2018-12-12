@@ -112,7 +112,16 @@ export default {
           this.insights = result;
         })
         .catch(err => {
-          this.handleError('Stitch', 'stitchGetInsights', err, 'warning');
+          // this.handleError('Stitch', 'stitchGetInsights', err, 'warning');
+          // Send stitch clients to bugsnag
+          bugsnagClient.notify(new Error('Stitch stitchGetInsights - ' + err), {
+            metaData: {
+              'stitch': 'stitchGetInsights',
+              'stitchClientObj': this.stitchClientObj,
+              'stitchClientSDK': Stitch.defaultAppClient,
+            },
+            severity: 'warning',
+          });
           if (retryCount < 1) {
             retryCount++;
             this.stitchGetInsights(retryCount);
