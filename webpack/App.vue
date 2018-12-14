@@ -107,18 +107,22 @@ export default {
 
     stitchGetInsights: function(count) {
       let retryCount = count;
+      let objPriorToCall = this.stitchClientObj;
+      let userId = this.stitchClientObj.auth.user.id;
       return this.stitchClientObj.callFunction('getInsights', [this.org.ein])
         .then(result => {
           this.insights = result;
         })
         .catch(err => {
           // this.handleError('Stitch', 'stitchGetInsights', err, 'warning');
-          // Send stitch clients to bugsnag
+          // Send additional info to bugsnag for troubleshooting
           bugsnagClient.notify(new Error('Stitch stitchGetInsights - ' + err), {
             metaData: {
               'stitch': 'stitchGetInsights',
-              'stitchClientObj': this.stitchClientObj,
-              'stitchClientSDK': Stitch.defaultAppClient,
+              'stitchUserId': userId,
+              'stitchClientObjPre': objPriorToCall,
+              'stitchClientObjPost': this.stitchClientObj,
+              'stitchClientSDKPost': Stitch.defaultAppClient,
             },
             severity: 'warning',
           });
