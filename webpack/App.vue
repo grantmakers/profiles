@@ -27,6 +27,7 @@ import bugsnagClient from './utils/bugsnag.js';
 import M from 'materialize';
 
 const stitchAppId = 'insights-xavlz';
+let user; // For troubleshooting purposes
 
 export default {
   components: {
@@ -67,7 +68,7 @@ export default {
       try {
         await this.stitchSetClient();
         await this.stitchLogin();
-        if (this.stitchClientObj.auth.isLoggedIn) {
+        if (this.stitchClientObj.auth.isLoggedIn && this.stitchClientObj.auth.user !== undefined) {
           this.stitchGetInsights(0);
           this.stitchGetUserData(0);
         }
@@ -92,23 +93,19 @@ export default {
 
     stitchLogin: async function() {
       const credential = new AnonymousCredential();
-      if (!this.stitchClientObj.auth.isLoggedIn || this.stitchClientObj.auth.user === undefined) {
-        return await this.stitchClientObj.auth.loginWithCredential(credential)
-          .then(user => {
-            return user;
-          })
-          .catch(err => {
-            this.handleError('Stitch', 'stitchLogin', err, 'warning');
-          });
-      } else {
-        return true;
-      }
+      return await Stitch.defaultAppClient.auth.loginWithCredential(credential)
+        .then(result => {
+          user = result; // For troubleshooting purposes
+          return user; // Just return result when finished with troubleshooting
+        })
+        .catch(err => {
+          this.handleError('Stitch', 'stitchLogin', err, 'warning');
+        });
     },
 
     stitchGetInsights: function(count) {
       let retryCount = count;
-      let objPriorToCall = this.stitchClientObj;
-      let userId = this.stitchClientObj.auth.user.id;
+      let userId = user.id; // For troubleshooting purposes
       return this.stitchClientObj.callFunction('getInsights', [this.org.ein])
         .then(result => {
           this.insights = result;
@@ -119,10 +116,10 @@ export default {
           bugsnagClient.notify(new Error('Stitch stitchGetInsights - ' + err), {
             metaData: {
               'stitch': 'stitchGetInsights',
-              'stitchUserId': userId,
-              'stitchClientObjPre': objPriorToCall,
-              'stitchClientObjPost': this.stitchClientObj,
-              'stitchClientSDKPost': Stitch.defaultAppClient,
+              'stitchUserId': userId, // For troubleshooting purposes
+              'stitchClientVueProp': this.stitchClientObj, // For troubleshooting purposes
+              'stitchClientDefault': Stitch.defaultAppClient, // For troubleshooting purposes
+              'stitchClientGetClient': Stitch.getAppClient(stitchAppId), // For troubleshooting purposes
             },
             severity: 'warning',
           });
