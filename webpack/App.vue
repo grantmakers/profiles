@@ -20,14 +20,19 @@
 
 <script>
 import { Stitch, AnonymousCredential } from 'mongodb-stitch-browser-core';
+import * as retryAxios from 'retry-axios';
+import axios from 'axios';
 import ActionBar from './components/ActionBar';
 import SavedProfilesList from './components/SavedProfilesList';
 import Insights from './components/Insights';
 import bugsnagClient from './utils/bugsnag.js';
 import M from 'materialize';
 
+// Retry Axios
+const interceptorId = retryAxios.attach(); // eslint-disable-line no-unused-vars
+
+// Component variables
 const stitchAppId = 'insights-xavlz';
-let user; // For troubleshooting purposes
 
 export default {
   components: {
@@ -46,12 +51,11 @@ export default {
   },
 
   created: function() {
-    // Initialize Stitch
-    try {
-      this.initializeStitchAndLogin();
-    } catch (err) {
-      this.handleError('Stitch', 'initializeStitchAndLogin created', err, 'warning'); // Redundant?
-    }
+    // Fetch public data
+    this.stitchGetInsights();
+
+    // Fetch private data
+    this.initializeStitchAndLogin();
   },
 
   mounted: function() {
@@ -69,7 +73,6 @@ export default {
         await this.stitchSetClient();
         await this.stitchLogin();
         if (this.stitchClientObj.auth.isLoggedIn && this.stitchClientObj.auth.user !== undefined) {
-          this.stitchGetInsights(0);
           this.stitchGetUserData(0);
         }
       } catch (err) {
@@ -82,11 +85,13 @@ export default {
       }
     },
 
-    stitchSetClient: async function() {
+    stitchSetClient: function() {
       if (!Stitch.hasAppClient(stitchAppId)) {
-        this.stitchClientObj = await Stitch.initializeDefaultAppClient(stitchAppId);
+        this.stitchClientObj = Stitch.initializeDefaultAppClient(stitchAppId);
       } else {
-        this.stitchClientObj = await Stitch.defaultAppClient;
+        // TODO When would this be reached?
+        // TODO If can figure out, might be source of intermittent login error
+        this.stitchClientObj = Stitch.defaultAppClient;
       }
       return this.stitchClientObj;
     },
@@ -112,32 +117,18 @@ export default {
         });
     },
 
-    stitchGetInsights: function(count) {
-      let retryCount = count;
-      let userId = user.id; // For troubleshooting purposes
-      return this.stitchClientObj.callFunction('getInsights', [this.org.ein])
+    stitchGetInsights: function() {
+      const webhook = 'https://webhooks.mongodb-stitch.com/api/client/v2.0/app/insights-xavlz/service/public/incoming_webhook/insights';
+      return axios.get(webhook, {
+        params: {
+          ein: this.org.ein,
+        },
+      })
         .then(result => {
-          this.insights = result;
+          this.insights = result.data;
         })
         .catch(err => {
-          // this.handleError('Stitch', 'stitchGetInsights', err, 'warning');
-          // Send additional info to bugsnag for troubleshooting
-          bugsnagClient.notify(new Error('Stitch stitchGetInsights - ' + err), {
-            metaData: {
-              'stitch': 'stitchGetInsights',
-              'stitchUserId': userId, // For troubleshooting purposes
-              'stitchClientVueProp': this.stitchClientObj, // For troubleshooting purposes
-              'stitchClientDefault': Stitch.defaultAppClient, // For troubleshooting purposes
-              'stitchClientGetClient': Stitch.getAppClient(stitchAppId), // For troubleshooting purposes
-            },
-            severity: 'warning',
-          });
-          if (retryCount < 1) {
-            retryCount++;
-            this.stitchGetInsights(retryCount);
-          } else {
-            this.handleError('Stitch', 'stitchGetInsights retry', err, 'warning');
-          }
+          this.handleError('Stitch', 'stitchGetInsights', err, 'warning');
         });
     },
 
@@ -159,7 +150,18 @@ export default {
           }
         })
         .catch(err => {
-          this.handleError('Stitch', 'stitchGetUserData', err, 'warning');
+          // this.handleError('Stitch', 'stitchGetUserData', err, 'warning');
+          // Send additional info to bugsnag for troubleshooting
+          bugsnagClient.notify(new Error('Stitch stitchGetUserData - ' + err), {
+            metaData: {
+              'stitch': 'stitchGetUserData',
+              'stitchUserId': userId, // For troubleshooting purposes
+              'stitchClientVueProp': this.stitchClientObj, // For troubleshooting purposes
+              'stitchClientDefault': Stitch.defaultAppClient, // For troubleshooting purposes
+              'stitchClientGetClient': Stitch.getAppClient(stitchAppId), // For troubleshooting purposes
+            },
+            severity: 'warning',
+          });
           if (retryCount < 1) {
             retryCount++;
             this.stitchGetUserData(retryCount);
