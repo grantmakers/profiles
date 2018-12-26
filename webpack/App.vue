@@ -113,7 +113,7 @@ export default {
         .then(result => {
           // Troubleshooting
           let postLoginUserId = result.id;
-          if (preLoginUserId !== postLoginUserId) {
+          if (preLoginUser !== null && preLoginUserId !== postLoginUserId) {
             this.handleError('Stitch', 'stitchLogin', 'UserIDs do not match', 'warning');
           }
           // End troubleshooting
