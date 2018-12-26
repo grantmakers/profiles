@@ -114,7 +114,18 @@ export default {
           // Troubleshooting
           let postLoginUserId = result.id;
           if (preLoginUser !== null && preLoginUserId !== postLoginUserId) {
-            this.handleError('Stitch', 'stitchLogin', 'UserIDs do not match', 'warning');
+            // this.handleError('Stitch', 'stitchLogin', 'UserIDs do not match', 'warning');
+            bugsnagClient.notify(new Error('Stitch stitchLogin - ' + 'UserIDs do not match'), {
+              metaData: {
+                'stitch': 'stitchLogin',
+                'stitchUserIdPreLogin': preLoginUserId,
+                'stitchUserIdPostLogin': postLoginUserId,
+                'stitchClientVueProp': this.stitchClientObj,
+                'stitchClientDefault': Stitch.defaultAppClient,
+                'stitchClientGetClient': Stitch.getAppClient(stitchAppId),
+              },
+              severity: 'warning',
+            });
           }
           // End troubleshooting
           return result;
@@ -141,6 +152,13 @@ export default {
 
     stitchGetUserData: function(count) {
       let retryCount = count;
+      // Troubleshooting
+      const user = localStorage.getItem('__stitch.client.insights-xavlz.auth_info');
+      let userId;
+      if (user !== null) {
+        userId = JSON.parse(user).user_id;
+      }
+      // end troubleshooting
       return this.stitchClientObj.callFunction('getUserData', [])
         .then(result => {
           if (result) {
@@ -162,7 +180,7 @@ export default {
           bugsnagClient.notify(new Error('Stitch stitchGetUserData - ' + err), {
             metaData: {
               'stitch': 'stitchGetUserData',
-              'stitchUserId': userId, // For troubleshooting purposes
+              'stitchUserIdPre': userId, // For troubleshooting purposes
               'stitchClientVueProp': this.stitchClientObj, // For troubleshooting purposes
               'stitchClientDefault': Stitch.defaultAppClient, // For troubleshooting purposes
               'stitchClientGetClient': Stitch.getAppClient(stitchAppId), // For troubleshooting purposes
