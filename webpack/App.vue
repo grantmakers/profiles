@@ -91,12 +91,21 @@ export default {
       return this.stitchClientObj;
     },
 
-    stitchLogin: async function() {
-      const credential = new AnonymousCredential();
-      return await Stitch.defaultAppClient.auth.loginWithCredential(credential)
+    stitchLogin: function() {
+      if (this.stitchClientObj !== Stitch.getAppClient(stitchAppId) || this.stitchClientObj !== Stitch.defaultAppClient) {
+        this.stitchClientObj = Stitch.getAppClient(stitchAppId);
+        this.handleError('Stitch', 'stitchLogin', 'Clients do not match', 'warning');
+      }
+      return this.stitchClientObj.auth.loginWithCredential(new AnonymousCredential())
         .then(result => {
-          user = result; // For troubleshooting purposes
-          return user; // Just return result when finished with troubleshooting
+          // Troubleshooting
+          let preLoginUserId = JSON.parse(localStorage.getItem('__stitch.client.insights-xavlz.auth_info')).user_id;
+          let postLoginUserId = result.id;
+          if (preLoginUserId !== postLoginUserId) {
+            this.handleError('Stitch', 'stitchLogin', 'UserIDs do not match', 'warning');
+          }
+          // End troubleshooting
+          return result;
         })
         .catch(err => {
           this.handleError('Stitch', 'stitchLogin', err, 'warning');
