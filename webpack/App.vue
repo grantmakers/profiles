@@ -99,7 +99,11 @@ export default {
 
     stitchLogin: function() {
       // Troubleshooting
-      let preLoginUserId = JSON.parse(localStorage.getItem('__stitch.client.insights-xavlz.auth_info')).user_id;
+      const preLoginUser = localStorage.getItem('__stitch.client.insights-xavlz.auth_info');
+      let preLoginUserId;
+      if (preLoginUser !== null) {
+        preLoginUserId = JSON.parse(preLoginUser).user_id;
+      }
       if (this.stitchClientObj !== Stitch.getAppClient(stitchAppId) || this.stitchClientObj !== Stitch.defaultAppClient) {
         this.stitchClientObj = Stitch.getAppClient(stitchAppId);
         this.handleError('Stitch', 'stitchLogin', 'Clients do not match', 'info');
