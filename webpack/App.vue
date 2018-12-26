@@ -92,19 +92,22 @@ export default {
         // TODO When would this be reached?
         // TODO If can figure out, might be source of intermittent login error
         this.stitchClientObj = Stitch.defaultAppClient;
+        this.handleError('Stitch', 'stitchSetClient', 'Stitch client already available - should not occur', 'info');
       }
       return this.stitchClientObj;
     },
 
     stitchLogin: function() {
+      // Troubleshooting
+      let preLoginUserId = JSON.parse(localStorage.getItem('__stitch.client.insights-xavlz.auth_info')).user_id;
       if (this.stitchClientObj !== Stitch.getAppClient(stitchAppId) || this.stitchClientObj !== Stitch.defaultAppClient) {
         this.stitchClientObj = Stitch.getAppClient(stitchAppId);
-        this.handleError('Stitch', 'stitchLogin', 'Clients do not match', 'warning');
+        this.handleError('Stitch', 'stitchLogin', 'Clients do not match', 'info');
       }
+      // End troubleshooting
       return this.stitchClientObj.auth.loginWithCredential(new AnonymousCredential())
         .then(result => {
           // Troubleshooting
-          let preLoginUserId = JSON.parse(localStorage.getItem('__stitch.client.insights-xavlz.auth_info')).user_id;
           let postLoginUserId = result.id;
           if (preLoginUserId !== postLoginUserId) {
             this.handleError('Stitch', 'stitchLogin', 'UserIDs do not match', 'warning');
