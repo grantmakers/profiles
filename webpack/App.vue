@@ -89,8 +89,6 @@ export default {
       if (!Stitch.hasAppClient(stitchAppId)) {
         this.stitchClientObj = Stitch.initializeDefaultAppClient(stitchAppId);
       } else {
-        // TODO When would this be reached?
-        // TODO If can figure out, might be source of intermittent login error
         this.stitchClientObj = Stitch.defaultAppClient;
         this.handleError('Stitch', 'stitchSetClient', 'Stitch client already available - should not occur', 'info');
       }
@@ -98,36 +96,8 @@ export default {
     },
 
     stitchLogin: function() {
-      // Troubleshooting
-      const preLoginUser = localStorage.getItem('__stitch.client.insights-xavlz.auth_info');
-      let preLoginUserId;
-      if (preLoginUser !== null) {
-        preLoginUserId = JSON.parse(preLoginUser).user_id;
-      }
-      if (this.stitchClientObj !== Stitch.getAppClient(stitchAppId) || this.stitchClientObj !== Stitch.defaultAppClient) {
-        this.stitchClientObj = Stitch.getAppClient(stitchAppId);
-        this.handleError('Stitch', 'stitchLogin', 'Clients do not match', 'info');
-      }
-      // End troubleshooting
       return this.stitchClientObj.auth.loginWithCredential(new AnonymousCredential())
         .then(result => {
-          // Troubleshooting
-          let postLoginUserId = result.id;
-          if (preLoginUser !== null && preLoginUserId !== postLoginUserId) {
-            // this.handleError('Stitch', 'stitchLogin', 'UserIDs do not match', 'warning');
-            bugsnagClient.notify(new Error('Stitch stitchLogin - ' + 'UserIDs do not match'), {
-              metaData: {
-                'stitch': 'stitchLogin',
-                'stitchUserIdPreLogin': preLoginUserId,
-                'stitchUserIdPostLogin': postLoginUserId,
-                'stitchClientVueProp': this.stitchClientObj,
-                'stitchClientDefault': Stitch.defaultAppClient,
-                'stitchClientGetClient': Stitch.getAppClient(stitchAppId),
-              },
-              severity: 'warning',
-            });
-          }
-          // End troubleshooting
           return result;
         })
         .catch(err => {
@@ -152,13 +122,6 @@ export default {
 
     stitchGetUserData: function(count) {
       let retryCount = count;
-      // Troubleshooting
-      const user = localStorage.getItem('__stitch.client.insights-xavlz.auth_info');
-      let userId;
-      if (user !== null) {
-        userId = JSON.parse(user).user_id;
-      }
-      // end troubleshooting
       return this.stitchClientObj.callFunction('getUserData', [])
         .then(result => {
           if (result) {
@@ -175,18 +138,7 @@ export default {
           }
         })
         .catch(err => {
-          // this.handleError('Stitch', 'stitchGetUserData', err, 'warning');
-          // Send additional info to bugsnag for troubleshooting
-          bugsnagClient.notify(new Error('Stitch stitchGetUserData - ' + err), {
-            metaData: {
-              'stitch': 'stitchGetUserData',
-              'stitchUserIdPre': userId, // For troubleshooting purposes
-              'stitchClientVueProp': this.stitchClientObj, // For troubleshooting purposes
-              'stitchClientDefault': Stitch.defaultAppClient, // For troubleshooting purposes
-              'stitchClientGetClient': Stitch.getAppClient(stitchAppId), // For troubleshooting purposes
-            },
-            severity: 'warning',
-          });
+          this.handleError('Stitch', 'stitchGetUserData', err, 'warning');
           if (retryCount < 1) {
             retryCount++;
             this.stitchGetUserData(retryCount);
