@@ -13,6 +13,9 @@ $(document).ready(function() {
   let allowsLocalStorage = storageTest();
 
   // Load Vue if supported
+  // Hide Vue/Stitch for now
+  $('.js-vue-check').addClass( 'hidden' );
+  /*
   const vue = document.createElement('script');
   vue.src = '{{ site.baseurl }}/assets/js/bundle.js?v={{ site.time | date: "%Y%m%d"}}';
   if (!isIE11 && !isMobile.matches && allowsCookies && allowsLocalStorage && isSupported) {
@@ -20,6 +23,7 @@ $(document).ready(function() {
   } else {
     $('.js-vue-check').addClass( 'hidden' ); // Hide UI elements created in DOM, but handled by Vue
   }
+  */
 
   // Show message if not supported
   if (isIE11 || !isSupported) {
