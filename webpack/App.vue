@@ -20,7 +20,7 @@
 
 <script>
 import { Stitch, AnonymousCredential } from 'mongodb-stitch-browser-core';
-import * as retryAxios from 'retry-axios';
+// import * as retryAxios from 'retry-axios';
 import axios from 'axios';
 import ActionBar from './components/ActionBar';
 import SavedProfilesList from './components/SavedProfilesList';
@@ -29,7 +29,7 @@ import bugsnagClient from './utils/bugsnag.js';
 import M from 'materialize';
 
 // Retry Axios
-const interceptorId = retryAxios.attach(); // eslint-disable-line no-unused-vars
+// const interceptorId = retryAxios.attach(); // eslint-disable-line no-unused-vars
 
 // Component variables
 const stitchAppId = 'insights-xavlz';
@@ -107,6 +107,7 @@ export default {
 
     stitchGetInsights: function() {
       const webhook = 'https://webhooks.mongodb-stitch.com/api/client/v2.0/app/insights-xavlz/service/public/incoming_webhook/insights';
+      const start = Date.now();
       return axios.get(webhook, {
         params: {
           ein: this.org.ein,
@@ -116,7 +117,16 @@ export default {
           this.insights = result.data;
         })
         .catch(err => {
-          this.handleError('Stitch', 'stitchGetInsights', err, 'warning');
+          // this.handleError('Stitch', 'stitchGetInsights', err, 'warning');
+          // Send additional info to bugsnag for troubleshooting
+          bugsnagClient.notify(new Error('Stitch stitchGetInsights - ' + err), {
+            metaData: {
+              'stitch': 'stitchGetInsights',
+              'timeStart': start,
+              'timeEnd': Date.now(),
+            },
+            severity: 'warning',
+          });
         });
     },
 
