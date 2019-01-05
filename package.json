@@ -36,19 +36,18 @@
     "eslint": "^4.19.1",
     "eslint-plugin-frontmatter": "^0.0.6",
     "eslint-plugin-vue": "^4.7.1",
-    "mongodb-stitch-browser-sdk": "^4.1.1",
+    "mongodb-stitch-browser-sdk": "^4.1.2",
     "path": "^0.12.7",
     "vue": "^2.5.21",
     "vue-clipboard2": "^0.2.1",
-    "vue-loader": "^15.4.2",
+    "vue-loader": "^15.5.0",
     "vue-template-compiler": "^2.5.21",
-    "webpack": "^4.27.1",
-    "webpack-cli": "^3.1.2"
+    "webpack": "^4.28.3",
+    "webpack-cli": "^3.2.0"
   },
   "dependencies": {
     "axios": "^0.18.0",
     "bugsnag-js": "^4.7.3",
-    "bugsnag-vue": "^1.0.1",
-    "retry-axios": "^0.3.2"
+    "bugsnag-vue": "^1.0.1"
   }
 }
