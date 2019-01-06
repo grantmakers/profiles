@@ -135,8 +135,7 @@ export default {
           bugsnagClient.notify(new Error('Stitch stitchGetInsights - ' + err), {
             metaData: {
               'stitch': 'stitchGetInsights',
-              'timeStart': start,
-              'timeEnd': Date.now(),
+              'duration': Date.now() - start,
               'axiosDetail': troubleshoot,
             },
             severity: 'warning',
