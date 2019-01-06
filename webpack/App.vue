@@ -107,6 +107,7 @@ export default {
       const start = Date.now();
       let troubleshoot = {};
       return axios.get(webhook, {
+        timeout: 3000,
         params: {
           ein: this.org.ein,
         },
