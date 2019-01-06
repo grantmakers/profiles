@@ -97,9 +97,6 @@ export default {
 
     stitchLogin: function() {
       return this.stitchClientObj.auth.loginWithCredential(new AnonymousCredential())
-        .then(result => {
-          return result;
-        })
         .catch(err => {
           this.handleError('Stitch', 'stitchLogin', err, 'warning');
         });
