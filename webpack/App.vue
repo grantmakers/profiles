@@ -114,6 +114,7 @@ export default {
       })
         .then(result => {
           this.insights = result.data;
+          this.trackWebhooks(start, Date.now(), 'Success');
         })
         .catch(err => {
           // https://github.com/axios/axios#handling-errors
@@ -130,6 +131,7 @@ export default {
             troubleshoot.explanation = 'Something happened in setting up the request that triggered an Error';
           }
           troubleshoot.config = err.config;
+          this.trackWebhooks(start, Date.now(), 'Fail');
           // this.handleError('Stitch', 'stitchGetInsights', err, 'warning');
           // Send additional info to bugsnag for troubleshooting
           bugsnagClient.notify(new Error('Stitch stitchGetInsights - ' + err), {
@@ -198,6 +200,15 @@ export default {
       obj.metaData[context] = fname;
       obj.severity = priority;
       return bugsnagClient.notify(new Error(context + ' ' + fname + ' - ' + err), obj);
+    },
+
+    trackWebhooks: function(start, finish, outcome) {
+      ga('send', 'event', {
+        'eventCategory': 'Profile Events',
+        'eventAction': 'Insight Webhooks',
+        'eventLabel': 'Webhook ' + outcome,
+        'eventValue': finish - start,
+      });
     },
   },
 };
