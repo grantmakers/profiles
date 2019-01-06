@@ -164,7 +164,6 @@ export default {
           }
         })
         .catch(err => {
-          this.handleError('Stitch', 'stitchGetUserData', err, 'warning');
           if (retryCount < 1) {
             retryCount++;
             this.stitchGetUserData(retryCount);
