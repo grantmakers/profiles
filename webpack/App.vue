@@ -105,7 +105,6 @@ export default {
     stitchGetInsights: function() {
       const webhook = 'https://webhooks.mongodb-stitch.com/api/client/v2.0/app/insights-xavlz/service/public/incoming_webhook/insights';
       const start = Date.now();
-      let troubleshoot = {};
       return axios.get(webhook, {
         timeout: 3000,
         params: {
@@ -117,20 +116,6 @@ export default {
           this.trackWebhooks(start, Date.now(), 'Success');
         })
         .catch(err => {
-          // https://github.com/axios/axios#handling-errors
-          if (err.response) {
-            troubleshoot.data = err.response.data;
-            troubleshoot.status = err.response.status;
-            troubleshoot.headers = err.response.headers;
-            troubleshoot.explanation = 'The request was made and the server responded with a status code that falls out of the range of 2xx';
-          } else if (err.request) {
-            troubleshoot.request = err.request;
-            troubleshoot.explanation = 'The request was made but no response was received. `error.request` is an instance of XMLHttpRequest in the browser and an instance of http.ClientRequest in node.js';
-          } else {
-            troubleshoot.message = err.message;
-            troubleshoot.explanation = 'Something happened in setting up the request that triggered an Error';
-          }
-          troubleshoot.config = err.config;
           this.trackWebhooks(start, Date.now(), 'Fail');
           // this.handleError('Stitch', 'stitchGetInsights', err, 'warning');
           // Send additional info to bugsnag for troubleshooting
@@ -138,7 +123,8 @@ export default {
             metaData: {
               'stitch': 'stitchGetInsights',
               'duration': Date.now() - start,
-              'axiosDetail': troubleshoot,
+              'axiosSummary': this.transformAxiosErrorResult(err),
+              'axiosDetail': JSON.stringify(err),
             },
             severity: 'warning',
           });
@@ -200,6 +186,30 @@ export default {
       obj.metaData[context] = fname;
       obj.severity = priority;
       return bugsnagClient.notify(new Error(context + ' ' + fname + ' - ' + err), obj);
+    },
+
+    transformAxiosErrorResult: function(err) {
+      let troubleshoot = {};
+      // Capture ECONNABORTED, ECONNRESET, ECONNREFUSED, and ???
+      if (err.code) {
+        troubleshoot.code = err.code;
+      }
+      // Handle everything else
+      // https://github.com/axios/axios#handling-errors
+      if (err.response) {
+        troubleshoot.data = err.response.data;
+        troubleshoot.status = err.response.status;
+        troubleshoot.headers = err.response.headers;
+        troubleshoot.explanation = 'The request was made and the server responded with a status code that falls out of the range of 2xx';
+      } else if (err.request) {
+        troubleshoot.request = err.request;
+        troubleshoot.explanation = 'The request was made but no response was received. `error.request` is an instance of XMLHttpRequest in the browser and an instance of http.ClientRequest in node.js';
+      } else {
+        troubleshoot.message = err.message;
+        troubleshoot.explanation = 'Something happened in setting up the request that triggered an Error';
+      }
+      troubleshoot.config = err.config;
+      return troubleshoot;
     },
 
     trackWebhooks: function(start, finish, outcome) {
