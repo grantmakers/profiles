@@ -106,7 +106,7 @@ export default {
       const webhook = 'https://webhooks.mongodb-stitch.com/api/client/v2.0/app/insights-xavlz/service/public/incoming_webhook/insights';
       const start = Date.now();
       return axios.get(webhook, {
-        timeout: 3000,
+        timeout: 4000,
         params: {
           ein: this.org.ein,
         },
