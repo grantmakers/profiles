@@ -117,17 +117,8 @@ export default {
         })
         .catch(err => {
           this.trackWebhooks(start, Date.now(), 'Fail');
-          // this.handleError('Stitch', 'stitchGetInsights', err, 'warning');
           // Send additional info to bugsnag for troubleshooting
-          bugsnagClient.notify(new Error('Stitch stitchGetInsights - ' + err), {
-            metaData: {
-              'stitch': 'stitchGetInsights',
-              'duration': Date.now() - start,
-              'axiosSummary': this.transformAxiosErrorResult(err),
-              'axiosDetail': JSON.stringify(err),
-            },
-            severity: 'warning',
-          });
+          this.transformAxiosErrorResult(err, start);
         });
     },
 
@@ -188,12 +179,15 @@ export default {
       return bugsnagClient.notify(new Error(context + ' ' + fname + ' - ' + err), obj);
     },
 
-    transformAxiosErrorResult: function(err) {
+    transformAxiosErrorResult: function(err, start) {
       let troubleshoot = {};
+      troubleshoot.sendBugsnagReport = true;
+
       // Capture ECONNABORTED, ECONNRESET, ECONNREFUSED, and ???
       if (err.code) {
         troubleshoot.code = err.code;
       }
+
       // Handle everything else
       // https://github.com/axios/axios#handling-errors
       if (err.response) {
@@ -201,6 +195,12 @@ export default {
         troubleshoot.status = err.response.status;
         troubleshoot.headers = err.response.headers;
         troubleshoot.explanation = 'The request was made and the server responded with a status code that falls out of the range of 2xx';
+        
+        // Capture Enativ software - no need to report to Bugsnag
+        if (err.response.status && err.response.status === 429) {
+          troubleshoot.sendBugsnagReport = false;
+          return;
+        }
       } else if (err.request) {
         troubleshoot.request = err.request;
         troubleshoot.explanation = 'The request was made but no response was received. `error.request` is an instance of XMLHttpRequest in the browser and an instance of http.ClientRequest in node.js';
@@ -209,7 +209,18 @@ export default {
         troubleshoot.explanation = 'Something happened in setting up the request that triggered an Error';
       }
       troubleshoot.config = err.config;
-      return troubleshoot;
+
+      if (troubleshoot.sendBugsnagReport === true) {
+        this.trackWebhooks(start, Date.now(), 'Fail');
+        bugsnagClient.notify(new Error('Stitch stitchGetInsights - ' + err), {
+          metaData: {
+            'stitch': 'stitchGetInsights',
+            'duration': Date.now() - start,
+            'axiosSummary': troubleshoot,
+          },
+          severity: 'warning',
+        });
+      }
     },
 
     trackWebhooks: function(start, finish, outcome) {
