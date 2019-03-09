@@ -193,6 +193,89 @@ input::-ms-clear {
 }
 
 /************************************
+Print
+*************************************/
+
+@media print {
+  @page {
+    size: 330mm 427mm;
+    margin: 14mm;
+	}
+
+	// No borders / shadows
+	.main-raised {
+		margin: 0 !important;
+		box-shadow: none !important;
+	}
+
+	// Fixed header
+	#main-nav {
+		display: none;
+	}
+
+	// Background image
+	.header-bg {
+		display: none;
+	}
+
+	// Maximize space on page
+	.main {
+		top: 150px;
+	}
+	#profile, #summary, #people {
+		margin-bottom: 0 !important;
+	}
+	.card-panel-header h4 {
+		line-height: initial;
+		margin: 0;
+	}
+
+	// Summary & People
+	.col.s12.l4 {
+		width: 33.3333333333%;
+	}
+	.col.s12.l7.offset-l1 {
+		margin-left: 8.3333333333%;
+		width: 58.3333333333%;
+	}
+
+	// Grants
+	.pushpin-nav-search, .pin-bottom {
+		position: relative !important;
+		top: 0px !important;
+	}
+	.pinned {
+		box-shadow: none !important;
+	}
+	.pin-bottom  {
+		display: block !important;
+	}
+	.pin-bottom .profile-content #grants .card-panel-header-wrapper {
+		height: inherit !important;
+	}
+	// Filters
+	.ais-stats {
+		display: none;
+	}
+	.section-refinements .card {
+		width: 33% !important;
+		height: 316px;
+		display: inline-table;
+		box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.05), 0 3px 1px -2px rgba(0, 0, 0, 0.05), 0 1px 5px 0 rgba(0, 0, 0, 0.05)
+	}
+
+	// Dynamic Vue elements
+	.left-action-bar {
+		display: none !important;
+	}
+
+	// Enable helpers
+	.print-hidden {
+		display: none !important;
+	}
+}
+
+/************************************
 List Groups Component
 *************************************/
 
