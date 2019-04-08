@@ -103,7 +103,8 @@ export default {
     },
 
     stitchGetInsights: function() {
-      const webhook = 'https://webhooks.mongodb-stitch.com/api/client/v2.0/app/insights-xavlz/service/public/incoming_webhook/insights';
+      // const webhook = 'https://webhooks.mongodb-stitch.com/api/client/v2.0/app/insights-xavlz/service/public/incoming_webhook/insights';
+      const webhook = 'https://webhooks.mongodb-stitch.com/api/client/v2.0/app/insights-xavlz/service/public/incoming_webhook/insights-troubleshoot';
       const start = Date.now();
       return axios.get(webhook, {
         timeout: 4000,
