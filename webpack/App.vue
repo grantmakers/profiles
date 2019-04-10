@@ -103,9 +103,27 @@ export default {
     },
 
     stitchGetInsights: function() {
-      // const webhook = 'https://webhooks.mongodb-stitch.com/api/client/v2.0/app/insights-xavlz/service/public/incoming_webhook/insights';
-      const webhook = 'https://webhooks.mongodb-stitch.com/api/client/v2.0/app/insights-xavlz/service/public/incoming_webhook/insights-troubleshoot';
       const start = Date.now();
+      // const webhook = 'https://webhooks.mongodb-stitch.com/api/client/v2.0/app/insights-xavlz/service/public/incoming_webhook/insights';
+      
+      // Troubleshooting
+      const webhook = 'https://webhooks.mongodb-stitch.com/api/client/v2.0/app/insights-xavlz/service/public/incoming_webhook/insights-troubleshoot';
+      const gcf = 'https://us-central1-infinite-badge-163220.cloudfunctions.net/axios-troubleshoot';
+      
+      axios.get(gcf, {
+        timeout: 4000,
+        crossdomain: true,
+      })
+        .then(() => {
+          this.trackTroubleshootingWebhooks(start, Date.now(), 'Success');
+        })
+        .catch(err => {
+          this.trackTroubleshootingWebhooks(start, Date.now(), 'Fail');
+          // Send additional info to bugsnag for troubleshooting
+          console.log(err);
+          this.transformAxiosErrorResult(err, start);
+        });
+      
       return axios.get(webhook, {
         timeout: 4000,
         params: {
@@ -229,6 +247,15 @@ export default {
         'eventCategory': 'Profile Events',
         'eventAction': 'Insight Webhooks',
         'eventLabel': 'Webhook ' + outcome,
+        'eventValue': finish - start,
+      });
+    },
+
+    trackTroubleshootingWebhooks: function(start, finish, outcome) {
+      ga('send', 'event', {
+        'eventCategory': 'Profile Events',
+        'eventAction': 'Insight Webhooks Troubleshooting',
+        'eventLabel': 'Troubleshooting Webhook ' + outcome,
         'eventValue': finish - start,
       });
     },
