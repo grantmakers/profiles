@@ -104,10 +104,9 @@ export default {
 
     stitchGetInsights: function() {
       const start = Date.now();
-      // const webhook = 'https://webhooks.mongodb-stitch.com/api/client/v2.0/app/insights-xavlz/service/public/incoming_webhook/insights';
+      const webhook = 'https://webhooks.mongodb-stitch.com/api/client/v2.0/app/insights-xavlz/service/public/incoming_webhook/insights';
       
       // Troubleshooting
-      const webhook = 'https://webhooks.mongodb-stitch.com/api/client/v2.0/app/insights-xavlz/service/public/incoming_webhook/insights-troubleshoot';
       const gcf = 'https://us-central1-infinite-badge-163220.cloudfunctions.net/axios-troubleshoot';
       
       axios.get(gcf, {
@@ -126,6 +125,7 @@ export default {
       
       return axios.get(webhook, {
         timeout: 4000,
+        crossdomain: true,
         params: {
           ein: this.org.ein,
         },
