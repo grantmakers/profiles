@@ -25,17 +25,16 @@ let config = {
     rules: [
       {
         test: /\.vue$/,
-        loader: 'vue-loader',
-        options: {
-          loaders: {
-            js: 'babel?presets[]=es2015',
-          },
+        use: {
+          loader: 'vue-loader',
         },
       },
       {
         test: /\.js?$/,
         exclude: /(node_modules)/,
-        loader: 'babel-loader',
+        use: {
+          loader: 'babel-loader',
+        },
       },
     ],
   },
