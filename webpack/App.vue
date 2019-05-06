@@ -20,7 +20,7 @@
 
 <script>
 import { Stitch, AnonymousCredential } from 'mongodb-stitch-browser-core';
-// import * as retryAxios from 'retry-axios';
+import * as rax from 'retry-axios';
 import axios from 'axios';
 import ActionBar from './components/ActionBar';
 import SavedProfilesList from './components/SavedProfilesList';
@@ -29,7 +29,7 @@ import bugsnagClient from './utils/bugsnag.js';
 import M from 'materialize';
 
 // Retry Axios
-// const interceptorId = retryAxios.attach(); // eslint-disable-line no-unused-vars
+const interceptorId = rax.attach(); // eslint-disable-line no-unused-vars
 
 // Component variables
 const stitchAppId = 'insights-xavlz';
@@ -105,12 +105,16 @@ export default {
     stitchGetInsights: function() {
       const start = Date.now();
       const webhook = 'https://webhooks.mongodb-stitch.com/api/client/v2.0/app/insights-xavlz/service/public/incoming_webhook/insights';
-      
       return axios.get(webhook, {
         timeout: 4000,
         crossdomain: true,
         params: {
           ein: this.org.ein,
+        },
+        raxConfig: {
+          retry: 1,
+          noResponseRetries: 1,
+          statusCodesToRetry: [[100, 199], [500, 599]],
         },
       })
         .then(result => {

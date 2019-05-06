@@ -1,6 +1,6 @@
 {
   "name": "grantmakersio",
-  "version": "0.1.21",
+  "version": "0.1.22",
   "description": "Summary profiles for all US-based foundations who have filed electronic IRS Form 990-PF",
   "main": "bundle.js",
   "scripts": {
@@ -50,6 +50,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "bugsnag-js": "^4.7.3",
-    "bugsnag-vue": "^1.0.1"
+    "bugsnag-vue": "^1.0.1",
+    "retry-axios": "^1.0.1"
   }
 }
