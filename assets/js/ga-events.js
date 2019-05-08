@@ -39,13 +39,7 @@ $(document).ready(function() {
   });
 
   // Algolia grants search box
-  $('#search-input').on('focus', function() {
-    ga('send', 'event', {
-      'eventCategory': 'Profile Events',
-      'eventAction': 'Profile Search Focus',
-      'eventLabel': 'Grants search',
-    });
-  });
+  // see search.js
 
   // Algolia Autocomplete search box
   $('#autocomplete-input').on('focus', function() {

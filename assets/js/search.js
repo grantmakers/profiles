@@ -10,6 +10,7 @@ $(document).ready(function() {
   const isPhone = window.matchMedia('only screen and (max-width: 600px)');
   // const isMobile = window.matchMedia('only screen and (max-width: 992px)');
   let gaCheck = window[window['GoogleAnalyticsObject'] || 'ga']; // eslint-disable-line dot-notation
+  let gaCount = 0;
 
   const formatter = new Intl.NumberFormat('en-US', {
     style: 'decimal',
@@ -61,6 +62,7 @@ $(document).ready(function() {
       queryHook: function(query, searchInstance) {
         readyToSearchScrollPosition();
         searchInstance(query);
+        gaEvents();
       },
     })
   );
@@ -489,6 +491,19 @@ $(document).ready(function() {
         offset: 64,
       });
     }
+  }
+
+  // GA Events
+  // =======================================================
+  function gaEvents() {
+    if (typeof gaCheck === 'function' && gaCount === 0) {
+      ga('send', 'event', {
+        eventCategory: 'Profile Events',
+        eventAction: 'Profile Search Focus',
+        eventLabel: 'Grants search',
+      });
+    }
+    gaCount++;
   }
 
   // Temp solution for table header clicks
