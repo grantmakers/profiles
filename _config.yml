@@ -20,8 +20,8 @@ plugins:
 
 # Last updated - used in creating redirects if name has changed
 # Format: "YYYY-MM-DDTHH:MM:SS.fffZ"
-last_updated_grantmakers: '2019-05-05T18:45:11.413Z'
-number_of_profiles: 84536
+last_updated_grantmakers: '2019-05-17T15:10:52.485Z'
+number_of_profiles: 84793
 
 algolia_referral_link: http://goto.algolia.com/l/139121/2017-10-24/26gc84
 
