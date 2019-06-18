@@ -3,7 +3,7 @@
 $(document).ready(function() {
   'use strict';
 
-  var client = algoliasearch('KDWVSZVS1I', 'ce4d584b0de36ca3f8b4727fdb83c658');
+  var client = algoliasearch('KDWVSZVS1I', '{{ site.algolia_public_key_profiles }}');
   var index = client.initIndex('grantmakers_io');
   
   autocomplete('#autocomplete-input', { hint: false, openOnFocus: false, minLength: 1 }, [

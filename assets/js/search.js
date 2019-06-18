@@ -31,7 +31,7 @@ $(document).ready(function() {
   // Config
   const search = instantsearch({
     appId: 'QA1231C5W9',
-    apiKey: 'cd47ecb3457441878399b20acc8c3fbc',
+    apiKey: '{{ site.algolia_public_key_grants }}',
     indexName: 'grantmakers_io',
     numberLocale: 'en-US',
     routing: true,
