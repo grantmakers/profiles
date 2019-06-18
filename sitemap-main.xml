@@ -10,10 +10,10 @@ layout: null
     <loc>{{site.url}}/profiles/</loc>
   </url>
   <url>
-    <loc>{{site.url}}/profiles-search/</loc>
+    <loc>{{site.url}}/search/profiles/</loc>
   </url>
   <url>
-    <loc>{{site.url}}/grants-search/</loc>
+    <loc>{{site.url}}/search/grants/</loc>
   </url>
   <url>
     <loc>{{site.url}}/about/</loc>
