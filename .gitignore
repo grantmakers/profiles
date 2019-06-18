@@ -9,3 +9,4 @@ node_modules/
 
 assets/js/bundle.js
 assets/js/bundle.js.map
+_config_development.yml
