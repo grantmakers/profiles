@@ -402,7 +402,9 @@
                   </div>
                   {% if algolia == true %}
                   <div class="section section-results js-ie-check">
-                    <div class="row">
+                      {% include algolia/algolia-template-rate-limit.html %}
+                      {% include algolia/algolia-template-forbidden.html %}
+                    <div id="algolia-hits-wrapper" class="row">
                       <div class="col s12 l3">
                         <!-- Filters / Refinements header -->
                         <div class="ais-root ais-stats">

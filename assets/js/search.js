@@ -474,6 +474,17 @@ $(document).ready(function() {
     showTableHeaderToast();
   });
 
+  search.on('error', function(e) {
+    if (e.statusCode === 429) {
+      renderRateLimit();
+      console.log('Rate limit reached');
+    }
+    if (e.statusCode === 403) {
+      renderForbidden();
+      console.log('Origin forbidden');
+    }
+  });
+
   // Scroll to top upon input change
   // =======================================================
   function readyToSearchScrollPosition() {
@@ -554,6 +565,22 @@ $(document).ready(function() {
     return Math.random()
       .toString(36)
       .substr(2, 10);
+  }
+
+  function renderRateLimit() {
+    const message = document.getElementById('rate-limit-message');
+    message.classList.remove('hidden');
+
+    const results = document.getElementById('algolia-hits-wrapper');
+    results.classList.add('hidden');
+  }
+
+  function renderForbidden() {
+    const message = document.getElementById('forbidden-message');
+    message.classList.remove('hidden');
+
+    const results = document.getElementById('algolia-hits-wrapper');
+    results.classList.add('hidden');
   }
 
   /*
