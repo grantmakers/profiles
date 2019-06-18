@@ -31,6 +31,7 @@ $(document).ready(function() {
   // Materialize components
   // =======================================================
   window.onload = function() {
+    $('.sidenav').sidenav();
     $('.tooltipped:not(.v-tooltipped)').tooltip(); // :not ensures Vue handles relevant initiation for Vue-controlled elements
     $('.collapsible').collapsible({
       'accordion': false,
