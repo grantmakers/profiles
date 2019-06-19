@@ -876,12 +876,14 @@ form#login {
 	#profile-cta {
 		margin-top: 75px;
 		margin-bottom: 75px; 
-		i {
-			line-height: 1.5;
-			z-index: 1;
-			background-color: #fafafa;
-			border-top-left-radius: 3px;
-			border-bottom-left-radius: 3px;
+		.input-field {
+			i {
+				line-height: 1.5;
+				z-index: 1;
+				background-color: #fafafa;
+				border-top-left-radius: 3px;
+				border-bottom-left-radius: 3px;
+			}
 		}
 		.algolia-logo-autocomplete {
 			margin-bottom: 10px;
