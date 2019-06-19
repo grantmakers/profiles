@@ -592,7 +592,7 @@
                             {% if page.grants_application_contact %}
                               <p>{{ page.grants_application_contact.name }}</p>
                               {% if page.grants_application_contact.email contains '@' %}
-                                <p><a href="mailto:{{ page.grants_application_contact.email | downcase }}" class="blue-grey-text">{{ page.grants_application_contact.email | downcase }}</a></p>
+                                <p><a href="mailto:{{ page.grants_application_contact.email | downcase }}" class="blue-grey-text" data-ga="Refer to Fdn Email">{{ page.grants_application_contact.email | downcase }}</a></p>
                               {% else %}
                                 <p class="blue-grey-text">{{ page.grants_application_contact.email }}</p>
                               {% endif %}
@@ -645,7 +645,7 @@
                           -->
                         </div>
                         {% unless page.ein == '650971968' %}
-                          <p class="center"><a href="{{ site.url }}{{ site.baseurl }}/v0/650971968-floyd-c-johnson-and-flo-singer-johnson-foundation/" class="blue-grey-text">View an example</a></p>
+                          <p class="center"><a href="{{ site.url }}{{ site.baseurl }}/v0/650971968-floyd-c-johnson-and-flo-singer-johnson-foundation/" class="blue-grey-text" data-ga="View an Insights Example">View an example</a></p>
                         {% endunless %}
                       </li>
                     </ul>
