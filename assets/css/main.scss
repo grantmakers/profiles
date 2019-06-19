@@ -78,6 +78,7 @@ $accent-color: $grantmakers;
 $text-muted: #757575;
 $text-muted-max: #9e9e9e;
 $text-color: rgba(0,0,0,0.87);
+$placeholder: $text-muted-max;
 .btn, .accent {
   background-color: $accent-color;
 }
@@ -1124,9 +1125,21 @@ form#login {
 			box-shadow: none;
 			margin-bottom: 0;
 			border-radius: 3px;
+			&::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+				color: $placeholder;
+			}
+			&::-moz-placeholder { /* Firefox 19+ */
+				color: $placeholder;
+			}
+			&:-ms-input-placeholder { /* IE 10+ */
+				color: $placeholder;
+			}
+			&:-moz-placeholder { /* Firefox 18- */
+				color: $placeholder;
+			}
 		}
 		.ais-search-box--magnifier, .ais.ais-search-box--reset {
-			fill: #bfc7d8;
+			fill: $text-color;
 		}
 		.ais-search-box--magnifier {
 			top: calc(50% - 18px/2)
