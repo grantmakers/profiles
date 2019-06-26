@@ -358,7 +358,7 @@ $(document).ready(function() {
   search.addWidget(
     instantsearch.widgets.pagination({
       container: '#ais-widget-pagination',
-      scrollTo: '#grants',
+      scrollTo: '#grants-scroll-anchor', // #grants used in v2
       cssClasses: {
         root: 'pagination',
         page: 'waves-effect',
