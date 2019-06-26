@@ -15,6 +15,7 @@ module.exports = {
   "globals": {
     "M": true,
     "instantsearch": true,
+    "algoliasearch": true,
     "stitch": true,
     "ga": true,
     "bugsnagClient": true,
@@ -150,7 +151,7 @@ module.exports = {
     "eol-last": [2, "always"],                   // http://eslint.org/docs/rules/eol-last
     "linebreak-style": [2, "unix"],
     "func-names": [0, "as-needed"],                 // http://eslint.org/docs/rules/func-names
-    "func-style": [2, "declaration"], // http://eslint.org/docs/rules/func-style
+    "func-style": [2, "declaration", { "allowArrowFunctions": true }], // http://eslint.org/docs/rules/func-style
     "key-spacing": [2, {             // http://eslint.org/docs/rules/key-spacing
         "beforeColon": false,
         "afterColon": true

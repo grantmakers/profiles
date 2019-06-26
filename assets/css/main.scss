@@ -88,6 +88,12 @@ $placeholder: $text-muted-max;
 .text-muted-max {
   color: $text-muted-max !important;
 }
+.text-bold {
+	font-weight: 700;
+}
+.text-light, .text-thin {
+	font-weight: 300;
+}
 .accent-text {
   color: $accent-color;
 }
@@ -878,6 +884,65 @@ form#login {
 	}
 }
 
+/****************************
+Mimic Algolia them - only the good parts
+*****************************/
+// Use these if NOT using algolia-theme
+.ais-CurrentRefinements-delete, .ais-CurrentRefinements-reset, .ais-GeoSearch-redo, .ais-GeoSearch-reset, .ais-HierarchicalMenu-showMore, .ais-InfiniteHits-loadMore, .ais-InfiniteResults-loadMore, .ais-Menu-showMore, .ais-RangeInput-submit, .ais-RefinementList-showMore, .ais-SearchBox-reset, .ais-SearchBox-submit {
+  padding: 0;
+  overflow: visible;
+  font: inherit;
+  line-height: normal;
+  color: inherit;
+  background: none;
+  border: 0;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+[class^=ais-] {
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+.ais-SearchBox-form {
+  display: block;
+  position: relative;
+}
+.ais-SearchBox-loadingIndicator, .ais-SearchBox-reset, .ais-SearchBox-submit {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  position: absolute;
+  z-index: 1;
+  width: 20px;
+  height: 20px;
+  top: 50%;
+  right: .3rem;
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+.ais-SearchBox-submit {
+  left: .3rem;
+}
+.ais-SearchBox-submitIcon {
+  width: 14px;
+  height: 14px;
+}
+.ais-SearchBox-loadingIcon, .ais-SearchBox-resetIcon, .ais-SearchBox-submitIcon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translateX(-50%) translateY(-50%);
+  transform: translateX(-50%) translateY(-50%);
+}
+.ais-Highlight-highlighted, .ais-Snippet-highlighted {
+  background-color: lighten($accent-color, 50%); // Target color: #feebde
+  font-size: inherit !important;
+  color: inherit !important;
+}
+
 // Profiles
 .profile-content {
 	#profile, #noscript, #feedback, #profile-share, #information-source {
@@ -1068,13 +1133,18 @@ form#login {
 			background-color: $grantmakers !important;
 		}
 	}
+	/****************************
+	Grants / InstantSearch wrapper
+	*****************************/
 	#grants {
+		font-weight: 400;
 		a {
 			color: inherit;
 		}
-		.section-results { // TODO Feels like a hack
-			padding-left: 1rem; 
-			padding-right: 1rem; 
+		.section-results {
+			clear: both;
+			padding-left: 1rem; // TODO Feels like a hack
+			padding-right: 1rem; // TODO Feels like a hack
 		}
 		.card-panel-header-wrapper {
 			height: 82px; // Fix for pushpin jump
@@ -1151,28 +1221,21 @@ form#login {
 				color: $placeholder;
 			}
 		}
-		.ais-search-box--magnifier, .ais.ais-search-box--reset {
-			fill: $text-color;
+		input::placeholder {
+			color: $text-muted-max;
+			@media #{$medium-and-down} {
+				font-size: 85%;
+			}
 		}
-		.ais-search-box--magnifier {
-			top: calc(50% - 18px/2)
-		}
-		.ais-search-box--magnifier svg {
-			height: 18px;
-			width: 18px;
-		}
-		.ais-search-box--reset {
-			//top: calc(50% - 12px/2);
-			top: calc(50% - 10px/2);
-			right: 10px;
-			padding: 5px;
-			margin: -5px;
+		button.ais-SearchBox-reset, button.ais-SearchBox-submit {
 			&:focus {
 				background-color: inherit;
 			}
-			svg {
-				fill: $text-muted;
-			}
+		}
+		.ais-SearchBox-submitIcon, .ais-SearchBox-resetIcon, .ais-SearchBox-loadingIcon {
+			fill: $text-muted;
+			width: 16px;
+			height: 16px;
 		}
 		.algolia-loading {
 			display: inline-block;
@@ -1183,9 +1246,16 @@ form#login {
 		}
 	}
 	/* Stats */
-	.ais-stats--body {
-		color: $text-muted;
-		font-weight: 400;
+	.ais-Stats-text span {
+		@media #{$medium-and-down} {
+			// display: none;
+		}
+		&:before {
+			content: "(";
+		}
+		&:after {
+			content: ")"
+		}
 	}
 	.center-align-on-mobile {
 		@media #{$small-and-down} {
@@ -1249,39 +1319,26 @@ form#login {
 			background-color: $accent-color;
 		}
 		label {
-			// TODO Eliminate truncate hack
-			width: 78%;
-			display: inline-block;
-			text-overflow: ellipsis;
-			overflow: hidden;
-		}
-		span.refinement-count {
-			line-height: 25px;
-			height: 25px;
-		}
-		label {
 			color: inherit;
 		}
-		.ais-refinement-list--item__active {
-			color: $accent-color;
-			span {
-				color: $accent-color !important;
+		.ais-RefinementList-labelText {
+			width: 80%;
+		}
+		.ais-RefinementList-item--selected {
+			.ais-RefinementList-labelText, .ais-RefinementList-count {
+				color: $accent-color;
 			}
 		}
-		.ais-refinement-list--item__active
-		.ais-show-more, .show-more {
-			margin-top: 24px;
-		}
-		.ais-refinement-list--list:empty::after {
+		.ais-RefinementList--list:empty::after {
 			content: 'No results'; 
 		}
 
-		/* Range slider */
-		.ais-range-slider--handle {
-			border-color: $text-muted;
+		/* Range Slider */
+		.ais-RangeSlider .rheostat-progress {
+			@extend .grey, .lighten-5;
 		}
-		.ais-range-slider .rheostat-horizontal .rheostat-progress {
-			background-color: #fafafa;
+		.ais-RangeSlider--handle {
+			border-color: $text-muted;
 		}
 	}
 
@@ -1313,6 +1370,62 @@ form#login {
 		display: inline-block;
 	}
 
+	/* Current Refinements */
+	#ais-widget-current-refined-values {
+		ul {
+			margin-top: 10px;
+			margin-bottom: 0px;
+			&:empty {
+				margin-top: 0px;
+			}
+		}
+		ul li {
+			margin: 0;
+			// margin-right: 0.5rem;
+			// margin-top: 0.5rem;
+			margin-bottom: 0.5rem;
+			padding: 0px 2px;
+		}
+		.btn:hover {
+			background-color: $grantmakers;
+		}
+		.ais-CurrentRefinements-label {
+			font-size: 85%;
+		}
+		.ais-CurrentRefinements-category {
+			padding-left: 5px;
+		}
+		button {
+			// padding-left: 5px;
+			// line-height: 100%;
+			/*
+			&:before {
+				font-family: "Material Icons";
+				content: "remove_circle";
+				color: white;
+				vertical-align: top;
+			} 
+			&:focus {
+				background-color: inherit;
+				color: inherit;
+			}
+			*/
+		}
+	}
+
+	/* Mobile Refinememnts */
+	#refinements-slide-out {
+		.ais-Panel.card {
+			margin: 0;
+		}
+		.ais-RefinementList-item {
+			line-height: 2.5rem;
+		}
+		label {
+			color: inherit;
+		}
+	}
+
 	/* Hits */
 	table tbody {
 		font-weight: 300;
@@ -1328,46 +1441,20 @@ form#login {
 		margin: 0.5em;
 		margin-top: 1em; // To match responsive table wrapper
 	}
-	.ais-current-refined-values--item {
-		display: inline-block;
-	}
-	.btn-clear-refinements {
-		margin: 5px 5px;
-	}
-
-	/* Infinite Hits */
-	.infinite-hits-wrapper {
-		.card-title {
-			font-size: 1rem;
-			line-height: 1rem;
-			font-weight: 600;
-		}
-		.ais-infinite-hits-wrapper {
-			.row > div {
-				padding-top: 2px;
-				padding-bottom: 2px;
-			}
-		}
-		.ais-infinite-hits {
-			span.badge.new::after {
-				display: none;
-			}
-			@media screen and (max-width: 992px) {
-				.right-align {
-					text-align: left;
-				}
-			}
-		}
-		.infinite-hits-show-more-wrapper {
-			display: block;
-			margin-top: 48px;
-		}
-	}
 
 	/* Pagination */
-	.ais-pagination--item {
-		// display: inherit;
-		padding: 0 3px;
+	/* Pagination */
+	.pagination li.active {
+		background-color: $grantmakers;
+		color: white;
+	}
+	.pagination {
+		.disabled {
+			visibility: hidden;
+		}
+	}
+	.ais-Pagination-list {
+		display: inherit;
 	}
 
 	// http://maxdesign.com.au/articles/simple-responsive-table/

@@ -1,6 +1,5 @@
 ---
 ---
-/* eslint quote-props: ["error", "as-needed"] */
 $(document).ready(function() {
   'use strict';
   // Helper definitions
@@ -29,35 +28,90 @@ $(document).ready(function() {
   // Algolia Instantsearch
   // =======================================================
   // Config
+  const searchClient = algoliasearch('QA1231C5W9', '{{ site.algolia_public_key_grants }}');
+  const facets = [
+    {
+      facet: 'tax_year',
+      label: 'Tax Year',
+    },
+    {
+      facet: 'grantee_city',
+      label: 'City',
+    },
+    {
+      facet: 'grantee_state',
+      label: 'State',
+    },
+    {
+      facet: 'grant_amount',
+      label: 'Amount',
+    },
+  ];
   const search = instantsearch({
-    appId: 'QA1231C5W9',
-    apiKey: '{{ site.algolia_public_key_grants }}',
-    indexName: 'grantmakers_io',
-    numberLocale: 'en-US',
-    routing: true,
-    searchParameters: {
-      filters: 'ein:' + targetEIN,
+    'indexName': 'grantmakers_io',
+    searchClient,
+    'numberLocale': 'en-US',
+    'searchParameters': {
+      'filters': 'ein:' + targetEIN,
+    },
+    // routing: true,
+    'routing': {
+      'stateMapping': {
+        stateToRoute({query, refinementList, range, page}) {
+          return {
+            'query': query,
+            'tax_year':
+              refinementList &&
+              refinementList.tax_year &&
+              refinementList.tax_year.join('~'),
+            'grantee_city':
+              refinementList &&
+              refinementList.grantee_city &&
+              refinementList.grantee_city.join('~'),
+            'grantee_state':
+              refinementList &&
+              refinementList.grantee_state &&
+              refinementList.grantee_state.join('~'),
+            'grant_amount':
+              range &&
+              range.grant_amount &&
+              range.grant_amount.replace(':', '~'),
+            'page': page,
+          };
+        },
+        /* eslint-disable camelcase */
+        routeToState(routeState) {
+          return {
+            'query': routeState.query,
+            'refinementList': {
+              'tax_year': routeState.tax_year && routeState.tax_year.split('~'),
+              'grantee_city': routeState.grantee_city && routeState.grantee_city.split('~'),
+              'grantee_state': routeState.grantee_state && routeState.grantee_state.split('~'),
+            },
+            'range': {
+              'grant_amount': routeState.grant_amount && routeState.grant_amount.replace('~', ':'),
+            },
+            'page': routeState.page,
+          };
+        },
+      },
     },
   });
+  /* eslint-enable camelcase */
 
   // Define templates
-  const templateHits = `{% include algolia/hits.html %}`;
-  const templateHitsEmpty = `{% include algolia/hits-empty.html %}`;
-  const templateRefinementItem = `{% include algolia/refinement-item.html %}`;
-  const templateRefinementHeader = `{% include algolia/refinement-header.html %}`;
-  const templateCurrentRefinedValues = `{% include algolia/current-refined-values.html %}`;
-  const templateShowMoreActive = `{% include algolia/show-more-active.html %}`;
-  const templateShowMoreInactive = `{% include algolia/show-more-inactive.html %}`;
+  const templateStats = `{% include algolia/stats.html %}`;
 
   // Define color palette
-  const widgetHeaderClasses = ['card-header', 'grey', 'lighten-4'];
+  const panelHeaderClasses = ['card-header', 'grey', 'lighten-4'];
+  const panelHeaderClassesMobile = ['card-header', 'blue-grey', 'lighten-4'];
 
   // Construct widgets
+  // =======================================================
   search.addWidget(
     instantsearch.widgets.searchBox({
       container: '#ais-widget-search-box',
-      placeholder: 'Search by recipient name, keyword, or location',
-      poweredBy: false,
+      placeholder: 'Search by keyword or recipient name',
       autofocus: false,
       reset: true,
       queryHook: function(query, searchInstance) {
@@ -68,207 +122,171 @@ $(document).ready(function() {
     })
   );
 
+  /* Stats */
   search.addWidget(
     instantsearch.widgets.stats({
       container: '#ais-widget-stats',
-      autoHideContainer: false,
-      cssClasses: {
-        body: 'center-align-on-mobile',
-        time: 'small text-muted-max hide-on-med-and-down',
-      },
-    })
-  );
-
-  /*
-  search.addWidget(
-    instantsearch.widgets.sortBySelector({
-      container: '#ais-widget-sort-by',
-      cssClasses: {
-        root: 'input-field',
-        select: '',
-        item: ''
-      },
-      indices: [
-        {name: 'grantmakers_io', label: 'Most relevant'},
-        // {name: 'demo_amount_desc', label: 'Grant size'},
-      ]
-    })
-  );
-  */
-
-  // TODO Use infiniteHits template if isMobile.matches (aka on mobile devices)
-  search.addWidget(
-    instantsearch.widgets.hits({
-      container: '#ais-widget-hits',
       templates: {
-        empty: templateHitsEmpty,
-        allItems: templateHits,
-      },
-      transformData: {
-        empty: function(arr) {
-          // Handle edge case
-          // E.g. https://grantmakers.io/profiles/v0/136114244-pulvermacher-family-foundation-inc-co-jo-k-pulvermacher/?query=ho&refinementList%5Btax_year%5D%5B0%5D=2016&refinementList%5Btax_year%5D%5B1%5D=2015
-          // See diff when searching for 'hi' and 'ho'
-          const check = arr._rawResults[1];
-          if (check && check.nbHits !== 0) {
-            $('.section-clear-all').removeClass('no-hits');
-          } else {
-            $('.section-clear-all').addClass('no-hits');
-          }
-          return arr;
-        },
-        allItems: function(arr) {
-          // Handle edge case (as per 'empty')
-          $('.section-clear-all').removeClass('no-hits');
-          // Change sort-by text
-          for (let i = 0, len = arr.hits.length; i < len; i++) {
-            let n = arr.hits[i].grant_amount;
-            let formattedNumber = '$' + formatter.format(n);
-            arr.hits[i].grant_amount = formattedNumber;
-          }
-          return arr;
-        },
-      },
-    })
-  );
-
-  /*
-  search.addWidget(
-    instantsearch.widgets.refinementList({
-      container: '#ais-widget-refinement-list--purpose',
-      attributeName: 'grant_purpose',
-      limit: 5,
-      collapsible: {
-        collapsed: true
-      },
-      showMore: {
-        templates: {
-          active: templateShowMoreActive,
-          inactive: templateShowMoreInactive,
-        },
-      },
-      templates: {
-        header: 'Program' + templateRefinementHeader,
-        item: templateRefinementItem,
+        text: templateStats,
       },
       cssClasses: {
-        header: widgetHeaderClasses,
-        body: 'card-content',
+        root: 'center-align-on-mobile',
+        text: ['text-muted', 'hide-on-med-and-down'],
       },
-      transformData: function(item) {
-        return formatRefinements(item);
-      }
     })
   );
-  */
+
+  /* Hits */
+  const renderHits = (renderOptions) => {
+    const { hits, results, widgetParams } = renderOptions;
+
+    if (!hits.length && results) {
+      document.getElementById('ais-widget-pagination').classList.add('hidden');
+      widgetParams.container.innerHTML = `
+        <div class="hits-empty">
+          <div class="card">
+            <div class="card-content">
+              {% raw %}
+                <p></p>
+                <p>We didn't find any results for the search <strong>"${ results.query }"</strong></p>
+              {% endraw %}
+            </div>
+          </div>
+          <div class="card-actions">
+            <a href="{{ site.url }}/search/profiles/" class="btn-flat grantmakers-text">Find a Different Foundation</a>
+            <a href="{{ site.url }}/search/grants/" class="btn-flat blue-grey-text">Search all Grants</a>
+          </div>
+        </div>
+      `;
+    } else {
+      document.getElementById('ais-widget-pagination').classList.remove('hidden');
+      widgetParams.container.innerHTML = `
+      <table class="striped">
+        <thead>
+          <tr>
+            <th><span>Year</span></th>
+            <th><span>Name</span></th>
+            <th><span>Purpose</span></th>
+            <th><span>Location</span></th>
+            <th class="text-nowrap right-align"><span>Amount</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          ${hits.map(item =>`
+            <tr>
+              <td>${ item.tax_year }</td>
+              <td>${ instantsearch.highlight({ attribute: 'grantee_name', hit: item }) }</td>
+              <td>${ instantsearch.highlight({ attribute: 'grant_purpose', hit: item }) }</td>
+              <td class="no-wrap">${ item.grantee_city.length ? instantsearch.highlight({ attribute: 'grantee_city', hit: item }) + ',&nbsp;' + item.grantee_state : item.grantee_state}</td>
+              <td class="right-align">$${ item.grant_amount.toLocaleString() }</td>
+            </tr>
+          `).join('')}
+        </tbody>
+      </table>
+    `;
+    }
+  };
+
+  const customHits = instantsearch.connectors.connectHits(
+    renderHits
+  );
 
   search.addWidget(
-    instantsearch.widgets.refinementList({
-      container: '#ais-widget-refinement-list--tax_year',
-      attributeName: 'tax_year',
-      sortBy: ['name:desc'],
-      limit: 7,
-      collapsible: {
-        collapsed: false,
+    customHits({
+      container: document.querySelector('#ais-widget-hits'),
+    })
+  );
+
+  /* Refinements */
+  facets.forEach((refinement) => {
+    if (refinement.facet === 'grant_amount') {
+      return;
+    }
+    /* Desktop */
+    const refinementListWithPanel = instantsearch.widgets.panel({
+      'templates': {
+        'header': refinement.label,
       },
-      showMore: false,
-      /*
-      showMore: {
-        templates: {
-          active: templateShowMoreActive,
-          inactive: templateShowMoreInactive,
+      hidden(options) {
+        return options.results.nbHits === 0;
+      },
+      'cssClasses': {
+        'root': 'card',
+        'header': panelHeaderClasses,
+        'body': 'card-content',
+      },
+    })(instantsearch.widgets.refinementList);
+
+    search.addWidget(
+      refinementListWithPanel({
+        'container': `#ais-widget-refinement-list--${refinement.facet}`,
+        'attribute': refinement.facet,
+        'limit': 8,
+        'showMore': false,
+        // 'searchable': true,
+        'cssClasses': {
+          'checkbox': 'filled-in',
+          'labelText': 'small',
+          'count': ['right', 'small'],
+          // 'selectedItem': ['grants-search-text'],
+          // 'searchableRoot': 'ais-SearchBox-refinements',
+          // 'searchableSubmit': 'hidden',
         },
-      },
-      */
-      templates: {
-        header: 'Tax Year' + templateRefinementHeader,
-        item: templateRefinementItem,
-      },
-      cssClasses: {
-        header: widgetHeaderClasses,
-        body: 'card-content',
-      },
-      transformData: function(item) {
-        return formatRefinements(item);
-      },
-    })
-  );
+      })
+    );
 
-  search.addWidget(
-    instantsearch.widgets.refinementList({
-      container: '#ais-widget-refinement-list--grantee_state',
-      attributeName: 'grantee_state',
-      limit: 7,
-      collapsible: {
-        collapsed: false,
+    /* Mobile */
+    const mobileRefinementListWithPanel = instantsearch.widgets.panel({
+      'templates': {
+        'header': refinement.label,
       },
-      showMore: false,
-      /*
-      showMore: {
-        templates: {
-          active: templateShowMoreActive,
-          inactive: templateShowMoreInactive,
+      hidden(options) {
+        return options.results.nbHits === 0;
+      },
+      'cssClasses': {
+        'root': 'card',
+        'header': panelHeaderClassesMobile,
+        'body': 'card-content',
+      },
+    })(instantsearch.widgets.refinementList);
+
+    search.addWidget(
+      mobileRefinementListWithPanel({
+        'container': `#ais-widget-mobile-refinement-list--${refinement.facet}`,
+        'attribute': refinement.facet,
+        'limit': 8,
+        'showMore': false,
+        'cssClasses': {
+          'checkbox': 'filled-in',
+          'count': ['right', 'small'],
+          'selectedItem': ['grantmakers-text'],
         },
-      },
-      */
-      templates: {
-        header: 'State' + templateRefinementHeader,
-        item: templateRefinementItem,
-      },
-      cssClasses: {
-        header: widgetHeaderClasses,
-        body: 'card-content',
-      },
-      transformData: function(item) {
-        return formatRefinements(item);
-      },
-    })
-  );
+      })
+    );
+  });
 
-  search.addWidget(
-    instantsearch.widgets.refinementList({
-      container: '#ais-widget-refinement-list--grantee_city',
-      attributeName: 'grantee_city',
-      limit: 7,
-      collapsible: {
-        collapsed: false,
-      },
-      showMore: false,
-      /*
-      showMore: {
-        templates: {
-          active: templateShowMoreActive,
-          inactive: templateShowMoreInactive,
-        },
-      },
-      */
-      templates: {
-        header: 'City' + templateRefinementHeader,
-        item: templateRefinementItem,
-      },
-      cssClasses: {
-        header: widgetHeaderClasses,
-        body: 'card-content',
-      },
-      transformData: function(item) {
-        return formatRefinements(item);
-      },
-    })
-  );
+  const rangeSliderWithPanel = instantsearch.widgets.panel({
+    'templates': {
+      'header': 'Amount',
+    },
+    hidden(options) {
+      return options.results.nbHits === 0;
+    },
+    'cssClasses': {
+      'root': 'card',
+      'header': panelHeaderClasses,
+      'body': 'card-content',
+    },
+  })(instantsearch.widgets.rangeSlider);
 
+  /* Range Slider */
   search.addWidget(
-    instantsearch.widgets.rangeSlider({
+    rangeSliderWithPanel({
       container: '#ais-widget-range-slider',
-      attributeName: 'grant_amount',
-      collapsible: {
-        collapsed: false,
-      },
+      attribute: 'grant_amount',
       cssClasses: {
-        header: widgetHeaderClasses,
-        body: 'card-content',
-      },
-      templates: {
-        header: 'Amount' + templateRefinementHeader,
+        tooltip: 'small',
+
       },
       tooltips: {
         format: function(rawValue) {
@@ -279,187 +297,86 @@ $(document).ready(function() {
     })
   );
 
-  search.addWidget(
-    instantsearch.widgets.currentRefinedValues({
-      container: '#ais-widget-current-refined-values',
-      clearAll: false,
-      clearsQuery: true,
-      onlyListedAttributes: true,
-      attributes: [
-        // {name: 'grant_purpose', label: 'Program'},
-        {name: 'tax_year', label: 'Tax Year'},
-        {name: 'grantee_state', label: 'State'},
-        {name: 'grantee_city', label: 'City'},
-      ],
-      cssClasses: {
-        link: ['waves-effect', 'btn', 'btn-custom', 'btn-clear-refinements', 'blue-grey', 'lighten-3'],
-        clearAll: ['waves-effect', 'btn', 'btn-custom', 'btn-clear-refinements white-text'],
-      },
-      templates: {
-        item: templateCurrentRefinedValues,
-      },
-    })
+  /* Current Refinements */
+  const createDataAttribtues = refinement =>
+    Object.keys(refinement)
+      .map(key => `data-${key}="${refinement[key]}"`)
+      .join(' ');
+
+  const renderListItem = item => `
+    ${item.refinements.map(refinement => `
+      <li>
+        <button class="waves-effect btn blue-grey lighten-3 grey-text text-darken-3" ${createDataAttribtues(refinement)}><i class="material-icons right">remove_circle</i><small>${getLabel(item.label)}:</small> ${formatIfRangeLabel(refinement)} </button>
+      </li>
+    `).join('')}
+  `;
+
+  const renderCurrentRefinements = (renderOptions) => {
+    const { items, refine, widgetParams } = renderOptions;
+
+    widgetParams.container.innerHTML = `<ul class="list list-inline">${items.map(renderListItem).join('')}</ul>`;
+
+    [...widgetParams.container.querySelectorAll('button')].forEach(element => {
+      element.addEventListener('click', event => {
+        const item = Object.keys(event.currentTarget.dataset).reduce(
+          (acc, key) => ({
+            ...acc,
+            [key]: event.currentTarget.dataset[key],
+          }),
+          {}
+        );
+
+        refine(item);
+      });
+    });
+  };
+
+  const customCurrentRefinements = instantsearch.connectors.connectCurrentRefinements(
+    renderCurrentRefinements
   );
 
   search.addWidget(
-    instantsearch.widgets.clearAll({
+    customCurrentRefinements({
+      container: document.querySelector('#ais-widget-current-refined-values'),
+    })
+  );
+
+  /* Clear Refinements */
+  search.addWidget(
+    instantsearch.widgets.clearRefinements({
       container: '#ais-widget-clear-all',
       templates: {
-        link: 'Clear all',
+        resetLabel: 'Clear filters',
       },
-      autoHideContainer: true,
-      clearsQuery: true,
       cssClasses: {
-        root: ['btn', 'btn-custom', 'waves-effect', 'waves-light', 'white-text'],
+        button: ['btn', 'btn-custom', 'waves-effect', 'waves-light', 'white-text'],
       },
     })
   );
 
-  // TODO remove pagination on mobile when infiniteHits widgets is used
+  /* Pagination */
   search.addWidget(
     instantsearch.widgets.pagination({
       container: '#ais-widget-pagination',
-      padding: 1,
-      autoHideContainer: true,
-      // maxPages: 100, //TODO Algolia limits results to 1000 - thus 50 pages max
-      scrollTo: '#grants',
+      scrollTo: '#grants-scroll-anchor', // #grants used in v2
       cssClasses: {
         root: 'pagination',
         page: 'waves-effect',
-        active: 'active',
-        disabled: 'disabled',
+        selectedItem: ['active', 'grey'],
+        disabledItem: 'disabled',
       },
     })
   );
 
-  // Recreate refinement widgets for mobile views
-  // Clear all button
+  // Clear refinements button - mobile
   search.addWidget(
-    instantsearch.widgets.clearAll({
+    instantsearch.widgets.clearRefinements({
       container: '#ais-widget-mobile-clear-all',
-      templates: {
-        link: '<a class="waves-effect waves-light btn btn grey lighten-5 grey-text text-darken-3">Clear</a>',
-      },
-      autoHideContainer: true,
-      clearsQuery: true,
-    })
-  );
-  // Slide out
-  /*
-  search.addWidget(
-    instantsearch.widgets.refinementList({
-      container: '#ais-widget-mobile-refinement-list--purpose',
-      attributeName: 'grant_purpose',
-      autoHideContainer: false,
-      limit: 5,
-      collapsible: {
-        collapsed: false
-      },
-      showMore: {
-        templates: {
-          active: templateShowMoreActive,
-          inactive: templateShowMoreInactive,
-        },
-      },
-      templates: {
-        header: 'Program' + templateRefinementHeader,
-        item: templateRefinementItem,
-      },
       cssClasses: {
-        header: widgetHeaderClasses,
-        body: 'card-content',
-      },
-      transformData: function(item) {
-        return formatRefinements(item);
-      }
-    })
-  );
-  */
-
-  search.addWidget(
-    instantsearch.widgets.refinementList({
-      container: '#ais-widget-mobile-refinement-list--tax_year',
-      attributeName: 'tax_year',
-      autoHideContainer: false,
-      sortBy: ['name:desc'],
-      limit: 5,
-      collapsible: {
-        collapsed: false,
-      },
-      showMore: {
-        templates: {
-          active: templateShowMoreActive,
-          inactive: templateShowMoreInactive,
-        },
+        button: ['waves-effect', 'waves-light', 'btn', 'btn', 'grey', 'lighten-5', 'grey-text', 'text-darken-3'],
       },
       templates: {
-        header: 'Tax Year' + templateRefinementHeader,
-        item: templateRefinementItem,
-      },
-      cssClasses: {
-        header: widgetHeaderClasses,
-        body: 'card-content',
-      },
-      transformData: function(item) {
-        return formatRefinements(item);
-      },
-    })
-  );
-
-  search.addWidget(
-    instantsearch.widgets.refinementList({
-      container: '#ais-widget-mobile-refinement-list--grantee_state',
-      attributeName: 'grantee_state',
-      autoHideContainer: false,
-      limit: 5,
-      collapsible: {
-        collapsed: true,
-      },
-      showMore: {
-        templates: {
-          active: templateShowMoreActive,
-          inactive: templateShowMoreInactive,
-        },
-      },
-      templates: {
-        header: 'State' + templateRefinementHeader,
-        item: templateRefinementItem,
-      },
-      cssClasses: {
-        header: widgetHeaderClasses,
-        body: 'card-content',
-      },
-      transformData: function(item) {
-        return formatRefinements(item);
-      },
-    })
-  );
-
-  search.addWidget(
-    instantsearch.widgets.refinementList({
-      container: '#ais-widget-mobile-refinement-list--grantee_city',
-      attributeName: 'grantee_city',
-      autoHideContainer: false,
-      limit: 5,
-      collapsible: {
-        collapsed: true,
-      },
-      showMore: {
-        templates: {
-          active: templateShowMoreActive,
-          inactive: templateShowMoreInactive,
-        },
-      },
-      templates: {
-        header: 'City' + templateRefinementHeader,
-        item: templateRefinementItem,
-      },
-      cssClasses: {
-        header: widgetHeaderClasses,
-        body: 'card-content',
-      },
-      transformData: function(item) {
-        return formatRefinements(item);
+        resetLabel: 'Clear',
       },
     })
   );
@@ -558,16 +475,6 @@ $(document).ready(function() {
     });
   }
 
-  function slugify(text) {
-    return text.toLowerCase().replace(/-+/g, '').replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
-  }
-
-  function randomId() {
-    return Math.random()
-      .toString(36)
-      .substr(2, 10);
-  }
-
   function renderRateLimit() {
     const message = document.getElementById('rate-limit-message');
     message.classList.remove('hidden');
@@ -584,30 +491,19 @@ $(document).ready(function() {
     results.classList.add('hidden');
   }
 
-  /*
-  function formatNumbersOnly(item) {
-    // Format numbers
-    let n = item.grant_amount;
-    let formattedNumber = formatter.format(n);
-    item.grant_amount = formattedNumber;
-    return item;
+  function getLabel(item) {
+    const obj = facets.filter(each => each.facet === item);
+    return obj[0].label;
   }
-  */
 
-  function formatRefinements(item) {
-    // Format numbers
-    let n = item.count;
-    let formattedNumber = formatter.format(n);
-    item.count = formattedNumber;
-    // Ensure css IDs are properly formatted and unique
-    if (item.label) {
-      item.cssId = 'id-' + slugify(item.label);
+  function formatIfRangeLabel(refinement) {
+    if (refinement.attribute !== 'grant_amount') {
+      return refinement.label;
     } else {
-      // Fallback
-      item.cssId = 'id-' + randomId();
+      return `${refinement.operator} $${numberHuman(refinement.value)}`;
     }
-    return item;
   }
+
 
   function numberHuman(num, decimals) {
     if (num === null) { return null; } // terminate early
