@@ -1214,6 +1214,11 @@ Mimic Algolia them - only the good parts
 				font-size: 85%;
 			}
 		}
+		button.ais-SearchBox-reset, button.ais-SearchBox-submit {
+			&:focus {
+				background-color: inherit;
+			}
+		}
 		.ais-SearchBox-submitIcon, .ais-SearchBox-resetIcon, .ais-SearchBox-loadingIcon {
 			fill: $text-muted;
 			width: 16px;
