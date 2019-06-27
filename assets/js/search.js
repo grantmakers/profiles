@@ -161,7 +161,7 @@ $(document).ready(function() {
     } else {
       document.getElementById('ais-widget-pagination').classList.remove('hidden');
       widgetParams.container.innerHTML = `
-      <table class="striped">
+      <table class="striped ais-hits-table">
         <thead>
           <tr>
             <th><span>Year</span></th>
@@ -438,7 +438,7 @@ $(document).ready(function() {
   // Temp solution for table header clicks
   // =======================================================
   function showTableHeaderToast() {
-    $('.ais-hits th span').click(function() {
+    $('.ais-hits-table th span').click(function() {
       if (typeof gaCheck === 'function') {
         ga('send', 'event', {
           eventCategory: 'Profile Events',
