@@ -240,12 +240,19 @@ export default {
     },
 
     trackWebhooks: function(start, finish, outcome) {
-      ga('send', 'event', {
-        'eventCategory': 'Profile Events',
-        'eventAction': 'Insight Webhooks',
-        'eventLabel': 'Webhook ' + outcome,
-        'eventValue': finish - start,
-      });
+      let gaCheck = window[window['GoogleAnalyticsObject'] || 'ga']; // eslint-disable-line dot-notation
+      let gaCount = 0;
+
+      if (typeof gaCheck === 'function' && gaCount === 0) {
+        ga('send', 'event', {
+          'eventCategory': 'Profile Events',
+          'eventAction': 'Insight Webhooks',
+          'eventLabel': 'Webhook ' + outcome,
+          'eventValue': finish - start,
+        });
+      }
+
+      gaCount++;
     },
   },
 };
