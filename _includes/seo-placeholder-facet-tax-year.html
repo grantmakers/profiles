@@ -1,0 +1,24 @@
+<div class="ais-Panel card">
+  <div class="ais-Panel-header card-header grey lighten-4"><span>Tax Year</span></div>
+  <div class="ais-Panel-body card-content">
+    <div>
+      <div class="ais-RefinementList">
+        <ul class="ais-RefinementList-list">
+          {% for each in page.grants_facet_tax_year %}
+            {% if each.count > 0 %}
+              <li class="ais-RefinementList-item">
+                <div>
+                  <label class="ais-RefinementList-label">
+                    <input type="checkbox" class="ais-RefinementList-checkbox filled-in" value="{{ each.tax_year }}"> 
+                    <span class="ais-RefinementList-labelText small">{{ each.tax_year }}</span>
+                    <span class="ais-RefinementList-count right small">{{ each.count }}</span> 
+                  </label>
+                </div>
+              </li>
+            {% endif %}
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

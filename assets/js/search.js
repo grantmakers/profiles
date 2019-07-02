@@ -227,7 +227,7 @@ $(document).ready(function() {
         'cssClasses': {
           'checkbox': 'filled-in',
           'labelText': 'small',
-          'count': ['right', 'small'],
+          'count': ['right', 'small', 'text-muted-max'],
           // 'selectedItem': ['grants-search-text'],
           // 'searchableRoot': 'ais-SearchBox-refinements',
           // 'searchableSubmit': 'hidden',
@@ -390,6 +390,7 @@ $(document).ready(function() {
     $('select').formSelect();
     reInitPushpin();
     showTableHeaderToast();
+    hideSeoPlaceholders();
   });
 
   search.on('error', function(e) {
@@ -466,6 +467,10 @@ $(document).ready(function() {
 
   // Helper functions
   // =======================================================
+  function hideSeoPlaceholders() {
+    const target = document.getElementById('ais-widget-refinement-list--seo-placeholder');
+    target.classList.add('hidden');
+  }
   function scrolly(elem) {
     let position = $(elem).position().top;
     // animate

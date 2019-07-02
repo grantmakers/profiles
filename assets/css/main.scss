@@ -1324,9 +1324,14 @@ Mimic Algolia them - only the good parts
 		.ais-RefinementList-labelText {
 			width: 80%;
 		}
+		.ais-RefinementList-count {
+			&.small {
+				font-size: 85%; // HACK
+			}
+		}
 		.ais-RefinementList-item--selected {
 			.ais-RefinementList-labelText, .ais-RefinementList-count {
-				color: $accent-color;
+				color: $accent-color !important;
 			}
 		}
 		.ais-RefinementList--list:empty::after {
@@ -1440,6 +1445,9 @@ Mimic Algolia them - only the good parts
 	.hits-empty {
 		margin: 0.5em;
 		margin-top: 1em; // To match responsive table wrapper
+	}
+	#ais-widget-hits .seo-placeholder-table {
+		padding: 0;
 	}
 
 	/* Pagination */

@@ -1,20 +1,9 @@
-<div id="grantsTableWrapper" class="card-panel-body">
+<div id="grantsPlaceholderTableWrapper" class="seo-placeholder-table card-panel-body">
   <div class="responsive-table-wrapper">
-    {% if page.grant_count > 1000 %}
-    <div class="row">
-        <div class="col s12">
-          <div class="card blue-grey lighten-3">
-            <div class="card-content white-text">
-              <i class="material-icons">warning</i> You may experience a delay when sorting. This foundation has a large number of grants. 
-            </div>
-          </div>
-        </div>
-      </div>
-    {% endif %}
-    <table id="grantsTable" class="striped bordered">
+    <table id="grantsPlaceholderTable" class="striped bordered">
       <thead>
         <tr>
-          <th data-sort="int" class="text-center"><span>#</span></th>
+          <th data-sort="int" class="text-center"><span>Year</span></th>
           <th data-sort="string"><span>Name</span></th>
           <th data-sort="string"><span>Purpose</span></th>
           <th data-sort="string"><span>Location</span></th>
@@ -24,17 +13,17 @@
       <tbody>
         {% assign sorted_grants = page.grants | sort: 'amount' | reverse %}
         {% if sorted_grants.size > 0 %}
-          {% for each in sorted_grants limit:5000 %}
+          {% for each in sorted_grants limit:20 %}
             <tr>
-              <td class="left-align">{{ forloop.index }}</td>
+              <td class="left-align">{{ each.tax_year }}</td>
               <td>{{ each.name }}</td>
-              <td>{{ each.purpose }}</td>
               {% if each.is_foreign == true %}
               {% assign is_foreign_true = true %}
                 <td class="text-nowrap">{% if each.city != null %}{{ each.city }}, {{ each.country }}*{% endif %}</td>
               {% else %}
                 <td class="text-nowrap">{% if each.city != null %}{{ each.city }}, {{ each.state }}{% endif %}</td>
               {% endif %}
+              <td>{{ each.purpose }}</td>
               <td class="right-align" data-sort-value="{{ each.amount }}">{{ each.amount | round | intcomma }}</td>
             </tr>
           {% endfor %}
