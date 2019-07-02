@@ -443,7 +443,7 @@ $(document).ready(function() {
         ga('send', 'event', {
           eventCategory: 'Profile Events',
           eventAction: 'Profile Table Attempted Sort Click',
-          eventLabel: $(this).find('span').text(),
+          eventLabel: $(this).text(),
         });
       }
       let toastHTML;
