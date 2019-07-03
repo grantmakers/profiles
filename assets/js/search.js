@@ -199,8 +199,12 @@ $(document).ready(function() {
 
   /* Refinements */
   facets.forEach((refinement) => {
+    let sortBy = ['isRefined', 'count:desc', 'name:asc'];
     if (refinement.facet === 'grant_amount') {
       return;
+    }
+    if (refinement.facet === 'tax_year') {
+      sortBy = ['isRefined', 'name:desc', 'count:desc'];
     }
     /* Desktop */
     const refinementListWithPanel = instantsearch.widgets.panel({
@@ -223,6 +227,7 @@ $(document).ready(function() {
         'attribute': refinement.facet,
         'limit': 8,
         'showMore': false,
+        'sortBy': sortBy,
         // 'searchable': true,
         'cssClasses': {
           'checkbox': 'filled-in',
