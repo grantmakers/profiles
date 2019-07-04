@@ -170,29 +170,31 @@ $(document).ready(function() {
     } else {
       document.getElementById('ais-widget-pagination').classList.remove('hidden');
       widgetParams.container.innerHTML = `
-      <table class="striped ais-hits-table">
-        <thead>
-          <tr>
-            <th><span>Year</span></th>
-            <th><span>Name</span></th>
-            <th><span>Purpose</span></th>
-            <th><span>Location</span></th>
-            <th class="text-nowrap right-align"><span>Amount</span></th>
-          </tr>
-        </thead>
-        <tbody>
-          ${hits.map(item =>`
+        <table class="striped ais-hits-table">
+          <thead>
             <tr>
-              <td>${ item.tax_year }</td>
-              <td>${ instantsearch.highlight({ attribute: 'grantee_name', hit: item }) }</td>
-              <td>${ instantsearch.highlight({ attribute: 'grant_purpose', hit: item }) }</td>
-              <td class="no-wrap">${ item.grantee_city.length ? instantsearch.highlight({ attribute: 'grantee_city', hit: item }) + ',&nbsp;' + item.grantee_state : item.grantee_state}</td>
-              <td class="right-align">$${ item.grant_amount.toLocaleString() }</td>
+              <th><span>Year</span></th>
+              <th><span>Name</span></th>
+              <th><span>Purpose</span></th>
+              <th><span>Location</span></th>
+              <th class="text-nowrap right-align"><span>Amount</span></th>
             </tr>
-          `).join('')}
-        </tbody>
-      </table>
-    `;
+          </thead>
+          <tbody>
+            ${hits.map(item =>`
+              <tr>
+                <td>${ item.tax_year }</td>
+                <td>${ instantsearch.highlight({ attribute: 'grantee_name', hit: item }) }</td>
+                <td>${ instantsearch.highlight({ attribute: 'grant_purpose', hit: item }) }</td>
+                <td class="no-wrap">${ item.grantee_city.length ? instantsearch.highlight({ attribute: 'grantee_city', hit: item }) + ',&nbsp;' + item.grantee_state : item.grantee_state}</td>
+                <td class="right-align">$${ item.grant_amount.toLocaleString() }</td>
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+      `;
+      // Re-init header click message for sorting
+      showTableHeaderToast();
     }
   };
 
@@ -403,7 +405,7 @@ $(document).ready(function() {
   search.once('render', function() {
     $('select').formSelect();
     reInitPushpin();
-    showTableHeaderToast();
+    // showTableHeaderToast();
     hideSeoPlaceholders();
   });
 
