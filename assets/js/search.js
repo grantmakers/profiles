@@ -43,6 +43,10 @@ $(document).ready(function() {
       label: 'State',
     },
     {
+      facet: 'grantee_name',
+      label: 'Recipient',
+    },
+    {
       facet: 'grant_amount',
       label: 'Amount',
     },
@@ -72,6 +76,10 @@ $(document).ready(function() {
               refinementList &&
               refinementList.grantee_state &&
               refinementList.grantee_state.join('~'),
+            'grantee_name':
+              refinementList &&
+              refinementList.grantee_name &&
+              refinementList.grantee_name.join('~'),
             'grant_amount':
               range &&
               range.grant_amount &&
@@ -87,6 +95,7 @@ $(document).ready(function() {
               'tax_year': routeState.tax_year && routeState.tax_year.split('~'),
               'grantee_city': routeState.grantee_city && routeState.grantee_city.split('~'),
               'grantee_state': routeState.grantee_state && routeState.grantee_state.split('~'),
+              'grantee_name': routeState.grantee_name && routeState.grantee_name.split('~'),
             },
             'range': {
               'grant_amount': routeState.grant_amount && routeState.grant_amount.replace('~', ':'),
