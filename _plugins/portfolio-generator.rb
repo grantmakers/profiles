@@ -27,6 +27,20 @@ module Jekyll
         end
     end
 
+    class GrantsPage < Page
+        def initialize(site, base, dir, project_data)
+            @site = site
+            @base = base
+            @dir = dir
+            @name = "index.json"
+
+            self.process(@name)
+            self.read_yaml(File.join(base, "_layouts"), "grants.html")
+
+            project_data.each { |key, value| self.data[key] = value }
+        end
+    end
+
     class PortfolioGenerator < Generator
         safe true
 
@@ -50,8 +64,17 @@ module Jekyll
                 path = File.join(dir, file_name_slug)
                 project["dir"] = path
 
+                # Grants JSON: /profiles/123456789/grants
+                grants_path = File.join(project["ein"], "grants")
+
+
                 site.pages << ProjectPage.new(site, site.source, path, project) # Main profile link
                 site.pages << RedirectPage.new(site, site.source, project["ein"], project) # EIN redirect
+
+                # Create grants JSON api endpoint if > 50 current year grants
+                if (project["grant_count"] > 50 )
+                    site.pages << GrantsPage.new(site, site.source, grants_path, project)
+                end
 
                 # Create redirects if name has changed
                 date_updated_grantmakers = DateTime.strptime(site.config["last_updated_grantmakers"], '%Y-%m-%dT%H:%M:%S.%N%z').to_s
