@@ -298,10 +298,6 @@ $(document).ready(function() {
     rangeSliderWithPanel({
       container: '#ais-widget-range-slider',
       attribute: 'grant_amount',
-      cssClasses: {
-        tooltip: 'small',
-
-      },
       tooltips: {
         format: function(rawValue) {
           return `$${numberHuman(rawValue, 0)}`;

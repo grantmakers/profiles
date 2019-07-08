@@ -1339,11 +1339,20 @@ Mimic Algolia them - only the good parts
 		}
 
 		/* Range Slider */
-		.ais-RangeSlider .rheostat-progress {
-			@extend .grey, .lighten-5;
-		}
-		.ais-RangeSlider--handle {
-			border-color: $text-muted;
+		.ais-RangeSlider {
+			.rheostat {
+				margin-top: 20px;
+				margin-bottom: 20px;
+			}
+			.rheostat-progress {
+				@extend .grey, .lighten-3;
+			}
+			.rheostat-handle {
+				border-color: $text-muted;
+			}
+			.rheostat-tooltip {
+				font-size: 85%;
+			}
 		}
 	}
 
