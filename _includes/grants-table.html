@@ -21,10 +21,10 @@
           <th class="text-nowrap right-align" data-sort="int"><span>Amount ($)</span></th>
         </tr>
       </thead>
-      <tbody>
+      <tbody id="grantsTableBody">
         {% assign sorted_grants = page.grants | sort: 'amount' | reverse %}
         {% if sorted_grants.size > 0 %}
-          {% for each in sorted_grants limit:5000 %}
+          {% for each in sorted_grants limit:50 %}
             <tr>
               <td class="left-align">{{ forloop.index }}</td>
               <td>{{ each.name }}</td>
