@@ -452,6 +452,33 @@ $(document).ready(function() {
     gaCount++;
   }
 
+  // FETCH GRANTS JSON
+  // =======================================================
+  const grantsURL = '{{ site.baseurl }}/' + targetEIN + '/grants/';
+  function fetchGrants(url, callback) {
+    let req = new XMLHttpRequest();
+  
+    req.addEventListener('load', onLoad);
+    req.addEventListener('error', onFail);
+    req.addEventListener('abort', onFail);
+  
+    req.open('GET', url);
+    req.send();
+  
+    function onLoad(event) {
+      if (req.status >= 400) {
+        onFail(event);
+      } else {
+        const json = JSON.parse(this.responseText);
+        callback(null, json);
+      }
+    }
+  
+    function onFail(event) {
+      callback(new Error('...'));
+    }
+  }
+
   // Temp solution for table header clicks
   // =======================================================
   function showTableHeaderToast() {
@@ -477,6 +504,32 @@ $(document).ready(function() {
       $('.js-toast-action-scroll').click(function() {
         scrolly(targetElem);
         $('.collapsible-header i').addClass('bounce');
+      });
+      fetchGrants(grantsURL, function(error, data) {
+        const tbody = document.getElementById('grantsTableBody');
+        let rows = '';
+        if (error) {
+          console.log('There was an error fetching grants data', error);
+        } else {
+          // console.log('data is', data);
+          data.forEach(grant => {
+            let location = `
+              ${grant.city ? grant.city + ', ' : ''}${grant.is_foreign === true ? grant.country + '*' : grant.state}
+            `;
+            // TODO Format Amount
+            rows += '<tr><td class="left-align">' +
+              grant.tax_year + '</td><td>' +
+              grant.name + '</td><td>' +
+              grant.purpose + '</td><td class="text-nowrap">' +
+              location + '</td><td class="right-align" data-sort-value="' + grant.amount + '">' +
+              grant.amount.toLocaleString() + '</td></tr>';
+          });
+          // Set table body
+          tbody.innerHTML = rows;
+          // Re-init stupidtable plugin
+          // NOTE: Due to cacheing, sorts will not work if stupidtable already inititalized
+          $('#grantsTable').stupidtable();
+        }
       });
     });
   }
