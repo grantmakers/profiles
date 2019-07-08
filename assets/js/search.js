@@ -193,8 +193,6 @@ $(document).ready(function() {
           </tbody>
         </table>
       `;
-      // Re-init header click message for sorting
-      showTableHeaderToast();
     }
   };
 
@@ -405,7 +403,6 @@ $(document).ready(function() {
   search.once('render', function() {
     $('select').formSelect();
     reInitPushpin();
-    // showTableHeaderToast();
     hideSeoPlaceholders();
   });
 
@@ -477,61 +474,6 @@ $(document).ready(function() {
     function onFail(event) {
       callback(new Error('...'));
     }
-  }
-
-  // Temp solution for table header clicks
-  // =======================================================
-  function showTableHeaderToast() {
-    $('.ais-hits-table th span').click(function() {
-      if (typeof gaCheck === 'function') {
-        ga('send', 'event', {
-          eventCategory: 'Profile Events',
-          eventAction: 'Profile Table Attempted Sort Click',
-          eventLabel: $(this).text(),
-        });
-      }
-      let toastHTML;
-      if (isPhone.matches) {
-        toastHTML = '<span>Sorting available for current year only </span><button class="btn-flat toast-action js-toast-action-scroll">GO</button>';
-      } else {
-        toastHTML = '<span>Sorting available for current year only </span><button class="btn-flat toast-action js-toast-action-scroll">Try It</button>';
-      }
-      M.toast({
-        html: toastHTML,
-        displayLength: 4000,
-      });
-      const targetElem = $('#current-year-list-view');
-      $('.js-toast-action-scroll').click(function() {
-        scrolly(targetElem);
-        $('.collapsible-header i').addClass('bounce');
-      });
-      fetchGrants(grantsURL, function(error, data) {
-        const tbody = document.getElementById('grantsTableBody');
-        let rows = '';
-        if (error) {
-          console.log('There was an error fetching grants data', error);
-        } else {
-          // console.log('data is', data);
-          data.forEach(grant => {
-            let location = `
-              ${grant.city ? grant.city + ', ' : ''}${grant.is_foreign === true ? grant.country + '*' : grant.state}
-            `;
-            // TODO Format Amount
-            rows += '<tr><td class="left-align">' +
-              grant.tax_year + '</td><td>' +
-              grant.name + '</td><td>' +
-              grant.purpose + '</td><td class="text-nowrap">' +
-              location + '</td><td class="right-align" data-sort-value="' + grant.amount + '">' +
-              grant.amount.toLocaleString() + '</td></tr>';
-          });
-          // Set table body
-          tbody.innerHTML = rows;
-          // Re-init stupidtable plugin
-          // NOTE: Due to cacheing, sorts will not work if stupidtable already inititalized
-          $('#grantsTable').stupidtable();
-        }
-      });
-    });
   }
 
   // Helper functions
