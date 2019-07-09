@@ -188,12 +188,6 @@ $(document).ready(function() {
     }
   });
 
-  // TABLE SORT :: Stupidtable
-  // =======================================================
-  if ( $( '#grantsTable' ).length ) {
-    $('#grantsTable').stupidtable();
-  }
-
   // FILINGS
   // =======================================================
   // Add filing links
