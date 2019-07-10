@@ -316,7 +316,7 @@ $(document).ready(function() {
   const renderListItem = item => `
     ${item.refinements.map(refinement => `
       <li>
-        <button class="waves-effect btn blue-grey lighten-3 grey-text text-darken-3" ${createDataAttribtues(refinement)}><i class="material-icons right">remove_circle</i><small>${getLabel(item.label)}:</small> ${formatIfRangeLabel(refinement)} </button>
+        <button class="waves-effect btn blue-grey lighten-3 grey-text text-darken-3" ${createDataAttribtues(refinement)}><i class="material-icons right">remove_circle</i><small>${getLabel(item.label)}</small> ${formatIfRangeLabel(refinement)} </button>
       </li>
     `).join('')}
   `;
