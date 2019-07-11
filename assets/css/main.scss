@@ -1350,6 +1350,9 @@ Mimic Algolia them - only the good parts
 				padding-bottom: 0px;
 			}
 		}
+		#ais-widget-refinement-list--seo-placeholder .card-content {
+			padding-bottom: 18px; // Compensate for lack of 'Show More' button
+		}
 		.ais-RefinementList-item {
 			&:hover {
 				background-color: #f5f5f5;
@@ -1391,6 +1394,12 @@ Mimic Algolia them - only the good parts
 					background-color: inherit;
 				}
 			}
+		}
+		.ais-RefinementList-showMore--disabled {
+			color: white !important;
+			border-top: 0;
+			margin-top: 0;
+			height: 18px;
 		}
 		
 		/* Range Slider */

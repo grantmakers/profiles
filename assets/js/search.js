@@ -217,7 +217,7 @@ $(document).ready(function() {
             <label>
               <input type="checkbox" class="filled-in" ${item.isRefined ? 'checked="checked"' : ''} value="${item.value}"/>
               <span class="ais-RefinementList-labelText">${item.label}</span>
-              <span class="ais-RefinementList-count right small text-muted-max">${item.count}</span>
+              <span class="ais-RefinementList-count right small">${item.count}</span>
             </label>
           </li>
         `).join('')}
@@ -322,8 +322,9 @@ $(document).ready(function() {
         'cssClasses': {
           'checkbox': 'filled-in',
           'labelText': 'small',
-          'count': ['right', 'small', 'text-muted-max'],
+          'count': ['right', 'small'],
           'showMore': ['btn-flat', 'btn-small'],
+          'disabledShowMore': ['disabled'],
           // 'selectedItem': ['grants-search-text'],
           // 'searchableRoot': 'ais-SearchBox-refinements',
           // 'searchableSubmit': 'hidden',
@@ -453,6 +454,7 @@ $(document).ready(function() {
     $('select').formSelect();
     reInitPushpin();
     hideSeoPlaceholders();
+    document.getElementById('ais-widget-sort-by').classList.remove('hidden');
   });
 
   // search.on('render', function() {
