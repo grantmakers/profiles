@@ -122,6 +122,12 @@ ul.btn-group {
 .modal:focus {
 	outline: 0;
 }
+ul.striped li {
+	border-bottom: none;
+}
+ul.striped > li:nth-child(odd) {
+	background-color: rgba(242, 242, 242, 0.5);
+}
 /* Inline lists */
 .list-inline {
   padding-left: 0;
@@ -1263,10 +1269,30 @@ Mimic Algolia them - only the good parts
 		}
 	}
 	/* Sort By */
+	/* Tax Year Facet */
 	#ais-widget-sort-by {
+		a.dropdown-trigger {
+			display: block;
+		}
+		li {
+			min-height: 0px;
+			padding: 6px 12px;
+		}
+		/* Tax Year Facet */
+		padding-right: 0px;
+		i.material-icons {
+			height: 14.5px;
+			margin-left: 5px;
+		}
+		/* Prior usage */
 		.input-field {
 			margin-top: 0px !important;
 			margin-bottom: 0px !important;
+		}
+		input {
+			text-align: right;
+			width: 85%; // HACK
+			padding-right: 24px; // HACK
 		}
 		input, .caret {
 			color: $text-muted-max !important; 
@@ -1325,6 +1351,8 @@ Mimic Algolia them - only the good parts
 			width: 80%;
 		}
 		.ais-RefinementList-count {
+			height: 25px;
+			line-height: 25px;
 			&.small {
 				font-size: 85%; // HACK
 			}
@@ -1337,7 +1365,19 @@ Mimic Algolia them - only the good parts
 		.ais-RefinementList--list:empty::after {
 			content: 'No results'; 
 		}
-
+		.ais-RefinementList-showMore {
+			width: 100%;
+			margin: auto;
+			margin-top: 10px;
+			border-top: 1px solid #eee;
+			font-size: 85%;
+			&.btn-flat {
+				&:hover, &:focus {
+					background-color: inherit;
+				}
+			}
+		}
+		
 		/* Range Slider */
 		.ais-RangeSlider {
 			.rheostat {
@@ -1408,22 +1448,6 @@ Mimic Algolia them - only the good parts
 		}
 		.ais-CurrentRefinements-category {
 			padding-left: 5px;
-		}
-		button {
-			// padding-left: 5px;
-			// line-height: 100%;
-			/*
-			&:before {
-				font-family: "Material Icons";
-				content: "remove_circle";
-				color: white;
-				vertical-align: top;
-			} 
-			&:focus {
-				background-color: inherit;
-				color: inherit;
-			}
-			*/
 		}
 	}
 

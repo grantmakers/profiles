@@ -173,21 +173,21 @@ $(document).ready(function() {
         <table class="striped ais-hits-table">
           <thead>
             <tr>
-              <th><span>Year</span></th>
+              <th class="text-nowrap"><span>Amount</span></th>
               <th><span>Name</span></th>
               <th><span>Purpose</span></th>
               <th><span>Location</span></th>
-              <th class="text-nowrap right-align"><span>Amount</span></th>
+              <th><span>Year</span></th>
             </tr>
           </thead>
           <tbody>
             ${hits.map(item =>`
               <tr>
-                <td>${ item.tax_year }</td>
+                <td class="right-align">$${ item.grant_amount.toLocaleString() }</td>
                 <td>${ instantsearch.highlight({ attribute: 'grantee_name', hit: item }) }</td>
                 <td>${ instantsearch.highlight({ attribute: 'grant_purpose', hit: item }) }</td>
                 <td class="no-wrap">${ item.grantee_city.length ? instantsearch.highlight({ attribute: 'grantee_city', hit: item }) + ',&nbsp;' + item.grantee_state : item.grantee_state}</td>
-                <td class="right-align">$${ item.grant_amount.toLocaleString() }</td>
+                <td>${ item.tax_year }</td>
               </tr>
             `).join('')}
           </tbody>
@@ -206,48 +206,61 @@ $(document).ready(function() {
     })
   );
 
+  /* RefinementList - Tax Year Toggle */
+  const renderRefinementList = (renderOptions) => {
+    const { items, refine, widgetParams } = renderOptions;
+
+    widgetParams.container.innerHTML = `
+      <ul id="tax-year-dropdown" class="dropdown-content">
+        ${items.map(item => `
+          <li data-value="${item.value}"">
+            <label>
+              <input type="checkbox" class="filled-in" ${item.isRefined ? 'checked="checked"' : ''} value="${item.value}"/>
+              <span class="ais-RefinementList-labelText">${item.label}</span>
+              <span class="ais-RefinementList-count right small text-muted-max">${item.count}</span>
+            </label>
+          </li>
+        `).join('')}
+      </ul>
+    `;
+
+    // Re-initialize Materialize dropdown plugin
+    reInitDropdown();
+    
+    [...widgetParams.container.querySelectorAll('li')].forEach(element => {
+      element.addEventListener('click', event => {
+        event.preventDefault();
+        event.stopPropagation();
+        refine(event.currentTarget.dataset.value);
+      });
+    });
+  };
+
+  const customRefinementList = instantsearch.connectors.connectRefinementList(
+    renderRefinementList
+  );
+
+  search.addWidget(
+    customRefinementList({
+      'container': document.querySelector('#ais-widget-refinement-list--tax_year'),
+      'attribute': 'tax_year',
+      'limit': 8,
+      'sortBy': ['isRefined', 'name:desc'],
+    })
+  );
+  
+  
   /* Refinements */
   facets.forEach((refinement) => {
     let sortBy = ['isRefined', 'count:desc', 'name:asc'];
+    // Amount handled by range widget
     if (refinement.facet === 'grant_amount') {
       return;
     }
+    // Sorting by year, not count, makes more sense w/ Tax Years
     if (refinement.facet === 'tax_year') {
       sortBy = ['isRefined', 'name:desc', 'count:desc'];
     }
-    /* Desktop */
-    const refinementListWithPanel = instantsearch.widgets.panel({
-      'templates': {
-        'header': refinement.label,
-      },
-      hidden(options) {
-        return options.results.nbHits === 0;
-      },
-      'cssClasses': {
-        'root': 'card',
-        'header': panelHeaderClasses,
-        'body': 'card-content',
-      },
-    })(instantsearch.widgets.refinementList);
-
-    search.addWidget(
-      refinementListWithPanel({
-        'container': `#ais-widget-refinement-list--${refinement.facet}`,
-        'attribute': refinement.facet,
-        'limit': 8,
-        'showMore': false,
-        'sortBy': sortBy,
-        // 'searchable': true,
-        'cssClasses': {
-          'checkbox': 'filled-in',
-          'labelText': 'small',
-          'count': ['right', 'small', 'text-muted-max'],
-          // 'selectedItem': ['grants-search-text'],
-          // 'searchableRoot': 'ais-SearchBox-refinements',
-          // 'searchableSubmit': 'hidden',
-        },
-      })
-    );
 
     /* Mobile */
     const mobileRefinementListWithPanel = instantsearch.widgets.panel({
@@ -274,6 +287,46 @@ $(document).ready(function() {
           'checkbox': 'filled-in',
           'count': ['right', 'small'],
           'selectedItem': ['grantmakers-text'],
+        },
+      })
+    );
+
+    // On desktop, tax year uses custom widget
+    if (refinement.facet === 'tax_year') {
+      return;
+    }
+
+    /* Desktop */
+    const refinementListWithPanel = instantsearch.widgets.panel({
+      'templates': {
+        'header': refinement.label,
+      },
+      hidden(options) {
+        return options.results.nbHits === 0;
+      },
+      'cssClasses': {
+        'root': 'card',
+        'header': panelHeaderClasses,
+        'body': 'card-content',
+      },
+    })(instantsearch.widgets.refinementList);
+
+    search.addWidget(
+      refinementListWithPanel({
+        'container': `#ais-widget-refinement-list--${refinement.facet}`,
+        'attribute': refinement.facet,
+        'limit': 5,
+        'showMore': true,
+        'sortBy': sortBy,
+        // 'searchable': true,
+        'cssClasses': {
+          'checkbox': 'filled-in',
+          'labelText': 'small',
+          'count': ['right', 'small', 'text-muted-max'],
+          'showMore': ['btn-flat', 'btn-small'],
+          // 'selectedItem': ['grants-search-text'],
+          // 'searchableRoot': 'ais-SearchBox-refinements',
+          // 'searchableSubmit': 'hidden',
         },
       })
     );
@@ -402,6 +455,8 @@ $(document).ready(function() {
     hideSeoPlaceholders();
   });
 
+  // search.on('render', function() {
+
   search.on('error', function(e) {
     if (e.statusCode === 429) {
       renderRateLimit();
@@ -411,12 +466,19 @@ $(document).ready(function() {
       renderForbidden();
       console.log('Origin forbidden');
     }
+    // console.log(e);
   });
 
   // Scroll to top upon input change
   // =======================================================
   function readyToSearchScrollPosition() {
     $('html, body').animate({scrollTop: scrollAnchor}, '500', 'swing');
+  }
+
+  // Materialize - initialize tax year dropdown
+  function reInitDropdown() {
+    const elems = document.querySelectorAll('.dropdown-trigger');
+    M.Dropdown.init(elems, {'container': 'ais-widget-refinement-list--tax_year'});
   }
 
   // Re-init grants header pushpin
