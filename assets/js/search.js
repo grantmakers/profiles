@@ -551,6 +551,21 @@ $(document).ready(function() {
     });
   }
 
+  /*
+  function disabledShowMoreMessage() {
+    // Only need to call once, thus, place in search.once
+    document.getElementById('ais-widget-refinements').addEventListener('click', function(e) {
+      if (e.target && e.target.querySelector('button.ais-RefinementList-showMore--disabled')) {
+        M.Toast.dismissAll();
+        M.toast({
+          'html': 'Nothing more to show',
+          'displayLength': 1000,
+        });
+      }
+    });
+  }
+  */
+
   function renderRateLimit() {
     const message = document.getElementById('rate-limit-message');
     message.classList.remove('hidden');
