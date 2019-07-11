@@ -511,6 +511,7 @@ $(document).ready(function() {
 
   // FETCH GRANTS JSON
   // =======================================================
+  /*
   const grantsURL = '{{ site.baseurl }}/' + targetEIN + '/grants/';
   function fetchGrants(url, callback) {
     let req = new XMLHttpRequest();
@@ -535,6 +536,7 @@ $(document).ready(function() {
       callback(new Error('...'));
     }
   }
+  */
 
   // Helper functions
   // =======================================================
