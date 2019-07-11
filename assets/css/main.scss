@@ -1344,11 +1344,26 @@ Mimic Algolia them - only the good parts
 			border: 2px solid $accent-color;
 			background-color: $accent-color;
 		}
+		.ais-Panel {
+			.card-content {
+				padding: 18px;
+				padding-bottom: 0px;
+			}
+		}
+		.ais-RefinementList-item {
+			&:hover {
+				background-color: #f5f5f5;
+			}
+		}
 		label {
 			color: inherit;
 		}
 		.ais-RefinementList-labelText {
-			width: 80%;
+			width: 85%;
+			padding-left: 0px;
+			&::before, &::after {
+				display: none;
+			}
 		}
 		.ais-RefinementList-count {
 			height: 25px;
@@ -1379,6 +1394,11 @@ Mimic Algolia them - only the good parts
 		}
 		
 		/* Range Slider */
+		#ais-widget-range-slider {
+			.card-content {
+				padding: 12px 24px;
+			}
+		}
 		.ais-RangeSlider {
 			.rheostat {
 				margin-top: 20px;
@@ -1392,6 +1412,14 @@ Mimic Algolia them - only the good parts
 			}
 			.rheostat-tooltip {
 				font-size: 85%;
+			}
+		}
+
+		/* Grantee Name - Menu */
+		#ais-widget-refinement-list--grantee_name {
+			.ais-RefinementList-labelText {
+				font-size: 80%;
+				line-height: 18px;
 			}
 		}
 	}
