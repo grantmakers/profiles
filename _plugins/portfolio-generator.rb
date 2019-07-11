@@ -72,9 +72,9 @@ module Jekyll
                 site.pages << RedirectPage.new(site, site.source, project["ein"], project) # EIN redirect
 
                 # Create grants JSON api endpoint if > 50 current year grants
-                if (project["grant_count"] > 50 )
-                    site.pages << GrantsPage.new(site, site.source, grants_path, project)
-                end
+                # if (project["grant_count"] > 50 )
+                #    site.pages << GrantsPage.new(site, site.source, grants_path, project)
+                # end
 
                 # Create redirects if name has changed
                 date_updated_grantmakers = DateTime.strptime(site.config["last_updated_grantmakers"], '%Y-%m-%dT%H:%M:%S.%N%z').to_s
