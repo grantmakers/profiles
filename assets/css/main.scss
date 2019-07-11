@@ -114,7 +114,7 @@ ul.btn-group {
   font-size: 85%;
 }
 .hidden {
-  display: none;
+  display: none !important;
 }
 .no-wrap, .text-nowrap {
   white-space: nowrap;

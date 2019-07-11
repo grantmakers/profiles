@@ -25,6 +25,18 @@
     {% assign algolia = true %}
   {% endif %}
 
+  {% comment %} Simplify UI if has less than 20 grants or only one filing with grants {% endcomment %}
+  {% assign count = 0 %}
+  {% for filing in page.grants_facet_tax_year %}
+    {% if filing.count > 0 %}
+      {% assign count = count | plus:1 %}
+    {% endif %}
+  {% endfor %}
+  {% if count <= 1 or page.grant_count_all_years < 20 %}
+    {% assign simplify = true %}
+  {% endif %}
+
+
   <!-- Preconnect -->
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preconnect" href="https://qa1231c5w9-dsn.algolia.net" crossorigin>
@@ -436,7 +448,7 @@
                               <div id="ais-widget-range-slider"></div>
                               <div id="ais-widget-refinement-list--grantee_state"></div>
                               <div id="ais-widget-refinement-list--grantee_city"></div>
-                              <div id="ais-widget-refinement-list--grantee_name"></div>
+                              <div id="ais-widget-refinement-list--grantee_name" {% if simplify == true %}class="hidden"{% endif %}></div>
                             </div>
                             <div class="col s12 print-hidden">
                               <div class="section section-clear-all">
@@ -451,7 +463,7 @@
                           <div id="ais-widget-stats"><span class="ais-Stats-text text-muted hide-on-med-and-down">{{ page.grant_count_all_years }} results</span></div>
                         </div>
                         <div id="ais-widget-sort-by" class="col s12 m3 l3 right-align hidden">
-                          <a class="dropdown-trigger text-muted hide-on-med-and-down" data-target="tax-year-dropdown">Tax Years<i class="material-icons right">arrow_drop_down</i></a>
+                          <a class="dropdown-trigger text-muted hide-on-med-and-down {% if simplify == true %}hidden{% endif %}" data-target="tax-year-dropdown">Tax Years<i class="material-icons right">arrow_drop_down</i></a>
                           <div id="ais-widget-refinement-list--tax_year"></div>
                         </div>
                         <div class="col s12 divider"></div>
@@ -472,7 +484,7 @@
                         </div>
                       </div>
                       <div class="col s12 l9 offset-l3">
-                        <div class="section center-align">
+                        <div class="section center-align {% if simplify == true %}hidden{% endif %}">
                           <div id="ais-widget-pagination"></div>
                         </div>
                       </div>
