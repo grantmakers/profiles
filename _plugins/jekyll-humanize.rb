@@ -74,25 +74,26 @@ module Jekyll
       orig == copy ? copy : intcomma(copy, delimiter)
     end
 
-    INTWORD_HELPERS = [
-      [6, "million"],
-      [9, "billion"],
-      [12, "trillion"],
-      [15, "quadrillion"],
-      [18, "quintillion"],
-      [21, "sextillion"],
-      [24, "septillion"],
-      [27, "octillion"],
-      [30, "nonillion"],
-      [33, "decillion"],
-      [100, "googol"],
-    ]
+    def inthuman(value)
+      begin
+        value = value.to_i
+      rescue Exception => e
+        puts "#{e.class} #{e}"
+        return value
+      end
+
+      if value < 1000
+        return value
+      end
+
+      # return number_to_human(value,format:'%n%u',units:{thousand:'K',million:'M',billion:'B'})
+
+    end
 
     def intword(value)
       ##
-      # Converts a large integer to a friendly text representation. Works best
-      # for numbers over 1 million. For example, 1000000 becomes '1.0 million',
-      # 1200000 becomes '1.2 million' and 1200000000 becomes '1.2 billion'.
+      # Converts a large integer to a friendly text representation. For example
+      # 1000000 becomes '1.0M', 1200000 becomes '1.2M', etc.
       #
       # Usage:
       # {{ largenum }} >>> 1200000
@@ -105,20 +106,28 @@ module Jekyll
         return value
       end
 
-      if value < 1000000
+      if value < 1000.0
         return value
       end
 
-      for exponent, text in INTWORD_HELPERS
-        large_number = 10 ** exponent
-
-        if value < large_number * 1000
-          return "%#{value}.1f #{text}" % (value / large_number.to_f)
-        end
-
+      if value >= 100.0 && value < 100000.0
+        abbr = 'K'
+        value = value / 1000.0
       end
 
-      return value
+      if value >= 1000000.0 && value < 1000000000.0
+        abbr = 'M'
+        value = value / 1000000.0
+      end
+
+      if value >= 1000000000.0
+        abbr = 'B'
+        value = value / 1000000000.0
+        # I look forward to this biting me in the ass - a foundation with over $1 trillion in assets
+      end
+
+      value = "%.1f" % value # Kernel#sprintf
+      return "#{value}#{abbr}"
     end
 
     def apnumber(value)
