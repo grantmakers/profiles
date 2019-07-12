@@ -301,37 +301,30 @@
                     <h4>Summary</h4>
                   </div>
                   <div class="card-panel-body">
-                    <div class="list-group">
-                      <div class="list-group-item">
-                        <div class="row-action-primary">
-                          <i class="material-icons icon-info">account_balance</i>
-                        </div>
-                        <div class="row-content">
-                          <div class="least-content"></div>
-                          <h4 class="list-group-item-heading">${{ page.assets | round | intcomma }}</h4>
-                          <p class="list-group-item-text">Total Assets</p>
-                        </div>
+                    <div class="row row-tight">
+                      <div class="col s6">
+                        <p>Assets</p>
+                        <h4>${{ page.assets | intword }}</h4>
                       </div>
-                      <div class="list-group-item">
-                        <div class="row-action-primary">
-                          <i class="material-icons icon-warning">attach_money</i>
-                        </div>
-                        <div class="row-content">
-                          <div class="least-content"></div>
-                          <h4 class="list-group-item-heading">${{ page.grant_median | round | intcomma }}</h4>
-                          <p class="list-group-item-text">Median Grant Size</p>
-                        </div>
+                      <div class="col s6">
+                        <p>Grant Size <i class="material-icons text-muted-max tooltipped" data-tooltip="Median grant size in latest tax filing">info</i></p>
+                        <h4>${{ page.grant_median | intword }}</h4>
                       </div>
-                      <div class="list-group-item">
-                        <div class="row-action-primary">
-                          <i class="material-icons icon-success">poll</i> <!-- alt view_comfy poll local_atm-->
-                        </div>
-                        <div class="row-content">
-                          <div class="least-content"></div>
-                          <h4 class="list-group-item-heading">{{ page.grant_count | round | intcomma }}</h4>
-                          <p class="list-group-item-text">Grants Last Year</p>
-                        </div>
-                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="card-panel">
+                  <div class="row valign-wrapper">
+                    <div class="col s2 valign-wrapper">
+                      <img src="{{ site.baseurl }}/assets/img/irs-w-text.png" alt="IRS logo" class="responsive-img">
+                    </div>
+                    <div class="col s5">
+                      <p>Latest Tax Filing</p>
+                      <p class="summary">{{ page.filings[0].tax_year | round }}</p>
+                    </div>
+                    <div class="col s5">
+                      <p>Published by IRS</p>
+                      <p class="summary">{{ page.last_updated_irs | date: "%B %Y" }}</p>
                     </div>
                   </div>
                 </div>

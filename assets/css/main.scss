@@ -958,6 +958,17 @@ Mimic Algolia them - only the good parts
 		background-color: white;
 		margin-bottom: 75px;
 	}
+	#summary {
+		.row-tight {
+			margin-bottom: 0px;
+		}
+		p, h1, h2, h3, h4, h5, h6 {
+			margin: 0;
+		}
+		.summary {
+			font-weight: 400
+		}
+	}
 	#profile-cta {
 		margin-top: 75px;
 		margin-bottom: 75px; 
