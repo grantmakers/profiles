@@ -304,7 +304,7 @@
                     <div class="row row-tight">
                       <div class="col s12 center-align">
                         <p>Assets</p>
-                        <h4>${{ page.assets | intword }}</h4>
+                        <h4 title="${{ page.assets | round | intcomma }}">${{ page.assets | intword }}</h4>
                       </div>
                     </div>
                   </div>
@@ -320,11 +320,11 @@
                       </div>
                       <div class="col s5">
                         <p>Grant Median</p>
-                        <h4>${{ page.grant_median | intword }}</h4>
+                        <h4 title="${{ page.grant_median | round | intcomma }}">${{ page.grant_median | intword }}</h4>
                       </div>
                       <div class="col s5">
                         <p>Grant Max</p>
-                        <h4>${{ page.grant_max | intword }}</h4>
+                        <h4 title="${{ page.grant_max | round | intcomma }}">${{ page.grant_max | intword }}</h4>
                       </div>
                     </div>
                   </div>
