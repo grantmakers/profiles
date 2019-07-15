@@ -967,10 +967,21 @@ Mimic Algolia them - only the good parts
 		.summary {
 			font-weight: 400
 		}
-		.summary-icon {
+		.summary-icon { // Icon only - no background
 			height: 2.2rem;
-			i {
+			i.material-icons {
 				font-size: 2.2rem;
+			}
+		}
+		.summary-icon-bg {
+			border-radius: 3px;
+			i.square {
+				font-size: 18px;
+				height: 35px;
+				width: 35px;
+				max-width: unset;
+				line-height: 36px;
+				padding: 0 8px;
 			}
 		}
 	}
