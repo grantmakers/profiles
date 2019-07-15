@@ -110,7 +110,7 @@ module Jekyll
         return value
       end
 
-      if value >= 100.0 && value < 100000.0
+      if value >= 1000.0 && value < 1000000.0
         abbr = 'K'
         value = value / 1000.0
       end
