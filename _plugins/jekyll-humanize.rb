@@ -126,7 +126,16 @@ module Jekyll
         # I look forward to this biting me in the ass - a foundation with over $1 trillion in assets
       end
 
-      value = "%.1f" % value # Kernel#sprintf
+      # Use # Kernel#sprintf to narrow to 1 decimal or less
+      digits = "%.1f" % value
+      digits = digits.to_s.length
+      case
+      # Only show a decimal if number is single thousands, single millions, or single billions (e.g. 1000 => 1.0k)
+      when digits == 3
+        value = "%.1f" % value
+      else 
+        value = "%.0f" % value
+      end
       return "#{value}#{abbr}"
     end
 
