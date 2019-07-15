@@ -955,7 +955,6 @@ Mimic Algolia them - only the good parts
 		margin-bottom: 75px;
 	}
 	#summary, #people, #grants, #application-info, #community, #filings {
-		background-color: white;
 		margin-bottom: 75px;
 	}
 	#summary {
@@ -967,6 +966,12 @@ Mimic Algolia them - only the good parts
 		}
 		.summary {
 			font-weight: 400
+		}
+		.summary-icon {
+			height: 2.2rem;
+			i {
+				font-size: 2.2rem;
+			}
 		}
 	}
 	#profile-cta {

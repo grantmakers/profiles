@@ -302,29 +302,48 @@
                   </div>
                   <div class="card-panel-body">
                     <div class="row row-tight">
-                      <div class="col s6">
+                      <div class="col s12 center-align">
                         <p>Assets</p>
                         <h4>${{ page.assets | intword }}</h4>
-                      </div>
-                      <div class="col s6">
-                        <p>Grant Size <i class="material-icons text-muted-max tooltipped" data-tooltip="Median grant size in latest tax filing">info</i></p>
-                        <h4>${{ page.grant_median | intword }}</h4>
                       </div>
                     </div>
                   </div>
                 </div>
+                {% if page.grant_count > 0 %}
                 <div class="card-panel">
-                  <div class="row valign-wrapper">
-                    <div class="col s2 valign-wrapper">
-                      <img src="{{ site.baseurl }}/assets/img/irs-w-text.png" alt="IRS logo" class="responsive-img">
+                  <div class="card-panel-body">
+                    <div class="row row-tight valign-wrapper left-align">
+                      <div class="col s2 valign-wrapper">
+                        {% unless page.grant_median == page.grant_max %}
+                        <a href="#grants" class="summary-icon scrolly"><i class="material-icons blue-grey-text">search</i></a>
+                        {% endunless %}
+                      </div>
+                      <div class="col s5">
+                        <p>Grant Median</p>
+                        <h4>${{ page.grant_median | intword }}</h4>
+                      </div>
+                      <div class="col s5">
+                        <p>Grant Max</p>
+                        <h4>${{ page.grant_max | intword }}</h4>
+                      </div>
                     </div>
-                    <div class="col s5">
-                      <p>Latest Tax Filing</p>
-                      <p class="summary">{{ page.filings[0].tax_year | round }}</p>
-                    </div>
-                    <div class="col s5">
-                      <p>Published by IRS</p>
-                      <p class="summary">{{ page.last_updated_irs | date: "%B %Y" }}</p>
+                  </div>
+                </div>
+                {% endif %}
+                <div class="card-panel">
+                  <div class="card-panel-body">
+                    <div class="row row-tight valign-wrapper">
+                      <div class="col s2 valign-wrapper">
+                        <img src="{{ site.baseurl }}/assets/img/irs-w-text.png" alt="IRS logo" class="responsive-img">
+                      </div>
+                      <div class="col s5">
+                        <p>Latest Tax Filing</p>
+                        <p class="summary">{{ page.filings[0].tax_year | round }}</p>
+                      </div>
+                      <div class="col s5">
+                        <p>Published by IRS</p>
+                        <p class="summary">{{ page.last_updated_irs | date: "%B %Y" }}</p>
+                      </div>
                     </div>
                   </div>
                 </div>
