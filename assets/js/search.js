@@ -6,15 +6,11 @@ $(document).ready(function() {
   // =======================================================
   const targetEIN = $('h1.org-name').data('ein');
   const scrollAnchor = $('#grants').offset().top - 64; // 64 is height of profile-nav
-  const isPhone = window.matchMedia('only screen and (max-width: 600px)');
+  // const isPhone = window.matchMedia('only screen and (max-width: 600px)');
   // const isMobile = window.matchMedia('only screen and (max-width: 992px)');
   let gaCheck = window[window['GoogleAnalyticsObject'] || 'ga']; // eslint-disable-line dot-notation
   let gaCount = 0;
 
-  const formatter = new Intl.NumberFormat('en-US', {
-    style: 'decimal',
-    minimumFractionDigits: 0,
-  });
   // Note - fixed grants header handled by profile.js
 
   // Initialize Materialize components
