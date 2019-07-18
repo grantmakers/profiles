@@ -244,9 +244,7 @@
                   {% else %}
                   <h6 class="org-location">{{ page.city }}, {{ page.state }}</h6>
                   {% endif %}
-                  <ul class="list-inline org-location profile-summary-icons text-center"> 
-                    <li>{{ count }}</li>
-                    <li>{{ simplify }}</li>
+                  <ul class="list-inline org-location profile-summary-icons text-center">
                     <li>
                       {% if page.grants_to_preselected_only %}
                         <a href="#application-info" data-ga="Application Summary Icon" class="js-ga-summary-icon-click tooltipped scrolly" data-tooltip="Grants to preselected organizations only"><i class="material-icons">lock</i></a>
