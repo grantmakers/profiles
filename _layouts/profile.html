@@ -32,7 +32,10 @@
       {% assign count = count | plus:1 %}
     {% endif %}
   {% endfor %}
-  {% if count <= 1 or page.grant_count_all_years < 20 %}
+  {% if page.grant_count_all_years < 20 %}
+    {% assign simplify = true %}
+  {% endif %}
+  {% if count <= 1 and page.grant_count <= 20 %}
     {% assign simplify = true %}
   {% endif %}
 
@@ -242,6 +245,8 @@
                   <h6 class="org-location">{{ page.city }}, {{ page.state }}</h6>
                   {% endif %}
                   <ul class="list-inline org-location profile-summary-icons text-center"> 
+                    <li>{{ count }}</li>
+                    <li>{{ simplify }}</li>
                     <li>
                       {% if page.grants_to_preselected_only %}
                         <a href="#application-info" data-ga="Application Summary Icon" class="js-ga-summary-icon-click tooltipped scrolly" data-tooltip="Grants to preselected organizations only"><i class="material-icons">lock</i></a>
@@ -475,7 +480,7 @@
                           <div id="ais-widget-stats"><span class="ais-Stats-text text-muted hide-on-med-and-down">{{ page.grant_count_all_years }} results</span></div>
                         </div>
                         <div id="ais-widget-sort-by" class="col s12 m3 l3 right-align hidden">
-                          <a class="dropdown-trigger text-muted hide-on-med-and-down {% if simplify == true %}hidden{% endif %}" data-target="tax-year-dropdown">Tax Years<i class="material-icons right">arrow_drop_down</i></a>
+                          <a class="dropdown-trigger text-muted hide-on-med-and-down {% if simplify == true %}hidden{% endif %}" data-target="tax-year-dropdown">{% if page.filings[1] %}Tax Years<i class="material-icons right">arrow_drop_down</i>{% else %}Tax Year: {{ page.filings[0].tax_year }}{% endif %}</a>
                           <div id="ais-widget-refinement-list--tax_year"></div>
                         </div>
                         <div class="col s12 divider"></div>
