@@ -55,7 +55,7 @@ export default {
     this.stitchGetInsights();
 
     // Fetch private data
-    // this.initializeStitchAndLogin();
+    this.initializeStitchAndLogin();
   },
 
   mounted: function() {
@@ -72,6 +72,8 @@ export default {
       try {
         await this.stitchSetClient();
         await this.stitchLogin();
+        // This guard ensures a user is authenticated in *most* scenarios.
+        // Edge cases (e.g. 90 day auto-delete) need to be handled in subsequent Stitch function calls
         if (this.stitchClientObj.auth.isLoggedIn && this.stitchClientObj.auth.user !== undefined) {
           this.stitchGetUserData(0);
         }
@@ -88,18 +90,20 @@ export default {
     stitchSetClient: function() {
       if (!Stitch.hasAppClient(stitchAppId)) {
         this.stitchClientObj = Stitch.initializeDefaultAppClient(stitchAppId);
+        return this.stitchClientObj;
       } else {
         this.stitchClientObj = Stitch.defaultAppClient;
         this.handleError('Stitch', 'stitchSetClient', 'Stitch client already available - should not occur', 'info');
+        return this.stitchClientObj;
       }
-      return this.stitchClientObj;
     },
 
-    stitchLogin: function() {
-      return this.stitchClientObj.auth.loginWithCredential(new AnonymousCredential())
-        .catch(err => {
-          this.handleError('Stitch', 'stitchLogin', err, 'warning');
-        });
+    stitchLogin: async function() {
+      try {
+        return await this.stitchClientObj.auth.loginWithCredential(new AnonymousCredential());
+      } catch (err) {
+        return this.handleError('Stitch', 'stitchLogin', err, 'warning');
+      }
     },
 
     stitchGetInsights: function() {
@@ -149,10 +153,16 @@ export default {
             });
           }
         })
-        .catch(err => {
+        .catch( async(err) => {
           if (retryCount < 1) {
             retryCount++;
-            this.stitchGetUserData(retryCount);
+            // Handles scenario where Stitch auto-deleted users after 90 days
+            if (err.errorCodeName === 'InvalidSession') {
+              await this.stitchLogin();
+              this.stitchGetUserData(retryCount);
+            } else {
+              this.stitchGetUserData(retryCount);
+            }
           } else {
             this.handleError('Stitch', 'stitchGetUserData retry', err, 'warning');
           }
