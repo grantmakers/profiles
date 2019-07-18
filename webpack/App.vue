@@ -138,8 +138,10 @@ export default {
 
     stitchGetUserData: function(count) {
       let retryCount = count;
+      const start = Date.now();
       return this.stitchClientObj.callFunction('getUserData', [])
         .then(result => {
+          this.trackStitchAuth(start, Date.now(), 'Success');
           if (result) {
             this.profiles = result.profiles.sort(function(a, b) {
               // Descending - last saved appears first
@@ -158,12 +160,14 @@ export default {
             retryCount++;
             // Handles scenario where Stitch auto-deleted users after 90 days
             if (err.errorCodeName === 'InvalidSession') {
+              this.trackStitchAuth(start, Date.now(), 'Retry');
               await this.stitchLogin();
               this.stitchGetUserData(retryCount);
             } else {
               this.stitchGetUserData(retryCount);
             }
           } else {
+            this.trackStitchAuth(start, Date.now(), 'Fail');
             this.handleError('Stitch', 'stitchGetUserData retry', err, 'warning');
           }
         });
@@ -258,6 +262,22 @@ export default {
           'eventCategory': 'Profile Events',
           'eventAction': 'Insight Webhooks',
           'eventLabel': 'Webhook ' + outcome,
+          'eventValue': finish - start,
+        });
+      }
+
+      gaCount++;
+    },
+
+    trackStitchAuth: function(start, finish, outcome) {
+      let gaCheck = window[window['GoogleAnalyticsObject'] || 'ga']; // eslint-disable-line dot-notation
+      let gaCount = 0;
+
+      if (typeof gaCheck === 'function' && gaCount === 0) {
+        ga('send', 'event', {
+          'eventCategory': 'Profile Events',
+          'eventAction': 'Stitch Auth',
+          'eventLabel': 'Stitch Auth ' + outcome,
           'eventValue': finish - start,
         });
       }
