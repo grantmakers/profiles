@@ -27,6 +27,7 @@
             :href="buildProfileMailto(org)"
             target="_blank"
             class="tooltipped v-tooltipped"
+            title="Share this profile via email"
             data-tooltip="Share this profile via email"
             data-position="right"
             data-ga="Share Profile via Left Action Bar"
@@ -39,6 +40,7 @@
           <a
             v-clipboard:copy="org.url"
             class="tooltipped v-tooltipped"
+            title="Copy link to clipboard"
             data-tooltip="Copy link to clipboard"
             data-position="right"
             data-ga="Copy Link via Left Action Bar"
