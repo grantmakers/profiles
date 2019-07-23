@@ -210,7 +210,7 @@ $(document).ready(function() {
     widgetParams.container.innerHTML = `
       <ul id="tax-year-dropdown" class="dropdown-content">
         ${items.map(item => `
-          <li data-value="${item.value}"">
+          <li data-value="${item.value}">
             <label>
               <input type="checkbox" class="filled-in" ${item.isRefined ? 'checked="checked"' : ''} ${targetTaxYearOnlyOne ? 'disabled="disabled"' : ''} value="${item.value}"/>
               <span class="ais-RefinementList-labelText">${item.label}</span>
@@ -556,7 +556,7 @@ $(document).ready(function() {
       trigger.addEventListener('click', function() {
         M.Toast.dismissAll();
         M.toast({
-          'html': 'No filters available for Tax Years',
+          'html': 'No filters available for Tax Year',
           'displayLength': 4000,
         });
       });
