@@ -44,6 +44,10 @@ $(document).ready(function() {
       label: 'Recipient',
     },
     {
+      facet: 'grant_purpose',
+      label: 'Purpose',
+    },
+    {
       facet: 'grant_amount',
       label: 'Amount',
     },
@@ -77,6 +81,10 @@ $(document).ready(function() {
               refinementList &&
               refinementList.grantee_name &&
               refinementList.grantee_name.join('~'),
+            'grant_purpose':
+              refinementList &&
+              refinementList.grant_purpose &&
+              refinementList.grant_purpose.join('~'),
             'grant_amount':
               range &&
               range.grant_amount &&
@@ -93,6 +101,7 @@ $(document).ready(function() {
               'grantee_city': routeState.grantee_city && routeState.grantee_city.split('~'),
               'grantee_state': routeState.grantee_state && routeState.grantee_state.split('~'),
               'grantee_name': routeState.grantee_name && routeState.grantee_name.split('~'),
+              'grant_purpose': routeState.grant_purpose && routeState.grant_purpose.split('~'),
             },
             'range': {
               'grant_amount': routeState.grant_amount && routeState.grant_amount.replace('~', ':'),
@@ -317,7 +326,7 @@ $(document).ready(function() {
       refinementListWithPanel({
         'container': `#ais-widget-refinement-list--${refinement.facet}`,
         'attribute': refinement.facet,
-        'limit': 5,
+        'limit': 3,
         'showMore': true,
         'sortBy': sortBy,
         // 'searchable': true,
@@ -372,7 +381,7 @@ $(document).ready(function() {
   const renderListItem = item => `
     ${item.refinements.map(refinement => `
       <li>
-        <button class="waves-effect btn blue-grey lighten-3 grey-text text-darken-3" ${createDataAttribtues(refinement)}><i class="material-icons right">remove_circle</i><small>${getLabel(item.label)}</small> ${formatIfRangeLabel(refinement)} </button>
+        <button class="waves-effect btn blue-grey lighten-3 grey-text text-darken-3 truncate" ${createDataAttribtues(refinement)}><i class="material-icons right">remove_circle</i><small>${getLabel(item.label)}</small> ${formatIfRangeLabel(refinement)} </button>
       </li>
     `).join('')}
   `;
@@ -579,64 +588,28 @@ $(document).ready(function() {
     const facet = elem.dataset.facet;
     let value = elem.dataset.facetValue;
 
-    let valueMax;
-    let valueMin;
-    const amountBuffer = 0.2; // Percent above and below, in decimal format
-
-    let tooltip;
-    // TODO How to incorporate grant_purpse
-    // TODO How to incorporate amount
-    // console.log('Initial Helper state');
-    // console.log(search.helper.state);
-
-    // Define tooltip message
-    switch (facet) {
-    case 'grantee_name':
-    case 'tax_year':
-      tooltip = 'Added filter';
-      break;
-    case 'grantee_city':
-      tooltip = 'Added filter (City)';
-      break;
-    case 'grant_purpose':
-      // tooltip = 'Sorry, unable to filter by grant purpose at this time';
-      tooltip = 'Searching for "' + value + '"';
-      break;
-    case 'grant_amount':
-      tooltip = 'Added 20 percent buffer to selection';
-      break;
-    default:
-      // TODO Needs to be more generalized as refinement is toggled
-      // e.g. can be added or removed
-      tooltip = 'Added filter';
-    }
-    if (facet !== 'grant_amount' && facet !== 'grant_purpose') {
-      console.log('Clicked anything other than amount or purpose');
-      // console.log(search.helper);
+    if (facet !== 'grant_amount' && facet !== 'tax_year') {
       search.helper.toggleFacetRefinement(facet, value).search();
     } else if (facet === 'grant_amount') {
-      value = Number(value);
-      valueMax = Math.round(value * (1 + amountBuffer));
-      valueMin = Math.round(value * (1 - amountBuffer));
-      console.log(valueMax);
-      console.log(valueMin);
-      search.helper.addNumericRefinement(facet, '=', value).search();
-      // search.helper.addNumericRefinement(facet, '<=', valueMax).search();
-      // search.helper.addNumericRefinement(facet, '>=', valueMin).search();
-    } else if (facet === 'grant_purpose') {
-      search.helper.setQuery(value).search();
-    } else {
-      console.log('Detected click, but target is not a disjunctive Facet');
+      M.Toast.dismissAll();
+      M.toast({
+        'html': 'ProTip: Try the Amount slider',
+        'displayLength': 3000,
+      });
+    } else if (facet === 'tax_year') {
+      // Prevent refinement on tax year click if only one tax year
+      if (targetTaxYearOnlyOne) {
+        M.Toast.dismissAll();
+        M.toast({
+          'html': 'No filters available for Tax Year',
+          'displayLength': 4000,
+        });
+      } else {
+        search.helper.toggleFacetRefinement(facet, value).search();
+      }
     }
 
     readyToSearchScrollPosition();
-    
-    // TODO Disable "most" if scrolling to default position
-    M.Toast.dismissAll();
-    M.toast({
-      'html': tooltip,
-      'displayLength': 2000,
-    });
   }
 
   /*

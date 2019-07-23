@@ -1465,8 +1465,8 @@ Mimic Algolia them - only the good parts
 			}
 		}
 
-		/* Grantee Name - Menu */
-		#ais-widget-refinement-list--grantee_name {
+		/* Grantee Name & Grant Purpose - Menu */
+		#ais-widget-refinement-list--grantee_name, #ais-widget-refinement-list--grant_purpose {
 			.ais-RefinementList-labelText {
 				font-size: 80%;
 				line-height: 18px;
@@ -1517,6 +1517,10 @@ Mimic Algolia them - only the good parts
 			// margin-top: 0.5rem;
 			margin-bottom: 0.5rem;
 			padding: 0px 2px;
+			max-width: 100%; // Allows for adding truncate class to button
+			button {
+				max-width: 100%; // Allows for adding truncate class
+			}
 		}
 		.btn:hover {
 			background-color: $grantmakers;
