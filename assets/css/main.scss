@@ -97,6 +97,10 @@ $placeholder: $text-muted-max;
 .accent-text {
   color: $accent-color;
 }
+a.disabled {
+	// pointer-events: none; // Prevents tooltips if set to none
+	cursor: default;
+}
 ul.btn-group {
 	position: relative;
 	display: -ms-inline-flexbox;

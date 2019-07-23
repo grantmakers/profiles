@@ -5,6 +5,7 @@ $(document).ready(function() {
   // Helper definitions
   // =======================================================
   const targetEIN = $('h1.org-name').data('ein');
+  const targetTaxYearOnlyOne = $('h1.org-name').data('tax-year-only-one'); // resolves to boolean true or false
   const scrollAnchor = $('#grants').offset().top - 64; // 64 is height of profile-nav
   // const isPhone = window.matchMedia('only screen and (max-width: 600px)');
   // const isMobile = window.matchMedia('only screen and (max-width: 992px)');
@@ -211,7 +212,7 @@ $(document).ready(function() {
         ${items.map(item => `
           <li data-value="${item.value}"">
             <label>
-              <input type="checkbox" class="filled-in" ${item.isRefined ? 'checked="checked"' : ''} value="${item.value}"/>
+              <input type="checkbox" class="filled-in" ${item.isRefined ? 'checked="checked"' : ''} ${targetTaxYearOnlyOne ? 'disabled="disabled"' : ''} value="${item.value}"/>
               <span class="ais-RefinementList-labelText">${item.label}</span>
               <span class="ais-RefinementList-count right small">${item.count}</span>
             </label>
@@ -220,16 +221,19 @@ $(document).ready(function() {
       </ul>
     `;
 
-    // Re-initialize Materialize dropdown plugin
-    reInitDropdown();
-    
-    [...widgetParams.container.querySelectorAll('li')].forEach(element => {
-      element.addEventListener('click', event => {
-        event.preventDefault();
-        event.stopPropagation();
-        refine(event.currentTarget.dataset.value);
+    // Only enable click events and dropdown if multiple tax years exist
+    if (!targetTaxYearOnlyOne) {
+      // Initialize Materialize dropdown plugin
+      reInitDropdown();
+      // Create click events to allow Algolia to refine
+      [...widgetParams.container.querySelectorAll('li')].forEach(element => {
+        element.addEventListener('click', event => {
+          event.preventDefault();
+          event.stopPropagation();
+          refine(event.currentTarget.dataset.value);
+        });
       });
-    });
+    }
   };
 
   const customRefinementList = instantsearch.connectors.connectRefinementList(
@@ -450,7 +454,7 @@ $(document).ready(function() {
     $('select').formSelect();
     reInitPushpin();
     hideSeoPlaceholders();
-    document.getElementById('ais-widget-sort-by').classList.remove('hidden');
+    showSortByDropdown();
   });
 
   // search.on('render', function() {
@@ -540,6 +544,25 @@ $(document).ready(function() {
     const target = document.getElementById('ais-widget-refinement-list--seo-placeholder');
     target.classList.add('hidden');
   }
+
+  function showSortByDropdown() {
+    const el = document.getElementById('ais-widget-sort-by');
+    const trigger = el.querySelector('a.dropdown-trigger');
+    el.classList.remove('hidden');
+    // Check if only one tax year exists
+    // and disable clicks to prevent confusion
+    if (targetTaxYearOnlyOne) {
+      trigger.classList.add('disabled');
+      trigger.addEventListener('click', function() {
+        M.Toast.dismissAll();
+        M.toast({
+          'html': 'No filters available for Tax Years',
+          'displayLength': 4000,
+        });
+      });
+    }
+  }
+
   function scrolly(elem) {
     let position = $(elem).position().top;
     // animate
