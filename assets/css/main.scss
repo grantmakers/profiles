@@ -122,6 +122,16 @@ ul.btn-group {
 .modal:focus {
 	outline: 0;
 }
+span.badge-circle {
+	display: inline-block;
+	min-width: 0px;
+	margin-left: 5px;
+	border-radius: 50%;
+	height: inherit;
+	line-height: inherit;
+	font-size: 90%;
+	float: none;
+}
 ul.striped li {
 	border-bottom: none;
 }
