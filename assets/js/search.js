@@ -180,16 +180,18 @@ $(document).ready(function() {
           <tbody>
             ${hits.map(item =>`
               <tr>
-                <td class="right-align">$${ item.grant_amount.toLocaleString() }</td>
-                <td>${ instantsearch.highlight({ attribute: 'grantee_name', hit: item }) }</td>
-                <td>${ instantsearch.highlight({ attribute: 'grant_purpose', hit: item }) }</td>
-                <td class="no-wrap">${ item.grantee_city.length ? instantsearch.highlight({ attribute: 'grantee_city', hit: item }) + ',&nbsp;' + item.grantee_state : item.grantee_state}</td>
-                <td>${ item.tax_year }</td>
+                <td class="right-align" data-facet="grant_amount" data-facet-value="${ item.grant_amount }">$${ item.grant_amount.toLocaleString() }</td>
+                <td data-facet="grantee_name" data-facet-value="${ item.grantee_name }">${ instantsearch.highlight({ attribute: 'grantee_name', hit: item }) }</td>
+                <td data-facet="grant_purpose" data-facet-value="${ item.grant_purpose }">${ instantsearch.highlight({ attribute: 'grant_purpose', hit: item }) }</td>
+                <td class="no-wrap" data-facet="grantee_city" data-facet-value="${ item.grantee_city }">${ item.grantee_city.length ? instantsearch.highlight({ attribute: 'grantee_city', hit: item }) + ',&nbsp;' + item.grantee_state : item.grantee_state}</td>
+                <td data-facet="tax_year" data-facet-value="${ item.tax_year }">${ item.tax_year }</td>
               </tr>
             `).join('')}
           </tbody>
         </table>
       `;
+      document.querySelectorAll('#ais-widget-hits td')
+        .forEach(e => e.addEventListener('click', refineIfTableItemClicked));
     }
   };
 
@@ -569,6 +571,71 @@ $(document).ready(function() {
     $('html, body').animate({
       scrollTop: position + 100,
     }, 300, function() {
+    });
+  }
+
+  function refineIfTableItemClicked(e) {
+    const elem = e.target.closest( 'td' );
+    const facet = elem.dataset.facet;
+    let value = elem.dataset.facetValue;
+
+    let valueMax;
+    let valueMin;
+    const amountBuffer = 0.2; // Percent above and below, in decimal format
+
+    let tooltip;
+    // TODO How to incorporate grant_purpse
+    // TODO How to incorporate amount
+    // console.log('Initial Helper state');
+    // console.log(search.helper.state);
+
+    // Define tooltip message
+    switch (facet) {
+    case 'grantee_name':
+    case 'tax_year':
+      tooltip = 'Added filter';
+      break;
+    case 'grantee_city':
+      tooltip = 'Added filter (City)';
+      break;
+    case 'grant_purpose':
+      // tooltip = 'Sorry, unable to filter by grant purpose at this time';
+      tooltip = 'Searching for "' + value + '"';
+      break;
+    case 'grant_amount':
+      tooltip = 'Added 20 percent buffer to selection';
+      break;
+    default:
+      // TODO Needs to be more generalized as refinement is toggled
+      // e.g. can be added or removed
+      tooltip = 'Added filter';
+    }
+    if (facet !== 'grant_amount' && facet !== 'grant_purpose') {
+      console.log('Clicked anything other than amount or purpose');
+      // console.log(search.helper);
+      search.helper.toggleFacetRefinement(facet, value).search();
+    } else if (facet === 'grant_amount') {
+      value = Number(value);
+      valueMax = Math.round(value * (1 + amountBuffer));
+      valueMin = Math.round(value * (1 - amountBuffer));
+      console.log(valueMax);
+      console.log(valueMin);
+      search.helper.addNumericRefinement(facet, '=', value).search();
+      // search.helper.addNumericRefinement(facet, '<=', valueMax).search();
+      // search.helper.addNumericRefinement(facet, '>=', valueMin).search();
+    } else if (facet === 'grant_purpose') {
+      search.helper.setQuery(value).search();
+    } else {
+      console.log('Detected click, but target is not a disjunctive Facet');
+    }
+
+    readyToSearchScrollPosition();
+    
+    // TODO Disable "most" if scrolling to default position
+    M.Toast.dismissAll();
+    M.toast({
+      'html': tooltip,
+      'displayLength': 2000,
     });
   }
 
