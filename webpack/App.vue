@@ -34,6 +34,9 @@ const interceptorId = rax.attach(); // eslint-disable-line no-unused-vars
 // Component variables
 const stitchAppId = 'insights-xavlz';
 
+// Allow access to Bugsnag outside of Vue;
+// window.bugsnag = bugsnagClient;
+
 export default {
   components: {
     ActionBar,
