@@ -130,7 +130,6 @@ $(document).ready(function() {
       autofocus: false,
       reset: true,
       queryHook: function(query, searchInstance) {
-        readyToSearchScrollPosition();
         searchInstance(query);
         gaEvents();
       },
@@ -433,7 +432,7 @@ $(document).ready(function() {
   search.addWidget(
     instantsearch.widgets.pagination({
       container: '#ais-widget-pagination',
-      scrollTo: '#grants-scroll-anchor', // #grants used in v2
+      scrollTo: false,
       cssClasses: {
         root: 'pagination',
         page: 'waves-effect',
@@ -468,7 +467,9 @@ $(document).ready(function() {
     showSortByDropdown();
   });
 
-  // search.on('render', function() {
+  search.on('render', function() {
+    readyToSearchScrollPosition();
+  });
 
   search.on('error', function(e) {
     if (e.statusCode === 429) {
@@ -608,8 +609,6 @@ $(document).ready(function() {
         search.helper.toggleFacetRefinement(facet, value).search();
       }
     }
-
-    readyToSearchScrollPosition();
   }
 
   function renderRateLimit() {
