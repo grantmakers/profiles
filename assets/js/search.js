@@ -485,8 +485,14 @@ $(document).ready(function() {
 
   // Scroll to top upon input change
   // =======================================================
+  let renderCount = 0;
   function readyToSearchScrollPosition() {
-    $('html, body').animate({scrollTop: scrollAnchor}, '500', 'swing');
+    // TODO There should be a more elegant way to accomplish this
+    // Only auto scroll if a user interacts with InstantSearch
+    if (renderCount > 0) {
+      $('html, body').animate({scrollTop: scrollAnchor}, '500', 'swing');
+    }
+    renderCount++;
   }
 
   // Materialize - initialize tax year dropdown
