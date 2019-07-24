@@ -141,6 +141,12 @@ span.badge-circle {
 	font-weight: 700;
 	@extend .yellow-text;
 }
+.pointer {
+	cursor: pointer;
+	&:hover {
+		@extend .blue-grey-text;
+	}
+}
 ul.striped li {
 	border-bottom: none;
 }
