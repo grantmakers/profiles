@@ -779,6 +779,19 @@ nav ul li a {
 		bottom: 1rem;
 	}
 }
+
+/* Vue Components */
+/* TODO Move to relative Vue components */
+
+// Enative modal
+#enativ {
+	i {
+		font-size: inherit;
+		vertical-align: top;
+		margin-right: 10px;
+	}
+}
+
 // Community Sidebar
 #community-sidebar.sidenav {
 	@media #{$large-and-up} {

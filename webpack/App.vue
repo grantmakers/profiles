@@ -15,6 +15,9 @@
     <Insights
       :insights="insights"
     />
+    <EnativModal
+      ref="enativ"
+    />
   </div>
 </template>
 
@@ -25,6 +28,7 @@ import axios from 'axios';
 import ActionBar from './components/ActionBar';
 import SavedProfilesList from './components/SavedProfilesList';
 import Insights from './components/Insights';
+import EnativModal from './components/EnativModal';
 import bugsnagClient from './utils/bugsnag.js';
 import M from 'materialize';
 
@@ -42,6 +46,7 @@ export default {
     ActionBar,
     SavedProfilesList,
     Insights,
+    EnativModal,
   },
 
   data: function() {
@@ -214,6 +219,16 @@ export default {
       this.profiles = after;
     },
 
+    showEnativModal: function() {
+      const el = this.$refs.enativ.$refs.modal;
+      const options = {
+        'dismissible': false,
+        'opacity': 0.85,
+      };
+      const instance = M.Modal.init(el, options);
+      instance.open();
+    },
+
     handleError: function(context, fname, err, priority) {
       let obj = {};
       obj.metaData = {};
@@ -242,6 +257,7 @@ export default {
         // Capture Enativ software - no need to report to Bugsnag
         if (err.response.status && err.response.status === 429) {
           troubleshoot.sendBugsnagReport = false;
+          this.showEnativModal();
           return;
         }
       } else if (err.request) {
