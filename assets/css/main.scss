@@ -136,6 +136,11 @@ span.badge-circle {
 	font-size: 90%;
 	float: none;
 }
+.toast .toast-intro {
+	padding-right: 10px;
+	font-weight: 700;
+	@extend .yellow-text;
+}
 ul.striped li {
 	border-bottom: none;
 }

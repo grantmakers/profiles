@@ -567,7 +567,7 @@ $(document).ready(function() {
       trigger.addEventListener('click', function() {
         M.Toast.dismissAll();
         M.toast({
-          'html': 'No filters available for Tax Year',
+          'html': '<span class="toast-intro">Nothing to filter</span> Only one tax year available',
           'displayLength': 4000,
         });
       });
@@ -593,15 +593,15 @@ $(document).ready(function() {
     } else if (facet === 'grant_amount') {
       M.Toast.dismissAll();
       M.toast({
-        'html': 'ProTip: Try the Amount slider',
-        'displayLength': 3000,
+        'html': '<span class="toast-intro">ProTip</span> Try the Amount slider',
+        'displayLength': 4000,
       });
     } else if (facet === 'tax_year') {
-      // Prevent refinement on tax year click if only one tax year
+      // Only allow refining if multiple tax years exist
       if (targetTaxYearOnlyOne) {
         M.Toast.dismissAll();
         M.toast({
-          'html': 'No filters available for Tax Year',
+          'html': '<span class="toast-intro">Nothing to filter</span> Only one tax year available',
           'displayLength': 4000,
         });
       } else {
