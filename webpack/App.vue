@@ -74,7 +74,7 @@ export default {
     initializeStitchAndLogin: async function() {
       try {
         await this.stitchSetClient();
-        await this.stitchLogin();
+        await this.stitchLogin(0);
         // This guard ensures a user is authenticated in *most* scenarios.
         // Edge cases (e.g. 90 day auto-delete) need to be handled in subsequent Stitch function calls
         if (this.stitchClientObj.auth.isLoggedIn && this.stitchClientObj.auth.user !== undefined) {
@@ -101,11 +101,21 @@ export default {
       }
     },
 
-    stitchLogin: async function() {
+    stitchLogin: async function(count) {
+      let retryCount = count;
+      const start = Date.now();
       try {
-        return await this.stitchClientObj.auth.loginWithCredential(new AnonymousCredential());
+        await this.stitchClientObj.auth.loginWithCredential(new AnonymousCredential());
+        return this.trackStitchLogin(start, Date.now(), 'Success');
       } catch (err) {
-        return this.handleError('Stitch', 'stitchLogin', err, 'warning');
+        if (retryCount < 1) {
+          retryCount++;
+          this.trackStitchLogin(start, Date.now(), 'Retry');
+          return await this.stitchLogin(retryCount);
+        } else {
+          this.handleError('Stitch', 'stitchLogin', err, 'warning');
+          return this.trackStitchLogin(start, Date.now(), 'Fail');
+        }
       }
     },
 
@@ -281,6 +291,22 @@ export default {
           'eventCategory': 'Profile Events',
           'eventAction': 'Stitch Auth',
           'eventLabel': 'Stitch Auth ' + outcome,
+          'eventValue': finish - start,
+        });
+      }
+
+      gaCount++;
+    },
+
+    trackStitchLogin: function(start, finish, outcome) {
+      let gaCheck = window[window['GoogleAnalyticsObject'] || 'ga']; // eslint-disable-line dot-notation
+      let gaCount = 0;
+
+      if (typeof gaCheck === 'function' && gaCount === 0) {
+        ga('send', 'event', {
+          'eventCategory': 'Profile Events',
+          'eventAction': 'Stitch Login',
+          'eventLabel': 'Stitch Login ' + outcome,
           'eventValue': finish - start,
         });
       }
