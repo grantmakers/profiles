@@ -1420,7 +1420,7 @@ Mimic Algolia them - only the good parts
 		}
 		.ais-RefinementList-item {
 			&:hover {
-				background-color: #f5f5f5;
+				@extend .blue-grey-text;
 			}
 		}
 		label {
