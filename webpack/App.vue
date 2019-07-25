@@ -159,7 +159,7 @@ export default {
       const start = Date.now();
       return this.stitchClientObj.callFunction('getUserData', [])
         .then(result => {
-          this.trackStitchAuth(start, Date.now(), 'Success');
+          this.trackStitchGetUserData(start, Date.now(), 'Success');
           if (result) {
             this.profiles = result.profiles.sort(function(a, b) {
               // Descending - last saved appears first
@@ -178,14 +178,14 @@ export default {
             retryCount++;
             // Handles scenario where Stitch auto-deleted users after 90 days
             if (err.errorCodeName === 'InvalidSession') {
-              this.trackStitchAuth(start, Date.now(), 'Retry');
+              this.trackStitchGetUserData(start, Date.now(), 'Retry');
               await this.stitchLogin();
               this.stitchGetUserData(retryCount);
             } else {
               this.stitchGetUserData(retryCount);
             }
           } else {
-            this.trackStitchAuth(start, Date.now(), 'Fail');
+            this.trackStitchGetUserData(start, Date.now(), 'Fail');
             this.handleError('Stitch', 'stitchGetUserData retry', err, 'warning');
           }
         });
@@ -298,22 +298,6 @@ export default {
       gaCount++;
     },
 
-    trackStitchAuth: function(start, finish, outcome) {
-      let gaCheck = window[window['GoogleAnalyticsObject'] || 'ga']; // eslint-disable-line dot-notation
-      let gaCount = 0;
-
-      if (typeof gaCheck === 'function' && gaCount === 0) {
-        ga('send', 'event', {
-          'eventCategory': 'Profile Events',
-          'eventAction': 'Stitch Auth',
-          'eventLabel': 'Stitch Auth ' + outcome,
-          'eventValue': finish - start,
-        });
-      }
-
-      gaCount++;
-    },
-
     trackStitchLogin: function(start, finish, outcome) {
       let gaCheck = window[window['GoogleAnalyticsObject'] || 'ga']; // eslint-disable-line dot-notation
       let gaCount = 0;
@@ -321,8 +305,24 @@ export default {
       if (typeof gaCheck === 'function' && gaCount === 0) {
         ga('send', 'event', {
           'eventCategory': 'Profile Events',
-          'eventAction': 'Stitch Login',
+          'eventAction': 'Stitch Auth',
           'eventLabel': 'Stitch Login ' + outcome,
+          'eventValue': finish - start,
+        });
+      }
+
+      gaCount++;
+    },
+
+    trackStitchGetUserData: function(start, finish, outcome) {
+      let gaCheck = window[window['GoogleAnalyticsObject'] || 'ga']; // eslint-disable-line dot-notation
+      let gaCount = 0;
+
+      if (typeof gaCheck === 'function' && gaCount === 0) {
+        ga('send', 'event', {
+          'eventCategory': 'Profile Events',
+          'eventAction': 'Stitch Auth',
+          'eventLabel': 'Stitch GetData ' + outcome,
           'eventValue': finish - start,
         });
       }
