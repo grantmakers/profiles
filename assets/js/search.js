@@ -6,7 +6,7 @@ $(document).ready(function() {
   // =======================================================
   const targetEIN = $('h1.org-name').data('ein');
   const targetTaxYearOnlyOne = $('h1.org-name').data('tax-year-only-one'); // resolves to boolean true or false
-  const scrollAnchor = $('#grants').offset().top - 64; // 64 is height of profile-nav
+  const scrollAnchor = $('#grants').offset().top - 65; // 64 is height of profile-nav - but parts show 65 TODO
   // const isPhone = window.matchMedia('only screen and (max-width: 600px)');
   // const isMobile = window.matchMedia('only screen and (max-width: 992px)');
   let gaCheck = window[window['GoogleAnalyticsObject'] || 'ga']; // eslint-disable-line dot-notation
@@ -487,8 +487,8 @@ $(document).ready(function() {
   // =======================================================
   let renderCount = 0;
   function readyToSearchScrollPosition() {
-    // TODO There should be a more elegant way to accomplish this
     // Only auto scroll if a user interacts with InstantSearch
+    // TODO There should be a more elegant way to accomplish this
     if (renderCount > 0) {
       $('html, body').animate({scrollTop: scrollAnchor}, '500', 'swing');
     }
