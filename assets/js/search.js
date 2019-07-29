@@ -6,9 +6,27 @@ $(document).ready(function() {
   // =======================================================
   const targetEIN = $('h1.org-name').data('ein');
   const targetTaxYearOnlyOne = $('h1.org-name').data('tax-year-only-one'); // resolves to boolean true or false
-  const scrollAnchor = $('#grants').offset().top - 65; // 64 is height of profile-nav - but parts show 65 TODO
+
+  // Scroll helpers
+  const scrollBuffer = 65; // Height of profile-nav is 64px TODO Parts of nav are actually 65
+  const scrollAnchor = $('#grants').offset().top - scrollBuffer;
+  let renderCount = 0;
+  const throttle = (func, limit) => {
+    let inThrottle;
+    return function() {
+      const args = arguments;
+      const context = this;
+      if (!inThrottle) {
+        func.apply(context, args);
+        inThrottle = true;
+        setTimeout(() => {inThrottle = false;}, limit);
+      }
+    };
+  };
+  
   // const isPhone = window.matchMedia('only screen and (max-width: 600px)');
   // const isMobile = window.matchMedia('only screen and (max-width: 992px)');
+
   let gaCheck = window[window['GoogleAnalyticsObject'] || 'ga']; // eslint-disable-line dot-notation
   let gaCount = 0;
 
@@ -468,7 +486,7 @@ $(document).ready(function() {
   });
 
   search.on('render', function() {
-    readyToSearchScrollPosition();
+    throttle(readyToSearchScrollPosition(), 1000);
   });
 
   search.on('error', function(e) {
@@ -485,14 +503,21 @@ $(document).ready(function() {
 
   // Scroll to top upon input change
   // =======================================================
-  let renderCount = 0;
   function readyToSearchScrollPosition() {
-    // Only auto scroll if a user interacts with InstantSearch
-    // TODO There should be a more elegant way to accomplish this
+    // Skip if scrollBox already in search position
+    const elem = document.getElementById('grants');
+    const top = elem.getBoundingClientRect().top;
+    const topRounded = Math.round(top);
+    if (topRounded === scrollBuffer) {
+      renderCount++;
+      return false;
+    }
+
+    // Skip if first render to prevent auto-scroll on initial page load
     if (renderCount > 0) {
       $('html, body').animate({scrollTop: scrollAnchor}, '500', 'swing');
     }
-    renderCount++;
+    return renderCount++;
   }
 
   // Materialize - initialize tax year dropdown
@@ -596,6 +621,7 @@ $(document).ready(function() {
     let value = elem.dataset.facetValue;
 
     if (facet !== 'grant_amount' && facet !== 'tax_year') {
+      // readyToSearchScrollPosition();
       search.helper.toggleFacetRefinement(facet, value).search();
     } else if (facet === 'grant_amount') {
       M.Toast.dismissAll();
@@ -612,6 +638,7 @@ $(document).ready(function() {
           'displayLength': 4000,
         });
       } else {
+        // readyToSearchScrollPosition();
         search.helper.toggleFacetRefinement(facet, value).search();
       }
     }
