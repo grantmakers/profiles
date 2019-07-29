@@ -621,7 +621,6 @@ $(document).ready(function() {
     let value = elem.dataset.facetValue;
 
     if (facet !== 'grant_amount' && facet !== 'tax_year') {
-      // readyToSearchScrollPosition();
       search.helper.toggleFacetRefinement(facet, value).search();
     } else if (facet === 'grant_amount') {
       M.Toast.dismissAll();
@@ -638,7 +637,6 @@ $(document).ready(function() {
           'displayLength': 4000,
         });
       } else {
-        // readyToSearchScrollPosition();
         search.helper.toggleFacetRefinement(facet, value).search();
       }
     }
