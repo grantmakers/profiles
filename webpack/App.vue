@@ -63,7 +63,7 @@ export default {
     this.stitchGetInsights();
 
     // Fetch private data
-    this.initializeStitchAndLogin();
+    // this.initializeStitchAndLogin();
   },
 
   mounted: function() {
