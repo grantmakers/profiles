@@ -114,6 +114,9 @@ ul.btn-group {
 		}
 	}
 }
+.row-tight {
+	margin-bottom: 0px;
+}
 .small {
   font-size: 85%;
 }
@@ -169,6 +172,9 @@ p i.material-icons {
 	font-size: 15px;
 	line-height: 1.5;
 	vertical-align: bottom;
+}
+img.icon-irs-alt {
+	height: 22px;
 }
 .card-action-community-alert {
 	display: none;
@@ -273,7 +279,7 @@ Print
 	.main {
 		top: 150px;
 	}
-	#profile, #summary, #people {
+	#profile, #summary, #people, #activities {
 		margin-bottom: 0 !important;
 	}
 	.card-panel-header h4 {
@@ -992,13 +998,10 @@ Mimic Algolia them - only the good parts
 	#profile, #noscript, #feedback, #profile-share, #information-source {
 		margin-bottom: 75px;
 	}
-	#summary, #people, #grants, #application-info, #community, #filings {
+	#summary, #people, #activities, #grants, #application-info, #community, #filings {
 		margin-bottom: 75px;
 	}
 	#summary {
-		.row-tight {
-			margin-bottom: 0px;
-		}
 		p, h1, h2, h3, h4, h5, h6 {
 			margin: 0;
 		}
@@ -1204,6 +1207,35 @@ Mimic Algolia them - only the good parts
 			background-color: $grantmakers !important;
 		}
 	}
+	/****************************
+	Charitable activities
+	*****************************/
+	#activities {
+		.card-panel-header {
+			 button {
+				 height: 27px; // Match h4
+			 }
+		}
+		.collection {
+			margin: 0;
+			border: none;
+		}
+		.collection-item {
+			padding: 20px;
+		}
+		.collection-item-content {
+			overflow: hidden;
+		}
+		span.badge {
+			float: left;
+			margin-left: 0;
+			margin-right: 20px;
+			margin-top: 0; // Override Materialize default
+		}
+	}
+
+
+
 	/****************************
 	Grants / InstantSearch wrapper
 	*****************************/
@@ -1844,6 +1876,9 @@ td, th {
 		font-weight: 300;
     font-size: 1.3em;
     line-height: 1.4em;
+	}
+	button.tooltipped {
+		height: 27px; // Match h4
 	}
 
 }
