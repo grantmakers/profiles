@@ -322,9 +322,11 @@
                   <div class="card-panel-body">
                     <div class="row row-tight valign-wrapper left-align">
                       <div class="col s2 valign-wrapper">
-                        {% unless page.grant_median == page.grant_max %}
+                        {% if algolia == true %}
                         <a href="#grants" class="summary-icon-bg green scrolly"><i class="material-icons square white-text">search</i></a>
-                        {% endunless %}
+                        {% else %}
+                        <a href="#grants" class="summary-icon-bg grey scrolly"><i class="material-icons square white-text">assignment</i></a>
+                        {% endif %}
                       </div>
                       <div class="col s5">
                         <p>Grant Median</p>
