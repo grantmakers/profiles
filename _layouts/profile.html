@@ -135,12 +135,12 @@
 
   <!-- Search and Algolia-related scripts -->
   <script defer src="https://cdn.polyfill.io/v2/polyfill.min.js?features=Object.assign,Intl.~locale.en"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/algoliasearch@3.32.1/dist/algoliasearchLite.js" integrity="sha256-pMaJf0I78weeXGkRMBDO6jSulxC/q3sb0aPdtV2N8n0=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/algoliasearch@3.33.0/dist/algoliasearchLite.min.js" integrity="sha256-3Laj91VXexjTlFLgL8+vvIq27laXdRmFIcO2miulgEs=" crossorigin="anonymous"></script>
   {% if algolia == true %}
   {% if jekyll.environment == 'production' %}
-  <script defer src="https://cdn.jsdelivr.net/npm/instantsearch.js@3.5.3/dist/instantsearch.production.min.js" integrity="sha256-uAYe5XYExBdWZsgJ1BFlhePETWvUiaMHzMBIWlv6zDA=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/instantsearch.js@3.6.0/dist/instantsearch.production.min.js" integrity="sha256-N/ZioXfJ7+qk2cejhAJsm0+ed/l/445mZGjpEWeyeR4=" crossorigin="anonymous"></script>
   {% else %}
-  <script src="https://cdn.jsdelivr.net/npm/instantsearch.js@3.5.3/dist/instantsearch.development.js" integrity="sha256-BNNs9JsaO53cD5qH+W51GR9Oo3YjLuEze8EW8joJ6C4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/instantsearch.js@3.6.0/dist/instantsearch.development.js" integrity="sha256-4i8lOGr1bSbtT2KpFoYSfutEpiBbT4zEP32mUBHLUfQ=" crossorigin="anonymous"></script>
   {% endif %}
   <script defer src="{{ site.baseurl }}/assets/js/search.js?v={{ site.time | date: '%Y%m%d'}}"></script>
   {% endif %}
