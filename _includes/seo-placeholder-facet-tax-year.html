@@ -10,8 +10,8 @@
                 <div>
                   <label class="ais-RefinementList-label">
                     <input type="checkbox" class="ais-RefinementList-checkbox filled-in" value="{{ each.tax_year }}"> 
-                    <span class="ais-RefinementList-labelText small">{{ each.tax_year }}</span>
-                    <span class="ais-RefinementList-count right small">{{ each.count }}</span> 
+                    <span class="ais-RefinementList-labelText small">{{ each.tax_year | round }}</span>
+                    <span class="ais-RefinementList-count right small">{{ each.count | round }}</span> 
                   </label>
                 </div>
               </li>
