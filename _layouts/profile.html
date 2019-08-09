@@ -402,37 +402,37 @@
           </div>
 
           <div class="row">
-              <div class="col s12">
-                <div id="activities">
-                  <div class="card card-panel">
-                    <div class="card-panel-header">
-                      <h4>Charitable Activities <button class="tooltipped right valign-wrapper" data-position="left" data-html="true" data-tooltip="Summary of Direct Charitable Activities<br>Form 990-PF<br>Part IX-A"><img src="{{ site.baseurl }}/assets/img/irs-w-text-alt.png" alt="IRS logo" class="icon-irs-alt"></button></h4>
-                    </div>
-                    <div class="card-content card-panel-body">
-                      <div class="row row-tight">
-                        <div class="col s12">
-                          {% if page.has_charitable_activities == true %}
-                            {% assign sorted_activities = page.charitable_activities | sort: 'expenses' | reverse %}
-                            <ul class="collection">
-                              {% for activity in sorted_activities %}
-                                <li class="collection-item">
-                                  <span class="new badge blue-grey" data-badge-caption="">${{ activity.expenses | intcomma }}</span>
-                                  <div class="collection-item-content">
-                                    {{ activity.description }}
-                                  </div>
-                                </li>
-                              {% endfor %}
-                            </ul>
-                          {% else %}
-                            No Charitable Activities listed on Form 990-PF Part IX-A
-                          {% endif %}
-                        </div>
+            <div class="col s12">
+              <div id="activities">
+                <div class="card card-panel">
+                  <div class="card-panel-header">
+                    <h4>Charitable Activities <button class="tooltipped right valign-wrapper" data-position="left" data-html="true" data-tooltip="Summary of Direct Charitable Activities<br>Form 990-PF<br>Part IX-A"><img src="{{ site.baseurl }}/assets/img/irs-w-text-alt.png" alt="IRS logo" class="icon-irs-alt"></button></h4>
+                  </div>
+                  <div class="card-content card-panel-body">
+                    <div class="row row-tight">
+                      <div class="col s12">
+                        {% if page.has_charitable_activities == true %}
+                          {% assign sorted_activities = page.charitable_activities | sort: 'expenses' | reverse %}
+                          <ul class="collection">
+                            {% for activity in sorted_activities %}
+                              <li class="collection-item">
+                                <span class="new badge blue-grey" data-badge-caption="">${{ activity.expenses | intcomma }}</span>
+                                <div class="collection-item-content">
+                                  {{ activity.description }}
+                                </div>
+                              </li>
+                            {% endfor %}
+                          </ul>
+                        {% else %}
+                          No Charitable Activities listed on Form 990-PF Part IX-A
+                        {% endif %}
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
+          </div>
 
           <div id="grants-scroll-anchor" class="row">
             <div class="col s12">
