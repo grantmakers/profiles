@@ -235,7 +235,7 @@ $(document).ready(function() {
           });
         }
       })
-      .fail(function(xhr, textStatus, error) {
+      .fail(function(xhr, textStatus, error) { // eslint-disable-line no-unused-vars
         const toastContent = '<span>Something went wrong.</span><button href="http://foundationcenter.org/find-funding/990-finder" class="btn-flat toast-action">Try Here.</button>';
         M.Toast.dismissAll();
         M.toast({
