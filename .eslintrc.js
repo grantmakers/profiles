@@ -16,6 +16,7 @@ module.exports = {
     "M": true,
     "instantsearch": true,
     "algoliasearch": true,
+    "autocomplete": true,
     "stitch": true,
     "ga": true,
     "bugsnagClient": true,
