@@ -2,15 +2,20 @@
   <div class="responsive-table-wrapper">
     {% if page.grant_count > 1000 %}
     <div class="row">
-        <div class="col s12">
-          <div class="card blue-grey lighten-3">
-            <div class="card-content white-text">
-              <i class="material-icons">warning</i> You may experience a delay when sorting. This foundation has a large number of grants. 
-            </div>
+      <div class="col s12">
+        <div class="card blue-grey lighten-2">
+          <div class="card-content white-text">
+            <i class="material-icons">warning</i> You may experience a delay when sorting. This foundation has a large number of grants. 
           </div>
         </div>
       </div>
+    </div>
     {% endif %}
+    <div class="row">
+      <div class="col s12 text-light">
+        Tax Year {{ page.filings[0].tax_year | round }}
+      </div>
+    </div>
     <table id="grantsTable" class="striped bordered">
       <thead>
         <tr>
@@ -58,4 +63,15 @@
       {% endif %}
     </table>
   </div>
+  {% if page.grant_count > 50 %}
+  <div class="row">
+    <div class="col s12">
+      <div class="card">
+        <div class="card-content grey lighten-4 text-light">
+          Note: The IRS dataset contains additional grants for this funder's {{ page.filings[0].tax_year | round }} tax year ({{ page.grant_count | round }} total grants)
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endif %}
 </div>

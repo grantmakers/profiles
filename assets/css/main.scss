@@ -1177,7 +1177,7 @@ Mimic Algolia them - only the good parts
 	table {
 		th  span{
 			&:hover {
-				cursor: pointer;
+				// cursor: pointer; // Uncomment in future if table sorting added back
 			}
 		}
 	}
@@ -1643,25 +1643,6 @@ Mimic Algolia them - only the good parts
 		display: inherit;
 	}
 
-	// http://maxdesign.com.au/articles/simple-responsive-table/
-	.responsive-table-wrapper {
-		width: 100%;
-		overflow-y: auto;
-		_overflow: auto;
-		margin: 0 0 1em;
-	}
-
-	.responsive-table-wrapper::-webkit-scrollbar {
-		-webkit-appearance: none;
-		width: 14px;
-		height: 14px;
-	}
-
-	.responsive-table-wrapper::-webkit-scrollbar-thumb {
-		border-radius: 8px;
-		border: 3px solid #fff;
-		background-color: rgba(0, 0, 0, .3);
-	}
 	ul.collapsible-grants-table {
 		.collapsible-header {
 			color: $gray-light !important;
@@ -1903,23 +1884,26 @@ table tbody tr:last-child {
 }
 
 // http://maxdesign.com.au/articles/simple-responsive-table/
-.responsive-table-wrapper {
-	width: 100%;
-	overflow-y: auto;
-	_overflow: auto;
-	margin: 0 0 1em;
-}
+// Used as an alternative to the Materialize responsive-table class
+@media #{$medium-and-down} {
+	.responsive-table-wrapper {
+		width: 100%;
+		overflow-y: auto;
+		_overflow: auto;
+		margin: 0 0 1em;
+	}
 
-.responsive-table-wrapper::-webkit-scrollbar {
-	-webkit-appearance: none;
-	width: 14px;
-	height: 14px;
-}
-
-.responsive-table-wrapper::-webkit-scrollbar-thumb {
-	border-radius: 8px;
-	border: 3px solid #fff;
-	background-color: rgba(0, 0, 0, .3);
+	.responsive-table-wrapper::-webkit-scrollbar {
+		-webkit-appearance: none;
+		width: 14px;
+		height: 14px;
+	}
+	
+	.responsive-table-wrapper::-webkit-scrollbar-thumb {
+		border-radius: 8px;
+		border: 3px solid #fff;
+		background-color: rgba(0, 0, 0, .3);
+	}
 }
 
 footer ul li {

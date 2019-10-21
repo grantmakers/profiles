@@ -44,6 +44,12 @@
     {% assign enable_tax_year_dropdown = true %}
   {% endif %}
 
+  {% comment %} Ensure profiles with only 2009 or 2010 grants do NOT use Algolia {% endcomment %}
+  {% comment %} Removed 2009 and 2010 grants from Algolia index to stay under the 5m record limit {% endcomment %}
+  {% if page.filings[0].tax_year == 2009 or page.filings[0].tax_year == 2010 %}
+    {% assign algolia = false %}
+  {% endif %}
+
 
   <!-- Preconnect -->
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
