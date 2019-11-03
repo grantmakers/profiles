@@ -153,7 +153,6 @@
   <script defer src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.37.0/dist/autocomplete.min.js" integrity="sha256-JZDcuzCEztytVwTfj5C3RN/ZIxwD8/6JhaG/2l8ZQC0=" crossorigin="anonymous"></script>
   <script defer src="{{ site.baseurl }}/assets/js/autocomplete.js"></script>
 
-  <script defer src="{{ site.baseurl }}/assets/js/jquery.matchHeight-min.js"></script>
   <script src="{{ site.baseurl }}/assets/js/profile.js?v={{ site.time | date: '%Y%m%d'}}"></script>
 
   <!-- Vue -->
@@ -585,10 +584,10 @@
             </div>
           </div>
 
-          <div class="row">
-            <div class="col s12 l6">
-              <div id="application-info">
-                <div class="card-panel">
+          <div class="row flex">
+            <div class="col s12 l6 flex flex-direction-column">
+              <div id="application-info" class="flex flex-grow-1">
+                <div class="card-panel card-panel-flex">
                   <div class="card-panel-header-wrapper">
                     <div class="card-panel-header">
                       <div class="row">
@@ -598,7 +597,7 @@
                       </div>
                     </div>
                   </div>
-                  <div class="card-panel-body" data-mh="match-height-one">
+                  <div class="card-panel-body">
                     {% if page.website %}
                       <ul class="collection">
                         <li class="collection-item avatar">
@@ -678,13 +677,13 @@
                 </div>
               </div>
             </div>
-            <div class="col s12 l6 match-height-two">
-              <div id="community">
-                <div class="card-panel">
+            <div class="col s12 l6 flex flex-direction-column">
+              <div id="community" class="flex flex-grow-1">
+                <div class="card-panel card-panel-flex">
                   <div class="card-panel-header">
                     <h4>Community Insights & Updates<!--<span class="new badge blue-grey" data-badge-caption="New">1</span>--></h4>
                   </div>
-                  <div class="card-panel-body" data-mh="match-height-one">
+                  <div class="card-panel-body"> <!-- Ensure has no set height -->
                     <div id="insights"></div>
                     <ul class="collection">
                       <li class="collection-item collection-item-empty-state avatar print-hidden">

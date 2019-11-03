@@ -143,10 +143,6 @@ export default {
           this.insights = result.data;
           this.trackWebhooks(start, Date.now(), 'Success');
         })
-        .then(() => {
-          // TODO Limit to desktop only
-          this.matchHeight();
-        })
         .catch(err => {
           this.trackWebhooks(start, Date.now(), 'Fail');
           // Send additional info to bugsnag for troubleshooting
@@ -199,12 +195,6 @@ export default {
       obj.tax_year = data.dataset.taxYear;
       obj.url = data.dataset.url;
       return obj;
-    },
-
-    matchHeight: function() {
-      if (window.$ && $.fn.matchHeight ) {
-        $.fn.matchHeight._update();
-      }
     },
 
     updateProfilesListAdd: function(data) {

@@ -1758,6 +1758,21 @@ Mimic Algolia them - only the good parts
 			padding: 20px 0px;
 		}
 	}
+	/* Apply flexbox to match height */
+	@media #{$medium-and-up} {
+		.flex {
+			display: flex !important;
+		}
+		.flex-grow-1 {
+			flex-grow: 1 !important;
+		}
+		.flex-direction-column {
+			flex-direction: column;
+		}
+		.card-panel-flex {
+			width: 100%;
+		}
+	}
 	#feedback {
 		h5 {
 			margin-bottom: 25px;
