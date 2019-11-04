@@ -1,40 +1,52 @@
 ---
 ---
-$(document).ready(function() {
-  'use strict';
+function ready(fn) {
+  if (document.attachEvent ? document.readyState === 'complete' : document.readyState !== 'loading') {
+    fn();
+  } else {
+    document.addEventListener('DOMContentLoaded', fn);
+  }
+}
 
+ready(function() {
   // Navbar
   // =======================================================
-  const header = $('.header');
-  const navbar = $('.navbar-profile');
+  const header = document.querySelector('.header');
+  const navbar = document.querySelector('.navbar-profile');
   const range = 64; // Height of navbar
 
-  $(window).on('scroll', function() {
-    let scrollTop = $(this).scrollTop();
-    let height = header.outerHeight();
+  window.onscroll = function() {
+    let scrollTop = window.pageYOffset;
+    let height = header.offsetHeight;
     let offset = height / 2;
     let calc = 1 - (scrollTop - offset + range) / range;
 
-    header.css({ 'opacity': calc });
+    header.style.opacity = calc;
 
     if (calc > '1') {
-      header.css({ 'opacity': 1 });
-      navbar.addClass('affix-top');
-      navbar.removeClass('affix');
+      header.style.opacity = 1;
+      navbar.classList.add('affix-top');
+      navbar.classList.remove('affix');
     } else if ( calc < '0' ) {
-      header.css({ 'opacity': 0 });
-      navbar.addClass('affix');
-      navbar.removeClass('affix-top');
+      header.style.opacity = 0;
+      navbar.classList.add('affix');
+      navbar.classList.remove('affix-top');
     }
-  });
+  };
 
   // Materialize components
   // =======================================================
   window.onload = function() {
-    $('.sidenav').sidenav();
-    $('.tooltipped:not(.v-tooltipped)').tooltip(); // :not ensures Vue handles relevant initiation for Vue-controlled elements
-    $('.collapsible').collapsible({
+    const elemsSN = document.querySelectorAll('.sidenav');
+    M.Sidenav.init(elemsSN);
+
+    const elemsTT = document.querySelectorAll('.tooltipped:not(.v-tooltipped)');
+    M.Tooltip.init(elemsTT);
+
+    const elemDD = document.querySelector('.collapsible');
+    const optionsDD = {
       'accordion': false,
-    });
+    };
+    M.Collapsible.init(elemDD, optionsDD);
   };
 });
