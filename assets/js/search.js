@@ -4,12 +4,12 @@ $(document).ready(function() {
   'use strict';
   // Helper definitions
   // =======================================================
-  const targetEIN = $('h1.org-name').data('ein');
-  const targetTaxYearOnlyOne = $('h1.org-name').data('tax-year-only-one'); // resolves to boolean true or false
-
+  const targetEIN = document.querySelector('h1.org-name').dataset.ein;
+  const targetTaxYearOnlyOne = document.querySelector('h1.org-name').dataset.taxYearOnlyOne; // resolves to boolean true or false
   // Scroll helpers
   const scrollBuffer = 65; // Height of profile-nav is 64px TODO Parts of nav are actually 65
-  const scrollAnchor = $('#grants').offset().top - scrollBuffer;
+  const scrollAnchorEl = document.getElementById('grants');
+  const scrollAnchor = getElementOffset(scrollAnchorEl).top - scrollBuffer;
   let renderCount = 0;
   const throttle = (func, limit) => {
     let inThrottle;
@@ -37,8 +37,8 @@ $(document).ready(function() {
   // Note: if the element is created dynamically via Instantsearch widget,
   // the plugin needs to be initialized in the normal Instantsearch workflow
   // using the render method (e.g. search.once('render'...)
-  $('.parallax').parallax();
-  $('.sidenav').sidenav();
+  const elemsSN = document.querySelectorAll('.sidenav');
+  M.Sidenav.init(elemsSN);
 
   // Algolia Instantsearch
   // =======================================================
@@ -479,7 +479,8 @@ $(document).ready(function() {
   // Initialize Materialize JS components
   // =======================================================
   search.once('render', function() {
-    $('select').formSelect();
+    const elemsFS = document.querySelectorAll('select');
+    M.FormSelect.init(elemsFS);
     reInitPushpin();
     hideSeoPlaceholders();
     showSortByDropdown();
@@ -492,11 +493,11 @@ $(document).ready(function() {
   search.on('error', function(e) {
     if (e.statusCode === 429) {
       renderRateLimit();
-      console.log('Rate limit reached');
+      console.log('Rate limit reached'); // eslint-disable-line no-console
     }
     if (e.statusCode === 403) {
       renderForbidden();
-      console.log('Origin forbidden');
+      console.log('Origin forbidden'); // eslint-disable-line no-console
     }
     // console.log(e);
   });
@@ -516,6 +517,11 @@ $(document).ready(function() {
     // Skip if first render to prevent auto-scroll on initial page load
     if (renderCount > 0) {
       $('html, body').animate({scrollTop: scrollAnchor}, '500', 'swing');
+      /* https://stackoverflow.com/a/48901013/1944104
+      document.getElementById('id').scrollIntoView({
+        behavior: 'smooth'
+      });
+      */
     }
     return renderCount++;
   }
@@ -606,6 +612,7 @@ $(document).ready(function() {
     }
   }
 
+  // TODO Replace with smoothscroll polyfill
   function scrolly(elem) {
     let position = $(elem).position().top;
     // animate
@@ -671,7 +678,6 @@ $(document).ready(function() {
     }
   }
 
-
   function numberHuman(num, decimals) {
     if (num === null) { return null; } // terminate early
     if (num === 0) { return '0'; } // terminate early
@@ -683,5 +689,13 @@ $(document).ready(function() {
     const d = c < 0 ? c : Math.abs(c); // enforce -0 is 0
     const e = d + ['', 'K', 'M', 'B', 'T'][k]; // append power
     return e;
+  }
+
+  function getElementOffset(element) {
+    let de = document.documentElement;
+    let box = element.getBoundingClientRect();
+    let top = box.top + window.pageYOffset - de.clientTop;
+    let left = box.left + window.pageXOffset - de.clientLeft;
+    return { top: top, left: left };
   }
 });
