@@ -5,7 +5,7 @@ $(document).ready(function() {
   // Helper definitions
   // =======================================================
   const targetEIN = document.querySelector('h1.org-name').dataset.ein;
-  const targetTaxYearOnlyOne = document.querySelector('h1.org-name').dataset.taxYearOnlyOne; // resolves to boolean true or false
+  const targetTaxYearOnlyOne = document.querySelector('h1.org-name').dataset.taxYearOnlyOne === 'true'; // resolves to boolean true or false
   // Scroll helpers
   const scrollBuffer = 65; // Height of profile-nav is 64px TODO Parts of nav are actually 65
   const scrollAnchorEl = document.getElementById('grants');
