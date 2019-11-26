@@ -82,7 +82,7 @@ $(document).ready(function() {
     ga('send', 'event', {
       'eventCategory': 'Profile Events',
       'eventAction': 'Profile Footer Click',
-      'eventLabel': $(this).text(),
+      'eventLabel': $(this).text() || $(this).data('ga'),
     });
   });
 

@@ -77,10 +77,14 @@ Helpers
 $accent-color: $grantmakers;
 $text-muted: #757575;
 $text-muted-max: #9e9e9e;
-$text-color: rgba(0,0,0,0.87);
+// $text-color: rgba(0,0,0,0.87);
+$text-color: #333333;
 $placeholder: $text-muted-max;
 .btn, .accent {
   background-color: $accent-color;
+}
+.text-default {
+	color: $text-color;
 }
 .text-muted {
   color: $text-muted !important;
@@ -156,6 +160,9 @@ ul.striped li {
 ul.striped > li:nth-child(odd) {
 	background-color: rgba(242, 242, 242, 0.5);
 }
+.divider-dark {
+	background-color: #bdbdbd;
+}
 /* Inline lists */
 .list-inline {
   padding-left: 0;
@@ -175,6 +182,10 @@ p i.material-icons {
 }
 img.icon-irs-alt {
 	height: 22px;
+}
+img.icon-logo {
+	height: 50px;
+	width: 50px;
 }
 .card-action-community-alert {
 	display: none;
@@ -1921,6 +1932,36 @@ table tbody tr:last-child {
 	}
 }
 
+footer {
+	.row-footer-primary-nav {
+		margin-top: 100px;
+		margin-bottom: 100px;
+		h6 {
+			font-weight: 400;
+			line-height: 50px;
+		}
+		p:first-of-type {
+			margin-top: 0px;
+		}
+		p a{
+			color: $text-color;
+			&:hover {
+				@extend .blue-grey-text;
+			}
+		}
+	}
+	.footer-secondary-nav {
+		height: 48px; // HACK
+		li a {
+			padding-left: 0;
+			padding-right: 0;
+		}
+	}
+	.text-default:hover {
+		@extend .blue-grey-text;
+	}
+}
+
 footer ul li {
 	display: inline-block;
 }
@@ -1935,6 +1976,9 @@ footer ul li a {
 	text-decoration: none;
 	position: relative;
 	display: block;
+	&:hover {
+		@extend .blue-grey-text;
+	}
 }
 
 footer .copyright {
