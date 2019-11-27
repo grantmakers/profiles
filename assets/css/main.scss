@@ -1943,8 +1943,8 @@ footer {
 		p:first-of-type {
 			margin-top: 0px;
 		}
-		p a{
-			color: $text-color;
+		p a {
+			color: $text-color !important; // HACK
 			&:hover {
 				@extend .blue-grey-text;
 			}
@@ -1957,8 +1957,11 @@ footer {
 			padding-right: 0;
 		}
 	}
-	.text-default:hover {
-		@extend .blue-grey-text;
+	.text-default {
+		color: $text-color !important; // HACK
+		&:hover {
+			@extend .blue-grey-text;
+		}
 	}
 	@media #{$medium-and-down} {
 		.row-footer-primary-nav {
