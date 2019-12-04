@@ -29,6 +29,9 @@ algolia_referral_link: http://goto.algolia.com/l/139121/2017-10-24/26gc84
 algolia_public_key_grants: cd47ecb3457441878399b20acc8c3fbc
 algolia_public_key_profiles: ce4d584b0de36ca3f8b4727fdb83c658
 
+# Donate links
+donorbox_hosted_page_coffee: https://donorbox.org/buy-chad-a-coffee
+
 # Google Analytics
 google-analytics: UA-84268197-1
 

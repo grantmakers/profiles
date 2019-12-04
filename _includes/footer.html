@@ -1,4 +1,4 @@
-<footer class="footer">
+<footer class="footer js-enable-donorbox-popup">
 	<div class="container-custom">
 		<div class="row row-footer-primary-nav">
 			<div class="col s4 m3 l3">
@@ -9,6 +9,7 @@
 			<div class="col s4 m3 l3">
 				<h6>Get Involved</h6>
 				<!--<p><a href="{{ site.url }}/share/">Tell your colleagues</a></p>-->
+				<p><a href="{{ site.donorbox_hosted_page_coffee }}" class="custom-dbox-popup">Buy me a coffee</a></p>
 				<p><a href="{{ site.url}}/donate/">Donate<span style="margin-left:10px">🙌</span></a></p>
 			</div>
 			<div class="col s4 m3 l3">
@@ -54,3 +55,33 @@
 	</div>
 </div>
 </footer>
+<!-- Donorbox popup.js -->
+<script>window.DonorBox = { widgetLinkClassName: 'custom-dbox-popup' }</script>
+<script>
+	// Lazy load Donorbox popup.js
+	document.addEventListener("DOMContentLoaded", function() {
+		const donorboxAnchors = document.querySelectorAll('.js-enable-donorbox-popup');
+		const donorboxUrl = 'https://donorbox.org/install-popup-button.js';
+		const donorboxObserver = new IntersectionObserver(entries => {
+			entries.forEach(entry => {
+				if (entry.isIntersecting || entry.intersectionRatio > 0) {
+					getScript(donorboxUrl, function() {
+						donorboxObserver.unobserve(entry.target);
+					});
+				}
+			});
+		});
+		donorboxAnchors.forEach((v) => {
+			donorboxObserver.observe(v);
+		})
+	})
+
+	function getScript(source, callback) {
+		let el = document.createElement('script');
+		el.type = 'text/javascript';
+    el.onload = callback;
+    el.src = source;
+    
+    document.body.appendChild(el);
+	}
+</script>
