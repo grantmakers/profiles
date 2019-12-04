@@ -1006,7 +1006,7 @@ Mimic Algolia them - only the good parts
 
 // Profiles
 .profile-content {
-	#profile, #noscript, #feedback, #profile-share, #information-source {
+	#profile, #noscript, #feedback, #profile-share, #information-source, #coffee-bottom-cta {
 		margin-bottom: 75px;
 	}
 	#summary, #people, #activities, #grants, #application-info, #community, #filings {
@@ -1784,7 +1784,7 @@ Mimic Algolia them - only the good parts
 			width: 100%;
 		}
 	}
-	#feedback {
+	#feedback, #coffee-bottom-cta {
 		h5 {
 			margin-bottom: 25px;
 		}
