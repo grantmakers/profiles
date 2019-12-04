@@ -23,7 +23,7 @@ $(document).ready(function() {
 
   // Show message if not supported
   if (isIE11 || !isSupported) {
-    const toastContent = '<span>Your browser is currently not supported.<br>Many useful features may not work.</span><button href="http://outdatedbrowser.com/en" class="btn-flat yellow-text toast-action-browser-suggestion">Browser Suggestions</button>';
+    const toastContent = '<span>Your browser is currently not supported.<br>Many useful features may not work.</span><button href="https://outdatedbrowser.com/en" class="btn-flat yellow-text toast-action-browser-suggestion">Browser Suggestions</button>';
     M.Toast.dismissAll();
     M.toast({
       'html': toastContent,
