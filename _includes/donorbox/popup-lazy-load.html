@@ -1,0 +1,30 @@
+<!-- Donorbox popup.js -->
+<script>window.DonorBox = { widgetLinkClassName: 'custom-dbox-popup' }</script>
+<script>
+	// Lazy load Donorbox popup.js
+	document.addEventListener("DOMContentLoaded", function() {
+		const donorboxAnchors = document.querySelectorAll('.js-enable-donorbox-popup');
+		const donorboxUrl = 'https://donorbox.org/install-popup-button.js';
+		const donorboxObserver = new IntersectionObserver(entries => {
+			entries.forEach(entry => {
+				if (entry.isIntersecting || entry.intersectionRatio > 0) {
+					getScript(donorboxUrl, function() {
+						donorboxObserver.unobserve(entry.target);
+					});
+				}
+			});
+		});
+		donorboxAnchors.forEach((v) => {
+			donorboxObserver.observe(v);
+		})
+	})
+
+	function getScript(source, callback) {
+		let el = document.createElement('script');
+		el.type = 'text/javascript';
+    el.onload = callback;
+    el.src = source;
+    
+    document.body.appendChild(el);
+	}
+</script>
