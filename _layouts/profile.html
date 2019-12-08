@@ -33,7 +33,7 @@ donorbox_popup: false
   <meta name="twitter:description" content="Profile for {{ page.organization_name }} ({{ page.city }}, {{ page.state }} - EIN {{ page.ein }}) including grantees and board members as of {{ page.filings[0].tax_year | round }} tax year.">
   <meta name="twitter:site" content="@grantmakersio">
   <meta name="twitter:creator" content="@chadkruser">
-  <meta name="twitter:image:src" content="{{ site.url }}/assets/img/twitter-card.png">
+  <meta name="twitter:image:src" content="{{ site.baseurl }}/assets/img/icons-letters/{{ page.organization_name | split: '' | first | upcase }}.png">
 
   {% if page.grant_count > 5 %}
     {% assign algolia = true %}
