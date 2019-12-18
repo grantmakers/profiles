@@ -106,6 +106,12 @@ $(document).ready(function() {
   // INIT MATERIALIZE COMPONENTS
   // =======================================================
   window.onload = function() {
+    const elemsNavMore = document.getElementById('primary-navbar-dropdown-trigger');
+    const optionsNavMore = {
+      'container': 'main-nav',
+      'constrainWidth': false,
+    };
+    M.Dropdown.init(elemsNavMore, optionsNavMore);
     $('.sidenav').sidenav();
     $('#community-sidebar').sidenav({ 'edge': 'right'});
     $('.tooltipped:not(.v-tooltipped)').tooltip(); // :not ensures Vue handles relevant initiation for Vue-controlled elements

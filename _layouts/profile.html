@@ -219,6 +219,7 @@ donorbox_popup: false
                 <li><a href="#people" class="scrolly">People</a></li>
                 <li><a href="#grants" class="scrolly">Grants</a></li>
                 <li><a href="#filings" class="scrolly">Tax Filings</a></li>
+                <li><a href="#" data-target="navbar-more" class="dropdown-trigger" id="primary-navbar-dropdown-trigger"><i class="material-icons">arrow_drop_down_circle</i></a></li>
                 <li class="js-vue-check hidden"><a href="#modal-saved-profiles" class="account modal-trigger"><i id="account-icon" class="material-icons">account_circle</i></a></li>
               </ul>
             </div>
@@ -227,6 +228,20 @@ donorbox_popup: false
       </div>
     </nav>
   </div>
+  <!-- Navbar dropdown menu item-->
+  <ul class="dropdown-content" id="navbar-more" >
+    <li class="disabled"><a class="title grey-text">Grantmakers</a></li>
+    <li><a href="{{ site.baseurl }}/about/" class="waves-effect waves-light" data-ga="About" title="About">About</a></li>
+    <li><a href="{{ site.baseurl }}/faq/" class="waves-effect waves-light" data-ga="FAQ" title="FAQ">FAQ</a></li>
+    <li class="divider"></li>
+    <li class="disabled"><a class="title grey-text">Search</a></li>
+    <li><a href="{{ site.baseurl }}/search/profiles/" class="waves-effect waves-light" data-ga="Profiles Search" title="Profiles Search">Profiles</a></li>
+    <li><a href="{{ site.baseurl }}/search/grants/" class="waves-effect waves-light" data-ga="Grants Search" title="Grants Search">Grants</a></li>
+    <li class="divider"></li>
+    <li class="disabled"><a class="title grey-text">Get Involved</a></li>
+    <li><a href="{{ site.baseurl }}/donate/" class="waves-effect waves-light" data-ga="Donate" title="Donate">Donate</a></li>
+  </ul>
+  <!-- End Navbar dropdown-->
   <!-- Mobile Navbar -->
   <ul class="nav-primary sidenav" id="mobile-nav">
     <li><a href="#people" class="scrolly">People</a></li>
