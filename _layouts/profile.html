@@ -355,9 +355,26 @@ donorbox_popup: false
                   </div>
                 </div>
                 {% if page.grant_count > 0 %}
-                <div class="card-panel">
+                <div class="card-panel tooltipped" data-html="true" data-tooltip="Grant figures are for the most recent tax year" data-position="top">
                   <div class="card-panel-body">
-                    <div class="row row-tight valign-wrapper left-align">
+                    <div class="row row-tight valign-wrapper">
+                      <div class="col s12">
+                        <div class="justify-align">
+                          <div class="center-align">
+                            <p>Grant Median</p>
+                            <h5 title="${{ page.grant_median | round | intcomma }}">${{ page.grant_median | intword }}</h5>
+                          </div>
+                          <div class="center-align">
+                            <p>Count</p>
+                            <h5 title="{{ page.grant_count | round | intcomma }}">{{ page.grant_count | intword }}</h5>
+                          </div>
+                          <div class="center-align">
+                            <p>Grant Max</p>
+                            <h5 title="${{ page.grant_max | round | intcomma }}">${{ page.grant_max | intword }}</h5>
+                          </div>
+                        </div>
+                      </div>
+                    <!--
                       <div class="col s2 valign-wrapper">
                         {% if algolia == true %}
                         <a href="#grants" class="summary-icon-bg green scrolly"><i class="material-icons square white-text">search</i></a>
@@ -365,14 +382,8 @@ donorbox_popup: false
                         <a href="#grants" class="summary-icon-bg grey scrolly"><i class="material-icons square white-text">assignment</i></a>
                         {% endif %}
                       </div>
-                      <div class="col s5">
-                        <p>Grant Median</p>
-                        <h4 title="${{ page.grant_median | round | intcomma }}">${{ page.grant_median | intword }}</h4>
-                      </div>
-                      <div class="col s5">
-                        <p>Grant Max</p>
-                        <h4 title="${{ page.grant_max | round | intcomma }}">${{ page.grant_max | intword }}</h4>
-                      </div>
+                    -->
+                      
                     </div>
                   </div>
                 </div>
@@ -384,7 +395,7 @@ donorbox_popup: false
                         <img src="{{ site.baseurl }}/assets/img/irs-w-text.png" alt="IRS logo" class="responsive-img">
                       </div>
                       <div class="col s5">
-                        <p>Latest Tax Filing</p>
+                        <p>Latest Tax E-Filing</p>
                         <p class="summary">{{ page.filings[0].tax_year | round }}</p>
                       </div>
                       <div class="col s5">
