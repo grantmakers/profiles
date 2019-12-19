@@ -355,7 +355,7 @@ donorbox_popup: false
                   </div>
                 </div>
                 {% if page.grant_count > 0 %}
-                <div class="card-panel tooltipped" data-html="true" data-tooltip="Grant figures are for the most recent tax year" data-position="top">
+                <div class="card-panel">
                   <div class="card-panel-body">
                     <div class="row row-tight valign-wrapper">
                       <div class="col s12">
@@ -364,7 +364,7 @@ donorbox_popup: false
                             <p>Grant Median</p>
                             <h5 title="${{ page.grant_median | round | intcomma }}">${{ page.grant_median | intword }}</h5>
                           </div>
-                          <div class="center-align">
+                          <div class="center-align tooltipped" data-html="true" data-tooltip="Number of grants<br>made in its latest tax year" data-position="top">
                             <p>Count</p>
                             <h5 title="{{ page.grant_count | round | intcomma }}">{{ page.grant_count | intword }}</h5>
                           </div>
