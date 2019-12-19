@@ -228,20 +228,22 @@ donorbox_popup: false
       </div>
     </nav>
   </div>
-  <!-- Navbar dropdown menu item-->
-  <ul class="dropdown-content" id="navbar-more" >
-    <li class="disabled"><a class="title grey-text">Search</a></li>
-    <li><a href="{{ site.baseurl }}/search/profiles/" class="waves-effect waves-light" data-ga="Profiles Search" title="Profiles Search">All profiles</a></li>
-    <li><a href="{{ site.baseurl }}/search/grants/" class="waves-effect waves-light" data-ga="Grants Search" title="Grants Search">All grants</a></li>
+
+  <!-- Navbar dropdown -->
+  <ul class="dropdown-content dropdown-content-profile" id="navbar-more" >
+    <li class="dropdown-title small grey darken-3 valign-wrapper white-text">
+      <img src="{{ site.baseurl }}/assets/img/favicon.png" alt="Grantmakers.io Logo">Grantmakers.io
+    </li>
+    <li><a href="{{ site.url }}/search/profiles/" class="waves-effect waves-light" data-ga="Profiles Search" title="Profiles Search">Profiles Search</a></li>
+    <li><a href="{{ site.url }}/search/grants/" class="waves-effect waves-light" data-ga="Grants Search" title="Grants Search">Grants Search</a></li>
     <li class="divider"></li>
-    <li class="disabled"><a class="title grey-text">The Project</a></li>
-    <li><a href="{{ site.baseurl }}/about/" class="waves-effect waves-light" data-ga="About" title="About">About</a></li>
-    <li><a href="{{ site.baseurl }}/faq/" class="waves-effect waves-light" data-ga="FAQ" title="FAQ">FAQ</a></li>
+    <li><a href="{{ site.url }}/about/" class="waves-effect waves-light" data-ga="About" title="About">About</a></li>
+    <li><a href="{{ site.url }}/faq/" class="waves-effect waves-light" data-ga="FAQ" title="FAQ">FAQ</a></li>
     <li class="divider"></li>
-    <li class="disabled"><a class="title grey-text">Get Involved</a></li>
-    <li><a href="{{ site.baseurl }}/donate/" class="waves-effect waves-light" data-ga="Donate" title="Donate">Donate</a></li>
+    <li class="dropdown-bottom-cta grey darken-3 white-text"><a href="{{ site.url }}/buy-chad-a-coffee/" class="waves-effect waves-light small" data-ga="Coffee" title="Buy Chad a Coffee"><i class="material-icons">emoji_food_beverage</i> Buy Chad a Coffee</a></li>
   </ul>
   <!-- End Navbar dropdown-->
+
   <!-- Mobile Navbar -->
   <ul class="nav-primary sidenav" id="mobile-nav">
     <li><a href="#people" class="scrolly">People</a></li>

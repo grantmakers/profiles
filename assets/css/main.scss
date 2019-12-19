@@ -621,18 +621,35 @@ nav.navbar-profile-index {
 li.collection-item a.dropdown-trigger .valign-wrapper {
 	height: 35px; // HACK Match icon height - used in "More" icon in primary nav
 }
-ul#navbar-more.dropdown-content {
-	font-weight: 400;
-	li.disabled {
+ul#navbar-more.dropdown-content.dropdown-content-profile {
+	li.dropdown-title {
+		padding-left: 10px;
+		height: $navbar-height;
 		&:hover {
-			background-color: transparent;
 			cursor: default;
 		}
-		a.title {
-			text-transform: uppercase;
-			font-size: 85%;
+	}
+}
+ul#navbar-more.dropdown-content {
+	font-weight: 400;	
+	img {
+		width: 16px;
+		margin-right: 5px;
+		vertical-align: text-bottom; // HACK
+	}
+	li a {
+		@extend .text-default;
+	}
+	li.dropdown-bottom-cta {
+		a {
+			font-size: 12px;
+			color: white;
 		}
-	};
+		i {
+			font-size: 16px;
+			margin-right: 5px;
+		}
+	}
 }
 .nav-primary a.account {
 	vertical-align: top; // HACK Materialize has icon class right/left, but requires text
@@ -647,14 +664,15 @@ ul#navbar-more.dropdown-content {
 }
 
 /* Navbar profile */
+$navbar-height: 64px;
 .navbar-profile {
 	font-weight: 400;
-	height: 64px;
+	height: $navbar-height;
 	&.navbar-profile-index {
-		height: 64px;
+		height: $navbar-height;
 	}
 	@media #{$medium-and-down} {
-		height: 64px;
+		height: $navbar-height;
 	}
 	&.transparent {
 		background-color: transparent !important;
