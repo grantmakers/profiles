@@ -550,6 +550,13 @@ nav ul li a {
 }
 
 /* Navbar Index*/
+ul.nav-primary.sidenav .sidenav-header a {
+	height: 100%;
+	padding: 0 10px;
+	img {
+		width: 50px;
+	}
+}
 nav.navbar-profile-index {
 	ul li a, ul a {
 		text-transform: none;
