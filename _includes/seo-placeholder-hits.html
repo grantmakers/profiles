@@ -24,7 +24,7 @@
               {% else %}
                 <td class="text-nowrap">{% if each.city != null %}{{ each.city }}, {{ each.state }}{% endif %}</td>
               {% endif %}
-              <td class="left-align">{{ each.tax_year }}</td>
+              <td class="left-align">{{ page.filings[0].tax_year | round }}</td>
             </tr>
           {% endfor %}
         {% else %}
