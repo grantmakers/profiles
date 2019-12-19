@@ -375,17 +375,7 @@ donorbox_popup: false
                             <h5 title="${{ page.grant_max | round | intcomma }}">${{ page.grant_max | intword }}</h5>
                           </div>
                         </div>
-                      </div>
-                    <!--
-                      <div class="col s2 valign-wrapper">
-                        {% if algolia == true %}
-                        <a href="#grants" class="summary-icon-bg green scrolly"><i class="material-icons square white-text">search</i></a>
-                        {% else %}
-                        <a href="#grants" class="summary-icon-bg grey scrolly"><i class="material-icons square white-text">assignment</i></a>
-                        {% endif %}
-                      </div>
-                    -->
-                      
+                      </div>                      
                     </div>
                   </div>
                 </div>
@@ -397,7 +387,7 @@ donorbox_popup: false
                         <img src="{{ site.baseurl }}/assets/img/irs-w-text.png" alt="IRS logo" class="responsive-img">
                       </div>
                       <div class="col s5">
-                        <p>Latest Tax E-Filing</p>
+                        <p>Latest Tax e-Filing</p>
                         <p class="summary">{{ page.filings[0].tax_year | round }}</p>
                       </div>
                       <div class="col s5">
