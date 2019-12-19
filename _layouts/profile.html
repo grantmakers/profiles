@@ -261,7 +261,7 @@ donorbox_popup: false
         <div class="row row-alert-fixed-to-top">
           <div class="col s12">
             <div class="alert-fixed-to-top">
-              <div class="left">Tax Year {{ page.filings[0].tax_year | round }}</div>
+              <div class="left tooltipped" data-position="right" data-tooltip="Fiscal year ending {{ page.filings[0].tax_period | slice: 4, 5 | round }}/{{ page.filings[0].tax_period | slice: 0, 4 | round }}">Tax Year {{ page.filings[0].tax_year | round }}</div>
               <div class="right tooltipped" data-position="bottom" data-html="true" data-tooltip="<b>Source</b><br>Profile pulled directly<br>from electronically filed<br>IRS Form 990-PF">IRS Form 990-PF</div>
             </div>
           </div>
