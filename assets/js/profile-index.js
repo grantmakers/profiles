@@ -40,6 +40,13 @@ ready(function() {
     const elemsSN = document.querySelectorAll('.sidenav');
     M.Sidenav.init(elemsSN);
 
+    const elemsNavMore = document.getElementById('primary-navbar-dropdown-trigger');
+    const optionsNavMore = {
+      'container': 'main-nav',
+      'constrainWidth': false,
+    };
+    M.Dropdown.init(elemsNavMore, optionsNavMore);
+
     const elemsTT = document.querySelectorAll('.tooltipped:not(.v-tooltipped)');
     M.Tooltip.init(elemsTT);
 

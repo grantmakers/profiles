@@ -519,7 +519,8 @@ i.suffix {
 	}
 }
 
-/* Navbar */
+/* Navbars */
+/***********/
 .navbar-fixed {
 	position: fixed;
 	top: 0;
@@ -547,6 +548,68 @@ nav ul li a {
 		color: inherit;
 	}
 }
+
+/* Navbar Index*/
+nav.navbar-profile-index {
+	ul li a, ul a {
+		text-transform: none;
+		font-size: 15px;
+	}
+  .collection {
+    margin: 0;
+    border: none;
+    border-radius:inherit;
+    .collection-item {
+      background-color: inherit;
+      min-height: inherit;
+      border-bottom: none;
+      // padding: inherit;
+      &.avatar {
+        padding-left: 64px;
+        padding-top: 12px;
+        padding-bottom: 0;
+        .circle {
+          font-size: 18px;
+          position: absolute;
+          width: 35px;
+          height: 35px;
+          line-height: 36px;
+          overflow: hidden;
+          left: 15px;
+          display: inline-block;
+          vertical-align: middle;
+        }
+        .title {
+          font-size: inherit;
+        }
+      }
+      a {
+				padding:0;
+				span.title {
+					color: #ffffff;
+				}
+        &:hover {
+          background-color: inherit;
+        }
+      }
+      
+      p {
+        line-height: 1rem;
+			}
+    }
+
+	}
+	&.affix {
+		.collection-item.avatar {
+			span.title, p.title-more {
+				@extend .grey-text, .text-darken-3;
+			}
+		}
+	}
+}
+li.collection-item a.dropdown-trigger .valign-wrapper {
+	height: 35px; // HACK Match icon height - used in "More" icon in primary nav
+}
 ul#navbar-more.dropdown-content {
 	font-weight: 400;
 	li.disabled {
@@ -571,6 +634,8 @@ ul#navbar-more.dropdown-content {
 		transform: inherit;
 	}
 }
+
+/* Navbar profile */
 .navbar-profile {
 	font-weight: 400;
 	height: 64px;
@@ -714,7 +779,13 @@ ul#navbar-more.dropdown-content {
 	content: "";
 	background-color: rgba(0,0,0,0.4);
 }
-
+.profile-index-page .header-bg:after {
+	height: 380px;
+	background: rgba(44,45,51,0.9);
+	background: linear-gradient(rgba(44,45,51,0.9), rgba(44,45,51,0.9));
+	background: -moz-linear-gradient(rgba(44,45,51,0.9), rgba(44,45,51,0.9));
+	background: -webkit-linear-gradient(rgba(44,45,51,0.9), rgba(44,45,51,0.9));
+}
 .profile-page, .profile-index-page, .simple-page {
 	background-color: #ccc;
 	.navbar-transparent {

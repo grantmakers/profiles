@@ -1,32 +1,42 @@
 <!-- Navbar -->
-<div class="navbar-fixed">
+<div id="main-nav" class="navbar-fixed">
   <nav class="navbar-profile navbar-profile-index affix-top">
     <div class="nav-wrapper">
       <div class="container-custom">
         <a href="#" data-target="mobile-nav" class="sidenav-trigger right disable-primary-color"><i class="material-icons">menu</i></a>
         <div class="row">
           <div class="col s8 m4 l4">
-            <a href="https://www.grantmakers.io" data-ga="Homepage" class="brand-logo">
+            <a href="{{ site.url }}" data-ga="Homepage" class="brand-logo">
               <div class="logo-container">
                 <div class="logo">
-                    <img src="{{ site.baseurl }}/assets/img/logo.png" alt="Grantmakers Logo">
+                  <img src="{{ site.baseurl }}/assets/img/logo.png" alt="Grantmakers Logo">
                 </div>
                 <div class="brand brand-name">
-                    Grantmakers.io
+                  Grantmakers.io
                 </div>
               </div>
             </a>
           </div>
           <div class="col m4 l8">
-            <ul class="nav-primary hide-on-med-and-down right-align">
-              <li>
-                <a href="{{ site.url }}/search/profiles/">
-                  <i class="material-icons left left-tighten grantmakers-text">lens</i> Find a Foundation Profile
+            <ul class="collection right hide-on-med-and-down">
+              <li class="collection-item avatar">
+                <a href="{{ site.url }}/search/profiles/" title="Profiles Search">
+                  <i class="material-icons circle grantmakers">search</i> <span class="title">Find a Foundation Profile</span>
+                  <p class="grantmakers-text">Profiles Search</p>
                 </a>
               </li>
-              <li>
-                <a href="{{ site.url }}/search/grants/">
-                  <i class="material-icons left left-tighten blue-grey-text">lens</i> Search all Grants
+              <li class="collection-item avatar">
+                <a href="{{ site.url }}/search/grants/" title="Grants Search">
+                  <i class="material-icons circle blue-grey">search</i> <span class="title">Search all Grants</span>
+                  <p class="blue-grey-text text-lighten-1">Grants Search</p>
+                </a>
+              </li>
+              <li class="collection-item avatar">
+                <a href="#" data-target="navbar-more" class="dropdown-trigger" id="primary-navbar-dropdown-trigger">
+                  <i class="material-icons circle grey darken-2">keyboard_arrow_down</i>
+                  <div class="valign-wrapper">
+                    <p class="title-more">More</p>
+                  </div>
                 </a>
               </li>
             </ul>
@@ -36,6 +46,17 @@
     </div>
   </nav>
 </div>
+
+<!-- Navbar dropdown menu item -->
+<ul class="dropdown-content" id="navbar-more" >
+  <li class="disabled"><a class="title grey-text">The Project</a></li>
+  <li><a href="{{ site.url }}/about/" class="waves-effect waves-light" data-ga="About" title="About">About</a></li>
+  <li><a href="{{ site.url }}/faq/" class="waves-effect waves-light" data-ga="FAQ" title="FAQ">FAQ</a></li>
+  <li class="divider"></li>
+  <li class="disabled"><a class="title grey-text">Get Involved</a></li>
+  <li><a href="{{ site.url }}/donate/" class="waves-effect waves-light" data-ga="Donate" title="Donate">Donate</a></li>
+</ul>
+<!-- End navbar dropdown -->
 
 <!-- Mobile Navbar -->
 <ul class="nav-primary sidenav" id="mobile-nav" >
@@ -50,7 +71,7 @@
     </a>
   </li>
   <li><hr class="divider"></li>
-  <li><a href="{{ site.baseurl }}/" data-ga="Home">Home</a></li>
+  <li><a href="{{ site.url }}/" data-ga="Home">Home</a></li>
   <li><a href="{{ site.url }}/about/" data-ga="About">About</a></li>
   <li><a href="{{ site.url }}/faq/" data-ga="FAQ">FAQ</a></li>
   <!--
