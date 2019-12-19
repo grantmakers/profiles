@@ -130,6 +130,10 @@ ul.btn-group {
 .no-wrap, .text-nowrap {
   white-space: nowrap;
 }
+.justify-align {
+	display: flex;
+	justify-content: space-around;
+}
 .modal:focus {
 	outline: 0;
 }
