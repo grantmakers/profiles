@@ -69,7 +69,7 @@ $(document).ready(function() {
   });
 
   // Bottom CTAs: Share and feedback buttons
-  $('#profile-share a, #community a, #feedback a, #application-info a, #search-links a').on('click', function(e) {
+  $('#profile-share a, #community a, #feedback a, #application-info a, #search-links a, #coffee-bottom-cta a').on('click', function() {
     ga('send', 'event', {
       'eventCategory': 'Profile Events',
       'eventAction': 'Profile Bottom CTAs',

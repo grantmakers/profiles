@@ -467,6 +467,17 @@ donorbox_popup: false
             </div>
           </div>
 
+          <div class="row print-hidden hide-on-small-only">
+            <div class="col s12">
+              <div id="tagline">
+                <h6 class="valign-wrapper valign-wrapper-center-align">
+                  <img src="{{ site.baseurl }}/assets/img/logo.png" alt="Grantmakers.io logo" class="icon-logo-small">
+                  Grantmakers.io is an open source project for my friends in the nonprofit community
+                </h6>
+              </div>
+            </div>
+          </div>
+
           <div class="row">
             <div class="col s12">
               <div id="activities">
@@ -774,12 +785,12 @@ donorbox_popup: false
             </div>
           </div>
 
-          <div class="row print-hidden">
+          <div class="row print-hidden js-enable-donorbox-popup">
             <div class="col s12">
-              <div id="profile-share" class="center-align">
-                <ul class="list-inline">
-                  <li><a href="mailto:?to=&subject=Grantmakers.io%20Profile%20-%20{{ page.organization_name | url_encode }}&body=%0D%0A%0D%0A{{ page.organization_name}}%0D%0A{{ site.url }}{{ site.baseurl }}/{{ page.ein }}/" target="_blank" class="waves-effect waves-light btn" data-ga="Share Profile via Email"><i class="material-icons left">send</i> Share this profile</a></li>
-                </ul>
+              <div id="coffee-bottom-cta" class="center-align">
+                <h5>If this free profile helped you, why not</h5>
+                <!--<a href="{{ site.donorbox_hosted_page_coffee }}" class="custom-dbox-popup waves-effect waves-light btn white grey-text text-darken-1" data-ga="Email Feedback"><i class="material-icons left">emoji_food_beverage</i> Buy me a coffee</a>-->
+                <a href="{{ site.url }}/buy-chad-a-coffee/" class="waves-effect waves-light btn white grey-text text-darken-1" data-ga="Buy Me a Coffee CTA"><i class="material-icons left">emoji_food_beverage</i> Buy me a coffee</a>
               </div>
             </div>
           </div>
@@ -811,6 +822,14 @@ donorbox_popup: false
             </div>
           </div>
 
+        </div>
+      </div>
+    </div>
+
+    <div class="main main-raised main-raised-unset-header-offset">
+      <div class="container-custom">
+        <div class="profile-content">
+
           <div class="row print-hidden">
             <div class="col s12">
               <div id="profile-cta">
@@ -835,22 +854,6 @@ donorbox_popup: false
                     </div>
                   </div>
                 </div>
-              </div>
-            </div>
-          </div>
-
-          <hr class="divider">
-
-          <div class="row print-hidden js-enable-donorbox-popup">
-            <div class="col s12">
-              <div id="coffee-bottom-cta" class="center-align">
-                <ul class="list-inline">
-                  <li>
-                    <h5>If this free profile helped you, why not</h5>
-                    <!--<a href="{{ site.donorbox_hosted_page_coffee }}" class="custom-dbox-popup waves-effect waves-light btn white grey-text text-darken-1" data-ga="Email Feedback"><i class="material-icons left">emoji_food_beverage</i> Buy me a coffee</a>-->
-                    <a href="{{ site.url }}/buy-chad-a-coffee/" class="waves-effect waves-light btn white grey-text text-darken-1" data-ga="Donorbox Coffee"><i class="material-icons left">emoji_food_beverage</i> Buy me a coffee</a>
-                  </li>
-                </ul>
               </div>
             </div>
           </div>

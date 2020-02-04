@@ -134,6 +134,9 @@ ul.btn-group {
 	display: flex;
 	justify-content: space-around;
 }
+.valign-wrapper-center-align {
+	justify-content: center;
+}
 .modal:focus {
 	outline: 0;
 }
@@ -190,6 +193,10 @@ img.icon-irs-alt {
 img.icon-logo {
 	height: 50px;
 	width: 50px;
+}
+img.icon-logo-small {
+	height: 30px;
+	width: 30px;
 }
 .card-action-community-alert {
 	display: none;
@@ -433,6 +440,10 @@ body, h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4 {
     margin: -60px 30px 0px;
     border-radius: 6px;
     box-shadow: 0 16px 24px 2px rgba(0, 0, 0, 0.14), 0 6px 30px 5px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2);
+}
+
+.main-raised-unset-header-offset {
+	margin: 0px 30px 0px;
 }
 
 @media #{$medium-and-down} {
@@ -1115,7 +1126,7 @@ Mimic Algolia them - only the good parts
 
 // Profiles
 .profile-content {
-	#profile, #noscript, #feedback, #profile-share, #information-source, #coffee-bottom-cta {
+	#profile, #noscript, #feedback, #profile-share, #information-source, #coffee-bottom-cta, #tagline {
 		margin-bottom: 75px;
 	}
 	#summary, #people, #activities, #grants, #application-info, #community, #filings {
