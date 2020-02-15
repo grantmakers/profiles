@@ -188,7 +188,8 @@ $(document).ready(function() {
 
   // SMOOTH SCROLL
   // =======================================================
-  $('.scrolly').click(function() {
+  $('.scrolly').click(function(e) {
+    e.preventDefault();
     const target = $(this).attr('href');
     const newPosition = $(target).offset().top - 64;
     $('html, body').stop().animate({ 'scrollTop': newPosition }, 500);
