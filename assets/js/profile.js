@@ -84,12 +84,19 @@ $(document).ready(function() {
   const navbar = $('.navbar-profile');
   const range = 64; // Height of navbar
 
+  // Set header opacity on page load
+  setHeaderOpacity();
+
+  // Adjust opacity after scrolling
   $(window).on('scroll', function() {
-    let scrollTop = $(this).scrollTop();
+    setHeaderOpacity();
+  });
+
+  function setHeaderOpacity() {
+    let scrollTop = $(window).scrollTop();
     let height = header.outerHeight();
     let offset = height / 2;
     let calc = 1 - (scrollTop - offset + range) / range;
-
     header.css({ 'opacity': calc });
 
     if (calc > '1') {
@@ -101,7 +108,7 @@ $(document).ready(function() {
       navbar.addClass('affix');
       navbar.removeClass('affix-top');
     }
-  });
+  }
 
   // INIT MATERIALIZE COMPONENTS
   // =======================================================
