@@ -847,8 +847,14 @@ donorbox_popup: false
                     <div class="col s12">
                       <div class="small text-muted">
                         <ul id="search-links" class="list-inline btn-group">
-                          <li><a class="btn grantmakers waves-effect waves-light tooltipped" href="{{ site.url }}/search/profiles/" data-ga="Click to Profiles Search" data-tooltip="Find a foundation profile"><i class="material-icons left">search</i> Profiles Search</a></li>
-                          <li><a class="btn blue-grey waves-effect waves-light tooltipped" href="{{ site.url }}/search/grants/" data-ga="Click to Grants Search" data-tooltip="See who foundations are funding"><i class="material-icons left">search</i> Grants Search</a></li>
+                          <li>
+                            <a class="btn grantmakers waves-effect waves-light" href="{{ site.url }}/search/profiles/" data-ga="Click to Profiles Search"><i class="material-icons left">search</i> Profiles Search</a>
+                            <p class="hide-on-small-only">Find a foundation profile</p>
+                          </li>
+                          <li>
+                            <a class="btn blue-grey waves-effect waves-light" href="{{ site.url }}/search/grants/" data-ga="Click to Grants Search"><i class="material-icons left">search</i> Grants Search</a>
+                            <p class="hide-on-small-only">Good for prospect research</p>
+                          </li>
                         </ul>
                       </div> 
                     </div>
