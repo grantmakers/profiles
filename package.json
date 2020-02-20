@@ -34,10 +34,10 @@
     "@babel/runtime": "^7.8.4",
     "babel-eslint": "^10.0.3",
     "babel-loader": "^8.0.6",
-    "css-loader": "^2.1.1",
-    "eslint": "^5.16.0",
+    "css-loader": "^3.4.2",
+    "eslint": "^6.8.0",
     "eslint-plugin-frontmatter": "0.0.8",
-    "eslint-plugin-vue": "^5.2.3",
+    "eslint-plugin-vue": "^6.2.1",
     "mongodb-stitch-browser-sdk": "^4.8.0",
     "path": "^0.12.7",
     "vue": "^2.6.11",
@@ -48,9 +48,9 @@
     "webpack-cli": "^3.3.11"
   },
   "dependencies": {
-    "axios": "^0.19.0",
+    "axios": "^0.19.2",
     "bugsnag-js": "^4.7.3",
     "bugsnag-vue": "^1.0.1",
-    "retry-axios": "^1.0.1"
+    "retry-axios": "^2.1.1"
   }
 }
