@@ -60,7 +60,7 @@ export default {
 
   created: function() {
     // Fetch public data
-    this.stitchGetInsights();
+    // this.stitchGetInsights();
 
     // Fetch private data
     // this.initializeStitchAndLogin();
