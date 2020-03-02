@@ -758,6 +758,21 @@ donorbox_popup: false
                   <div class="card-panel-body"> <!-- Ensure has no set height -->
                     <div id="insights"></div>
                     <ul class="collection">
+                      {% for item in site.data.insights.all %}
+                      {% if item.profile.ein == page.ein %}
+                      <li class="collection-item avatar">
+                        <span class="title">{{ item.title }}</span><br>
+                        <p>{{ item.text }}</p>
+                        <small><em>submitted by:</em> {{ item.author.full_name_displayed }}</small>
+                      </li>
+                      {% endif %}
+                      {% endfor %}
+                      <li>
+                        <hr class="slim">
+                      </li>
+                    </ul>
+
+                    <ul class="collection">
                       <li class="collection-item collection-item-empty-state avatar print-hidden">
                         <span class="title">Have something to share?</span><br>
                         <p>Help keep the community up to date and informed</p>

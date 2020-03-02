@@ -6,6 +6,7 @@ _site/
 .DS_Store
 /algolia/secrets.js
 _data/ein/
+_data/insights/
 node_modules/
 
 assets/js/bundle.js
