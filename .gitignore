@@ -2,6 +2,7 @@ _site/
 .sass-cache/
 .bundle/
 .jekyll-metadata
+.jekyll-cache
 .DS_Store
 /algolia/secrets.js
 _data/ein/
