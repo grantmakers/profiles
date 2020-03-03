@@ -757,20 +757,20 @@ donorbox_popup: false
                   <div class="card-panel-body"> <!-- Ensure has no set height -->
                     <div id="insights"></div>
                     <ul class="collection">
-                      {% for item in site.data.insights.all %}
-                        {% if item.profile.ein == page.ein %}
+                      {%- for item in site.data.insights.all -%}
+                        {%- if item.profile.ein == page.ein -%}
                       <li class="collection-item avatar">
                         <span class="title">{{ item.title }}</span><br>
                         <p>{{ item.text }}</p>
                         <small><em>submitted by:</em> {{ item.author.full_name_displayed }}</small>
                       </li>
-                          {% if forloop.last %}
+                          {%- if forloop.last -%}
                       <li>
                         <hr class="slim">
                       </li>
-                          {% endif %}
-                        {% endif %}
-                      {% endfor %}
+                          {%- endif -%}
+                        {%- endif -%}
+                      {%- endfor -%}
                     </ul>
 
                     <ul class="collection">
