@@ -2,9 +2,11 @@ _site/
 .sass-cache/
 .bundle/
 .jekyll-metadata
+.jekyll-cache
 .DS_Store
 /algolia/secrets.js
 _data/ein/
+_data/insights/
 node_modules/
 
 assets/js/bundle.js
