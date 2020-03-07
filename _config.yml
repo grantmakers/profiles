@@ -15,8 +15,7 @@ related_project_keys: []
 related_min_common: 0.6
 #Documentation for related_projects: https://github.com/codeinpink/jekyll-portfolio-generator
 
-plugins:
-# - jekyll-sitemap
+plugins_dir: _plugins
 
 # Last updated - used in creating redirects if name has changed
 # Format: "YYYY-MM-DDTHH:MM:SS.fffZ"
@@ -46,6 +45,7 @@ exclude:
   - README.md
   - node_modules
   - _data/split_for_jekyll_json.js
+  - _data/aggregated.json
   - split_for_markdown.js
   - pages
   - webpack

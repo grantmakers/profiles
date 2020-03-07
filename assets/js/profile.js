@@ -14,9 +14,10 @@ $(document).ready(function() {
 
   // Load Vue if supported
   const vue = document.createElement('script');
+  // TODO Load bundle.js upon click
   vue.src = '{{ site.baseurl }}/assets/js/bundle.js?v={{ site.time | date: "%Y%m%d"}}';
   if (!isIE11 && !isMobile.matches && allowsCookies && allowsLocalStorage && isSupported) {
-    document.body.appendChild(vue);
+    // document.body.appendChild(vue);
   } else {
     $('.js-vue-check').addClass( 'hidden' ); // Hide UI elements created in DOM, but handled by Vue
   }

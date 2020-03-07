@@ -1872,6 +1872,9 @@ Mimic Algolia them - only the good parts
 		.collection, .collection-item {
 			border: none;
 		}
+		.collection:empty {
+			display: none;
+		}
 		.collection-item {
 			padding-left: 10px;
 			p {
