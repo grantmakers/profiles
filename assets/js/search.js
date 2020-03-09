@@ -5,6 +5,7 @@ $(document).ready(function() {
   // Helper definitions
   // =======================================================
   const targetEIN = document.querySelector('h1.org-name').dataset.ein;
+  const targetOrgName = document.querySelector('h1.org-name').dataset.name;
   const targetTaxYearOnlyOne = document.querySelector('h1.org-name').dataset.taxYearOnlyOne === 'true'; // resolves to boolean true or false
   // Scroll helpers
   const scrollBuffer = 65; // Height of profile-nav is 64px TODO Parts of nav are actually 65
@@ -175,19 +176,40 @@ $(document).ready(function() {
     if (!hits.length && results) {
       document.getElementById('ais-widget-pagination').classList.add('hidden');
       widgetParams.container.innerHTML = `
-        <div class="hits-empty">
+        <div class="hits-empty">\
           <div class="card">
             <div class="card-content">
               {% raw %}
                 <p></p>
                 <p>We didn't find any results for the search <strong>"${ results.query }"</strong></p>
+                <!-- <p class="text-muted-max small">${ targetOrgName }</p> -->
               {% endraw %}
             </div>
           </div>
-          <div class="card-actions">
-            <a href="{{ site.url }}/search/profiles/" class="btn-flat grantmakers-text">Find a Different Foundation</a>
-            <a href="{{ site.url }}/search/grants/" class="btn-flat blue-grey-text">Search all Grants</a>
+          <div class="card z-depth-0 grey lighten-4">
+            <div class="card-content">
+              <div class="row row-tight">
+                <div class="col s12 l6 small"
+                  <p class="small"><span class="text-muted-max">You are currently searching grants from</span><br>${ targetOrgName }</p>
+                </div>
+                <div class="col s12 l6 center-align" style="border-left:1px solid #9e9e9e">
+                  <a href="{{ site.url }}/search/profiles/" class="btn white">Find a different funder <i class="material-icons right grey-text">play_circle_filled</i></a>
+                </div>
+              </div>
+
+            </div>
           </div>
+            
+          <div class="left-align">
+            <!-- <img src="{{ site.baseurl }}/assets/img/illustration-search.svg" width="150" /> -->
+          </div>
+          <hr>
+          <div class="card-actions">
+            <a href="{{ site.url }}/search/profiles/" class="btn-link blue-grey-text">Find a profile</a>
+            <!-- <a href="{{ site.url }}/search/profiles/" class="btn-flat grey lighten-4">Find a profile</a> -->
+            <!-- <a href="{{ site.url }}/search/grants/" class="btn-flat blue-grey-text">Search all Grants</a> -->
+          </div>
+            
         </div>
       `;
     } else {
