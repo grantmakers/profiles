@@ -180,7 +180,7 @@ $(document).ready(function() {
         <div id="no-results-ctas" class="hits-empty">\
           <div class="card">
             <div class="card-content">
-              <p>We didn't find any results for the search <strong>"${ results.query }"</strong></p>
+              <p>No results found for your query <strong>"${ results.query }"</strong></p>
             </div>
           </div>
 
