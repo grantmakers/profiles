@@ -5,6 +5,7 @@ $(document).ready(function() {
   // Helper definitions
   // =======================================================
   const targetEIN = document.querySelector('h1.org-name').dataset.ein;
+  const targetOrgName = document.querySelector('h1.org-name').dataset.name;
   const targetTaxYearOnlyOne = document.querySelector('h1.org-name').dataset.taxYearOnlyOne === 'true'; // resolves to boolean true or false
   // Scroll helpers
   const scrollBuffer = 65; // Height of profile-nav is 64px TODO Parts of nav are actually 65
@@ -149,7 +150,7 @@ $(document).ready(function() {
       reset: true,
       queryHook: function(query, searchInstance) {
         searchInstance(query);
-        gaEvents();
+        gaEventsSearchFocus();
       },
     })
   );
@@ -174,22 +175,46 @@ $(document).ready(function() {
 
     if (!hits.length && results) {
       document.getElementById('ais-widget-pagination').classList.add('hidden');
+
       widgetParams.container.innerHTML = `
-        <div class="hits-empty">
+        <div id="no-results-ctas" class="hits-empty">\
           <div class="card">
             <div class="card-content">
-              {% raw %}
-                <p></p>
-                <p>We didn't find any results for the search <strong>"${ results.query }"</strong></p>
-              {% endraw %}
+              <p>No results found for your query <strong>"${ results.query }"</strong></p>
             </div>
           </div>
-          <div class="card-actions">
-            <a href="{{ site.url }}/search/profiles/" class="btn-flat grantmakers-text">Find a Different Foundation</a>
-            <a href="{{ site.url }}/search/grants/" class="btn-flat blue-grey-text">Search all Grants</a>
+
+          <div class="card">
+            <div class="card-content">
+              <p>
+                <span class="text-muted-max small">Searching grants from</span><br>
+                ${ targetOrgName }
+              </p>
+            </div>
           </div>
+
+          <div class="card z-depth-0 grey lighten-4">
+            <div class="card-content">
+              <div class="card-title">Not finding what you're looking for?</div>
+              <p>Search for a <a href="{{ site.url }}/search/profiles/" class="grantmakers-text" data-ga="Profiles Search">different foundation</a></p>
+              <p>Search for your query across the entire <a href="{{ site.url }}/search/grants/?query=${ results.query }" class="grantmakers-text" data-ga="Grants Search">grants dataset</a></p>
+            </div>
+          </div>
+
+          <!-- 
+          <div class="card z-depth-0 grey lighten-4">
+            <div class="card-content">
+              <p>Learn more about <a href="{{ site.url }}/faq/" class="grantmakers-text" data-ga="FAQ">searching on Grantmakers.io</a></p>
+            </div>
+          </div>
+          -->
+          
         </div>
       `;
+
+      // Google Analytics events
+      document.querySelectorAll('#no-results-ctas a')
+        .forEach(e => e.addEventListener('click', gaEventsNoResults));
     } else {
       document.getElementById('ais-widget-pagination').classList.remove('hidden');
       widgetParams.container.innerHTML = `
@@ -547,7 +572,7 @@ $(document).ready(function() {
 
   // GA Events
   // =======================================================
-  function gaEvents() {
+  function gaEventsSearchFocus() {
     if (typeof gaCheck === 'function' && gaCount === 0) {
       ga('send', 'event', {
         eventCategory: 'Profile Events',
@@ -556,6 +581,16 @@ $(document).ready(function() {
       });
     }
     gaCount++;
+  }
+
+  function gaEventsNoResults() {
+    if (typeof gaCheck === 'function') {
+      ga('send', 'event', {
+        'eventCategory': 'Profile Events',
+        'eventAction': 'Profile No Results CTA Click',
+        'eventLabel': this.dataset.ga,
+      });
+    }
   }
 
   // FETCH GRANTS JSON
