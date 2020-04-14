@@ -234,7 +234,12 @@ $(document).ready(function() {
                 <td class="right-align" data-facet="grant_amount" data-facet-value="${ item.grant_amount }">$${ item.grant_amount.toLocaleString() }</td>
                 <td class="pointer" data-facet="grantee_name" data-facet-value="${ item.grantee_name }">${ instantsearch.highlight({ attribute: 'grantee_name', hit: item }) }</td>
                 <td class="pointer" data-facet="grant_purpose" data-facet-value="${ item.grant_purpose }">${ instantsearch.highlight({ attribute: 'grant_purpose', hit: item }) }</td>
-                <td class="pointer no-wrap" data-facet="${ item.grantee_city ? 'grantee_city' : 'grantee_state' }" data-facet-value="${ item.grantee_city && item.grantee_city.length ? item.grantee_city : item.grantee_state }">${ item.grantee_city && item.grantee_city.length ? instantsearch.highlight({ attribute: 'grantee_city', hit: item }) + ',&nbsp;' + item.grantee_state : item.grantee_state}</td>
+                <td class="pointer no-wrap" 
+                  data-facet="${ item.grantee_city ? 'grantee_city' : 'grantee_state' }" 
+                  data-facet-value="${ item.grantee_city && item.grantee_city.length ? item.grantee_city : item.grantee_state }"
+                >
+                  ${ item.grantee_city && item.grantee_city.length ? instantsearch.highlight({ attribute: 'grantee_city', hit: item }) + ',&nbsp;' + item.grantee_state : item.grantee_state || '' }
+                </td>
                 <td class="pointer" data-facet="tax_year" data-facet-value="${ item.tax_year }">${ item.tax_year }</td>
               </tr>
             `).join('')}
@@ -415,7 +420,7 @@ $(document).ready(function() {
   );
 
   /* Current Refinements */
-  const createDataAttribtues = refinement =>
+  const createDataAttributes = refinement =>
     Object.keys(refinement)
       .map(key => `data-${key}="${refinement[key]}"`)
       .join(' ');
@@ -423,7 +428,7 @@ $(document).ready(function() {
   const renderListItem = item => `
     ${item.refinements.map(refinement => `
       <li>
-        <button class="waves-effect btn blue-grey lighten-3 grey-text text-darken-3 truncate" ${createDataAttribtues(refinement)}><i class="material-icons right">remove_circle</i><small>${getLabel(item.label)}</small> ${formatIfRangeLabel(refinement)} </button>
+        <button class="waves-effect btn blue-grey lighten-3 grey-text text-darken-3 truncate" ${createDataAttributes(refinement)}><i class="material-icons right">remove_circle</i><small>${getLabel(item.label)}</small> ${formatIfRangeLabel(refinement)} </button>
       </li>
     `).join('')}
   `;
@@ -716,7 +721,7 @@ $(document).ready(function() {
   function numberHuman(num, decimals) {
     if (num === null) { return null; } // terminate early
     if (num === 0) { return '0'; } // terminate early
-    if (isNaN(num)) { return num; } // terminate early if already a string - handles edge case likely caused by cacheing
+    if (isNaN(num)) { return num; } // terminate early if already a string - handles edge case likely caused by caching
     const fixed = !decimals || decimals < 0 ? 0 : decimals; // number of decimal places to show
     const b = num.toPrecision(2).split('e'); // get power
     const k = b.length === 1 ? 0 : Math.floor(Math.min(b[1].slice(1), 14) / 3); // floor at decimals, ceiling at trillions
