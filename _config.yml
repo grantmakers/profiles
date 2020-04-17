@@ -1,7 +1,7 @@
 # Site settings
 # Meta tags
 title: Grantmakers.io
-description: Quickly find data on 90,000 grantmaking institutions in the US. A free, open source project.
+description: Quickly find data on 92,000 grantmaking institutions in the US. A free, open source project.
 
 # Jekyll settings
 baseurl: /profiles # Leave this blank unless your site is located on a subpath, e.g. /blog
@@ -19,8 +19,8 @@ plugins_dir: _plugins
 
 # Last updated - used in creating redirects if name has changed
 # Format: "YYYY-MM-DDTHH:MM:SS.fffZ"
-last_updated_grantmakers: '2019-12-14T13:00:20.754Z'
-number_of_profiles: 90375
+last_updated_grantmakers: '2020-04-17T21:14:54.518Z'
+number_of_profiles: 92265
 
 algolia_referral_link: http://goto.algolia.com/l/139121/2017-10-24/26gc84
 
