@@ -63,8 +63,8 @@ donorbox_popup: false
   {% endif %}
 
   {% comment %} Ensure profiles with only 2009 or 2010 grants do NOT use Algolia {% endcomment %}
-  {% comment %} Removed 2009 and 2010 grants from Algolia index to stay under the 5m record limit {% endcomment %}
-  {% if page.filings[0].tax_year == 2009 or page.filings[0].tax_year == 2010 %}
+  {% comment %} Removed 2009-2011 grants from Algolia index to stay under the 5m record limit {% endcomment %}
+  {% if page.filings[0].tax_year == 2009 or page.filings[0].tax_year == 2010 or page.filings[0].tax_year == 2011 %}
     {% assign algolia = false %}
   {% endif %}
 
