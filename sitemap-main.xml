@@ -19,6 +19,9 @@ layout: null
     <loc>{{site.url}}/about/</loc>
   </url>
   <url>
-    <loc>{{site.url}}/faq/</loc>
+    <loc>{{site.url}}/about/tips-and-tricks/</loc>
+  </url>
+  <url>
+    <loc>{{site.url}}/about/faq/</loc>
   </url>
 </urlset>
