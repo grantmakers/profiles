@@ -383,6 +383,24 @@ donorbox_popup: false
                     </div>
                   </div>
                 </div>
+                <div class="card-panel">
+                  <div class="card-panel-body">
+                    <div class="row row-tight valign-wrapper">
+                      <div class="col s12">
+                        <div class="justify-align">
+                          <div class="center-align">
+                            <p>Distributions</p>
+                            <h5 title="${{ page.distributions | round | intcomma }}">${{ page.distributions | intword }}</h5>
+                          </div>
+                          <div class="center-align">
+                            <p>Contributions</p>
+                            <h5 title="{{ page.contributions | round | intcomma }}">{{ page.contributions | intword }}</h5>
+                          </div>
+                        </div>
+                      </div>                      
+                    </div>
+                  </div>
+                </div>
                 {% if page.grant_count > 0 %}
                 <div class="card-panel">
                   <div class="card-panel-body">
