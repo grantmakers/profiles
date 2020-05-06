@@ -808,36 +808,46 @@ donorbox_popup: false
                                         </tr>
                                       </thead>
                                       <tbody>
+                                        {%- if part_v.AdjustedQlfyDistriYr1Amt or part_v.NetVlNoncharitableAssetsYr1Amt or part_v.DistributionYr1Rt -%}
                                         <tr>
                                           <td>{{ current_year }}</td>
                                           <td>{%- if part_v.AdjustedQlfyDistriYr1Amt -%}${{ part_v.AdjustedQlfyDistriYr1Amt | round | intcomma }}{%- endif -%}</td>
                                           <td>{%- if part_v.NetVlNoncharitableAssetsYr1Amt -%}${{ part_v.NetVlNoncharitableAssetsYr1Amt | round | intcomma }}{%- endif -%}</td>
                                           <td>{%- if part_v.DistributionYr1Rt -%}{{ part_v.DistributionYr1Rt | intcomma }}{%- endif -%}</td>
                                         </tr>
+                                        {%- endif -%}
+                                        {%- if part_v.AdjustedQlfyDistriYr2Amt or part_v.NetVlNoncharitableAssetsYr2Amt or part_v.DistributionYr2Rt -%}
                                         <tr>
                                           <td>{{ current_year | minus: 1 }}</td>
                                           <td>{%- if part_v.AdjustedQlfyDistriYr2Amt -%}${{ part_v.AdjustedQlfyDistriYr2Amt | round | intcomma }}{%- endif -%}</td>
                                           <td>{%- if part_v.NetVlNoncharitableAssetsYr2Amt -%}${{ part_v.NetVlNoncharitableAssetsYr2Amt | round | intcomma }}{%- endif -%}</td>
                                           <td>{%- if part_v.DistributionYr2Rt -%}{{ part_v.DistributionYr2Rt | intcomma }}{%- endif -%}</td>
                                         </tr>
+                                        {%- endif -%}
+                                        {%- if part_v.AdjustedQlfyDistriYr3Amt or part_v.NetVlNoncharitableAssetsYr3Amt or part_v.DistributionYr3Rt -%}
                                         <tr>
                                           <td>{{ current_year | minus: 2 }}</td>
                                           <td>{%- if part_v.AdjustedQlfyDistriYr3Amt -%}${{ part_v.AdjustedQlfyDistriYr3Amt | round | intcomma }}{%- endif -%}</td>
                                           <td>{%- if part_v.NetVlNoncharitableAssetsYr3Amt -%}${{ part_v.NetVlNoncharitableAssetsYr3Amt | round | intcomma }}{%- endif -%}</td>
                                           <td>{%- if part_v.DistributionYr3Rt -%}{{ part_v.DistributionYr3Rt | intcomma }}{%- endif -%}</td>
                                         </tr>
+                                        {%- endif -%}
+                                        {%- if part_v.AdjustedQlfyDistriYr4Amt or part_v.NetVlNoncharitableAssetsYr4Amt or part_v.DistributionYr4Rt -%}
                                         <tr>
                                           <td>{{ current_year | minus: 3 }}</td>
                                           <td>{%- if part_v.AdjustedQlfyDistriYr4Amt -%}${{ part_v.AdjustedQlfyDistriYr4Amt | round | intcomma }}{%- endif -%}</td>
                                           <td>{%- if part_v.NetVlNoncharitableAssetsYr4Amt -%}${{ part_v.NetVlNoncharitableAssetsYr4Amt | round | intcomma }}{%- endif -%}</td>
                                           <td>{%- if part_v.DistributionYr4Rt -%}{{ part_v.DistributionYr4Rt | intcomma }}{%- endif -%}</td>
                                         </tr>
+                                        {%- endif -%}
+                                        {%- if part_v.AdjustedQlfyDistriYr5Amt or part_v.NetVlNoncharitableAssetsYr5Amt or part_v.DistributionYr5Rt -%}
                                         <tr>
                                           <td>{{ current_year | minus: 4 }}</td>
                                           <td>{%- if part_v.AdjustedQlfyDistriYr5Amt -%}${{ part_v.AdjustedQlfyDistriYr5Amt | round | intcomma }}{%- endif -%}</td>
                                           <td>{%- if part_v.NetVlNoncharitableAssetsYr5Amt -%}${{ part_v.NetVlNoncharitableAssetsYr5Amt | round | intcomma }}{%- endif -%}</td>
                                           <td>{%- if part_v.DistributionYr5Rt -%}{{ part_v.DistributionYr5Rt | intcomma }}{%- endif -%}</td>
                                         </tr>
+                                        {%- endif -%}
                                       </tbody>
                                     </table>
                                     {%- else -%}
