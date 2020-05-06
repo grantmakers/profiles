@@ -170,6 +170,8 @@ donorbox_popup: false
   <script defer src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.37.0/dist/autocomplete.min.js" integrity="sha256-JZDcuzCEztytVwTfj5C3RN/ZIxwD8/6JhaG/2l8ZQC0=" crossorigin="anonymous"></script>
   <script defer src="{{ site.baseurl }}/assets/js/autocomplete.js"></script>
 
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js" integrity="sha256-R4pqcOYV8lt7snxMQO/HSbVCFRPMdrhAFMH+vr9giYI=" crossorigin="anonymous"></script>
+
   <script src="{{ site.baseurl }}/assets/js/profile.js?v={{ site.time | date: '%Y%m%d'}}"></script>
 
   <!-- Vue -->
@@ -740,6 +742,8 @@ donorbox_popup: false
                 </div>
               </div>
             </div>
+            {% include charts-quickcharts.html %}
+            {% include charts.html %}
           </div>
 
           <div class="row print-hidden">

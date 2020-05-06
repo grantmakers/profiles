@@ -1,0 +1,148 @@
+<script>
+  /*
+  const colorPrimary = '#607d8b';
+  const colorSecondary = '#c54e00';
+  const colorTertiary = '#00bfa5';
+  const financials = {{ page.financial_stats | jsonify }};
+  const assets = financials.map(value => value.assets).reverse();
+  const distributions = financials.map(value => value.distributions).reverse();
+  const distributionsNegative = financials.map(value => value.distributions * -1).reverse();
+  const contributions = financials.map(value => value.contributions).reverse();
+  const years = financials.map(value => value.tax_year).reverse();
+  const year1 = financials[0];
+  */
+
+  const ctx1Year = document.getElementById('chart-one-year').getContext('2d');
+  const chartAssets = new Chart(ctx1Year, {
+    type: 'horizontalBar',
+    responsive: true,
+    data: {
+      labels: ['Assets EOY', 'Distributions', 'Contributions',],
+      datasets: [{
+        data: [
+          year1.assets,
+          year1.distributions,
+          year1.contributions,          
+        ],
+        backgroundColor: [
+          colorPrimary,
+          colorSecondary,
+          colorTertiary,
+        ],
+      }]
+    },
+    options: {
+      title: {
+        display: true,
+        text: 'Latest Electronic Tax Filing ({{ page.filings[0].tax_year | round }})'
+      },
+      legend: {
+        display: false
+      },
+      scales: {
+        xAxes: [{
+          ticks: {
+            beginAtZero: true,
+            callback: function(value, index, values) {
+              return `$${numberHuman(value, 0)}`;
+            }
+          }
+        }],
+        yAxes : [ {
+          gridLines : {
+            display : false
+          }
+        }]
+      },
+      tooltips: {
+        callbacks: {
+          label: function (tooltipItem) {
+            return (new Intl.NumberFormat('en-US', {
+              style: 'currency',
+              currency: 'USD',
+              minimumFractionDigits: 0,
+            })).format(tooltipItem.value);
+          }
+        }
+      }
+    }
+  });
+
+  /*
+  const ctx5Year = document.getElementById('chart-five-year').getContext('2d');
+  const chartAllYearsAllValues = new Chart(ctx5Year, {
+    type: 'bar',
+    responsive: true,
+    data: {
+      labels: years,
+      datasets: [
+        {
+            label: 'Assets EOY',
+            borderColor: colorPrimary,
+            data: assets,
+            type: 'line',
+            fill: false,
+        },
+        {
+            label: 'Distributions',
+            backgroundColor: colorSecondary,
+            data: distributions
+        },
+        {
+            label: 'Contributions',
+            backgroundColor: colorTertiary,
+            data: contributions
+        },
+      ]
+    },
+    options: {
+      title: {
+        display: true,
+        text: 'All Available Electronic Tax Returns'
+      },
+      legend: {
+        display: true,
+      },
+      scales: {
+        yAxes: [{
+            ticks: {
+                beginAtZero: true,
+                callback: function(value, index, values) {
+                  return `$${numberHuman(value, 0)}`;
+                }
+            }
+        }],
+        xAxes : [ {
+          gridLines : {
+            display : false
+          }
+        }]
+      },
+      tooltips: {
+        callbacks: {
+          label: function (tooltipItem) {
+            return (new Intl.NumberFormat('en-US', {
+              style: 'currency',
+              currency: 'USD',
+              minimumFractionDigits: 0,
+            })).format(tooltipItem.value);
+          }
+        }
+      }
+    }
+  });
+  */
+
+  function numberHuman(num, decimals) {
+    if (num === null) { return null; } // terminate early
+    if (num === 0) { return '0'; } // terminate early
+    if (isNaN(num)) { return num; } // terminate early if already a string - handles edge case likely caused by caching
+    const fixed = !decimals || decimals < 0 ? 0 : decimals; // number of decimal places to show
+    const b = num.toPrecision(2).split('e'); // get power
+    const k = b.length === 1 ? 0 : Math.floor(Math.min(b[1].slice(1), 14) / 3); // floor at decimals, ceiling at trillions
+    const c = k < 1 ? num.toFixed(0 + fixed) : (num / Math.pow(10, k * 3) ).toFixed(1 + fixed); // divide by power
+    const d = c < 0 ? c : Math.abs(c); // enforce -0 is 0
+    const e = d + ['', 'K', 'M', 'B', 'T'][k]; // append power
+    return e;
+  }
+</script>
