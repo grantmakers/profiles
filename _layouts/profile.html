@@ -643,6 +643,105 @@ donorbox_popup: false
             </div>
           </div>
 
+          <div class="row flex">
+            <div class="col s12 l6 flex flex-direction-column">
+              <div id="financial-overview" class="flex flex-grow-1">
+                <div class="card card-panel card-panel-flex">
+                  <div class="card-panel-header">
+                    <h4>Financial Overview <button class="tooltipped right valign-wrapper" data-position="left" data-html="true" data-tooltip="Assets - Box I<br>Contributions - Part I Line 1<br>Distributions - Part XII Qualifying Distributions"><img src="{{ site.baseurl }}/assets/img/irs-w-text-alt.png" alt="IRS logo" class="icon-irs-alt"></button></h4>
+                  </div>
+                  <div class="card-content card-panel-body">
+                    <div class="row row-tight">
+                      <div class="col s12">
+                        <div class="row row-tight valign-wrapper">
+                          <div class="col s12">
+                            <div class="justify-align">
+                              <div class="center-align">
+                                <p>Assets</p>
+                                <h5 title="${{ page.assets | round | intcomma }}">${{ page.assets | intword }}</h5>
+                              </div>
+                              <div class="center-align">
+                                <p>Distributions</p>
+                                <h5 title="${{ page.distributions | round | intcomma }}">${{ page.distributions | intword }}</h5>
+                              </div>
+                              <div class="center-align">
+                                <p>Contributions</p>
+                                <h5 title="{{ page.contributions | round | intcomma }}">${{ page.contributions | intword }}</h5>
+                              </div>
+                            </div>
+                          </div>                      
+                        </div>
+                        <hr>
+                        <canvas id="chart-one-year" width="500" height="300"></canvas>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col s12 l6 flex flex-direction-column">
+              <div id="financial-trends" class="flex flex-grow-1">
+                <div class="card card-panel card-panel-flex">
+                  <div class="card-panel-header">
+                    <h4>Financial Trends <button class="tooltipped right valign-wrapper" data-position="left" data-html="true" data-tooltip="Assets - Box I<br>Contributions - Part I Line 1<br>Distributions - Part XII Qualifying Distributions"><img src="{{ site.baseurl }}/assets/img/irs-w-text-alt.png" alt="IRS logo" class="icon-irs-alt"></button></h4>
+                  </div>
+                  <div class="card-content card-panel-body">
+                    <div class="row row-tight">
+                      <div class="col s12">
+                        <div class="row row-tight valign-wrapper">
+                          <div class="col s12">
+                            <div class="justify-align">
+                              <div class="center-align">
+                                <p>Last Updated by IRS</p>
+                                <h5 title="${{ page.distributions | round | intcomma }}">{{ page.last_updated_irs | date: "%b %d, %Y" }}</h5>
+                              </div>
+                              <div class="center-align">
+                                <p>Tax e-Filings Available <i class="material-icons material-icons-rotate-180 text-muted-max tooltipped" data-tooltip="Electronically filed tax returns only">error_outline</i></p>
+                                <h5 title="Electronically filed tax returns">{{ page.filings | size }}</h5>
+                              </div>
+                            </div>
+                          </div>                      
+                        </div>
+                        <hr>
+                        {% if page.financial_stats.size > 1 %}
+                        <div class="quickchart">
+                          <img id="quickchart-five-year" class="responsive-img">
+                        </div>
+                        {% else %}
+                        <div id="blank-state-financials" class="row row-tight valign-wrapper">
+                          <div class="col s12 l8 offset-l2">
+                            <div class="card white z-depth-4">
+                              <div class="card-content">
+                                <div class="row row-tight valign-wrapper">
+                                  <div class="col s2">
+                                    <i class="material-icons material-icons-square blue-grey white-text">timeline</i>
+                                  </div>
+                                  <div class="col s10">
+                                    Trends will appear as more e-filings become available
+                                  </div>
+                                </div>
+                                {%- if page.part_v.size > 1 -%}
+                                <hr>
+                                <div class="row row-tight">
+                                  <div class="col s12">
+                                    In the interim, check Part V Form 990PF below for potentially useful info
+                                  </div>
+                                </div>
+                                {%- endif -%}
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        {% endif %}
+                        <!--<canvas id="chart-five-year" width="800" height="400"></canvas>-->
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
           <div class="row print-hidden">
             <div class="col s12">
               <div id="information-source" class="center-align">

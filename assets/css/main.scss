@@ -181,6 +181,15 @@ ul.striped > li:nth-child(odd) {
   padding-right: 5px;
   padding-left: 5px;
 }
+/* Material Icons */
+i.material-icons-rotate-180 {
+	transform: rotateX(180deg);
+}
+// Icon background
+i.material-icons-square {
+	padding: 4px;
+	border-radius: 2px;
+}
 // Match icon size with font
 p i.material-icons {
 	font-size: 15px;
@@ -301,7 +310,7 @@ Print
 	.main {
 		top: 150px;
 	}
-	#profile, #summary, #people, #activities {
+	#profile, #summary, #people, #activities, #financial-overview, #financial-trends {
 		margin-bottom: 0 !important;
 	}
 	.card-panel-header h4 {
@@ -1126,10 +1135,10 @@ Mimic Algolia them - only the good parts
 
 // Profiles
 .profile-content {
-	#profile, #noscript, #feedback, #profile-share, #information-source, #coffee-bottom-cta, #tagline {
+	#profile, #noscript, #feedback, #profile-share, #information-source, #part-v, #coffee-bottom-cta, #tagline {
 		margin-bottom: 75px;
 	}
-	#summary, #people, #activities, #grants, #application-info, #community, #filings {
+	#summary, #people, #financial-overview, #financial-trends, #activities, #grants, #application-info, #community, #filings {
 		margin-bottom: 75px;
 	}
 	#summary {
@@ -1338,6 +1347,42 @@ Mimic Algolia them - only the good parts
 			background-color: $grantmakers !important;
 		}
 	}
+
+	/****************************
+	Financial Charts
+	*****************************/
+	canvas {
+		width: 100%;
+	}
+	#blank-state-financials {
+		height: 300px;
+		&:before {
+			content:"";
+			position:absolute;
+			width:500px;
+			height:300px;
+			opacity:0.2;
+			background-image: url({{site.baseurl}}/assets/img/blank-chart-five-year.jpg);
+			background-size: contain;
+			background-repeat: no-repeat;
+			background-position: center;
+		}
+	}
+	#part-v {
+		.collapsible, .collapsible-header, .collapsible-body {
+			border: 0;
+			box-shadow: unset;
+		}
+		.collapsible {
+			margin: 0;
+		}
+		.collapsible-header {
+			background-color: transparent;
+			align-items: center;
+			justify-content: center;
+		}
+	}
+
 	/****************************
 	Charitable activities
 	*****************************/
