@@ -1036,16 +1036,21 @@ donorbox_popup: false
                     <ul class="list-inline">
                       <li><i class="material-icons tooltipped" data-html="true" data-tooltip="<b>Human Readable</b><br>Foundation Center PDFs">picture_as_pdf</i> <span class="show-on-medium-and-down text-muted">PDF</span></li>
                       {% for each in page.filings %}
-                        <li><a class="js-filings-pdf waves-effect waves-light btn grey lighten-3 grey-text text-darken-1" target="_blank" rel="noopener" data-ga="PDF" data-tax-period="{{ each.tax_period | round }}" data-ein="{{ page.ein }}" data-url-xml="{{ each.url }}" title="View 990-PF">{{ each.tax_year | round }}</a></li>
+                      {% if each.filing_is_amendment %}{% assign amendment_exists = true %}{% endif %}
+                        <li><a class="js-filings-pdf waves-effect waves-light btn grey lighten-3 grey-text text-darken-1" target="_blank" rel="noopener" data-ga="PDF" data-tax-period="{{ each.tax_period | round }}" data-ein="{{ page.ein }}" data-url-xml="{{ each.url }}" title="View 990-PF">{{ each.tax_year | round }}{%- if each.filing_is_amendment -%}*{%- endif -%}</a></li>
                       {% endfor %}
                     </ul>
                     <hr>
                     <ul class="list-inline">
                       <li><i class="material-icons tooltipped" data-html="true" data-tooltip="<b>Machine Readable</b><br>XML Format">code</i> <span class="show-on-medium-and-down text-muted">XML</span></li>
                       {% for each in page.filings %}
-                        <li><a class="waves-effect waves-light btn grey lighten-3 grey-text text-darken-1" href="{{ each.url }}" target="_blank" rel="noopener" data-ga="XML" data-tax-period="{{ each.tax_period | round }}" data-ein="{{ each.ein }}" data-url-xml="{{ each.url }}" title="View 990-PF">{{ each.tax_year | round }}</a></li>
+                        <li><a class="waves-effect waves-light btn grey lighten-3 grey-text text-darken-1" href="{{ each.url }}" target="_blank" rel="noopener" data-ga="XML" data-tax-period="{{ each.tax_period | round }}" data-ein="{{ each.ein }}" data-url-xml="{{ each.url }}" title="View 990-PF">{{ each.tax_year | round }}{%- if each.filing_is_amendment -%}*{%- endif -%}</a></li>
                       {% endfor %}
                     </ul>
+                    {%- if amendment_exists -%}
+                    <hr>
+                    * Amended return
+                    {%- endif %}
                   </div>
                 </div>
               </div>
