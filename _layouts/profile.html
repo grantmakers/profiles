@@ -712,12 +712,12 @@ donorbox_popup: false
                           <div class="col s12">
                             <div class="justify-align">
                               <div class="center-align">
-                                <p>Last Updated by IRS</p>
-                                <h5 title="${{ page.distributions | round | intcomma }}">{{ page.last_updated_irs | date: "%b %d, %Y" }}</h5>
-                              </div>
-                              <div class="center-align">
                                 <p>Tax e-Filings Available <i class="material-icons material-icons-rotate-180 text-muted-max tooltipped" data-tooltip="Electronically filed tax returns only">error_outline</i></p>
                                 <h5 title="Electronically filed tax returns">{{ page.filings | size }}</h5>
+                              </div>
+                              <div class="center-align">
+                                <p>Last Updated by IRS</p>
+                                <h5 title="${{ page.distributions | round | intcomma }}">{{ page.last_updated_irs | date: "%b %d, %Y" }}</h5>
                               </div>
                             </div>
                           </div>                      
