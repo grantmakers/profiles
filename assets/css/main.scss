@@ -196,6 +196,14 @@ p i.material-icons {
 	line-height: 1.5;
 	vertical-align: bottom;
 }
+i.material-icons-tight {
+	&.left {
+		margin-right: 3px;
+	}
+	&.right {
+		margin-left: 3px;
+	}
+}
 img.icon-irs-alt {
 	height: 22px;
 }
