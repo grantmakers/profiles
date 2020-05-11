@@ -693,7 +693,22 @@ donorbox_popup: false
                           </div>                      
                         </div>
                         <hr>
-                        <canvas id="chart-one-year" width="500" height="300"></canvas>
+                        <div class="chart-wrapper valign-wrapper">
+                          <div class="preloader-wrapper big">
+                            <div class="spinner-layer">
+                              <div class="circle-clipper left">
+                                <div class="circle"></div>
+                              </div>
+                              <div class="gap-patch">
+                                <div class="circle"></div>
+                              </div>
+                              <div class="circle-clipper right">
+                                <div class="circle"></div>
+                              </div>
+                            </div>
+                          </div>
+                          <canvas id="chart-overview" width="500" height="300"></canvas>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -725,8 +740,21 @@ donorbox_popup: false
                         </div>
                         <hr>
                         {% if page.financial_stats.size > 1 %}
-                        <div class="quickchart">
-                          <img id="quickchart-five-year" class="responsive-img">
+                        <div class="chart-wrapper valign-wrapper">
+                          <div class="preloader-wrapper big">
+                            <div class="spinner-layer">
+                              <div class="circle-clipper left">
+                                <div class="circle"></div>
+                              </div>
+                              <div class="gap-patch">
+                                <div class="circle"></div>
+                              </div>
+                              <div class="circle-clipper right">
+                                <div class="circle"></div>
+                              </div>
+                            </div>
+                          </div>
+                          <canvas id="chart-trends" width="500" height="300"></canvas>
                         </div>
                         {% else %}
                         <div id="blank-state-financials" class="row row-tight valign-wrapper">
@@ -741,28 +769,17 @@ donorbox_popup: false
                                     Trends will appear as more e-filings become available
                                   </div>
                                 </div>
-                                {%- if page.part_v.size > 1 -%}
-                                <hr>
-                                <div class="row row-tight">
-                                  <div class="col s12">
-                                    In the interim, check Part V Form 990PF below for potentially useful info
-                                  </div>
-                                </div>
-                                {%- endif -%}
                               </div>
                             </div>
                           </div>
                         </div>
                         {% endif %}
-                        <!--<canvas id="chart-five-year" width="800" height="400"></canvas>-->
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-            {% include charts-quickcharts.html %}
-            {% include charts.html %}
           </div>
 
           <div class="row print-hidden">
@@ -1109,6 +1126,10 @@ donorbox_popup: false
   <div id="root"></div>
   <!-- Vue currently loaded via profile.js -->
   <!-- End Vue -->
+  <!-- Object to be consumed by ChartJS-->
+  <script>
+    const orgFinancialStats = {{ page.financial_stats | jsonify }};
+  </script>
   {% include saved-profiles-feature-discovery.html %}
   {% comment %}
   {% include fixed-action-button.html %}

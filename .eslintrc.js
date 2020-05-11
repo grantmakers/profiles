@@ -21,6 +21,8 @@ module.exports = {
     "ga": true,
     "bugsnagClient": true,
     "appVersion": true,
+    "Chart": true,
+    "orgFinancialStats": true,
   },
   "plugins": [
     "frontmatter",

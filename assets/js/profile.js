@@ -79,6 +79,238 @@ $(document).ready(function() {
     }
   }
 
+  // CHART.JS
+  // =======================================================
+  // Lazy load via Intersection Observer if browser allows
+  const financials = orgFinancialStats; // TODO pulling from a global. Has to be a better way.
+  const orgCurrentTaxYear = document.querySelector('h1.org-name').dataset.taxYear;
+  const chartWrapperOverview = document.getElementById('financial-overview').getElementsByClassName('chart-wrapper')[0];
+  // TODO Only need to worry about if financials.length > 1
+  const chartWrapperTrends = document.getElementById('financial-trends').getElementsByClassName('chart-wrapper')[0];
+
+  if (!isMobile.matches && 'IntersectionObserver' in window) {
+    // TODO Log in GA? Enabled Intersection Observer
+    createChartsObserver();
+  }
+
+  function createChartsObserver() {
+    let observer;
+    let anchor = document.getElementById('financial-overview');
+    let config = {
+      rootMargin: '0px 0px',
+      threshold: 0.01,
+    };
+    observer = new IntersectionObserver(enableCharts, config);
+    observer.observe(anchor);
+    // Initiate preloader
+    showLoader(chartWrapperOverview);
+    if (financials.length > 1) {
+      showLoader(chartWrapperTrends);
+    }
+  }
+
+  function enableCharts(entries, observer) {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        // TODO Log in GA? Reached chart elements
+        loadCharts();
+        observer.unobserve(entry.target);
+      }
+    });
+  }
+
+  function loadCharts() {
+    const chartJS = document.createElement('script');
+    chartJS.type = 'text/javascript';
+    chartJS.src = 'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js';
+    document.body.appendChild(chartJS);
+    // TODO Log in GA? Charts loaded successfully
+    // setTimeout(createCharts(chartJS), 3000); // TODO Delete - currently using for local testing
+    createCharts(chartJS);
+  }
+
+  function createCharts(init) {
+    const chartsColorPrimary = '#607d8b';
+    const chartsColorSecondary = '#c54e00';
+    const chartsColorTertiary = '#00bfa5';
+
+    const assets = financials.map(value => value.assets).reverse();
+    const distributions = financials.map(value => value.distributions).reverse();
+    const contributions = financials.map(value => value.contributions).reverse();
+    const years = financials.map(value => value.tax_year).reverse();
+    const year1 = financials[0];
+
+    const ctx = document.getElementById('chart-overview').getContext('2d');
+    // TODO only needed if array size > 1
+    const ctxTrendsRoot = document.getElementById('chart-trends');
+    let ctxTrends;
+    if (ctxTrendsRoot) {
+      ctxTrends = ctxTrendsRoot.getContext('2d');
+    }
+    
+
+    init.onload = function() {
+      const chartsFinancialOverview = new Chart(ctx, { /* eslint-disable-line no-unused-vars */
+        type: 'horizontalBar',
+        responsive: true,
+        data: {
+          labels: ['Assets EOY', 'Distributions', 'Contributions' ],
+          datasets: [{
+            data: [
+              year1.assets,
+              year1.distributions,
+              year1.contributions,
+            ],
+            backgroundColor: [
+              chartsColorPrimary,
+              chartsColorSecondary,
+              chartsColorTertiary,
+            ],
+          }],
+        },
+        options: {
+          title: {
+            display: true,
+            text: `Latest Electronic Tax Filing (${orgCurrentTaxYear})`,
+          },
+          legend: {
+            display: false,
+          },
+          scales: {
+            xAxes: [{
+              ticks: {
+                beginAtZero: true,
+                callback: function(value) {
+                  return `$${numberHuman(value, 0)}`;
+                },
+              },
+            }],
+            yAxes: [ {
+              gridLines: {
+                display: false,
+              },
+            }],
+          },
+          tooltips: {
+            callbacks: {
+              label: function(tooltipItem) {
+                return new Intl.NumberFormat('en-US', {
+                  style: 'currency',
+                  currency: 'USD',
+                  minimumFractionDigits: 0,
+                }).format(tooltipItem.value);
+              },
+            },
+          },
+          animation: {
+            onProgress: function(animation) {
+              // TODO This feel like a hat
+              // Does ChartJS provide a better event?
+              if (animation.currentStep === 1) {
+                hideLoader(chartWrapperOverview);
+              }
+            },
+          },
+        },
+      });
+      if (ctxTrendsRoot) {
+        const chartsFinancialTrends = new Chart(ctxTrends, { /* eslint-disable-line no-unused-vars */
+          type: 'bar',
+          responsive: true,
+          data: {
+            labels: years,
+            datasets: [
+              {
+                label: 'Assets EOY',
+                borderColor: chartsColorPrimary,
+                data: assets,
+                type: 'line',
+                fill: false,
+              },
+              {
+                label: 'Distributions',
+                backgroundColor: chartsColorSecondary,
+                data: distributions,
+              },
+              {
+                label: 'Contributions',
+                backgroundColor: chartsColorTertiary,
+                data: contributions,
+              },
+            ],
+          },
+          options: {
+            title: {
+              display: true,
+              text: 'All Available Electronic Tax Returns',
+            },
+            legend: {
+              display: true,
+            },
+            scales: {
+              yAxes: [{
+                ticks: {
+                  beginAtZero: true,
+                  callback: function(value) {
+                    return `$${numberHuman(value, 0)}`;
+                  },
+                },
+              }],
+              xAxes: [ {
+                gridLines: {
+                  display: false,
+                },
+              }],
+            },
+            tooltips: {
+              callbacks: {
+                label: function(tooltipItem) {
+                  return new Intl.NumberFormat('en-US', {
+                    style: 'currency',
+                    currency: 'USD',
+                    minimumFractionDigits: 0,
+                  }).format(tooltipItem.value);
+                },
+              },
+            },
+            animation: {
+              onProgress: function(animation) {
+                // TODO This feel like a hat
+                // Does ChartJS provide a better event?
+                if (animation.currentStep === 1) {
+                  hideLoader(chartWrapperTrends);
+                }
+              },
+            },
+          },
+        });
+      }
+    };
+  }
+
+  function numberHuman(num, decimals) {
+    if (num === null) { return null; } // terminate early
+    if (num === 0) { return '0'; } // terminate early
+    if (isNaN(num)) { return num; } // terminate early if already a string - handles edge case likely caused by caching
+    const fixed = !decimals || decimals < 0 ? 0 : decimals; // number of decimal places to show
+    const b = num.toPrecision(2).split('e'); // get power
+    const k = b.length === 1 ? 0 : Math.floor(Math.min(b[1].slice(1), 14) / 3); // floor at decimals, ceiling at trillions
+    const c = k < 1 ? num.toFixed(0 + fixed) : (num / Math.pow(10, k * 3) ).toFixed(1 + fixed); // divide by power
+    const d = c < 0 ? c : Math.abs(c); // enforce -0 is 0
+    const e = d + ['', 'K', 'M', 'B', 'T'][k]; // append power
+    return e;
+  }
+
+  function showLoader(el) {
+    el.classList.add('loading');
+    el.getElementsByClassName('preloader-wrapper')[0].classList.add('active');
+  }
+
+  function hideLoader(el) {
+    el.classList.remove('loading');
+    el.getElementsByClassName('preloader-wrapper')[0].classList.remove('active');
+  }
+
   // NAVBAR
   // =======================================================
   const header = $('.header');

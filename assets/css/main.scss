@@ -1359,9 +1359,37 @@ Mimic Algolia them - only the good parts
 	/****************************
 	Financial Charts
 	*****************************/
-	canvas {
-		width: 100%;
+	#financial-overview, #financial-trends {
+		canvas {
+			width: 100%;
+		}
+		.chart-wrapper {
+			height: 300px;
+			&.loading {
+				&:before {
+					content:"";
+					position:absolute;
+					width:500px;
+					height:300px;
+					opacity:0.2;
+					background-image: url({{site.baseurl}}/assets/img/blank-chart.jpg);
+					background-size: contain;
+					background-repeat: no-repeat;
+					background-position: center;
+				}
+				canvas {
+					display: none;
+				}
+			}
+			.preloader-wrapper {
+				margin: auto;
+			}
+		}
 	}
+	#financial-trends .chart-wrapper.loading:before {
+		background-image: url({{site.baseurl}}/assets/img/blank-chart-trends.jpg);
+	}
+
 	#blank-state-financials {
 		height: 300px;
 		&:before {
@@ -1370,7 +1398,7 @@ Mimic Algolia them - only the good parts
 			width:500px;
 			height:300px;
 			opacity:0.2;
-			background-image: url({{site.baseurl}}/assets/img/blank-chart-five-year.jpg);
+			background-image: url({{site.baseurl}}/assets/img/blank-chart-trends.jpg);
 			background-size: contain;
 			background-repeat: no-repeat;
 			background-position: center;
