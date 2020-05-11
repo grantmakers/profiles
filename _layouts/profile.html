@@ -150,27 +150,21 @@ donorbox_popup: false
     </script>
 
   <!--   Core JS Files   -->
-  <script
-  src="https://code.jquery.com/jquery-3.4.1.min.js"
-  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-  crossorigin="anonymous">
-  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 
   <!-- Search and Algolia-related scripts -->
-  <script src="https://cdn.jsdelivr.net/npm/algoliasearch@3.33.0/dist/algoliasearchLite.min.js" integrity="sha256-3Laj91VXexjTlFLgL8+vvIq27laXdRmFIcO2miulgEs=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/algoliasearch/3.33.0/algoliasearchLite.min.js" integrity="sha256-3Laj91VXexjTlFLgL8+vvIq27laXdRmFIcO2miulgEs=" crossorigin="anonymous"></script>
   {% if algolia == true %}
   {% if jekyll.environment == 'production' %}
-  <script src="https://cdn.jsdelivr.net/npm/instantsearch.js@3.6.0/dist/instantsearch.production.min.js" integrity="sha256-N/ZioXfJ7+qk2cejhAJsm0+ed/l/445mZGjpEWeyeR4=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/instantsearch.js/3.6.0/instantsearch.production.min.js" integrity="sha256-N/ZioXfJ7+qk2cejhAJsm0+ed/l/445mZGjpEWeyeR4=" crossorigin="anonymous"></script>
   {% else %}
-  <script src="https://cdn.jsdelivr.net/npm/instantsearch.js@3.6.0/dist/instantsearch.development.js" integrity="sha256-4i8lOGr1bSbtT2KpFoYSfutEpiBbT4zEP32mUBHLUfQ=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/instantsearch.js/3.6.0/instantsearch.development.js" integrity="sha256-4i8lOGr1bSbtT2KpFoYSfutEpiBbT4zEP32mUBHLUfQ=" crossorigin="anonymous"></script>
   {% endif %}
   <script defer src="{{ site.baseurl }}/assets/js/search.js?v={{ site.time | date: '%Y%m%d'}}"></script>
   {% endif %}
-  <script defer src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.37.0/dist/autocomplete.min.js" integrity="sha256-JZDcuzCEztytVwTfj5C3RN/ZIxwD8/6JhaG/2l8ZQC0=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.37.1/autocomplete.min.js" integrity="sha256-YVWQosorZnr6fALvOW9VALYuInld27RkSPkElGBdCaU=" crossorigin="anonymous"></script>
   <script defer src="{{ site.baseurl }}/assets/js/autocomplete.js"></script>
-
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js" integrity="sha256-R4pqcOYV8lt7snxMQO/HSbVCFRPMdrhAFMH+vr9giYI=" crossorigin="anonymous"></script>
 
   <script src="{{ site.baseurl }}/assets/js/profile.js?v={{ site.time | date: '%Y%m%d'}}"></script>
 
