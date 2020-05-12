@@ -1968,7 +1968,8 @@ Mimic Algolia them - only the good parts
 	}
 	/* Apply flexbox to match height */
 	@media #{$medium-and-up} {
-		.flex {
+		/* HACK the :not below only used to hide Financial sections on mobile */
+		.flex:not(&.hide-on-med-and-up) {
 			display: flex !important;
 		}
 		.flex-grow-1 {
