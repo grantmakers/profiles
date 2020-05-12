@@ -1322,13 +1322,6 @@ Mimic Algolia them - only the good parts
 		  color: white;
 		}
 	}
-	table {
-		th  span{
-			&:hover {
-				// cursor: pointer; // Uncomment in future if table sorting added back
-			}
-		}
-	}
 	.list-group {
 		padding-top: 15px;
 		.list-group-item {
@@ -1808,7 +1801,7 @@ Mimic Algolia them - only the good parts
 		}
 	}
 
-	/* Mobile Refinememnts */
+	/* Mobile Refinements */
 	#refinements-slide-out {
 		.ais-Panel.card {
 			margin: 0;
