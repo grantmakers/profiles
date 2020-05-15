@@ -693,17 +693,31 @@ donorbox_popup: false
                           </div>                      
                         </div>
                         <hr>
-                        <div class="chart-wrapper valign-wrapper">
-                          <div class="preloader-wrapper big">
-                            <div class="spinner-layer">
-                              <div class="circle-clipper left">
-                                <div class="circle"></div>
+                        <div class="chart-wrapper default">
+                          <div class="chart-default">
+                            <div class="row row-tight">
+                              <div class="col s12">
+                                <div class="card white z-depth-4">
+                                  <div class="card-content">
+                                      Charts will appear if your browser supports them.
+                                  </div>
+                                </div>
                               </div>
-                              <div class="gap-patch">
-                                <div class="circle"></div>
-                              </div>
-                              <div class="circle-clipper right">
-                                <div class="circle"></div>
+                            </div>
+                          </div>
+                          <div class="chart-loader center-align">
+                            <h4 class="preloader-text">Loading...</h4>
+                            <div class="preloader-wrapper big active">
+                              <div class="spinner-layer">
+                                <div class="circle-clipper left">
+                                  <div class="circle"></div>
+                                </div>
+                                <div class="gap-patch">
+                                  <div class="circle"></div>
+                                </div>
+                                <div class="circle-clipper right">
+                                  <div class="circle"></div>
+                                </div>
                               </div>
                             </div>
                           </div>
@@ -739,28 +753,14 @@ donorbox_popup: false
                           </div>                      
                         </div>
                         <hr>
-                        {% if page.financial_stats.size > 1 %}
-                        <div class="chart-wrapper valign-wrapper">
-                          <div class="preloader-wrapper big">
-                            <div class="spinner-layer">
-                              <div class="circle-clipper left">
-                                <div class="circle"></div>
-                              </div>
-                              <div class="gap-patch">
-                                <div class="circle"></div>
-                              </div>
-                              <div class="circle-clipper right">
-                                <div class="circle"></div>
-                              </div>
-                            </div>
-                          </div>
-                          <canvas id="chart-trends" width="500" height="300"></canvas>
-                        </div>
-                        {% else %}
-                        <div id="blank-state-financials" class="row row-tight valign-wrapper">
-                          <div class="col s12 l8 offset-l2">
+                        <!-- Replace Jekyll if statement with default messaging? -->
+                        <div class="chart-wrapper default">
+                          <div class="chart-default">
                             <div class="card white z-depth-4">
                               <div class="card-content">
+                              {%- if page.financial_stats.size > 1 -%}
+                                Charts will appear if your browser supports them
+                              {%- else -%}
                                 <div class="row row-tight valign-wrapper">
                                   <div class="col s2">
                                     <i class="material-icons material-icons-square blue-grey white-text">timeline</i>
@@ -769,11 +769,28 @@ donorbox_popup: false
                                     Trends will appear as more e-filings become available
                                   </div>
                                 </div>
+                              {% endif %}
                               </div>
                             </div>
                           </div>
+                          <div class="chart-loader center-align">
+                            <h4 class="preloader-text">Loading...</h4>
+                            <div class="preloader-wrapper big active">
+                              <div class="spinner-layer">
+                                <div class="circle-clipper left">
+                                  <div class="circle"></div>
+                                </div>
+                                <div class="gap-patch">
+                                  <div class="circle"></div>
+                                </div>
+                                <div class="circle-clipper right">
+                                  <div class="circle"></div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <canvas id="chart-trends" width="500" height="300"></canvas>
                         </div>
-                        {% endif %}
                       </div>
                     </div>
                   </div>

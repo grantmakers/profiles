@@ -68,6 +68,9 @@ $(document).ready(function() {
     });
   });
 
+  // Charts
+  // see profile.js
+
   // Bottom CTAs: Share and feedback buttons
   $('#profile-share a, #community a, #feedback a, #application-info a, #search-links a, #coffee-bottom-cta a').on('click', function() {
     ga('send', 'event', {
@@ -87,11 +90,10 @@ $(document).ready(function() {
   });
 
   // Remove UTM parameters
-  const win = window;
   ga('send', 'pageview', { 'hitCallback': removeUtms() });
   
   function removeUtms() {
-    const location = win.location;
+    const location = window.location;
     if (location.search.indexOf('utm_') !== -1 && history.replaceState) {
       history.replaceState({}, '', window.location.toString().replace(/(&|\?)utm([_a-z0-9=]+)/g, ''));
     }

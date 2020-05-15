@@ -82,14 +82,13 @@ $(document).ready(function() {
   // CHART.JS
   // =======================================================
   // Lazy load via Intersection Observer if browser allows
-  const financials = orgFinancialStats; // TODO pulling from a global. Has to be a better way.
+  // Jekyll sets a global variable orgFinancialsStats in profile.html
   const orgCurrentTaxYear = document.querySelector('h1.org-name').dataset.taxYear;
   const chartWrapperOverview = document.getElementById('financial-overview').getElementsByClassName('chart-wrapper')[0];
-  // TODO Only need to worry about if financials.length > 1
   const chartWrapperTrends = document.getElementById('financial-trends').getElementsByClassName('chart-wrapper')[0];
 
   if (!isMobile.matches && 'IntersectionObserver' in window) {
-    // TODO Log in GA? Enabled Intersection Observer
+    gaChartsEvents('Charts baseline');
     createChartsObserver();
   }
 
@@ -100,11 +99,13 @@ $(document).ready(function() {
       rootMargin: '0px 0px',
       threshold: 0.01,
     };
+    // Initiate observer using Financial Overview section as anchor
     observer = new IntersectionObserver(enableCharts, config);
     observer.observe(anchor);
-    // Initiate preloader
+    // Initiate preloaders / spinners
+    // Only need to show Trends chart if more than one tax year is available
     showLoader(chartWrapperOverview);
-    if (financials.length > 1) {
+    if (orgFinancialStats.length > 1) {
       showLoader(chartWrapperTrends);
     }
   }
@@ -112,7 +113,8 @@ $(document).ready(function() {
   function enableCharts(entries, observer) {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
-        // TODO Log in GA? Reached chart elements
+        gaChartsEvents('Visitor reached financial divs');
+        // Run the function that fetches Chart.js and loads it into the DOM
         loadCharts();
         observer.unobserve(entry.target);
       }
@@ -120,12 +122,13 @@ $(document).ready(function() {
   }
 
   function loadCharts() {
+    gaChartsEvents('Loading ChartJS');
     const chartJS = document.createElement('script');
     chartJS.type = 'text/javascript';
     chartJS.src = 'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js';
+    // Make Chart.js script available on client
     document.body.appendChild(chartJS);
-    // TODO Log in GA? Charts loaded successfully
-    // setTimeout(createCharts(chartJS), 3000); // TODO Delete - currently using for local testing
+    // Now that Chart.js script is available, create the charts
     createCharts(chartJS);
   }
 
@@ -134,22 +137,18 @@ $(document).ready(function() {
     const chartsColorSecondary = '#c54e00';
     const chartsColorTertiary = '#00bfa5';
 
-    const assets = financials.map(value => value.assets).reverse();
-    const distributions = financials.map(value => value.distributions).reverse();
-    const contributions = financials.map(value => value.contributions).reverse();
-    const years = financials.map(value => value.tax_year).reverse();
-    const year1 = financials[0];
+    const assets = orgFinancialStats.map(value => value.assets).reverse();
+    const distributions = orgFinancialStats.map(value => value.distributions).reverse();
+    const contributions = orgFinancialStats.map(value => value.contributions).reverse();
+    const years = orgFinancialStats.map(value => value.tax_year).reverse();
+    const year1 = orgFinancialStats[0];
 
     const ctx = document.getElementById('chart-overview').getContext('2d');
-    // TODO only needed if array size > 1
-    const ctxTrendsRoot = document.getElementById('chart-trends');
-    let ctxTrends;
-    if (ctxTrendsRoot) {
-      ctxTrends = ctxTrendsRoot.getContext('2d');
-    }
+    const ctxTrends = document.getElementById('chart-trends').getContext('2d');
     
 
     init.onload = function() {
+      gaChartsEvents('ChartsJS successfully loaded');
       const chartsFinancialOverview = new Chart(ctx, { /* eslint-disable-line no-unused-vars */
         type: 'horizontalBar',
         responsive: true,
@@ -204,16 +203,18 @@ $(document).ready(function() {
           },
           animation: {
             onProgress: function(animation) {
-              // TODO This feel like a hat
-              // Does ChartJS provide a better event?
               if (animation.currentStep === 1) {
                 hideLoader(chartWrapperOverview);
               }
             },
+            onComplete: function() {
+              gaChartsEvents('Charts successfully drawn');
+            },
           },
         },
       });
-      if (ctxTrendsRoot) {
+      // Only need to show Trends chart if more than one tax year is available
+      if (orgFinancialStats.length > 1) {
         const chartsFinancialTrends = new Chart(ctxTrends, { /* eslint-disable-line no-unused-vars */
           type: 'bar',
           responsive: true,
@@ -275,8 +276,6 @@ $(document).ready(function() {
             },
             animation: {
               onProgress: function(animation) {
-                // TODO This feel like a hat
-                // Does ChartJS provide a better event?
                 if (animation.currentStep === 1) {
                   hideLoader(chartWrapperTrends);
                 }
@@ -286,6 +285,16 @@ $(document).ready(function() {
         });
       }
     };
+  }
+
+  function showLoader(el) {
+    el.classList.remove('default');
+    el.classList.add('loading');
+  }
+
+  function hideLoader(el) {
+    el.classList.remove('loading');
+    el.classList.add('loaded');
   }
 
   function numberHuman(num, decimals) {
@@ -301,14 +310,18 @@ $(document).ready(function() {
     return e;
   }
 
-  function showLoader(el) {
-    el.classList.add('loading');
-    el.getElementsByClassName('preloader-wrapper')[0].classList.add('active');
-  }
-
-  function hideLoader(el) {
-    el.classList.remove('loading');
-    el.getElementsByClassName('preloader-wrapper')[0].classList.remove('active');
+  function gaChartsEvents(label) {
+    let gaCheck = window[window['GoogleAnalyticsObject'] || 'ga']; // eslint-disable-line dot-notation
+    if (typeof gaCheck === 'function') {
+      ga('send', 'event', {
+        'eventCategory': 'Profile Events',
+        'eventAction': 'Charts Loading Sequence',
+        'eventLabel': label,
+      });
+    }
+    // Charts needed
+    // Charts downloaded
+    // Charts embedded 
   }
 
   // NAVBAR

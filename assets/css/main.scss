@@ -185,6 +185,9 @@ ul.striped > li:nth-child(odd) {
 i.material-icons-rotate-180 {
 	transform: rotateX(180deg);
 }
+i.material-icons-rotate-90 {
+	transform: rotate(90deg);
+}
 // Icon background
 i.material-icons-square {
 	padding: 4px;
@@ -1356,47 +1359,54 @@ Mimic Algolia them - only the good parts
 		canvas {
 			width: 100%;
 		}
+
 		.chart-wrapper {
 			height: 300px;
-			&.loading {
-				&:before {
-					content:"";
-					position:absolute;
-					width:500px;
-					height:300px;
-					opacity:0.2;
-					background-image: url({{site.baseurl}}/assets/img/blank-chart.jpg);
-					background-size: contain;
-					background-repeat: no-repeat;
-					background-position: center;
-				}
-				canvas {
-					display: none;
-				}
+
+			.chart-loader .preloader-wrapper {
+				margin: 0 auto;
 			}
-			.preloader-wrapper {
-				margin: auto;
+			
+			.chart-default, .chart-loader {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				flex-direction: column;
+				content:"";
+				// position:absolute;
+				width: 100%;
+				height: 100%;
+				max-width:500px;
+				max-height:300px;
+				background-image: url({{site.baseurl}}/assets/img/blank-chart.jpg);
+				background-size: contain;
+				background-repeat: no-repeat;
+				background-position: center;
+			}
+
+			.chart-default { display: flex; }
+			.chart-loader { display: none; }
+			canvas { display: none; }
+
+			&.loading {
+				.chart-default { display: none; }
+				.chart-loader { display: flex; }
+				canvas { display: none; }
+			}
+
+			&.loaded {
+				.chart-default { display: none; }
+				.chart-loader { display: none; }
+				canvas { display: block; }
 			}
 		}
 	}
-	#financial-trends .chart-wrapper.loading:before {
-		background-image: url({{site.baseurl}}/assets/img/blank-chart-trends.jpg);
+	#financial-trends .chart-wrapper {
+		.chart-default, .chart-loader {
+			background-image: url({{site.baseurl}}/assets/img/blank-chart-trends.jpg);
+		}
 	}
 
-	#blank-state-financials {
-		height: 300px;
-		&:before {
-			content:"";
-			position:absolute;
-			width:500px;
-			height:300px;
-			opacity:0.2;
-			background-image: url({{site.baseurl}}/assets/img/blank-chart-trends.jpg);
-			background-size: contain;
-			background-repeat: no-repeat;
-			background-position: center;
-		}
-	}
 	#part-v {
 		.collapsible, .collapsible-header, .collapsible-body {
 			border: 0;
