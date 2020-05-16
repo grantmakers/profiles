@@ -1063,7 +1063,7 @@ Mimic Algolia them - only the good parts
 
 // Profiles
 .profile-content {
-	#profile, #noscript, #feedback, #profile-share, #information-source, #part-v, #coffee-bottom-cta, #tagline {
+	#profile, #noscript, #feedback, #profile-share, #information-source, #coffee-bottom-cta, #tagline {
 		margin-bottom: 75px;
 	}
 	#summary, #people, #financial-overview, #financial-trends, #activities, #grants, #application-info, #community, #filings {
@@ -1321,27 +1321,6 @@ Mimic Algolia them - only the good parts
 	#financial-trends .chart-wrapper {
 		.chart-default, .chart-loader {
 			background-image: url({{site.baseurl}}/assets/img/blank-chart-trends.jpg);
-		}
-	}
-
-	#part-v {
-		.collapsible, .collapsible-header, .collapsible-body {
-			border: 0;
-			box-shadow: unset;
-		}
-		.collapsible {
-			margin: 0;
-		}
-		.collapsible-header {
-			background-color: transparent;
-			align-items: center;
-			justify-content: center;
-			i {
-				line-height: 20px;
-				&.right {
-					margin-left: 0;
-				}
-			}
 		}
 	}
 
