@@ -1774,22 +1774,6 @@ Mimic Algolia them - only the good parts
 	.ais-Pagination-list {
 		display: inherit;
 	}
-
-	ul.collapsible-grants-table {
-		.collapsible-header {
-			color: $gray-light !important;
-			i {
-				font-size: 20px;
-			}
-		}
-		.collapsible-body {
-			i.material-icons {
-				font-size: 15px;
-				line-height: 1.5;
-				vertical-align: bottom;
-			}
-		}
-	}
 	.tabs-grants-table {
 		height: 20px;
 	}
