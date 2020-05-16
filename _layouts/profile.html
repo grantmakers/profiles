@@ -186,7 +186,7 @@ donorbox_popup: false
     <nav id="scrollspy-target" class="navbar-profile affix-top pushpin-nav" data-target="main-nav">
       <div class="nav-wrapper">
         <div class="container-custom">
-          <a href="#" data-target="mobile-nav" class="sidenav-trigger right disable-primary-color"><i class="material-icons">menu</i></a>
+          <a href="#" data-target="mobile-nav" class="sidenav-trigger right disable-primary-color print-hidden"><i class="material-icons">menu</i></a>
           <div class="row">
             <div class="col s8 m6 l2">
               <a href="{{ site.url }}" data-ga="Homepage" class="brand-logo">
@@ -206,15 +206,15 @@ donorbox_popup: false
                 <span class="breadcrumb">{{ page.organization_name }}</span>
               </div>
               {% if algolia == true %}
-                <span class="algolia-partnership-logo"><a href="{{ site.algolia_referral_link }}"><img src="{{ site.baseurl}}/assets/img/algolia-partnership-logo.svg" alt="Algolia Partnership Logo"></a></span>
+                <span class="algolia-partnership-logo print-hidden"><a href="{{ site.algolia_referral_link }}"><img src="{{ site.baseurl}}/assets/img/algolia-partnership-logo.svg" alt="Algolia Partnership Logo"></a></span>
               {% endif %}
             </div>
-            <div class="col m6 l5 hide-on-med-and-down">
+            <div class="col m6 l5 hide-on-med-and-down print-hidden">
               <ul class="nav-primary right">
                 <li><a href="#people" class="scrolly">People</a></li>
                 <li><a href="#grants" class="scrolly">Grants</a></li>
                 <li><a href="#filings" class="scrolly">Tax Filings</a></li>
-                <li><a href="#" data-target="navbar-more" class="dropdown-trigger" id="primary-navbar-dropdown-trigger">More <i style="margin-left:3px" class="material-icons right">arrow_drop_down</i></a></li>
+                <li><a href="#" data-target="navbar-more" class="dropdown-trigger print-hidden" id="primary-navbar-dropdown-trigger">More <i style="margin-left:3px" class="material-icons right">arrow_drop_down</i></a></li>
                 <li class="js-vue-check hidden"><a href="#modal-saved-profiles" class="account modal-trigger"><i id="account-icon" class="material-icons">account_circle</i></a></li>
               </ul>
             </div>
@@ -477,17 +477,6 @@ donorbox_popup: false
             </div>
           </div>
 
-          <div class="row print-hidden hide-on-small-only">
-            <div class="col s12">
-              <div id="tagline">
-                <h6 class="valign-wrapper valign-wrapper-center-align">
-                  <img src="{{ site.baseurl }}/assets/img/logo.png" alt="Grantmakers.io logo" class="icon-logo-small">
-                  Grantmakers.io is an open source project for my friends in the nonprofit community
-                </h6>
-              </div>
-            </div>
-          </div>
-
           <div class="row">
             <div class="col s12">
               <div id="activities">
@@ -517,6 +506,17 @@ donorbox_popup: false
                     </div>
                   </div>
                 </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row hide-on-small-only">
+            <div class="col s12">
+              <div id="tagline">
+                <h6 class="valign-wrapper valign-wrapper-center-align">
+                  <img src="{{ site.baseurl }}/assets/img/logo.png" alt="Grantmakers.io logo" class="icon-logo-small">
+                  Grantmakers.io is an open source project for my friends in the nonprofit community
+                </h6>
               </div>
             </div>
           </div>
