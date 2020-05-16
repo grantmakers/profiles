@@ -89,13 +89,6 @@ $(document).ready(function() {
     });
   });
 
-  // Remove UTM parameters
-  ga('send', 'pageview', { 'hitCallback': removeUtms() });
-  
-  function removeUtms() {
-    const location = window.location;
-    if (location.search.indexOf('utm_') !== -1 && history.replaceState) {
-      history.replaceState({}, '', window.location.toString().replace(/(&|\?)utm([_a-z0-9=]+)/g, ''));
-    }
-  }
+  // Note: URLs are cleaned of UTM info AFTER the intial pageview is send to GA
+  // This was moved to the initial pageview send, currently located in a Jekyll include
 });

@@ -4,7 +4,14 @@
   m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
   })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
+   // Send initial pageview, then clean urls of UTM info
   ga('create', '{{ site.google-analytics }}', 'auto');
-  ga('send', 'pageview');
+  ga('send', 'pageview', { 'hitCallback': removeUtms });
+  function removeUtms() {
+    const location = window.location;
+    if (location.search.indexOf('utm_') !== -1 && history.replaceState) {
+      history.replaceState({}, '', window.location.toString().replace(/(&|\?)utm([_a-z0-9=]+)/g, ''));
+    }
+  }
 
 </script>
