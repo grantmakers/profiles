@@ -299,7 +299,13 @@ Print
   @page {
     size: 330mm 427mm;
     margin: 14mm;
-	}
+  }
+  
+  .print-50 {
+    &.col.l6 {
+      width: 50%
+    }
+  }
 
 	// No borders / shadows
 	.main-raised {
@@ -308,7 +314,7 @@ Print
 	}
 
 	// Avoid page breaks for important sections
-	#grants, #application-info {
+	#grants, #application-info, #financial-overview, #financial-trends {
 		page-break-inside: avoid;
 	}
 
@@ -370,11 +376,16 @@ Print
 		display: none;
 	}
 	.section-refinements .card {
-		// width: 33% !important;
-		// height: 316px;
-		// display: inline-table;
 		box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.05), 0 3px 1px -2px rgba(0, 0, 0, 0.05), 0 1px 5px 0 rgba(0, 0, 0, 0.05)
-	}
+  }
+  
+  // Financial charts
+  #financial-overview, #financial-trends {
+    canvas {
+      width: 500px !important;
+      height: 300px !important;
+    }
+  }
 
 	// Dynamic Vue elements
 	.left-action-bar {
