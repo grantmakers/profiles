@@ -809,7 +809,7 @@ donorbox_popup: false
                 <ul class="collapsible">
                   <li>
                     <div class="collapsible-header">
-                      <h6>👉 Part V distribution ratios can be <span class="grantmakers-text">found here</span> (thanks for the suggestion, D.B.!)</h6>
+                      <h6>Check for Part V information (Form 990-PF) <i class="material-icons right">arrow_drop_down</i></h6>
                     </div>
                     <div class="collapsible-body">
                       <div class="row">
@@ -838,7 +838,7 @@ donorbox_popup: false
                                           <th>Year</th>
                                           <th>Adj Qualifying Distributions</th>
                                           <th>Net Value of Non-Charitable Use Assets</th>
-                                          <th>Distribution Ratio</th>
+                                          <th class="grey lighten-3">Distribution Ratio</th>
                                         </tr>
                                       </thead>
                                       <tbody>
@@ -847,7 +847,7 @@ donorbox_popup: false
                                           <td>{{ current_year }}</td>
                                           <td>{%- if part_v.AdjustedQlfyDistriYr1Amt -%}${{ part_v.AdjustedQlfyDistriYr1Amt | round | intcomma }}{%- endif -%}</td>
                                           <td>{%- if part_v.NetVlNoncharitableAssetsYr1Amt -%}${{ part_v.NetVlNoncharitableAssetsYr1Amt | round | intcomma }}{%- endif -%}</td>
-                                          <td>{%- if part_v.DistributionYr1Rt -%}{{ part_v.DistributionYr1Rt | intcomma }}{%- endif -%}</td>
+                                          <td class="grey lighten-3">{%- if part_v.DistributionYr1Rt -%}{{ part_v.DistributionYr1Rt | intcomma }}{%- endif -%}</td>
                                         </tr>
                                         {%- endif -%}
                                         {%- if part_v.AdjustedQlfyDistriYr2Amt or part_v.NetVlNoncharitableAssetsYr2Amt or part_v.DistributionYr2Rt -%}
@@ -855,7 +855,7 @@ donorbox_popup: false
                                           <td>{{ current_year | minus: 1 }}</td>
                                           <td>{%- if part_v.AdjustedQlfyDistriYr2Amt -%}${{ part_v.AdjustedQlfyDistriYr2Amt | round | intcomma }}{%- endif -%}</td>
                                           <td>{%- if part_v.NetVlNoncharitableAssetsYr2Amt -%}${{ part_v.NetVlNoncharitableAssetsYr2Amt | round | intcomma }}{%- endif -%}</td>
-                                          <td>{%- if part_v.DistributionYr2Rt -%}{{ part_v.DistributionYr2Rt | intcomma }}{%- endif -%}</td>
+                                          <td class="grey lighten-3">{%- if part_v.DistributionYr2Rt -%}{{ part_v.DistributionYr2Rt | intcomma }}{%- endif -%}</td>
                                         </tr>
                                         {%- endif -%}
                                         {%- if part_v.AdjustedQlfyDistriYr3Amt or part_v.NetVlNoncharitableAssetsYr3Amt or part_v.DistributionYr3Rt -%}
@@ -863,7 +863,7 @@ donorbox_popup: false
                                           <td>{{ current_year | minus: 2 }}</td>
                                           <td>{%- if part_v.AdjustedQlfyDistriYr3Amt -%}${{ part_v.AdjustedQlfyDistriYr3Amt | round | intcomma }}{%- endif -%}</td>
                                           <td>{%- if part_v.NetVlNoncharitableAssetsYr3Amt -%}${{ part_v.NetVlNoncharitableAssetsYr3Amt | round | intcomma }}{%- endif -%}</td>
-                                          <td>{%- if part_v.DistributionYr3Rt -%}{{ part_v.DistributionYr3Rt | intcomma }}{%- endif -%}</td>
+                                          <td class="grey lighten-3">{%- if part_v.DistributionYr3Rt -%}{{ part_v.DistributionYr3Rt | intcomma }}{%- endif -%}</td>
                                         </tr>
                                         {%- endif -%}
                                         {%- if part_v.AdjustedQlfyDistriYr4Amt or part_v.NetVlNoncharitableAssetsYr4Amt or part_v.DistributionYr4Rt -%}
@@ -871,7 +871,7 @@ donorbox_popup: false
                                           <td>{{ current_year | minus: 3 }}</td>
                                           <td>{%- if part_v.AdjustedQlfyDistriYr4Amt -%}${{ part_v.AdjustedQlfyDistriYr4Amt | round | intcomma }}{%- endif -%}</td>
                                           <td>{%- if part_v.NetVlNoncharitableAssetsYr4Amt -%}${{ part_v.NetVlNoncharitableAssetsYr4Amt | round | intcomma }}{%- endif -%}</td>
-                                          <td>{%- if part_v.DistributionYr4Rt -%}{{ part_v.DistributionYr4Rt | intcomma }}{%- endif -%}</td>
+                                          <td class="grey lighten-3">{%- if part_v.DistributionYr4Rt -%}{{ part_v.DistributionYr4Rt | intcomma }}{%- endif -%}</td>
                                         </tr>
                                         {%- endif -%}
                                         {%- if part_v.AdjustedQlfyDistriYr5Amt or part_v.NetVlNoncharitableAssetsYr5Amt or part_v.DistributionYr5Rt -%}
@@ -879,7 +879,7 @@ donorbox_popup: false
                                           <td>{{ current_year | minus: 4 }}</td>
                                           <td>{%- if part_v.AdjustedQlfyDistriYr5Amt -%}${{ part_v.AdjustedQlfyDistriYr5Amt | round | intcomma }}{%- endif -%}</td>
                                           <td>{%- if part_v.NetVlNoncharitableAssetsYr5Amt -%}${{ part_v.NetVlNoncharitableAssetsYr5Amt | round | intcomma }}{%- endif -%}</td>
-                                          <td>{%- if part_v.DistributionYr5Rt -%}{{ part_v.DistributionYr5Rt | intcomma }}{%- endif -%}</td>
+                                          <td class="grey lighten-3">{%- if part_v.DistributionYr5Rt -%}{{ part_v.DistributionYr5Rt | intcomma }}{%- endif -%}</td>
                                         </tr>
                                         {%- endif -%}
                                       </tbody>

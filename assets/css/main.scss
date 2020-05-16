@@ -1336,6 +1336,12 @@ Mimic Algolia them - only the good parts
 			background-color: transparent;
 			align-items: center;
 			justify-content: center;
+			i {
+				line-height: 20px;
+				&.right {
+					margin-left: 0;
+				}
+			}
 		}
 	}
 
