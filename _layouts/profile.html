@@ -664,141 +664,7 @@ donorbox_popup: false
             </div>
           </div>
 
-          <div id="financials" class="row flex hide-on-med-and-down">
-            <div class="col s12 l6 flex flex-direction-column print-50">
-              <div id="financial-overview" class="flex flex-grow-1">
-                <div class="card card-panel card-panel-flex">
-                  <div class="card-panel-header">
-                    <h4>Financial Overview <button class="tooltipped right valign-wrapper" data-position="left" data-html="true" data-tooltip="Assets - Box I<br>Contributions - Part I Line 1<br>Distributions - Part XII Qualifying Distributions"><img src="{{ site.baseurl }}/assets/img/irs-w-text-alt.png" alt="IRS logo" class="icon-irs-alt"></button></h4>
-                  </div>
-                  <div class="card-content card-panel-body">
-                    <div class="row row-tight">
-                      <div class="col s12">
-                        <div class="row row-tight valign-wrapper">
-                          <div class="col s12">
-                            <div class="justify-align">
-                              <div class="center-align">
-                                <p>Assets <i class="material-icons material-icons-tight left blue-grey-text">label</i></p>
-                                <h5 title="${{ page.assets | round | intcomma }}">${{ page.assets | intword }}</h5>
-                              </div>
-                              <div class="center-align">
-                                <p>Distributions <i class="material-icons material-icons-tight left grantmakers-text">label</i></p>
-                                <h5 title="${{ page.distributions | round | intcomma }}">${{ page.distributions | intword }}</h5>
-                              </div>
-                              <div class="center-align">
-                                <p>Contributions <i class="material-icons material-icons-tight left teal-text">label</i></p>
-                                <h5 title="{{ page.contributions | round | intcomma }}">${{ page.contributions | intword }}</h5>
-                              </div>
-                            </div>
-                          </div>                      
-                        </div>
-                        <hr>
-                        <div class="chart-wrapper default">
-                          <div class="chart-default">
-                            <div class="row row-tight">
-                              <div class="col s12">
-                                <div class="card white z-depth-4">
-                                  <div class="card-content">
-                                      Charts will appear if your browser supports them.
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="chart-loader center-align">
-                            <h4 class="preloader-text">Loading...</h4>
-                            <div class="preloader-wrapper big active">
-                              <div class="spinner-layer">
-                                <div class="circle-clipper left">
-                                  <div class="circle"></div>
-                                </div>
-                                <div class="gap-patch">
-                                  <div class="circle"></div>
-                                </div>
-                                <div class="circle-clipper right">
-                                  <div class="circle"></div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <canvas id="chart-overview" width="500" height="300"></canvas>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col s12 l6 flex flex-direction-column print-50">
-              <div id="financial-trends" class="flex flex-grow-1">
-                <div class="card card-panel card-panel-flex">
-                  <div class="card-panel-header">
-                    <h4>Financial Trends <button class="tooltipped right valign-wrapper" data-position="left" data-html="true" data-tooltip="Assets - Box I<br>Contributions - Part I Line 1<br>Distributions - Part XII Qualifying Distributions"><img src="{{ site.baseurl }}/assets/img/irs-w-text-alt.png" alt="IRS logo" class="icon-irs-alt"></button></h4>
-                  </div>
-                  <div class="card-content card-panel-body">
-                    <div class="row row-tight">
-                      <div class="col s12">
-                        <div class="row row-tight valign-wrapper">
-                          <div class="col s12">
-                            <div class="justify-align">
-                              <div class="center-align">
-                                <p>Tax e-Filings Available <i class="material-icons material-icons-rotate-180 text-muted-max tooltipped" data-tooltip="Electronically filed tax returns only">error_outline</i></p>
-                                <h5 title="Electronically filed tax returns">{{ page.filings | size }}</h5>
-                              </div>
-                              <div class="center-align">
-                                <p>Last Updated by IRS</p>
-                                <h5 title="${{ page.distributions | round | intcomma }}">{{ page.last_updated_irs | date: "%b %d, %Y" }}</h5>
-                              </div>
-                            </div>
-                          </div>                      
-                        </div>
-                        <hr>
-                        <div class="chart-wrapper default">
-                          <div class="chart-default">
-                            <div class="card white z-depth-4">
-                              <div class="card-content">
-                              {%- if page.financial_stats.size > 1 -%}
-                                Charts will appear if your browser supports them
-                              {%- else -%}
-                                <div class="row row-tight valign-wrapper">
-                                  <div class="col s2">
-                                    <i class="material-icons material-icons-square blue-grey white-text">timeline</i>
-                                  </div>
-                                  <div class="col s10">
-                                    Trends will appear as more e-filings become available
-                                  </div>
-                                </div>
-                              {% endif %}
-                              </div>
-                            </div>
-                          </div>
-                          <div class="chart-loader center-align">
-                            <h4 class="preloader-text">Loading...</h4>
-                            <div class="preloader-wrapper big active">
-                              <div class="spinner-layer">
-                                <div class="circle-clipper left">
-                                  <div class="circle"></div>
-                                </div>
-                                <div class="gap-patch">
-                                  <div class="circle"></div>
-                                </div>
-                                <div class="circle-clipper right">
-                                  <div class="circle"></div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <canvas id="chart-trends" width="500" height="300"></canvas>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="row flex">
+          <div class="row flex print-no-pagebreak">
             <div class="col s12 l6 flex flex-direction-column print-50">
               <div id="application-info" class="flex flex-grow-1">
                 <div class="card-panel card-panel-flex">
@@ -938,6 +804,140 @@ donorbox_popup: false
                         {% endunless %}
                       </li>
                     </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div id="financials" class="row flex hide-on-med-and-down">
+            <div class="col s12 l6 flex flex-direction-column print-50">
+              <div id="financial-overview" class="flex flex-grow-1">
+                <div class="card card-panel card-panel-flex">
+                  <div class="card-panel-header">
+                    <h4>Financial Overview <button class="tooltipped right valign-wrapper" data-position="left" data-html="true" data-tooltip="Assets - Box I<br>Contributions - Part I Line 1<br>Distributions - Part XII Qualifying Distributions"><img src="{{ site.baseurl }}/assets/img/irs-w-text-alt.png" alt="IRS logo" class="icon-irs-alt"></button></h4>
+                  </div>
+                  <div class="card-content card-panel-body">
+                    <div class="row row-tight">
+                      <div class="col s12">
+                        <div class="row row-tight valign-wrapper">
+                          <div class="col s12">
+                            <div class="justify-align">
+                              <div class="center-align">
+                                <p>Assets <i class="material-icons material-icons-tight left blue-grey-text">label</i></p>
+                                <h5 title="${{ page.assets | round | intcomma }}">${{ page.assets | intword }}</h5>
+                              </div>
+                              <div class="center-align">
+                                <p>Distributions <i class="material-icons material-icons-tight left grantmakers-text">label</i></p>
+                                <h5 title="${{ page.distributions | round | intcomma }}">${{ page.distributions | intword }}</h5>
+                              </div>
+                              <div class="center-align">
+                                <p>Contributions <i class="material-icons material-icons-tight left teal-text">label</i></p>
+                                <h5 title="{{ page.contributions | round | intcomma }}">${{ page.contributions | intword }}</h5>
+                              </div>
+                            </div>
+                          </div>                      
+                        </div>
+                        <hr>
+                        <div class="chart-wrapper default">
+                          <div class="chart-default">
+                            <div class="row row-tight">
+                              <div class="col s12">
+                                <div class="card white z-depth-4">
+                                  <div class="card-content">
+                                      Charts will appear if your browser supports them.
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="chart-loader center-align">
+                            <h4 class="preloader-text">Loading...</h4>
+                            <div class="preloader-wrapper big active">
+                              <div class="spinner-layer">
+                                <div class="circle-clipper left">
+                                  <div class="circle"></div>
+                                </div>
+                                <div class="gap-patch">
+                                  <div class="circle"></div>
+                                </div>
+                                <div class="circle-clipper right">
+                                  <div class="circle"></div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <canvas id="chart-overview" width="500" height="300"></canvas>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col s12 l6 flex flex-direction-column print-50">
+              <div id="financial-trends" class="flex flex-grow-1">
+                <div class="card card-panel card-panel-flex">
+                  <div class="card-panel-header">
+                    <h4>Financial Trends <button class="tooltipped right valign-wrapper" data-position="left" data-html="true" data-tooltip="Assets - Box I<br>Contributions - Part I Line 1<br>Distributions - Part XII Qualifying Distributions"><img src="{{ site.baseurl }}/assets/img/irs-w-text-alt.png" alt="IRS logo" class="icon-irs-alt"></button></h4>
+                  </div>
+                  <div class="card-content card-panel-body">
+                    <div class="row row-tight">
+                      <div class="col s12">
+                        <div class="row row-tight valign-wrapper">
+                          <div class="col s12">
+                            <div class="justify-align">
+                              <div class="center-align">
+                                <p>Tax e-Filings Available <i class="material-icons material-icons-rotate-180 text-muted-max tooltipped" data-tooltip="Electronically filed tax returns only">error_outline</i></p>
+                                <h5 title="Electronically filed tax returns">{{ page.filings | size }}</h5>
+                              </div>
+                              <div class="center-align">
+                                <p>Last Updated by IRS</p>
+                                <h5 title="${{ page.distributions | round | intcomma }}">{{ page.last_updated_irs | date: "%b %d, %Y" }}</h5>
+                              </div>
+                            </div>
+                          </div>                      
+                        </div>
+                        <hr>
+                        <div class="chart-wrapper default">
+                          <div class="chart-default">
+                            <div class="card white z-depth-4">
+                              <div class="card-content">
+                              {%- if page.financial_stats.size > 1 -%}
+                                Charts will appear if your browser supports them
+                              {%- else -%}
+                                <div class="row row-tight valign-wrapper">
+                                  <div class="col s2">
+                                    <i class="material-icons material-icons-square blue-grey white-text">timeline</i>
+                                  </div>
+                                  <div class="col s10">
+                                    Trends will appear as more e-filings become available
+                                  </div>
+                                </div>
+                              {% endif %}
+                              </div>
+                            </div>
+                          </div>
+                          <div class="chart-loader center-align">
+                            <h4 class="preloader-text">Loading...</h4>
+                            <div class="preloader-wrapper big active">
+                              <div class="spinner-layer">
+                                <div class="circle-clipper left">
+                                  <div class="circle"></div>
+                                </div>
+                                <div class="gap-patch">
+                                  <div class="circle"></div>
+                                </div>
+                                <div class="circle-clipper right">
+                                  <div class="circle"></div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <canvas id="chart-trends" width="500" height="300"></canvas>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>

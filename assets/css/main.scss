@@ -1066,7 +1066,7 @@ Mimic Algolia them - only the good parts
 	#profile, #noscript, #feedback, #profile-share, #information-source, #coffee-bottom-cta, #tagline {
 		margin-bottom: 75px;
 	}
-	#summary, #people, #financial-overview, #financial-trends, #activities, #grants, #application-info, #community, #filings {
+	#summary, #people, #activities, #grants, #application-info, #community, #financials-tagline, #financial-overview, #financial-trends, #filings {
 		margin-bottom: 75px;
 	}
 	#summary {
@@ -2170,7 +2170,7 @@ Print
 	}
 
 	// Avoid page breaks for important sections
-	#grants-scroll-anchor, #grants, #application-info, #financial-overview, #financial-trends, #financials {
+	.print-no-pagebreak, #grants-scroll-anchor, #grants, #application-info, #financial-overview, #financial-trends, #financials {
 		page-break-inside: avoid;
 	}
 
