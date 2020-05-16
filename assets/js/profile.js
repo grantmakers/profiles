@@ -149,6 +149,7 @@ $(document).ready(function() {
 
     init.onload = function() {
       gaChartsEvents('ChartsJS successfully loaded');
+      let hideLoaderOverviewExecuted = false;
       const chartsFinancialOverview = new Chart(ctx, { /* eslint-disable-line no-unused-vars */
         type: 'horizontalBar',
         responsive: true,
@@ -203,7 +204,8 @@ $(document).ready(function() {
           },
           animation: {
             onProgress: function(animation) {
-              if (animation.currentStep === 1) {
+              if (animation.numSteps > 0 && !hideLoaderOverviewExecuted) {
+                hideLoaderOverviewExecuted = true;
                 hideLoader(chartWrapperOverview);
               }
             },
@@ -215,6 +217,7 @@ $(document).ready(function() {
       });
       // Only need to show Trends chart if more than one tax year is available
       if (orgFinancialStats.length > 1) {
+        let hideLoaderTrendsExecuted = false;
         const chartsFinancialTrends = new Chart(ctxTrends, { /* eslint-disable-line no-unused-vars */
           type: 'bar',
           responsive: true,
@@ -276,7 +279,8 @@ $(document).ready(function() {
             },
             animation: {
               onProgress: function(animation) {
-                if (animation.currentStep === 1) {
+                if (animation.numSteps > 0 && !hideLoaderTrendsExecuted) {
+                  hideLoaderTrendsExecuted = true;
                   hideLoader(chartWrapperTrends);
                 }
               },
