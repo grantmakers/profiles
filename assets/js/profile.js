@@ -319,9 +319,6 @@ $(document).ready(function() {
         'eventLabel': label,
       });
     }
-    // Charts needed
-    // Charts downloaded
-    // Charts embedded 
   }
 
   // NAVBAR
