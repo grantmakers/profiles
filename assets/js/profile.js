@@ -7,19 +7,23 @@ $(document).ready(function() {
   // TODO Need to refactor initial browser checks - this is a mess!
   const isIE11 = !!window.MSInputMethodContext && !!document.documentMode; // Note: does not detect <IE11
   const isMobile = window.matchMedia('only screen and (max-width: 992px)');
-  const hasAlgolia = $('#grants .card-panel-header .search');
+  const hasAlgolia = document.querySelector('#grants .card-panel-header .search') || false;
+
   let isSupported = browserTest();
   let allowsCookies = cookieTest();
   let allowsLocalStorage = storageTest();
 
   // Load Vue if supported
   const vue = document.createElement('script');
-  // TODO Load bundle.js upon click
   vue.src = '{{ site.baseurl }}/assets/js/bundle.js?v={{ site.time | date: "%Y%m%d"}}';
   if (!isIE11 && !isMobile.matches && allowsCookies && allowsLocalStorage && isSupported) {
     // document.body.appendChild(vue);
   } else {
-    $('.js-vue-check').addClass( 'hidden' ); // Hide UI elements created in DOM, but handled by Vue
+    // Hide UI elements created in DOM, but handled by Vue
+    const vueElements = document.querySelectorAll('.js-vue-check');
+    vueElements.forEach(function(el) {
+      el.classList.add('hidden');
+    });
   }
 
   // Show message if not supported
@@ -30,12 +34,17 @@ $(document).ready(function() {
       'html': toastContent,
       'displayLength': 10000,
     });
-    $('.toast-action-browser-suggestion').on('click', function() {
-      const target = $(this).attr('href');
+
+    document.addEventListener('click', function(e) {
+      const target = e.target.getAttribute('href');
       window.location.href = target;
     });
+
     // Hide Algolia elements
-    $('.js-ie-check').addClass( 'hidden' );
+    const algoliaElements = document.querySelectorAll('.js-ie-check');
+    algoliaElements.forEach(function(el) {
+      el.classList.add('hidden');
+    });
   }
   
   function browserTest() {
@@ -81,33 +90,33 @@ $(document).ready(function() {
 
   // NAVBAR
   // =======================================================
-  const header = $('.header');
-  const navbar = $('.navbar-profile');
+  const header = document.querySelector('.header');
+  const navbar = document.querySelector('.navbar-profile');
   const range = 64; // Height of navbar
 
   // Set header opacity on page load
   setHeaderOpacity();
 
   // Adjust opacity after scrolling
-  $(window).on('scroll', function() {
+  window.addEventListener('scroll', function() {
     setHeaderOpacity();
   });
 
   function setHeaderOpacity() {
-    let scrollTop = $(window).scrollTop();
-    let height = header.outerHeight();
+    let scrollTop = window.pageYOffset | document.body.scrollTop;
+    let height = header.offsetHeight;
     let offset = height / 2;
     let calc = 1 - (scrollTop - offset + range) / range;
-    header.css({ 'opacity': calc });
+    header.style.opacity = calc;
 
-    if (calc > '1') {
-      header.css({ 'opacity': 1 });
-      navbar.addClass('affix-top');
-      navbar.removeClass('affix');
-    } else if ( calc < '0' ) {
-      header.css({ 'opacity': 0 });
-      navbar.addClass('affix');
-      navbar.removeClass('affix-top');
+    if (calc > 1) {
+      header.style.opacity = '1';
+      navbar.classList.add('affix-top');
+      navbar.classList.remove('affix');
+    } else if ( calc < 0 ) {
+      header.style.opacity = '0';
+      navbar.classList.add('affix');
+      navbar.classList.remove('affix-top');
     }
   }
 
@@ -120,12 +129,19 @@ $(document).ready(function() {
       'constrainWidth': false,
     };
     M.Dropdown.init(elemsNavMore, optionsNavMore);
-    $('.sidenav').sidenav();
-    $('#community-sidebar').sidenav({ 'edge': 'right'});
-    $('.tooltipped:not(.v-tooltipped)').tooltip(); // :not ensures Vue handles relevant initiation for Vue-controlled elements
-    $('.collapsible').collapsible({
-      'accordion': false,
-    });
+
+    const elemsSideNav = document.querySelectorAll('.sidenav');
+    M.Sidenav.init(elemsSideNav);
+
+    const elemCommunitySidebar = document.getElementById('community-sidebar');
+    const optionsCommunitySidebar = {
+      'edge': 'right',
+    };
+    M.Sidenav.init(elemCommunitySidebar, optionsCommunitySidebar);
+
+    // :not ensures Vue handles relevant initiation for Vue-controlled elements
+    const elemsTooltips = document.querySelectorAll('.tooltipped:not(.v-tooltipped)');
+    M.Tooltip.init(elemsTooltips);
   };
 
   // FIXED HEADERS
@@ -134,15 +150,16 @@ $(document).ready(function() {
   // See also search.js - Need to re-init grants header after search results populate to capture proper div height
 
   function enableGrantsFixedHeader() {
-    const grantsHeader = $('#grants .card-panel-header');
-    grantsHeader.addClass('pushpin-nav pushpin-nav-search');
-    grantsHeader.attr('data-target', 'grants');
+    const grantsHeader = document.querySelector('#grants .card-panel-header');
+    grantsHeader.classList.add('pushpin-nav', 'pushpin-nav-search');
+    grantsHeader.setAttribute('target', 'grants');
   }
 
-  if (!isMobile.matches && hasAlgolia.length && !isIE11) {
+  if (!isMobile.matches && hasAlgolia && !isIE11) {
     enableGrantsFixedHeader();
   }
 
+  // TODO Remove jQuery https://stackoverflow.com/questions/53735893/materialize-css-pushpin-init-with-pure-javascript-no-jquery
   if ($('.pushpin-nav').length) {
     $('.pushpin-nav').each(function() {
       let $this = $(this);
