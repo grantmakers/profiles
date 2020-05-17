@@ -154,16 +154,16 @@ donorbox_popup: false
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 
   <!-- Search and Algolia-related scripts -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/algoliasearch/3.33.0/algoliasearchLite.min.js" integrity="sha256-3Laj91VXexjTlFLgL8+vvIq27laXdRmFIcO2miulgEs=" crossorigin="anonymous"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/algoliasearch/3.33.0/algoliasearchLite.min.js" integrity="sha256-3Laj91VXexjTlFLgL8+vvIq27laXdRmFIcO2miulgEs=" crossorigin="anonymous"></script>
   {% if algolia == true %}
   {% if jekyll.environment == 'production' %}
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/instantsearch.js/3.6.0/instantsearch.production.min.js" integrity="sha256-N/ZioXfJ7+qk2cejhAJsm0+ed/l/445mZGjpEWeyeR4=" crossorigin="anonymous"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/instantsearch.js/3.6.0/instantsearch.production.min.js" integrity="sha256-N/ZioXfJ7+qk2cejhAJsm0+ed/l/445mZGjpEWeyeR4=" crossorigin="anonymous"></script>
   {% else %}
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/instantsearch.js/3.6.0/instantsearch.development.js" integrity="sha256-4i8lOGr1bSbtT2KpFoYSfutEpiBbT4zEP32mUBHLUfQ=" crossorigin="anonymous"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/instantsearch.js/3.6.0/instantsearch.development.js" integrity="sha256-4i8lOGr1bSbtT2KpFoYSfutEpiBbT4zEP32mUBHLUfQ=" crossorigin="anonymous"></script>
   {% endif %}
   <script defer src="{{ site.baseurl }}/assets/js/search.js?v={{ site.time | date: '%Y%m%d'}}"></script>
   {% endif %}
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.37.1/autocomplete.min.js" integrity="sha256-YVWQosorZnr6fALvOW9VALYuInld27RkSPkElGBdCaU=" crossorigin="anonymous"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.37.1/autocomplete.min.js" integrity="sha256-YVWQosorZnr6fALvOW9VALYuInld27RkSPkElGBdCaU=" crossorigin="anonymous"></script>
   <script defer src="{{ site.baseurl }}/assets/js/autocomplete.js"></script>
 
   <script src="{{ site.baseurl }}/assets/js/profile.js?v={{ site.time | date: '%Y%m%d'}}"></script>
