@@ -79,6 +79,106 @@ $(document).ready(function() {
     }
   }
 
+  // NAVBAR
+  // =======================================================
+  const header = $('.header');
+  const navbar = $('.navbar-profile');
+  const range = 64; // Height of navbar
+
+  // Set header opacity on page load
+  setHeaderOpacity();
+
+  // Adjust opacity after scrolling
+  $(window).on('scroll', function() {
+    setHeaderOpacity();
+  });
+
+  function setHeaderOpacity() {
+    let scrollTop = $(window).scrollTop();
+    let height = header.outerHeight();
+    let offset = height / 2;
+    let calc = 1 - (scrollTop - offset + range) / range;
+    header.css({ 'opacity': calc });
+
+    if (calc > '1') {
+      header.css({ 'opacity': 1 });
+      navbar.addClass('affix-top');
+      navbar.removeClass('affix');
+    } else if ( calc < '0' ) {
+      header.css({ 'opacity': 0 });
+      navbar.addClass('affix');
+      navbar.removeClass('affix-top');
+    }
+  }
+
+  // INIT MATERIALIZE COMPONENTS
+  // =======================================================
+  window.onload = function() {
+    const elemsNavMore = document.getElementById('primary-navbar-dropdown-trigger');
+    const optionsNavMore = {
+      'container': 'main-nav',
+      'constrainWidth': false,
+    };
+    M.Dropdown.init(elemsNavMore, optionsNavMore);
+    $('.sidenav').sidenav();
+    $('#community-sidebar').sidenav({ 'edge': 'right'});
+    $('.tooltipped:not(.v-tooltipped)').tooltip(); // :not ensures Vue handles relevant initiation for Vue-controlled elements
+    $('.collapsible').collapsible({
+      'accordion': false,
+    });
+  };
+
+  // FIXED HEADERS
+  // =======================================================
+  // Grants header is fixed only on non-mobile devices with Algolia enabled
+  // See also search.js - Need to re-init grants header after search results populate to capture proper div height
+
+  function enableGrantsFixedHeader() {
+    const grantsHeader = $('#grants .card-panel-header');
+    grantsHeader.addClass('pushpin-nav pushpin-nav-search');
+    grantsHeader.attr('data-target', 'grants');
+  }
+
+  if (!isMobile.matches && hasAlgolia.length && !isIE11) {
+    enableGrantsFixedHeader();
+  }
+
+  if ($('.pushpin-nav').length) {
+    $('.pushpin-nav').each(function() {
+      let $this = $(this);
+      let $id = $(this).attr('data-target');
+      let $target = $('#' + $(this).attr('data-target'));
+      let targetBottom = $target.offset().top + $target.height();
+      let targetOffset = 0;
+      if ($id === 'main-nav') {
+        targetBottom = Infinity;
+      } else {
+        targetOffset = range;
+      }
+      $this.pushpin({
+        'top': $target.offset().top,
+        'bottom': targetBottom,
+        'offset': targetOffset,
+      });
+    });
+  }
+
+  // SMOOTH SCROLL
+  // =======================================================
+  $('.scrolly').click(function(e) {
+    e.preventDefault();
+    const target = $(this).attr('href');
+    const newPosition = $(target).offset().top - 64;
+    $('html, body').stop().animate({ 'scrollTop': newPosition }, 500);
+  });
+
+  $('.nav-primary li a.scrolly').on('click', function() {
+    // collapse mobile header
+    if (isMobile.matches) {
+      $('.sidenav').sidenav('close');
+    }
+  });
+
   // CHART.JS
   // =======================================================
   // Lazy load via Intersection Observer if browser allows
@@ -324,106 +424,6 @@ $(document).ready(function() {
       });
     }
   }
-
-  // NAVBAR
-  // =======================================================
-  const header = $('.header');
-  const navbar = $('.navbar-profile');
-  const range = 64; // Height of navbar
-
-  // Set header opacity on page load
-  setHeaderOpacity();
-
-  // Adjust opacity after scrolling
-  $(window).on('scroll', function() {
-    setHeaderOpacity();
-  });
-
-  function setHeaderOpacity() {
-    let scrollTop = $(window).scrollTop();
-    let height = header.outerHeight();
-    let offset = height / 2;
-    let calc = 1 - (scrollTop - offset + range) / range;
-    header.css({ 'opacity': calc });
-
-    if (calc > '1') {
-      header.css({ 'opacity': 1 });
-      navbar.addClass('affix-top');
-      navbar.removeClass('affix');
-    } else if ( calc < '0' ) {
-      header.css({ 'opacity': 0 });
-      navbar.addClass('affix');
-      navbar.removeClass('affix-top');
-    }
-  }
-
-  // INIT MATERIALIZE COMPONENTS
-  // =======================================================
-  window.onload = function() {
-    const elemsNavMore = document.getElementById('primary-navbar-dropdown-trigger');
-    const optionsNavMore = {
-      'container': 'main-nav',
-      'constrainWidth': false,
-    };
-    M.Dropdown.init(elemsNavMore, optionsNavMore);
-    $('.sidenav').sidenav();
-    $('#community-sidebar').sidenav({ 'edge': 'right'});
-    $('.tooltipped:not(.v-tooltipped)').tooltip(); // :not ensures Vue handles relevant initiation for Vue-controlled elements
-    $('.collapsible').collapsible({
-      'accordion': false,
-    });
-  };
-
-  // FIXED HEADERS
-  // =======================================================
-  // Grants header is fixed only on non-mobile devices with Algolia enabled
-  // See also search.js - Need to re-init grants header after search results populate to capture proper div height
-
-  function enableGrantsFixedHeader() {
-    const grantsHeader = $('#grants .card-panel-header');
-    grantsHeader.addClass('pushpin-nav pushpin-nav-search');
-    grantsHeader.attr('data-target', 'grants');
-  }
-
-  if (!isMobile.matches && hasAlgolia.length && !isIE11) {
-    enableGrantsFixedHeader();
-  }
-
-  if ($('.pushpin-nav').length) {
-    $('.pushpin-nav').each(function() {
-      let $this = $(this);
-      let $id = $(this).attr('data-target');
-      let $target = $('#' + $(this).attr('data-target'));
-      let targetBottom = $target.offset().top + $target.height();
-      let targetOffset = 0;
-      if ($id === 'main-nav') {
-        targetBottom = Infinity;
-      } else {
-        targetOffset = range;
-      }
-      $this.pushpin({
-        'top': $target.offset().top,
-        'bottom': targetBottom,
-        'offset': targetOffset,
-      });
-    });
-  }
-
-  // SMOOTH SCROLL
-  // =======================================================
-  $('.scrolly').click(function(e) {
-    e.preventDefault();
-    const target = $(this).attr('href');
-    const newPosition = $(target).offset().top - 64;
-    $('html, body').stop().animate({ 'scrollTop': newPosition }, 500);
-  });
-
-  $('.nav-primary li a.scrolly').on('click', function() {
-    // collapse mobile header
-    if (isMobile.matches) {
-      $('.sidenav').sidenav('close');
-    }
-  });
 
   // FILINGS
   // =======================================================
