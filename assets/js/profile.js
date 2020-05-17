@@ -152,7 +152,7 @@ $(document).ready(function() {
   function enableGrantsFixedHeader() {
     const grantsHeader = document.querySelector('#grants .card-panel-header');
     grantsHeader.classList.add('pushpin-nav', 'pushpin-nav-search');
-    grantsHeader.setAttribute('target', 'grants');
+    grantsHeader.setAttribute('data-target', 'grants');
   }
 
   if (!isMobile.matches && hasAlgolia && !isIE11) {
