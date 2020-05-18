@@ -1,6 +1,14 @@
 ---
 ---
-$(document).ready(function() {
+function ready(fn) {
+  if (document.attachEvent ? document.readyState === 'complete' : document.readyState !== 'loading') {
+    fn();
+  } else {
+    document.addEventListener('DOMContentLoaded', fn);
+  }
+}
+
+ready(function() {
   const client = algoliasearch('KDWVSZVS1I', '{{ site.algolia_public_key_profiles }}');
   const index = client.initIndex('grantmakers_io');
   
@@ -28,7 +36,7 @@ $(document).ready(function() {
           return '<div class="algolia-logo-autocomplete center-align small">Search powered by <a href="{{ site.algolia_referral_link }}" class="algolia-powered-by-link" title="Algolia"><img class="algolia-logo" src="{{site.url}}{{site.baseurl}}/assets/img/algolia-light-bg.svg" alt="Algolia" style="width: 60px;height: 16px;" /></a></div>';
         },
         empty: function() {
-          return '<div class="empty">Not finding what you need? Try our <a href="{{ site.url }}">full search</a>.</div>';
+          return '<div class="empty">Not finding what you need? Try our <a href="{{ site.url }}/search/profiles">full search</a>.</div>';
         },
       },
     },
@@ -36,13 +44,10 @@ $(document).ready(function() {
     if (suggestion) {
       location.href = 'https://www.grantmakers.io/profiles/' + suggestion.ein;
     } else {
-      const $toastContent = $('<span>Something went wrong</span>').add($('<button class="btn-flat toast-action toast-action-redirect">Try main search page</button>'));
+      const toastContent = '<span>Something went wrong</span> <a href="https://www.grantmakers.io/search/profiles/" class="btn-flat toast-action toast-action-redirect">Try main search page</a>';
       M.toast({
-        html: $toastContent,
+        html: toastContent,
         displayLength: 10000,
-      });
-      $('.toast-action-redirect').on('click', function() {
-        location.href = 'https://www.grantmakers.io/search/profiles/';
       });
     }
   });
