@@ -1362,6 +1362,10 @@ Mimic Algolia them - only the good parts
 	/****************************
 	Grants / InstantSearch wrapper
 	*****************************/
+	// Import Instantsearch.css reset
+	// Could be pulled from jsDelivr, but not available on CDNJS
+	@import 'reset';
+
 	#grants {
 		font-weight: 400;
 		a {
