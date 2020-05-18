@@ -162,7 +162,6 @@ ready(function() {
   function scrollAnchors(e, respond = null) {
     e.preventDefault();
     const distanceToTop = el => Math.floor(el.getBoundingClientRect().top - navbarHeight);
-    console.log(distanceToTop);
     let targetID = respond ? respond.getAttribute('href') : this.getAttribute('href');
     const targetAnchor = document.querySelector(targetID);
     if (!targetAnchor) return;
