@@ -1,6 +1,15 @@
 ---
 ---
-$(document).ready(function() {
+function ready(fn) {
+  'use strict';
+  if (document.attachEvent ? document.readyState === 'complete' : document.readyState !== 'loading') {
+    fn();
+  } else {
+    document.addEventListener('DOMContentLoaded', fn);
+  }
+}
+
+ready(function() {
   'use strict';
   // BROWSER CHECKS
   // =======================================================
