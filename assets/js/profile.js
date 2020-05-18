@@ -7,7 +7,6 @@ $(document).ready(function() {
   // TODO Need to refactor initial browser checks - this is a mess!
   const isIE11 = !!window.MSInputMethodContext && !!document.documentMode; // Note: does not detect <IE11
   const isMobile = window.matchMedia('only screen and (max-width: 992px)');
-  const hasAlgolia = document.querySelector('#grants .card-panel-header .search') || false;
 
   let isSupported = browserTest();
   let allowsCookies = cookieTest();
@@ -28,16 +27,11 @@ $(document).ready(function() {
 
   // Show message if not supported
   if (isIE11 || !isSupported) {
-    const toastContent = '<span>Your browser is currently not supported.<br>Many useful features may not work.</span><button href="https://outdatedbrowser.com/en" class="btn-flat yellow-text toast-action-browser-suggestion">Browser Suggestions</button>';
+    const toastContent = '<span>Your browser is currently not supported.<br>Many useful features may not work.</span><a href="https://outdatedbrowser.com/en" class="btn-flat yellow-text toast-action-browser-suggestion">Browser Suggestions</a>';
     M.Toast.dismissAll();
     M.toast({
       'html': toastContent,
       'displayLength': 10000,
-    });
-
-    document.addEventListener('click', function(e) {
-      const target = e.target.getAttribute('href');
-      window.location.href = target;
     });
 
     // Hide Algolia elements
@@ -92,7 +86,7 @@ $(document).ready(function() {
   // =======================================================
   const header = document.querySelector('.header');
   const navbar = document.querySelector('.navbar-profile');
-  const range = 64; // Height of navbar
+  const navbarHeight = 64;
 
   // Set header opacity on page load
   setHeaderOpacity();
@@ -106,7 +100,7 @@ $(document).ready(function() {
     let scrollTop = window.pageYOffset | document.body.scrollTop;
     let height = header.offsetHeight;
     let offset = height / 2;
-    let calc = 1 - (scrollTop - offset + range) / range;
+    let calc = 1 - (scrollTop - offset + navbarHeight) / navbarHeight;
     header.style.opacity = calc;
 
     if (calc > 1) {
@@ -144,57 +138,37 @@ $(document).ready(function() {
     M.Tooltip.init(elemsTooltips);
   };
 
-  // FIXED HEADERS
-  // =======================================================
-  // Grants header is fixed only on non-mobile devices with Algolia enabled
-  // See also search.js - Need to re-init grants header after search results populate to capture proper div height
-
-  function enableGrantsFixedHeader() {
-    const grantsHeader = document.querySelector('#grants .card-panel-header');
-    grantsHeader.classList.add('pushpin-nav', 'pushpin-nav-search');
-    grantsHeader.setAttribute('data-target', 'grants');
-  }
-
-  if (!isMobile.matches && hasAlgolia && !isIE11) {
-    enableGrantsFixedHeader();
-  }
-
-  // TODO Remove jQuery https://stackoverflow.com/questions/53735893/materialize-css-pushpin-init-with-pure-javascript-no-jquery
-  if ($('.pushpin-nav').length) {
-    $('.pushpin-nav').each(function() {
-      let $this = $(this);
-      let $id = $(this).attr('data-target');
-      let $target = $('#' + $(this).attr('data-target'));
-      let targetBottom = $target.offset().top + $target.height();
-      let targetOffset = 0;
-      if ($id === 'main-nav') {
-        targetBottom = Infinity;
-      } else {
-        targetOffset = range;
-      }
-      $this.pushpin({
-        'top': $target.offset().top,
-        'bottom': targetBottom,
-        'offset': targetOffset,
-      });
-    });
-  }
-
   // SMOOTH SCROLL
   // =======================================================
-  $('.scrolly').click(function(e) {
-    e.preventDefault();
-    const target = $(this).attr('href');
-    const newPosition = $(target).offset().top - 64;
-    $('html, body').stop().animate({ 'scrollTop': newPosition }, 500);
-  });
+  // Credit: https://perishablepress.com/vanilla-javascript-scroll-anchor/
+  (function() {
+    scrollTo();
+  })();
 
-  $('.nav-primary li a.scrolly').on('click', function() {
-    // collapse mobile header
-    if (isMobile.matches) {
-      $('.sidenav').sidenav('close');
-    }
-  });
+  function scrollTo() {
+    const links = document.querySelectorAll('.scrolly');
+    links.forEach((each) => { each.onclick = scrollAnchors; });
+  }
+  
+  function scrollAnchors(e, respond = null) {
+    e.preventDefault();
+    const distanceToTop = el => Math.floor(el.getBoundingClientRect().top - navbarHeight);
+    console.log(distanceToTop);
+    let targetID = respond ? respond.getAttribute('href') : this.getAttribute('href');
+    const targetAnchor = document.querySelector(targetID);
+    if (!targetAnchor) return;
+    const originalTop = distanceToTop(targetAnchor);
+    window.scrollBy({ top: originalTop, left: 0, behavior: 'smooth' });
+    const checkIfDone = setInterval(function() {
+      const atBottom = window.innerHeight + window.pageYOffset >= document.body.offsetHeight - 2;
+      if (distanceToTop(targetAnchor) === 0 || atBottom) {
+        // targetAnchor.tabIndex = '-1';
+        targetAnchor.focus();
+        window.history.pushState('', '', targetID);
+        clearInterval(checkIfDone);
+      }
+    }, 100);
+  }
 
   // CHART.JS
   // =======================================================
@@ -444,58 +418,75 @@ $(document).ready(function() {
 
   // FILINGS
   // =======================================================
-  // Add filing links
-  $('.js-filings-pdf').each(function() {
-    addFilingURL($(this));
+  const gcf = 'https://us-central1-infinite-badge-163220.cloudfunctions.net/checkUrl';
+
+  document.querySelectorAll('.js-filings-pdf').forEach((el) => {
+    addFilingURL(el);
+    el.addEventListener('click', checkURL);
   });
   
   function addFilingURL(el) {
-    const ein = el.data('ein');
+    const ein = el.dataset.ein;
     const einShort = ein.toString().substring(0, 3);
-    const taxPeriod = el.data('tax-period');
+    const taxPeriod = el.dataset.taxPeriod;
     // Foundation Center: http://990s.foundationcenter.org/990pf_pdf_archive/272/272624875/272624875_201412_990PF.pdf
     const urlPDF = 'http://990s.foundationcenter.org/990pf_pdf_archive/' +
                  einShort + '/' +
                  ein + '/' +
                  ein + '_' +
                  taxPeriod + '_990PF.pdf';
-    el.attr('data-url-pdf', urlPDF);
-    el.attr('href', urlPDF);
+    el.dataset.urlPdf = urlPDF;
+    el.href = urlPDF;
   }
 
-  // Check if filing is available
-  const gcf = 'https://us-central1-infinite-badge-163220.cloudfunctions.net/checkUrl';
-  
-  $('.js-filings-pdf').click(function(e) {
+  function checkURL(e) {
     e.preventDefault();
+    const elem = e.target;
+    const target = elem.href;
+    const data = { 'target': target };
+    const json = JSON.stringify(data);
+
     M.toast({
       'html': 'Redirecting to latest 990...',
     });
-    const elem = $(this);
-    const target = $(this).attr('href');
-    $.ajax({
-      'method': 'POST',
-      'url': gcf,
-      'data': { 'target': target },
-    })
-      .done(function( res ) {
-        if (res) {
+
+    const request = new XMLHttpRequest();
+    request.open('POST', gcf, true);
+    request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+
+    request.onload = function() {
+      if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+        if (this.response === 'true') {
           window.location.href = target;
         } else {
-          elem.addClass('disabled');
-          M.Toast.dismissAll();
-          M.toast({
-            'html': 'PDF not yet available. Try a prior year.',
-          });
+          pdfNotAvailable(elem);
         }
-      })
-      .fail(function(xhr, textStatus, error) { // eslint-disable-line no-unused-vars
-        const toastContent = '<span>Something went wrong.</span><button href="http://foundationcenter.org/find-funding/990-finder" class="btn-flat toast-action">Try Here.</button>';
-        M.Toast.dismissAll();
-        M.toast({
-          'html': toastContent,
-          'displayLength': 10000,
-        });
-      });
-  });
+      } else {
+        pdfRequestFailed();
+      }
+    };
+
+    request.onerror = function() {
+      pdfRequestFailed();
+    };
+
+    request.send(json);
+  }
+
+  function pdfNotAvailable(el) {
+    el.classList.add('disabled');
+    M.Toast.dismissAll();
+    M.toast({
+      'html': 'PDF not yet available. Try a prior year.',
+    });
+  }
+
+  function pdfRequestFailed() {
+    const toastContent = '<span>Something went wrong.</span><a href="http://foundationcenter.org/find-funding/990-finder" class="btn-flat toast-action">Try Here.</a>';
+    M.Toast.dismissAll();
+    M.toast({
+      'html': toastContent,
+      'displayLength': 10000,
+    });
+  }
 });

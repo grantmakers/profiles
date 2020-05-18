@@ -101,6 +101,9 @@ $placeholder: $text-muted-max;
 .accent-text {
   color: $accent-color;
 }
+a:focus {
+	outline: none;
+}
 a.disabled {
 	// pointer-events: none; // Prevents tooltips if set to none
 	cursor: default;
@@ -1068,6 +1071,9 @@ Mimic Algolia them - only the good parts
 	}
 	#summary, #people, #activities, #grants, #application-info, #community, #financials-tagline, #financial-overview, #financial-trends, #filings {
 		margin-bottom: 75px;
+	}
+	#people, #grants, #application-info, #financials, #filings {
+		outline: none;
 	}
 	#summary {
 		p, h1, h2, h3, h4, h5, h6 {
