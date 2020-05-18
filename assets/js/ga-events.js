@@ -1,48 +1,53 @@
-$(document).ready(function() {
+function ready(fn) {
+  if (document.attachEvent ? document.readyState === 'complete' : document.readyState !== 'loading') {
+    fn();
+  } else {
+    document.addEventListener('DOMContentLoaded', fn);
+  }
+}
+
+ready(function() {
   // Profile header links
-  $('.navbar-profile [data-ga]').on('click', function() {
-    ga('send', 'event', {
-      'eventCategory': 'Profile Events',
-      'eventAction': 'Profile Header Click',
-      'eventLabel': $(this).data('ga'),
+  document.querySelectorAll('.navbar-profile [data-ga]').forEach((each) => {
+    each.addEventListener('click', e => {
+      ga('send', 'event', {
+        'eventCategory': 'Profile Events',
+        'eventAction': 'Profile Header Click',
+        'eventLabel': e.target.dataset.ga,
+      });
     });
   });
 
   // Summary icon clicks
-  $('.js-ga-summary-icon-click').on('click', function() {
-    ga('send', 'event', {
-      'eventCategory': 'Profile Events',
-      'eventAction': 'Profile Summary Icon Click',
-      'eventLabel': $(this).data('ga'),
+  document.querySelectorAll('.js-ga-summary-icon-click').forEach((each) => {
+    each.addEventListener('click', e => {
+      ga('send', 'event', {
+        'eventCategory': 'Profile Events',
+        'eventAction': 'Profile Summary Icon Click',
+        'eventLabel': e.target.dataset.ga,
+      });
     });
   });
 
   // Clicks to foundation websites
-  $('.js-ga-website-click').on('click', function() {
-    ga('send', 'event', {
-      'eventCategory': 'Profile Events',
-      'eventAction': 'Profile Org Website Click',
-      'eventLabel': $(this).data('ga'),
+  document.querySelectorAll('.js-ga-website-click').forEach((each) => {
+    each.addEventListener('click', e => {
+      ga('send', 'event', {
+        'eventCategory': 'Profile Events',
+        'eventAction': 'Profile Org Website Click',
+        'eventLabel': e.target.dataset.ga,
+      });
     });
   });
 
   // Table sort (Algolia table)
   // See search.js
 
-  // Table sort (static table)
-  $('#grantsTable th').on('click', function() {
-    ga('send', 'event', {
-      'eventCategory': 'Profile Events',
-      'eventAction': 'Profile Table Sort Click',
-      'eventLabel': $(this).find('span').text(),
-    });
-  });
-
   // Algolia grants search box
   // see search.js
 
   // Algolia Autocomplete search box
-  $('#autocomplete-input').on('focus', function() {
+  document.getElementById('autocomplete-input').addEventListener('focus', () => {
     ga('send', 'event', {
       'eventCategory': 'Profile Events',
       'eventAction': 'Profile Search Focus',
@@ -51,49 +56,52 @@ $(document).ready(function() {
   });
 
   // Tax filings
-  $('#filings ul li a').on('click', function() {
-    ga('send', 'event', {
-      'eventCategory': 'Profile Events',
-      'eventAction': 'Profile Tax Filings Click',
-      'eventLabel': $(this).data('ga'),
+  document.querySelectorAll('#filings ul li a').forEach((each) => {
+    each.addEventListener('click', e => {
+      ga('send', 'event', {
+        'eventCategory': 'Profile Events',
+        'eventAction': 'Profile Tax Filings Click',
+        'eventLabel': e.target.dataset.ga,
+      });
     });
   });
 
   // Left Action Bar
-  $('.left-action-bar a').on('click', function() {
-    ga('send', 'event', {
-      'eventCategory': 'Profile Events',
-      'eventAction': 'Profile Left Action Bar Click',
-      'eventLabel': $(this).data('ga'),
+  document.querySelectorAll('.left-action-bar a').forEach((each) => {
+    each.addEventListener('click', e => {
+      ga('send', 'event', {
+        'eventCategory': 'Profile Events',
+        'eventAction': 'Profile Left Action Bar Click',
+        'eventLabel': e.target.dataset.ga,
+      });
     });
   });
 
+  // Charts
+  // see profile.js
+
   // Bottom CTAs: Share and feedback buttons
-  $('#profile-share a, #community a, #feedback a, #application-info a, #search-links a, #coffee-bottom-cta a').on('click', function() {
-    ga('send', 'event', {
-      'eventCategory': 'Profile Events',
-      'eventAction': 'Profile Bottom CTAs',
-      'eventLabel': $(this).data('ga'),
+  document.querySelectorAll('#profile-share a, #community a, #feedback a, #application-info a, #search-links a, #coffee-bottom-cta a').forEach((each) => {
+    each.addEventListener('click', e => {
+      ga('send', 'event', {
+        'eventCategory': 'Profile Events',
+        'eventAction': 'Profile Bottom CTAs',
+        'eventLabel': e.target.dataset.ga,
+      });
     });
   });
 
   // Footer links
-  $('footer a, .footer-terms a').on('click', function() {
-    ga('send', 'event', {
-      'eventCategory': 'Profile Events',
-      'eventAction': 'Profile Footer Click',
-      'eventLabel': $(this).text() || $(this).data('ga'),
+  document.querySelectorAll('footer a, .footer-terms a').forEach((each) => {
+    each.addEventListener('click', e => {
+      ga('send', 'event', {
+        'eventCategory': 'Profile Events',
+        'eventAction': 'Profile Footer Click',
+        'eventLabel': e.textContent || e.target.dataset.ga,
+      });
     });
   });
 
-  // Remove UTM parameters
-  const win = window;
-  ga('send', 'pageview', { 'hitCallback': removeUtms() });
-  
-  function removeUtms() {
-    const location = win.location;
-    if (location.search.indexOf('utm_') !== -1 && history.replaceState) {
-      history.replaceState({}, '', window.location.toString().replace(/(&|\?)utm([_a-z0-9=]+)/g, ''));
-    }
-  }
+  // Note: URLs are cleaned of UTM info AFTER the intial pageview is send to GA
+  // This was moved to the initial pageview send, currently located in a Jekyll include
 });

@@ -1,3 +1,4 @@
+// TODO Remove jQuery
 let arr = JSON.parse(localStorage.getItem('profiles'));
 
 let savedList = new ReactiveHbs({

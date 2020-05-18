@@ -1,29 +1,21 @@
 ---
 ---
-$(document).ready(function() {
+function ready(fn) {
+  'use strict';
+  if (document.attachEvent ? document.readyState === 'complete' : document.readyState !== 'loading') {
+    fn();
+  } else {
+    document.addEventListener('DOMContentLoaded', fn);
+  }
+}
+
+ready(function() {
   'use strict';
   // Helper definitions
   // =======================================================
   const targetEIN = document.querySelector('h1.org-name').dataset.ein;
   const targetOrgName = document.querySelector('h1.org-name').dataset.name;
   const targetTaxYearOnlyOne = document.querySelector('h1.org-name').dataset.taxYearOnlyOne === 'true'; // resolves to boolean true or false
-  // Scroll helpers
-  const scrollBuffer = 65; // Height of profile-nav is 64px TODO Parts of nav are actually 65
-  const scrollAnchorEl = document.getElementById('grants');
-  const scrollAnchor = getElementOffset(scrollAnchorEl).top - scrollBuffer;
-  let renderCount = 0;
-  const throttle = (func, limit) => {
-    let inThrottle;
-    return function() {
-      const args = arguments;
-      const context = this;
-      if (!inThrottle) {
-        func.apply(context, args);
-        inThrottle = true;
-        setTimeout(() => {inThrottle = false;}, limit);
-      }
-    };
-  };
   
   // const isPhone = window.matchMedia('only screen and (max-width: 600px)');
   // const isMobile = window.matchMedia('only screen and (max-width: 992px)');
@@ -511,13 +503,8 @@ $(document).ready(function() {
   search.once('render', function() {
     const elemsFS = document.querySelectorAll('select');
     M.FormSelect.init(elemsFS);
-    reInitPushpin();
     hideSeoPlaceholders();
     showSortByDropdown();
-  });
-
-  search.on('render', function() {
-    throttle(readyToSearchScrollPosition(), 1000);
   });
 
   search.on('error', function(e) {
@@ -532,47 +519,10 @@ $(document).ready(function() {
     // console.log(e);
   });
 
-  // Scroll to top upon input change
-  // =======================================================
-  function readyToSearchScrollPosition() {
-    // Skip if scrollBox already in search position
-    const elem = document.getElementById('grants');
-    const top = elem.getBoundingClientRect().top;
-    const topRounded = Math.round(top);
-    if (topRounded === scrollBuffer) {
-      renderCount++;
-      return false;
-    }
-
-    // Skip if first render to prevent auto-scroll on initial page load
-    if (renderCount > 0) {
-      $('html, body').animate({scrollTop: scrollAnchor}, '500', 'swing');
-      /* https://stackoverflow.com/a/48901013/1944104
-      document.getElementById('id').scrollIntoView({
-        behavior: 'smooth'
-      });
-      */
-    }
-    return renderCount++;
-  }
-
   // Materialize - initialize tax year dropdown
   function reInitDropdown() {
     const elems = document.querySelectorAll('.dropdown-trigger');
     M.Dropdown.init(elems, {'container': 'ais-widget-refinement-list--tax_year'});
-  }
-
-  // Re-init grants header pushpin
-  // =======================================================
-  function reInitPushpin() {
-    const target = $('.pushpin-nav-search');
-    if (target.length) {
-      target.pushpin({
-        top: $('#grants').offset().top,
-        bottom: $('#grants').offset().top + $('#grants').height() - target.height(),
-        offset: 64,
-      });
-    }
   }
 
   // GA Events
@@ -652,16 +602,6 @@ $(document).ready(function() {
     }
   }
 
-  // TODO Replace with smoothscroll polyfill
-  function scrolly(elem) {
-    let position = $(elem).position().top;
-    // animate
-    $('html, body').animate({
-      scrollTop: position + 100,
-    }, 300, function() {
-    });
-  }
-
   function refineIfTableItemClicked(e) {
     const elem = e.target.closest( 'td' );
     const facet = elem.dataset.facet;
@@ -729,13 +669,5 @@ $(document).ready(function() {
     const d = c < 0 ? c : Math.abs(c); // enforce -0 is 0
     const e = d + ['', 'K', 'M', 'B', 'T'][k]; // append power
     return e;
-  }
-
-  function getElementOffset(element) {
-    let de = document.documentElement;
-    let box = element.getBoundingClientRect();
-    let top = box.top + window.pageYOffset - de.clientTop;
-    let left = box.left + window.pageXOffset - de.clientLeft;
-    return { top: top, left: left };
   }
 });

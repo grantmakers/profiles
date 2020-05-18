@@ -150,24 +150,19 @@ donorbox_popup: false
     </script>
 
   <!--   Core JS Files   -->
-  <script
-  src="https://code.jquery.com/jquery-3.4.1.min.js"
-  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-  crossorigin="anonymous">
-  </script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 
   <!-- Search and Algolia-related scripts -->
-  <script src="https://cdn.jsdelivr.net/npm/algoliasearch@3.33.0/dist/algoliasearchLite.min.js" integrity="sha256-3Laj91VXexjTlFLgL8+vvIq27laXdRmFIcO2miulgEs=" crossorigin="anonymous"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/algoliasearch/3.33.0/algoliasearchLite.min.js" integrity="sha256-3Laj91VXexjTlFLgL8+vvIq27laXdRmFIcO2miulgEs=" crossorigin="anonymous"></script>
   {% if algolia == true %}
   {% if jekyll.environment == 'production' %}
-  <script src="https://cdn.jsdelivr.net/npm/instantsearch.js@3.6.0/dist/instantsearch.production.min.js" integrity="sha256-N/ZioXfJ7+qk2cejhAJsm0+ed/l/445mZGjpEWeyeR4=" crossorigin="anonymous"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/instantsearch.js/3.6.0/instantsearch.production.min.js" integrity="sha256-N/ZioXfJ7+qk2cejhAJsm0+ed/l/445mZGjpEWeyeR4=" crossorigin="anonymous"></script>
   {% else %}
-  <script src="https://cdn.jsdelivr.net/npm/instantsearch.js@3.6.0/dist/instantsearch.development.js" integrity="sha256-4i8lOGr1bSbtT2KpFoYSfutEpiBbT4zEP32mUBHLUfQ=" crossorigin="anonymous"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/instantsearch.js/3.6.0/instantsearch.development.js" integrity="sha256-4i8lOGr1bSbtT2KpFoYSfutEpiBbT4zEP32mUBHLUfQ=" crossorigin="anonymous"></script>
   {% endif %}
   <script defer src="{{ site.baseurl }}/assets/js/search.js?v={{ site.time | date: '%Y%m%d'}}"></script>
   {% endif %}
-  <script defer src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.37.0/dist/autocomplete.min.js" integrity="sha256-JZDcuzCEztytVwTfj5C3RN/ZIxwD8/6JhaG/2l8ZQC0=" crossorigin="anonymous"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.37.1/autocomplete.min.js" integrity="sha256-YVWQosorZnr6fALvOW9VALYuInld27RkSPkElGBdCaU=" crossorigin="anonymous"></script>
   <script defer src="{{ site.baseurl }}/assets/js/autocomplete.js"></script>
 
   <script src="{{ site.baseurl }}/assets/js/profile.js?v={{ site.time | date: '%Y%m%d'}}"></script>
@@ -179,7 +174,7 @@ donorbox_popup: false
   <!-- <script defer src="{{ site.baseurl }}/assets/js/drift-init.js"></script> -->
 
   {% unless jekyll.environment == 'staging' %}
-    <script src="{{ site.baseurl }}/assets/js/ga-events.js"></script>
+    <script defer src="{{ site.baseurl }}/assets/js/ga-events.js"></script>
   {% endunless %}
 
 </head>
@@ -190,7 +185,7 @@ donorbox_popup: false
     <nav id="scrollspy-target" class="navbar-profile affix-top pushpin-nav" data-target="main-nav">
       <div class="nav-wrapper">
         <div class="container-custom">
-          <a href="#" data-target="mobile-nav" class="sidenav-trigger right disable-primary-color"><i class="material-icons">menu</i></a>
+          <a href="#" data-target="mobile-nav" class="sidenav-trigger right disable-primary-color print-hidden"><i class="material-icons">menu</i></a>
           <div class="row">
             <div class="col s8 m6 l2">
               <a href="{{ site.url }}" data-ga="Homepage" class="brand-logo">
@@ -210,15 +205,15 @@ donorbox_popup: false
                 <span class="breadcrumb">{{ page.organization_name }}</span>
               </div>
               {% if algolia == true %}
-                <span class="algolia-partnership-logo"><a href="{{ site.algolia_referral_link }}"><img src="{{ site.baseurl}}/assets/img/algolia-partnership-logo.svg" alt="Algolia Partnership Logo"></a></span>
+                <span class="algolia-partnership-logo print-hidden"><a href="{{ site.algolia_referral_link }}"><img src="{{ site.baseurl}}/assets/img/algolia-partnership-logo.svg" alt="Algolia Partnership Logo"></a></span>
               {% endif %}
             </div>
-            <div class="col m6 l5 hide-on-med-and-down">
+            <div class="col m6 l5 hide-on-med-and-down print-hidden">
               <ul class="nav-primary right">
-                <li><a href="#people" class="scrolly">People</a></li>
-                <li><a href="#grants" class="scrolly">Grants</a></li>
-                <li><a href="#filings" class="scrolly">Tax Filings</a></li>
-                <li><a href="#" data-target="navbar-more" class="dropdown-trigger" id="primary-navbar-dropdown-trigger">More <i style="margin-left:3px" class="material-icons right">arrow_drop_down</i></a></li>
+                <li><a href="#people" class="scrolly" data-ga="People">People</a></li>
+                <li><a href="#grants" class="scrolly" data-ga="Grants">Grants</a></li>
+                <li><a href="#filings" class="scrolly" data-ga="Tax Filings">Tax Filings</a></li>
+                <li><a href="#" data-target="navbar-more" class="dropdown-trigger print-hidden" id="primary-navbar-dropdown-trigger">More <i style="margin-left:3px" class="material-icons right">arrow_drop_down</i></a></li>
                 <li class="js-vue-check hidden"><a href="#modal-saved-profiles" class="account modal-trigger"><i id="account-icon" class="material-icons">account_circle</i></a></li>
               </ul>
             </div>
@@ -244,7 +239,7 @@ donorbox_popup: false
   <!-- End Navbar dropdown-->
 
   <!-- Mobile Navbar -->
-  <ul class="nav-primary sidenav" id="mobile-nav" >
+  <ul class="nav-primary sidenav sidenav-close" id="mobile-nav" >
     <li class="grey darken-3 sidenav-header">
       <a href="{{ site.url }}/" class="waves-effect waves-light" data-ga="Home">
         <div class="valign-wrapper">
@@ -379,6 +374,21 @@ donorbox_popup: false
                         <h4 title="${{ page.assets | round | intcomma }}">${{ page.assets | intword }}</h4>
                       </div>
                     </div>
+                    <hr>
+                    <div class="row row-tight">
+                      <div class="col s12">
+                        <div class="justify-align">
+                          <div class="center-align">
+                            <p>Distributions</p>
+                            <h5 title="${{ page.distributions | round | intcomma }}">${{ page.distributions | intword }}</h5>
+                          </div>
+                          <div class="center-align">
+                            <p>Contributions</p>
+                            <h5 title="{{ page.contributions | round | intcomma }}">${{ page.contributions | intword }}</h5>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
                 {% if page.grant_count > 0 %}
@@ -466,17 +476,6 @@ donorbox_popup: false
             </div>
           </div>
 
-          <div class="row print-hidden hide-on-small-only">
-            <div class="col s12">
-              <div id="tagline">
-                <h6 class="valign-wrapper valign-wrapper-center-align">
-                  <img src="{{ site.baseurl }}/assets/img/logo.png" alt="Grantmakers.io logo" class="icon-logo-small">
-                  Grantmakers.io is an open source project for my friends in the nonprofit community
-                </h6>
-              </div>
-            </div>
-          </div>
-
           <div class="row">
             <div class="col s12">
               <div id="activities">
@@ -506,6 +505,17 @@ donorbox_popup: false
                     </div>
                   </div>
                 </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row hide-on-small-only">
+            <div class="col s12">
+              <div id="tagline">
+                <h6 class="valign-wrapper valign-wrapper-center-align">
+                  <img src="{{ site.baseurl }}/assets/img/logo.png" alt="Grantmakers.io logo" class="icon-logo-small">
+                  Grantmakers.io is an open source project for my friends in the nonprofit community
+                </h6>
               </div>
             </div>
           </div>
@@ -643,20 +653,18 @@ donorbox_popup: false
             </div>
           </div>
 
-          <div class="row print-hidden">
+          <div class="row print-hidden hide-on-small-only">
             <div class="col s12">
-              <div id="information-source" class="center-align">
-                <ul class="list-inline">
-                  <li>
-                    <h6>Information pulled directly from IRS Form 990-PF</h6>
-                  </li>
-                </ul>
+              <div id="information-source">
+                <h6 class="valign-wrapper valign-wrapper-center-align">
+                  Information pulled directly from IRS Form 990-PF
+                </h6>
               </div>
             </div>
           </div>
 
-          <div class="row flex">
-            <div class="col s12 l6 flex flex-direction-column">
+          <div class="row flex print-no-pagebreak">
+            <div class="col s12 l6 flex flex-direction-column print-50">
               <div id="application-info" class="flex flex-grow-1">
                 <div class="card-panel card-panel-flex">
                   <div class="card-panel-header-wrapper">
@@ -748,7 +756,7 @@ donorbox_popup: false
                 </div>
               </div>
             </div>
-            <div class="col s12 l6 flex flex-direction-column">
+            <div class="col s12 l6 flex flex-direction-column print-50">
               <div id="community" class="flex flex-grow-1">
                 <div class="card-panel card-panel-flex">
                   <div class="card-panel-header">
@@ -774,7 +782,7 @@ donorbox_popup: false
                     </ul>
 
                     <ul class="collection">
-                      <li class="collection-item collection-item-empty-state avatar print-hidden">
+                      <li class="collection-item collection-item-empty-state avatar">
                         <span class="title">Have something to share?</span><br>
                         <p>Help keep the community up to date and informed</p>
                         <ul class="browser-default community-examples grey lighten-3">
@@ -785,7 +793,7 @@ donorbox_popup: false
                         <div class="action-group center-align">
                           <a href="mailto:{{ page.ein }}@grantmakers.io?body=%0D%0A%0D%0A{{ page.organization_name}}%0D%0A{{ site.url }}{{ site.baseurl }}/{{ page.ein }}/" target="_blank" class="waves-effect waves-light btn white grey-text text-darken-1" data-ga="Email Share Resource"><i class="material-icons left">email</i> Share a Resource</a>
                           <!--
-                          <a href="#" class="sidenav-trigger bwaves-effect waves-light btn grantmakers white-text tooltipped" data-target="community-sidebar" data-html="true" data-tooltip="Community Insights<br>Q&A" data-position="left">
+                          <a href="#" class="sidenav-trigger waves-effect waves-light btn grantmakers white-text tooltipped" data-target="community-sidebar" data-html="true" data-tooltip="Community Insights<br>Q&A" data-position="left">
                             <i class="material-icons left">question_answer</i> Ask a Question
                           </a>
                           -->
@@ -795,6 +803,140 @@ donorbox_popup: false
                         {% endunless %}
                       </li>
                     </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div id="financials" class="row flex hide-on-med-and-down">
+            <div class="col s12 l6 flex flex-direction-column print-50">
+              <div id="financial-overview" class="flex flex-grow-1">
+                <div class="card card-panel card-panel-flex">
+                  <div class="card-panel-header">
+                    <h4>Financial Overview <button class="tooltipped right valign-wrapper" data-position="left" data-html="true" data-tooltip="Assets - Box I<br>Contributions - Part I Line 1<br>Distributions - Part XII Qualifying Distributions"><img src="{{ site.baseurl }}/assets/img/irs-w-text-alt.png" alt="IRS logo" class="icon-irs-alt"></button></h4>
+                  </div>
+                  <div class="card-content card-panel-body">
+                    <div class="row row-tight">
+                      <div class="col s12">
+                        <div class="row row-tight valign-wrapper">
+                          <div class="col s12">
+                            <div class="justify-align">
+                              <div class="center-align">
+                                <p>Assets <i class="material-icons material-icons-tight left blue-grey-text">label</i></p>
+                                <h5 title="${{ page.assets | round | intcomma }}">${{ page.assets | intword }}</h5>
+                              </div>
+                              <div class="center-align">
+                                <p>Distributions <i class="material-icons material-icons-tight left grantmakers-text">label</i></p>
+                                <h5 title="${{ page.distributions | round | intcomma }}">${{ page.distributions | intword }}</h5>
+                              </div>
+                              <div class="center-align">
+                                <p>Contributions <i class="material-icons material-icons-tight left teal-text">label</i></p>
+                                <h5 title="{{ page.contributions | round | intcomma }}">${{ page.contributions | intword }}</h5>
+                              </div>
+                            </div>
+                          </div>                      
+                        </div>
+                        <hr>
+                        <div class="chart-wrapper default">
+                          <div class="chart-default">
+                            <div class="row row-tight">
+                              <div class="col s12">
+                                <div class="card white z-depth-4">
+                                  <div class="card-content">
+                                      Charts will appear if your browser supports them.
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="chart-loader center-align">
+                            <h4 class="preloader-text">Loading...</h4>
+                            <div class="preloader-wrapper big active">
+                              <div class="spinner-layer">
+                                <div class="circle-clipper left">
+                                  <div class="circle"></div>
+                                </div>
+                                <div class="gap-patch">
+                                  <div class="circle"></div>
+                                </div>
+                                <div class="circle-clipper right">
+                                  <div class="circle"></div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <canvas id="chart-overview" width="500" height="300"></canvas>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col s12 l6 flex flex-direction-column print-50">
+              <div id="financial-trends" class="flex flex-grow-1">
+                <div class="card card-panel card-panel-flex">
+                  <div class="card-panel-header">
+                    <h4>Financial Trends <button class="tooltipped right valign-wrapper" data-position="left" data-html="true" data-tooltip="Assets - Box I<br>Contributions - Part I Line 1<br>Distributions - Part XII Qualifying Distributions"><img src="{{ site.baseurl }}/assets/img/irs-w-text-alt.png" alt="IRS logo" class="icon-irs-alt"></button></h4>
+                  </div>
+                  <div class="card-content card-panel-body">
+                    <div class="row row-tight">
+                      <div class="col s12">
+                        <div class="row row-tight valign-wrapper">
+                          <div class="col s12">
+                            <div class="justify-align">
+                              <div class="center-align">
+                                <p>Tax e-Filings Available <i class="material-icons material-icons-rotate-180 text-muted-max tooltipped" data-tooltip="Electronically filed tax returns only">error_outline</i></p>
+                                <h5 title="Electronically filed tax returns">{{ page.filings | size }}</h5>
+                              </div>
+                              <div class="center-align">
+                                <p>Last Updated by IRS</p>
+                                <h5 title="${{ page.distributions | round | intcomma }}">{{ page.last_updated_irs | date: "%b %d, %Y" }}</h5>
+                              </div>
+                            </div>
+                          </div>                      
+                        </div>
+                        <hr>
+                        <div class="chart-wrapper default">
+                          <div class="chart-default">
+                            <div class="card white z-depth-4">
+                              <div class="card-content">
+                              {%- if page.financial_stats.size > 1 -%}
+                                Charts will appear if your browser supports them
+                              {%- else -%}
+                                <div class="row row-tight valign-wrapper">
+                                  <div class="col s2">
+                                    <i class="material-icons material-icons-square blue-grey white-text">timeline</i>
+                                  </div>
+                                  <div class="col s10">
+                                    Trends will appear as more e-filings become available
+                                  </div>
+                                </div>
+                              {% endif %}
+                              </div>
+                            </div>
+                          </div>
+                          <div class="chart-loader center-align">
+                            <h4 class="preloader-text">Loading...</h4>
+                            <div class="preloader-wrapper big active">
+                              <div class="spinner-layer">
+                                <div class="circle-clipper left">
+                                  <div class="circle"></div>
+                                </div>
+                                <div class="gap-patch">
+                                  <div class="circle"></div>
+                                </div>
+                                <div class="circle-clipper right">
+                                  <div class="circle"></div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <canvas id="chart-trends" width="500" height="300"></canvas>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -811,7 +953,7 @@ donorbox_popup: false
             </div>
           </div>
 
-          <div class="row">
+          <div class="row print-hidden">
             <div class="col s12">
               <div id="filings">
                 <div class="card-panel">
@@ -822,16 +964,21 @@ donorbox_popup: false
                     <ul class="list-inline">
                       <li><i class="material-icons tooltipped" data-html="true" data-tooltip="<b>Human Readable</b><br>Foundation Center PDFs">picture_as_pdf</i> <span class="show-on-medium-and-down text-muted">PDF</span></li>
                       {% for each in page.filings %}
-                        <li><a class="js-filings-pdf waves-effect waves-light btn grey lighten-3 grey-text text-darken-1" target="_blank" rel="noopener" data-ga="PDF" data-tax-period="{{ each.tax_period | round }}" data-ein="{{ page.ein }}" data-url-xml="{{ each.url }}" title="View 990-PF">{{ each.tax_year | round }}</a></li>
+                      {% if each.filing_is_amendment %}{% assign amendment_exists = true %}{% endif %}
+                        <li><a class="js-filings-pdf waves-effect waves-light btn grey lighten-3 grey-text text-darken-1" target="_blank" rel="noopener" data-ga="PDF" data-tax-period="{{ each.tax_period | round }}" data-ein="{{ page.ein }}" data-url-xml="{{ each.url }}" title="View 990-PF">{{ each.tax_year | round }}{%- if each.filing_is_amendment -%}*{%- endif -%}</a></li>
                       {% endfor %}
                     </ul>
                     <hr>
                     <ul class="list-inline">
                       <li><i class="material-icons tooltipped" data-html="true" data-tooltip="<b>Machine Readable</b><br>XML Format">code</i> <span class="show-on-medium-and-down text-muted">XML</span></li>
                       {% for each in page.filings %}
-                        <li><a class="waves-effect waves-light btn grey lighten-3 grey-text text-darken-1" href="{{ each.url }}" target="_blank" rel="noopener" data-ga="XML" data-tax-period="{{ each.tax_period | round }}" data-ein="{{ each.ein }}" data-url-xml="{{ each.url }}" title="View 990-PF">{{ each.tax_year | round }}</a></li>
+                        <li><a class="waves-effect waves-light btn grey lighten-3 grey-text text-darken-1" href="{{ each.url }}" target="_blank" rel="noopener" data-ga="XML" data-tax-period="{{ each.tax_period | round }}" data-ein="{{ each.ein }}" data-url-xml="{{ each.url }}" title="View 990-PF">{{ each.tax_year | round }}{%- if each.filing_is_amendment -%}*{%- endif -%}</a></li>
                       {% endfor %}
                     </ul>
+                    {%- if amendment_exists -%}
+                    <hr>
+                    * Amended return
+                    {%- endif %}
                   </div>
                 </div>
               </div>
@@ -889,8 +1036,12 @@ donorbox_popup: false
   <div id="root"></div>
   <!-- Vue currently loaded via profile.js -->
   <!-- End Vue -->
+  <!-- Object to be consumed by ChartJS-->
+  <script>
+    const orgFinancialStats = {{ page.financial_stats | jsonify }};
+  </script>
+   {% comment %}
   {% include saved-profiles-feature-discovery.html %}
-  {% comment %}
   {% include fixed-action-button.html %}
   {% include community-sidebar.html %}
   {% endcomment %}
