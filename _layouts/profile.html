@@ -1040,8 +1040,8 @@ donorbox_popup: false
   <script>
     const orgFinancialStats = {{ page.financial_stats | jsonify }};
   </script>
+   {% comment %}
   {% include saved-profiles-feature-discovery.html %}
-  {% comment %}
   {% include fixed-action-button.html %}
   {% include community-sidebar.html %}
   {% endcomment %}
