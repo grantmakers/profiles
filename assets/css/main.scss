@@ -503,6 +503,10 @@ nav ul li a {
 		color: inherit;
 	}
 }
+// Safari mobile does not like :not selector
+ul#mobile-nav.nav-primary.sidenav li a {
+	@extend .text-default;
+}
 
 /* Navbar Index*/
 ul.nav-primary.sidenav .sidenav-header a {
