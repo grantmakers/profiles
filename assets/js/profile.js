@@ -136,6 +136,10 @@ ready(function() {
     const elemsSideNav = document.querySelectorAll('.sidenav');
     M.Sidenav.init(elemsSideNav);
 
+    const elemsNavScrollspy = document.querySelectorAll('.scrollspy');
+    const optionsNavScrollspy = { 'scrollOffset': navbarHeight };
+    M.ScrollSpy.init(elemsNavScrollspy, optionsNavScrollspy);
+
     const elemCommunitySidebar = document.getElementById('community-sidebar');
     const optionsCommunitySidebar = {
       'edge': 'right',
@@ -146,37 +150,6 @@ ready(function() {
     const elemsTooltips = document.querySelectorAll('.tooltipped:not(.v-tooltipped)');
     M.Tooltip.init(elemsTooltips);
   };
-
-  // SMOOTH SCROLL
-  // =======================================================
-  // Credit: https://perishablepress.com/vanilla-javascript-scroll-anchor/
-  (function() {
-    scrollTo();
-  })();
-
-  function scrollTo() {
-    const links = document.querySelectorAll('.scrolly');
-    links.forEach((each) => { each.onclick = scrollAnchors; });
-  }
-  
-  function scrollAnchors(e, respond = null) {
-    e.preventDefault();
-    const distanceToTop = el => Math.floor(el.getBoundingClientRect().top - navbarHeight);
-    let targetID = respond ? respond.getAttribute('href') : this.getAttribute('href');
-    const targetAnchor = document.querySelector(targetID);
-    if (!targetAnchor) return;
-    const originalTop = distanceToTop(targetAnchor);
-    window.scrollBy({ top: originalTop, left: 0, behavior: 'smooth' });
-    const checkIfDone = setInterval(function() {
-      const atBottom = window.innerHeight + window.pageYOffset >= document.body.offsetHeight - 2;
-      if (distanceToTop(targetAnchor) === 0 || atBottom) {
-        // targetAnchor.tabIndex = '-1';
-        targetAnchor.focus();
-        window.history.pushState('', '', targetID);
-        clearInterval(checkIfDone);
-      }
-    }, 100);
-  }
 
   // CHART.JS
   // =======================================================

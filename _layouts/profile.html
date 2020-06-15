@@ -207,10 +207,10 @@ donorbox_popup: false
             </div>
             <div class="col m6 l5 hide-on-med-and-down print-hidden">
               <ul class="nav-primary right">
-                <li><a href="#people" class="scrolly" data-ga="People">People</a></li>
-                <li><a href="#grants" class="scrolly" data-ga="Grants">Grants</a></li>
-                <li><a href="#application-info" class="scrolly" data-ga="Application Guidelines">Guidelines</a></li>
-                <li><a href="#financial-overview" class="scrolly" data-ga="Grants">Financials</a></li>
+                <li><a href="#people" data-ga="People">People</a></li>
+                <li><a href="#grants" data-ga="Grants">Grants</a></li>
+                <li><a href="#application-info" data-ga="Application Guidelines">Guidelines</a></li>
+                <li><a href="#financials" data-ga="Grants">Financials</a></li>
                 <li><a href="#" data-target="navbar-more" class="dropdown-trigger print-hidden" id="primary-navbar-dropdown-trigger">More <i style="margin-left:3px" class="material-icons right">arrow_drop_down</i></a></li>
                 <li class="js-vue-check hidden"><a href="#modal-saved-profiles" class="account modal-trigger"><i id="account-icon" class="material-icons">account_circle</i></a></li>
               </ul>
@@ -247,10 +247,10 @@ donorbox_popup: false
       </a>
     </li>
     <li class="disabled"><a class="grey-text">Current Profile</a></li>
-    <li><a href="#people" class="scrolly">People</a></li>
-    <li><a href="#grants" class="scrolly">Grants</a></li>
-    <li><a href="#application-info" class="scrolly">Application Guidelines</a></li>
-    <li><a href="#financial-overview" class="scrolly">Financials</a></li> 
+    <li><a href="#people">People</a></li>
+    <li><a href="#grants">Grants</a></li>
+    <li><a href="#application-info">Application Guidelines</a></li>
+    <!-- <li><a href="#financial-overview">Financials</a></li> -->
     <li><hr class="divider"></li>
     <li class="disabled"><a class="title grey-text">Search</a></li>
     <li>
@@ -434,7 +434,7 @@ donorbox_popup: false
               </div>
             </div>
             <div class="col s12 l7 offset-l1">
-              <div id="people">
+              <div id="people" class="scrollspy">
                 <div class="card card-panel">
                   <div class="card-panel-header">
                     <h4>People <button class="tooltipped right valign-wrapper" data-position="left" data-html="true" data-tooltip="Form 990-PF<br>Part VIII"><img src="{{ site.baseurl }}/assets/img/irs-w-text-alt.png" alt="IRS logo" class="icon-irs-alt"></button></h4>
@@ -521,7 +521,7 @@ donorbox_popup: false
 
           <div id="grants-scroll-anchor" class="row">
             <div class="col s12">
-              <div id="grants">
+              <div id="grants" class="scrollspy">
                 <div class="card-panel">
                   <div class="card-panel-header-wrapper">
                       <!-- <div class="card-panel-header pushpin-nav pushpin-nav-search" data-target="grants"> -->
@@ -664,7 +664,7 @@ donorbox_popup: false
 
           <div class="row flex print-no-pagebreak">
             <div class="col s12 l6 flex flex-direction-column print-50">
-              <div id="application-info" class="flex flex-grow-1">
+              <div id="application-info" class="flex flex-grow-1 scrollspy">
                 <div class="card-panel card-panel-flex">
                   <div class="card-panel-header-wrapper">
                     <div class="card-panel-header">
@@ -808,7 +808,7 @@ donorbox_popup: false
             </div>
           </div>
 
-          <div id="financials" class="row flex hide-on-med-and-down">
+          <div id="financials" class="row flex hide-on-med-and-down scrollspy">
             <div class="col s12 l6 flex flex-direction-column print-50">
               <div id="financial-overview" class="flex flex-grow-1">
                 <div class="card card-panel card-panel-flex">
