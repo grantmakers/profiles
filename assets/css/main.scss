@@ -672,7 +672,7 @@ $navbar-height: 64px;
 		}
 		//Scrollspy
 		ul.nav-primary li a.active {
-			@extend .grantmakers-text;
+			background-color: rgba(0,0,0,0.05);;
 		}
 	}
 	
