@@ -309,13 +309,6 @@ donorbox_popup: false
                   {% endif %}
                   <ul class="list-inline org-location profile-summary-icons text-center">
                     <li>
-                      {% if page.grants_to_preselected_only %}
-                        <a href="#application-info" data-ga="Application Summary Icon" class="js-ga-summary-icon-click tooltipped scrolly" data-tooltip="Grants to preselected organizations only"><i class="material-icons">lock</i></a>
-                      {% else %}
-                        <a href="#application-info" data-ga="Application Summary Icon" class="js-ga-summary-icon-click tooltipped scrolly" data-tooltip="Possibly accepts unsolicited applications"><i class="material-icons material-icons-active">lock_open</i></a>
-                      {% endif %}
-                    </li>
-                    <li>
                       {% if page.has_recent_grants %}
                         <i class="material-icons material-icons-active tooltipped" data-tooltip="Has recent grants">monetization_on</i>
                       {% else %}
@@ -338,6 +331,13 @@ donorbox_popup: false
                         <i class="material-icons tooltipped" data-tooltip="No website listed">public</i>
                       </li>
                     {% endif %}
+                    <li>
+                      {% if page.grants_to_preselected_only %}
+                        <a href="#application-info" data-ga="Application Summary Icon" class="js-ga-summary-icon-click tooltipped scrolly" data-tooltip="Grants to preselected organizations only"><i class="material-icons">lock</i></a>
+                      {% else %}
+                        <a href="#application-info" data-ga="Application Summary Icon" class="js-ga-summary-icon-click tooltipped scrolly" data-tooltip="Possibly accepts unsolicited applications"><i class="material-icons material-icons-active">lock_open</i></a>
+                      {% endif %}
+                    </li>
                   </ul>
                 </div>
               </div>
