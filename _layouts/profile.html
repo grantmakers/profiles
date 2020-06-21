@@ -417,7 +417,7 @@ donorbox_popup: false
                 {%- assign current_year_minus_one = site.time | date: '%Y' | minus: 1 -%}
                 {%- assign last_updated = page.last_updated_irs | date: '%Y' | plus: 0 -%}{% comment %}adding plus: 0 is a Liquid hack to convert string to integer{% endcomment %}
                 <div class="card-panel">
-                  <div class="card-panel-body {% if last_updated < current_year_minus_one %} yellow lighten-4{% endif %}">
+                  <div class="card-panel-body{% if last_updated < current_year_minus_one %} yellow lighten-4{% endif %}">
                     <div class="row row-tight valign-wrapper">
                       <div class="col s2 valign-wrapper">
                         <img src="{{ site.baseurl }}/assets/img/irs-w-text.png" alt="IRS logo" class="responsive-img">
