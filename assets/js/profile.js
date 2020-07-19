@@ -136,6 +136,10 @@ ready(function() {
     const elemsSideNav = document.querySelectorAll('.sidenav');
     M.Sidenav.init(elemsSideNav);
 
+    const elemsNavScrollspy = document.querySelectorAll('.scrollspy');
+    const optionsNavScrollspy = { 'scrollOffset': navbarHeight };
+    M.ScrollSpy.init(elemsNavScrollspy, optionsNavScrollspy);
+
     const elemCommunitySidebar = document.getElementById('community-sidebar');
     const optionsCommunitySidebar = {
       'edge': 'right',
@@ -146,37 +150,6 @@ ready(function() {
     const elemsTooltips = document.querySelectorAll('.tooltipped:not(.v-tooltipped)');
     M.Tooltip.init(elemsTooltips);
   };
-
-  // SMOOTH SCROLL
-  // =======================================================
-  // Credit: https://perishablepress.com/vanilla-javascript-scroll-anchor/
-  (function() {
-    scrollTo();
-  })();
-
-  function scrollTo() {
-    const links = document.querySelectorAll('.scrolly');
-    links.forEach((each) => { each.onclick = scrollAnchors; });
-  }
-  
-  function scrollAnchors(e, respond = null) {
-    e.preventDefault();
-    const distanceToTop = el => Math.floor(el.getBoundingClientRect().top - navbarHeight);
-    let targetID = respond ? respond.getAttribute('href') : this.getAttribute('href');
-    const targetAnchor = document.querySelector(targetID);
-    if (!targetAnchor) return;
-    const originalTop = distanceToTop(targetAnchor);
-    window.scrollBy({ top: originalTop, left: 0, behavior: 'smooth' });
-    const checkIfDone = setInterval(function() {
-      const atBottom = window.innerHeight + window.pageYOffset >= document.body.offsetHeight - 2;
-      if (distanceToTop(targetAnchor) === 0 || atBottom) {
-        // targetAnchor.tabIndex = '-1';
-        targetAnchor.focus();
-        window.history.pushState('', '', targetID);
-        clearInterval(checkIfDone);
-      }
-    }, 100);
-  }
 
   // CHART.JS
   // =======================================================
@@ -496,5 +469,39 @@ ready(function() {
       'html': toastContent,
       'displayLength': 10000,
     });
+  }
+
+  // Lazy Load Iubenda script
+  // =======================================================
+  function createIubendaObserver() {
+    let observer;
+    let anchor = document.querySelector('footer');
+    let config = {
+      rootMargin: '0px 0px',
+      threshold: 0.01,
+    };
+    // Initiate observer using Footer as anchor
+    observer = new IntersectionObserver(enableIubenda, config);
+    observer.observe(anchor);
+  }
+
+  function enableIubenda(entries, observer) {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        iubenda();
+        observer.unobserve(entry.target);
+      }
+    });
+  }
+
+  function iubenda() {
+    const script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.src = 'https://cdn.iubenda.com/iubenda.js';
+    document.body.appendChild(script);
+  }
+
+  if ('IntersectionObserver' in window) {
+    createIubendaObserver();
   }
 });

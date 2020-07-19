@@ -26,10 +26,18 @@ $large-screen: 1200px !default;
 
 $medium-and-up: "only screen and (min-width : #{$small-screen-up})" !default;
 $large-and-up: "only screen and (min-width : #{$medium-screen-up})" !default;
+$large-and-down: "only screen and (max-width : #{$large-screen})" !default;
 $extra-large-and-up: "only screen and (min-width : #{$large-screen-up})" !default;
 $small-and-down: "only screen and (max-width : #{$small-screen})" !default;
 $medium-and-down: "only screen and (max-width : #{$medium-screen})" !default;
 $medium-only: "only screen and (min-width : #{$small-screen-up}) and (max-width : #{$medium-screen})" !default;
+
+// Add missing extra large helpers
+.hide-on-large-and-down {
+  @media #{$large-and-down} {
+    display: none !important;
+  }
+}
 
 /****************************
 Custom colors
@@ -503,6 +511,10 @@ nav ul li a {
 		color: inherit;
 	}
 }
+// Safari mobile does not like :not selector
+ul#mobile-nav.nav-primary.sidenav li a {
+	@extend .text-default;
+}
 
 /* Navbar Index*/
 ul.nav-primary.sidenav .sidenav-header a {
@@ -665,6 +677,10 @@ $navbar-height: 64px;
 		}
 		.algolia-partnership-logo {
 			display: none;
+		}
+		//Scrollspy
+		ul.nav-primary li a.active {
+			background-color: rgba(0,0,0,0.05);;
 		}
 	}
 	
@@ -1362,6 +1378,10 @@ Mimic Algolia them - only the good parts
 	/****************************
 	Grants / InstantSearch wrapper
 	*****************************/
+	// Import Instantsearch.css reset
+	// Could be pulled from jsDelivr, but not available on CDNJS
+	@import 'reset';
+
 	#grants {
 		font-weight: 400;
 		a {

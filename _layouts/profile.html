@@ -73,16 +73,13 @@ donorbox_popup: false
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preconnect" href="https://qa1231c5w9-dsn.algolia.net" crossorigin>
   <link rel="preconnect" href="https://www.google-analytics.com" crossorigin>
-  <link rel="preconnect" href="https://sessions.bugsnag.com" crossorigin>
+ <!-- <link rel="preconnect" href="https://sessions.bugsnag.com" crossorigin> -->
 
   <!-- Fonts and Icons  -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
 
   <!-- CSS Files -->
-  {% if algolia == true %}
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.css@7.1.1/themes/reset-min.css" integrity="sha256-JQ2nnTmybhOWSjfV3sa8mG0ZVhTCcORER4cyXc5HL10=" crossorigin="anonymous">
-  {% endif %}
   <link rel="stylesheet" href="{{ site.baseurl }}/assets/css/main.css?v={{ site.time | date: '%Y%m%d'}}">
 
   <!-- Schema.org -->
@@ -187,7 +184,7 @@ donorbox_popup: false
         <div class="container-custom">
           <a href="#" data-target="mobile-nav" class="sidenav-trigger right disable-primary-color print-hidden"><i class="material-icons">menu</i></a>
           <div class="row">
-            <div class="col s8 m6 l2">
+            <div class="col s8 m6 l2 xl2">
               <a href="{{ site.url }}" data-ga="Homepage" class="brand-logo">
                 <div class="logo-container">
                   <div class="logo">
@@ -199,20 +196,21 @@ donorbox_popup: false
                 </div>
               </a>
             </div>
-            <div class="col l5 hide-on-med-and-down">
+            <div class="col l4 xl5 hide-on-med-and-down">
               <div class="breadcrumb-wrapper left">
-                <a href="{{ site.url }}/search/profiles/" class="breadcrumb" data-ga="Breadcrumb Profile Search">Foundation Profiles</a>
+                <a href="{{ site.url }}/search/profiles/" class="breadcrumb hide-on-large-and-down" data-ga="Breadcrumb Profile Search">Foundation Profiles</a>
                 <span class="breadcrumb">{{ page.organization_name }}</span>
               </div>
               {% if algolia == true %}
                 <span class="algolia-partnership-logo print-hidden"><a href="{{ site.algolia_referral_link }}"><img src="{{ site.baseurl}}/assets/img/algolia-partnership-logo.svg" alt="Algolia Partnership Logo"></a></span>
               {% endif %}
             </div>
-            <div class="col m6 l5 hide-on-med-and-down print-hidden">
+            <div class="col m6 l6 xl5 hide-on-med-and-down print-hidden">
               <ul class="nav-primary right">
-                <li><a href="#people" class="scrolly" data-ga="People">People</a></li>
-                <li><a href="#grants" class="scrolly" data-ga="Grants">Grants</a></li>
-                <li><a href="#filings" class="scrolly" data-ga="Tax Filings">Tax Filings</a></li>
+                <li><a href="#people" data-ga="People">People</a></li>
+                <li><a href="#grants" data-ga="Grants">Grants</a></li>
+                <li><a href="#application-info" data-ga="Application Guidelines">Guidelines</a></li>
+                <li><a href="#financials" data-ga="Grants">Financials</a></li>
                 <li><a href="#" data-target="navbar-more" class="dropdown-trigger print-hidden" id="primary-navbar-dropdown-trigger">More <i style="margin-left:3px" class="material-icons right">arrow_drop_down</i></a></li>
                 <li class="js-vue-check hidden"><a href="#modal-saved-profiles" class="account modal-trigger"><i id="account-icon" class="material-icons">account_circle</i></a></li>
               </ul>
@@ -249,9 +247,10 @@ donorbox_popup: false
       </a>
     </li>
     <li class="disabled"><a class="grey-text">Current Profile</a></li>
-    <li><a href="#people" class="scrolly">People</a></li>
-    <li><a href="#grants" class="scrolly">Grants</a></li>
-    <li><a href="#filings" class="scrolly">Tax Filings</a></li> 
+    <li><a href="#people">People</a></li>
+    <li><a href="#grants">Grants</a></li>
+    <li><a href="#application-info">Application Guidelines</a></li>
+    <!-- <li><a href="#financial-overview">Financials</a></li> -->
     <li><hr class="divider"></li>
     <li class="disabled"><a class="title grey-text">Search</a></li>
     <li>
@@ -310,13 +309,6 @@ donorbox_popup: false
                   {% endif %}
                   <ul class="list-inline org-location profile-summary-icons text-center">
                     <li>
-                      {% if page.grants_to_preselected_only %}
-                        <a href="#application-info" data-ga="Application Summary Icon" class="js-ga-summary-icon-click tooltipped scrolly" data-tooltip="Grants to preselected organizations only"><i class="material-icons">lock</i></a>
-                      {% else %}
-                        <a href="#application-info" data-ga="Application Summary Icon" class="js-ga-summary-icon-click tooltipped scrolly" data-tooltip="Possibly accepts unsolicited applications"><i class="material-icons material-icons-active">lock_open</i></a>
-                      {% endif %}
-                    </li>
-                    <li>
                       {% if page.has_recent_grants %}
                         <i class="material-icons material-icons-active tooltipped" data-tooltip="Has recent grants">monetization_on</i>
                       {% else %}
@@ -339,6 +331,13 @@ donorbox_popup: false
                         <i class="material-icons tooltipped" data-tooltip="No website listed">public</i>
                       </li>
                     {% endif %}
+                    <li>
+                      {% if page.grants_to_preselected_only %}
+                        <a href="#application-info" data-ga="Application Summary Icon" class="js-ga-summary-icon-click tooltipped scrolly" data-tooltip="Grants to preselected organizations only"><i class="material-icons">lock</i></a>
+                      {% else %}
+                        <a href="#application-info" data-ga="Application Summary Icon" class="js-ga-summary-icon-click tooltipped scrolly" data-tooltip="Possibly accepts unsolicited applications"><i class="material-icons material-icons-active">lock_open</i></a>
+                      {% endif %}
+                    </li>
                   </ul>
                 </div>
               </div>
@@ -415,8 +414,10 @@ donorbox_popup: false
                   </div>
                 </div>
                 {% endif %}
+                {%- assign current_year_minus_one = site.time | date: '%Y' | minus: 1 -%}
+                {%- assign last_updated = page.last_updated_irs | date: '%Y' | plus: 0 -%}{% comment %}adding plus: 0 is a Liquid hack to convert string to integer{% endcomment %}
                 <div class="card-panel">
-                  <div class="card-panel-body">
+                  <div class="card-panel-body{% if last_updated < current_year_minus_one %} yellow lighten-4{% endif %}">
                     <div class="row row-tight valign-wrapper">
                       <div class="col s2 valign-wrapper">
                         <img src="{{ site.baseurl }}/assets/img/irs-w-text.png" alt="IRS logo" class="responsive-img">
@@ -435,7 +436,7 @@ donorbox_popup: false
               </div>
             </div>
             <div class="col s12 l7 offset-l1">
-              <div id="people">
+              <div id="people" class="scrollspy">
                 <div class="card card-panel">
                   <div class="card-panel-header">
                     <h4>People <button class="tooltipped right valign-wrapper" data-position="left" data-html="true" data-tooltip="Form 990-PF<br>Part VIII"><img src="{{ site.baseurl }}/assets/img/irs-w-text-alt.png" alt="IRS logo" class="icon-irs-alt"></button></h4>
@@ -522,7 +523,7 @@ donorbox_popup: false
 
           <div id="grants-scroll-anchor" class="row">
             <div class="col s12">
-              <div id="grants">
+              <div id="grants" class="scrollspy">
                 <div class="card-panel">
                   <div class="card-panel-header-wrapper">
                       <!-- <div class="card-panel-header pushpin-nav pushpin-nav-search" data-target="grants"> -->
@@ -665,7 +666,7 @@ donorbox_popup: false
 
           <div class="row flex print-no-pagebreak">
             <div class="col s12 l6 flex flex-direction-column print-50">
-              <div id="application-info" class="flex flex-grow-1">
+              <div id="application-info" class="flex flex-grow-1 scrollspy">
                 <div class="card-panel card-panel-flex">
                   <div class="card-panel-header-wrapper">
                     <div class="card-panel-header">
@@ -809,7 +810,7 @@ donorbox_popup: false
             </div>
           </div>
 
-          <div id="financials" class="row flex hide-on-med-and-down">
+          <div id="financials" class="row flex hide-on-med-and-down scrollspy">
             <div class="col s12 l6 flex flex-direction-column print-50">
               <div id="financial-overview" class="flex flex-grow-1">
                 <div class="card card-panel card-panel-flex">
@@ -958,7 +959,7 @@ donorbox_popup: false
               <div id="filings">
                 <div class="card-panel">
                   <div class="card-panel-header">
-                    <h4>Tax Filings <button class="tooltipped right valign-wrapper" data-position="left" data-html="true" data-tooltip="Tax returns filed<br>electronically"><img src="{{ site.baseurl }}/assets/img/irs-w-text-alt.png" alt="IRS logo" class="icon-irs-alt"></button></h4>
+                    <h4>Tax <a class="text-default" href="https://projects.propublica.org/nonprofits/organizations/{{ page.ein }}" target="_blank" title="Click to view tax filings available on ProPublica">Filings</a> <button class="tooltipped right valign-wrapper" data-position="left" data-html="true" data-tooltip="Tax returns filed<br>electronically"><img src="{{ site.baseurl }}/assets/img/irs-w-text-alt.png" alt="IRS logo" class="icon-irs-alt"></button></h4>
                   </div>
                   <div class="card-panel-body">
                     <ul class="list-inline">
