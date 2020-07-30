@@ -19,8 +19,8 @@ plugins_dir: _plugins
 
 # Last updated - used in creating redirects if name has changed
 # Format: "YYYY-MM-DDTHH:MM:SS.fffZ"
-last_updated_grantmakers: '2020-04-17T21:14:54.518Z'
-number_of_profiles: 92265
+last_updated_grantmakers: '2020-07-30T20:35:04.546Z'
+number_of_profiles: 92777
 
 algolia_referral_link: http://goto.algolia.com/l/139121/2017-10-24/26gc84
 
