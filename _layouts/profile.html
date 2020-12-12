@@ -1050,6 +1050,7 @@ donorbox_popup: false
   {% include footer-license-and-links.html %}
   {% unless jekyll.environment == 'staging' %}
     {% include ga.html %}
+    {% include cloudflare-analytics.js %}
   {% endunless %}
   {% if algolia %}
     {% include algolia/refinements-slide-out.html %}

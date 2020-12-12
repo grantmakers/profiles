@@ -44,7 +44,8 @@
 	{% include footer.html %}
 	{% include footer-license-and-links.html %}
 	{% unless jekyll.environment == 'staging' %}
-    {% include ga.html %}
+		{% include ga.html %}
+		{% include cloudflare-analytics.js %}
   {% endunless %}
 </body>
 </html>
