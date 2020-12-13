@@ -28,12 +28,12 @@
   },
   "homepage": "https://github.com/grantmakers/grantmakers.github.io#readme",
   "devDependencies": {
-    "@babel/core": "^7.12.7",
-    "@babel/plugin-transform-runtime": "^7.12.1",
-    "@babel/preset-env": "^7.12.7",
+    "@babel/core": "^7.12.10",
+    "@babel/plugin-transform-runtime": "^7.12.10",
+    "@babel/preset-env": "^7.12.10",
     "@babel/runtime": "^7.12.5",
     "babel-eslint": "^10.1.0",
-    "babel-loader": "^8.2.1",
+    "babel-loader": "^8.2.2",
     "css-loader": "^3.6.0",
     "eslint": "^6.8.0",
     "eslint-plugin-frontmatter": "0.0.8",
@@ -51,6 +51,6 @@
     "axios": "^0.19.2",
     "bugsnag-js": "^4.7.3",
     "bugsnag-vue": "^1.0.1",
-    "retry-axios": "^2.3.0"
+    "retry-axios": "^2.4.0"
   }
 }
