@@ -681,7 +681,7 @@ donorbox_popup: false
                     {% if page.website %}
                       <ul class="collection">
                         <li class="collection-item avatar">
-                          <a href="{{ page.website }}" data-ga="Refer to Fdn Website"><i class="material-icons circle grantmakers">public</i></a>
+                          <a href="{{ page.website }}" data-ga="Refer to Fdn Website"><i class="material-icons circle blue">public</i></a>
                           <p>Note: This foundation appears to have a website. We recommend starting your exploration there. <a class="btn-link" href="{{ page.website }}" data-ga="Refer to Fdn Website">Visit Website</a></p>
                         </li>
                       </ul>
@@ -693,7 +693,12 @@ donorbox_popup: false
                     {% endunless %}
 
                     {% if page.grants_to_preselected_only %}
-                      <p>The foundation has indicated it only makes contributions to preselected charitable organizations and does not accept unsolicited requests for funds.</p>
+                      <ul class="collection">
+                        <li class="collection-item avatar">
+                          <i class="material-icons circle red darken-2">lock</i>
+                          <p>The foundation has indicated it only makes contributions to preselected charitable organizations and does not accept unsolicited requests for funds.</p>
+                        </li>
+                      </ul>
                       {% if page.grants_application_info %}
                         <hr class="divider">
                       {% endif %}
