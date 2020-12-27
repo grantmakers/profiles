@@ -830,6 +830,31 @@ $navbar-height: 64px;
 		}
 	}
 }
+// Profile page overrides
+.profile-page {
+	.row-alert-fixed-to-top {
+		.tooltipped {
+			color: white;
+			line-height: 40px;
+			position: relative
+		}
+		.right-align {
+			div {
+				right: 80px;
+			}
+		}
+		.left-align {
+			div {
+				left: 80px;
+			}
+		}
+	}
+	.alert-fixed-to-top {
+		height: 40px;
+		position: relative;
+		top: 15px;
+	}
+}
 .header-filter .container {
 	z-index: 2;
 	position: relative;
@@ -854,7 +879,12 @@ $navbar-height: 64px;
 	min-height: 300px;
   background-size: cover;
 }
-.profile-page .profile img, .profile-index-page .profile img {
+.profile-page .profile img {
+	max-width: 160px;
+	max-height: 160px;
+	margin: -100px auto 0;
+}
+.profile-index-page .profile img {
 	max-width: 160px;
 	max-height: 160px;
 	margin: -80px auto 0;
@@ -1213,8 +1243,6 @@ Mimic Algolia them - only the good parts
 	.org-location, .sub-title {
 		margin: 30px auto 0;
 		max-width: 600px;
-		color: #999999;
-		font-weight: 300;
 	}
 	.sub-title {
 		text-transform: uppercase;

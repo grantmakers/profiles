@@ -279,12 +279,12 @@ donorbox_popup: false
     <div class="header header-bg" style="background-image: url('{{ site.baseurl }}/assets/img/NY.jpg');"></div>
     <div class="main main-raised">
       <div class="profile-content">
-        <div class="row row-alert-fixed-to-top">
-          <div class="col s12">
-            <div class="alert-fixed-to-top">
-              <div class="left tooltipped" data-position="right" data-tooltip="Fiscal year ending {{ page.filings[0].tax_period | slice: 4, 5 | round }}/{{ page.filings[0].tax_period | slice: 0, 4 | round }}">Tax Year {{ page.filings[0].tax_year | round }}</div>
-              <div class="right tooltipped" data-position="bottom" data-html="true" data-tooltip="<b>Source</b><br>Profile pulled directly<br>from electronically filed<br>IRS Form 990-PF">IRS Form 990-PF</div>
-            </div>
+        <div class="row row-alert-fixed-to-top grey darken-4">
+          <div class="col s6 right-align">
+            <div class="tooltipped" data-position="left" data-html="true" data-tooltip="<b>Source</b><br>Profile pulled directly<br>from electronically filed<br>IRS Form 990-PF">IRS Form 990 PF</div>
+          </div>
+          <div class="col s6 left-align">
+            <div class="tooltipped" data-position="right" data-tooltip="Fiscal year ending {{ page.filings[0].tax_period | slice: 4, 5 | round }}/{{ page.filings[0].tax_period | slice: 0, 4 | round }}">Tax Year {{ page.filings[0].tax_year | round }}</div>
           </div>
         </div>
         <div class="container-custom">
@@ -292,7 +292,7 @@ donorbox_popup: false
             <div class="col s12">
               <div id="profile" class="profile center-align">
                 <div class="avatar">
-                    <img src="{{ site.baseurl }}/assets/img/icons-letters/{{ page.organization_name | split: '' | first | upcase }}.svg" alt="Circle Image" class="circle responsive-img">
+                  <img src="{{ site.baseurl }}/assets/img/icons-letters/{{ page.organization_name | split: '' | first | upcase }}.svg" alt="Circle Image" class="circle responsive-img">
                 </div>
                 <div class="name">
                   <h1 id="org-data" class="org-name" data-ein="{{ page.ein }}" data-name="{{ page.organization_name }}" data-url="{{ site.url }}{{ site.baseurl }}/{{ page.ein }}/" data-tax-year="{{ page.filings[0].tax_year | round }}" data-tax-year-only-one="{% if page.filings[1] and page.grants_facet_tax_year[1].count > 0 %}false{% else %}true{% endif %}">
