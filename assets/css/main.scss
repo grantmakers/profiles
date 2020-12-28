@@ -1125,11 +1125,18 @@ Mimic Algolia them - only the good parts
 	#profile, #noscript, #feedback, #profile-share, #information-source, #coffee-bottom-cta, #tagline {
 		margin-bottom: 75px;
 	}
-	#summary, #people, #activities, #grants, #application-info, #community, #financials-tagline, #financial-overview, #financial-trends, #filings {
+	#summary, #people, #activities, #grants, #application-info, #about, #financials-tagline, #financial-overview, #financial-trends, #filings {
 		margin-bottom: 75px;
 	}
 	#people, #grants, #application-info, #financials, #filings {
 		outline: none;
+	}
+	#alerts {
+		margin-top: 75px;
+		.card-title img {
+			width: 16px;
+			height: 16px;
+		}
 	}
 	#summary {
 		p, h1, h2, h3, h4, h5, h6 {
@@ -1891,10 +1898,7 @@ Mimic Algolia them - only the good parts
 			margin-bottom: 0;
 		}
 	}
-	#community {
-		#insights ul {
-			margin-bottom: 0;
-		}
+	#alerts, #about {
 		.img-icon-16 {
 			width: 16px;
 			height: 16px;
@@ -1917,6 +1921,14 @@ Mimic Algolia them - only the good parts
 		}
 		.collection-item-empty-state p {
 			margin-bottom: 1em;
+		}
+		.card-title {
+			font-size: 0.9rem;
+			text-transform: uppercase;
+			color: #999999;
+			i {
+				line-height: 0.9rem;
+			}
 		}
 		.community-examples {
 			padding-top: 20px;
@@ -2283,7 +2295,7 @@ Print
 	.main {
 		top: 150px;
 	}
-	#profile, #summary, #people, #activities, #grants, #application-info, #community, #financial-overview, #financial-trends {
+	#profile, #summary, #people, #activities, #grants, #application-info, #alerts, #about, #financial-overview, #financial-trends {
 		margin-bottom: 0 !important;
   }
   #tagline {

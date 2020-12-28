@@ -345,6 +345,36 @@ donorbox_popup: false
                     </li>
                   </ul>
                 </div>
+                {%- for item in site.data.insights.all -%}
+                  {%- if item.profile.ein == page.ein -%}
+                  {% comment %}If more than one insight, below HTML won't work{% endcomment %}
+                    <div id="alerts" class="row">
+                      <div class="col s12 l8 offset-l2">
+                        <div class="card-title left-align">
+                          <img src="{{ site.baseurl }}/assets/img/favicon.png" alt="Grantmakers Logo"> Profile Alerts
+                        </div>
+                        <div class="card white left-align z-depth-0">
+                          <div class="card-content info-card">
+                            <div class="card-title">
+                            </div>
+                            <ul class="collection">
+                              <li class="collection-item avatar">
+                                <span class="title">{{ item.title }}</span><br>
+                                <p>{{ item.text }}</p>
+                                <small><em>submitted by:</em> {{ item.author.full_name_displayed }}</small>
+                              </li>
+                              {%- if forloop.last -%}
+                              <li>
+                                <hr class="slim">
+                              </li>
+                              {%- endif -%}
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  {%- endif -%}
+                {%- endfor -%}
               </div>
             </div>
           </div>
@@ -687,7 +717,7 @@ donorbox_popup: false
                       <ul class="collection">
                         <li class="collection-item avatar">
                           <a href="{{ page.website }}" data-ga="Refer to Fdn Website"><i class="material-icons circle blue">public</i></a>
-                          <p>Note: This foundation appears to have a website. We recommend starting your exploration there. <a class="btn-link" href="{{ page.website }}" data-ga="Refer to Fdn Website">Visit Website</a></p>
+                          <p>Note: This foundation appears to have a website. We recommend starting your exploration there. <a class="btn-link" href="{{ page.website }}" data-ga="Refer to Fdn Website">Visit Website</a>.</p>
                         </li>
                       </ul>
                       <hr class="divider">
@@ -768,50 +798,35 @@ donorbox_popup: false
               </div>
             </div>
             <div class="col s12 l6 flex flex-direction-column print-50">
-              <div id="community" class="flex flex-grow-1">
+              <div id="about" class="flex flex-grow-1 scrollspy">
                 <div class="card-panel card-panel-flex">
                   <div class="card-panel-header">
-                    <h4>Community Insights & Updates<!--<span class="new badge blue-grey" data-badge-caption="New">1</span>--></h4>
+                    <h4>About Grantmakers.io <span class="right valign-wrapper"><img src="{{ site.baseurl }}/assets/img/logo.png" alt="Grantmakers.io logo" class="icon-logo-small"></span></h4>
                   </div>
                   <div class="card-panel-body"> <!-- Ensure has no set height -->
-                    <div id="insights"></div>
-                    <ul class="collection">
-                      {%- for item in site.data.insights.all -%}
-                        {%- if item.profile.ein == page.ein -%}
-                      <li class="collection-item avatar">
-                        <span class="title">{{ item.title }}</span><br>
-                        <p>{{ item.text }}</p>
-                        <small><em>submitted by:</em> {{ item.author.full_name_displayed }}</small>
-                      </li>
-                          {%- if forloop.last -%}
-                      <li>
-                        <hr class="slim">
-                      </li>
-                          {%- endif -%}
-                        {%- endif -%}
-                      {%- endfor -%}
-                    </ul>
 
                     <ul class="collection">
                       <li class="collection-item collection-item-empty-state avatar">
-                        <span class="title">Have something to share?</span><br>
-                        <p>Help keep the community up to date and informed</p>
-                        <ul class="browser-default community-examples grey lighten-3">
-                          <li>Updates</li>
-                          <li>Grant forms</li>
-                          <li>Sample submissions</li>
-                        </ul>
+                        <span class="title">A free, public resource for nonprofits of all sizes</span><br>
+                        <p>Grantmakers.io republishes a public dataset of electronically filed tax returns. Profiles reflect the foundation as of its latest e-filed Form 990-PF tax return. If the foundation changed their tax filing method to paper-based, more up-to-date sources of information may exist for the funder.<!-- Profiles reflect the latest available e-filing for the foundation and is presented as-is.--></p>
+                        <p><a href="{{ site.url }}/about/">Learn more</a>.</p>
+                        <div class="card info-card grey lighten-3">
+                          <div class="card-content">
+                            Grantmakers.io is not affiliated, associated, authorized, endorsed by, or in any way officially connected with any foundation appearing on the site.
+                          </div>
+                        </div>
+                        <!--<p class="center-align"><a href="{{ site.url }}/about/the-dataset/">Get to know the efile dataset</a>.</p>-->
+                        <!--<p class="divider"></p>-->
+                        <!--
                         <div class="action-group center-align">
                           <a href="mailto:{{ page.ein }}@grantmakers.io?body=%0D%0A%0D%0A{{ page.organization_name}}%0D%0A{{ site.url }}{{ site.baseurl }}/{{ page.ein }}/" target="_blank" class="waves-effect waves-light btn white grey-text text-darken-1" data-ga="Email Share Resource"><i class="material-icons left">email</i> Share a Resource</a>
-                          <!--
+                          
                           <a href="#" class="sidenav-trigger waves-effect waves-light btn grantmakers white-text tooltipped" data-target="community-sidebar" data-html="true" data-tooltip="Community Insights<br>Q&A" data-position="left">
                             <i class="material-icons left">question_answer</i> Ask a Question
                           </a>
-                          -->
+                          
                         </div>
-                        {% unless page.ein == '510350462' %}
-                          <p class="center"><a href="{{ site.url }}{{ site.baseurl }}/v0/510350462-wetmore-family-foundation-cma/#community" class="blue-grey-text" data-ga="View an Insights Example">View an example</a></p>
-                        {% endunless %}
+                        -->
                       </li>
                     </ul>
                   </div>
