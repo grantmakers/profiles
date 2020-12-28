@@ -1959,6 +1959,9 @@ Mimic Algolia them - only the good parts
 		}
 	}
 	#filings {
+		a.text-default {
+			color: $text-color !important;
+		}
 		li {
 			.material-icons {
 				color: $gray-light !important;
