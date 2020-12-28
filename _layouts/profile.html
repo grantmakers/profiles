@@ -280,11 +280,16 @@ donorbox_popup: false
     <div class="main main-raised">
       <div class="profile-content">
         <div class="row row-alert-fixed-to-top grey darken-4">
-          <div class="col s6 right-align">
-            <div class="tooltipped" data-position="left" data-html="true" data-tooltip="<b>Source</b><br>Profile pulled directly<br>from electronically filed<br>IRS Form 990-PF">IRS Form 990 PF</div>
+          <div class="col s6">
+            <div class="alert-content alert-content-left right-align" data-position="left" data-html="true" data-tooltip="<b>Source</b><br>Profile pulled directly<br>from electronically filed<br>IRS Form 990-PF">IRS Form 990 PF</div>
           </div>
-          <div class="col s6 left-align">
-            <div class="tooltipped" data-position="right" data-tooltip="Fiscal year ending {{ page.filings[0].tax_period | slice: 4, 5 | round }}/{{ page.filings[0].tax_period | slice: 0, 4 | round }}">Tax Year {{ page.filings[0].tax_year | round }}</div>
+          <div class="col s6 m2">
+            <div class="alert-content alert-content-right tooltipped left-align" data-position="right" data-tooltip="Fiscal year ending {{ page.filings[0].tax_period | slice: 4, 5 | round }}/{{ page.filings[0].tax_period | slice: 0, 4 | round }}">Tax Year {{ page.filings[0].tax_year | round }}</div>
+          </div>
+          <div class="col m4 hide-on-small-only hidden">
+            <div class="alert-content alert-content-icon right-align">
+              <img class="tooltipped" src="{{ site.baseurl }}/assets/img/logo.png" alt="Grantmakers Logo" data-position="left" data-tooltip="Grantmakers.io">
+            </div>
           </div>
         </div>
         <div class="container-custom">

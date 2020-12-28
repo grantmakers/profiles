@@ -833,20 +833,30 @@ $navbar-height: 64px;
 // Profile page overrides
 .profile-page {
 	.row-alert-fixed-to-top {
-		.tooltipped {
-			color: white;
+		color: white;
+		.alert-content {
 			line-height: 40px;
-			position: relative
+			height: 40px;
+			position: relative;
 		}
-		.right-align {
-			div {
-				right: 80px;
+		.alert-content-left {
+			right: 80px	
+		}
+		.alert-content-right {
+			left: 80px;
+		}
+		.alert-content-icon {
+			display: flex;
+			align-items: center;
+			justify-content: flex-end;
+			img {
+				height: 30px;
+				width: 30px;
+				margin: 5px;
 			}
 		}
-		.left-align {
-			div {
-				left: 80px;
-			}
+		@media #{$small-and-down} {
+			font-size: .8em;
 		}
 	}
 	.alert-fixed-to-top {
