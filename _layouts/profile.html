@@ -381,7 +381,7 @@ donorbox_popup: false
                             {%- if is_outdated == true -%}
                               <li class="collection-item avatar">
                                 <span class="title">Newer tax filings may exist</span><br>
-                                <p>Indications suggest tax returns for <a href="https://projects.propublica.org/nonprofits/organizations/{{ page.ein }}">more recent years</a> may be available for this funder. You are currently viewing the foundation's latest <em>electronically-filed</em> tax return ({{ page.filings[0].tax_year | round }} tax year). <a href="{{ site.url }}/about/the-dataset/">Learn more</a>.</p>
+                                <p>More recent tax returns <a href="https://projects.propublica.org/nonprofits/organizations/{{ page.ein }}">may be available</a> for this funder. You are currently viewing the foundation's latest <em>electronically-filed</em> tax return ({{ page.filings[0].tax_year | round }} tax year). <a href="{{ site.url }}/about/the-dataset/">Learn more</a>.</p>
                                 <small><em>submitted by:</em> Grantmakersbot</small>
                               </li>
                             {%- endif -%}
