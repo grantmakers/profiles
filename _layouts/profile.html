@@ -345,36 +345,52 @@ donorbox_popup: false
                     </li>
                   </ul>
                 </div>
+                {%- comment -%}For loop assumes each profile only has one insight{%- endcomment -%}
                 {%- for item in site.data.insights.all -%}
                   {%- if item.profile.ein == page.ein -%}
-                  {% comment %}If more than one insight, below HTML won't work{% endcomment %}
-                    <div id="alerts" class="row">
-                      <div class="col s12 l8 offset-l2">
-                        <div class="card-title left-align">
-                          <img src="{{ site.baseurl }}/assets/img/favicon.png" alt="Grantmakers Logo"> Profile Alerts
-                        </div>
-                        <div class="card white left-align z-depth-0">
-                          <div class="card-content info-card">
-                            <div class="card-title">
-                            </div>
-                            <ul class="collection">
-                              <li class="collection-item avatar">
-                                <span class="title">{{ item.title }}</span><br>
-                                <p>{{ item.text }}</p>
-                                <small><em>submitted by:</em> {{ item.author.full_name_displayed }}</small>
-                              </li>
-                              {%- if forloop.last -%}
-                              <li>
-                                <hr class="slim">
-                              </li>
-                              {%- endif -%}
-                            </ul>
+                    {%- assign has_insights = true -%}
+                    {%- assign show_alerts = true -%}
+                    {%- capture insight -%}
+                      <li class="collection-item avatar">
+                        <span class="title">{{ item.title }}</span><br>
+                        <p>{{ item.text }}</p>
+                        <small><em>submitted by:</em> {{ item.author.full_name_displayed }}</small>
+                      </li>
+                    {%- endcapture -%}
+                    {% break %}
+                  {%- endif %}
+                {%- endfor -%}
+                {%- if page.filings[0].tax_year <= 2015 and page.eobmf_recognized_exempt == true -%}
+                  {%- assign is_outdated = true -%}
+                  {%- assign show_alerts = true -%}
+                {%- endif %}
+                {%- if show_alerts == true -%}
+                  <div id="alerts" class="row">
+                    <div class="col s12 l8 offset-l2">
+                      <div class="card-title left-align">
+                        <img src="{{ site.baseurl }}/assets/img/favicon.png" alt="Grantmakers Logo"> Profile Alerts
+                      </div>
+                      <div class="card white left-align z-depth-0">
+                        <div class="card-content info-card">
+                          <div class="card-title">
                           </div>
+                          <ul class="collection">
+                            {%- if has_insights == true -%}
+                              {{ insight }}
+                            {%- endif -%}
+                            {%- if is_outdated == true -%}
+                              <li class="collection-item avatar">
+                                <span class="title">Newer tax filings may exist</span><br>
+                                <p>Indications suggest tax returns for <a href="https://projects.propublica.org/nonprofits/organizations/{{ page.ein }}">more recent years</a> may be available for this funder. You are currently viewing the foundation's latest <em>electronically-filed</em> tax return ({{ page.filings[0].tax_year | round }} tax year). <a href="{{ site.url }}/about/the-dataset/">Learn more</a>.</p>
+                                <small><em>submitted by:</em> Grantmakersbot</small>
+                              </li>
+                            {%- endif -%}
+                          </ul>
                         </div>
                       </div>
                     </div>
-                  {%- endif -%}
-                {%- endfor -%}
+                  </div>
+                {%- endif -%}
               </div>
             </div>
           </div>
