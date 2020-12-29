@@ -281,7 +281,7 @@ donorbox_popup: false
       <div class="profile-content">
         <div class="row row-alert-fixed-to-top grey darken-4">
           <div class="col s6">
-            <div class="alert-content alert-content-left right-align" data-position="left" data-html="true" data-tooltip="<b>Source</b><br>Profile pulled directly<br>from electronically filed<br>IRS Form 990-PF">IRS Form 990 PF</div>
+            <div class="alert-content alert-content-left right-align" data-position="left" data-html="true" data-tooltip="<b>Source</b><br>Profile pulled directly<br>from electronically filed<br>IRS Form 990 PF">IRS Form 990 PF</div>
           </div>
           <div class="col s6 m2">
             <div class="alert-content alert-content-right tooltipped left-align" data-position="right" data-tooltip="Fiscal year ending {{ page.filings[0].tax_period | slice: 4, 5 | round }}/{{ page.filings[0].tax_period | slice: 0, 4 | round }}">Tax Year {{ page.filings[0].tax_year | round }}</div>
@@ -474,7 +474,7 @@ donorbox_popup: false
               <div id="people" class="scrollspy">
                 <div class="card card-panel">
                   <div class="card-panel-header">
-                    <h4>People <button class="tooltipped right valign-wrapper" data-position="left" data-html="true" data-tooltip="Form 990-PF<br>Part VIII"><img src="{{ site.baseurl }}/assets/img/irs-w-text-alt.png" alt="IRS logo" class="icon-irs-alt"></button></h4>
+                    <h4>People <button class="tooltipped right valign-wrapper" data-position="left" data-html="true" data-tooltip="Form 990 PF<br>Part VIII"><img src="{{ site.baseurl }}/assets/img/irs-w-text-alt.png" alt="IRS logo" class="icon-irs-alt"></button></h4>
                   </div>
                   <div class="card-content card-panel-body">
                     <div class="responsive-table-wrapper">
@@ -517,7 +517,7 @@ donorbox_popup: false
               <div id="activities">
                 <div class="card card-panel">
                   <div class="card-panel-header">
-                    <h4>Charitable Activities <button class="tooltipped right valign-wrapper" data-position="left" data-html="true" data-tooltip="Summary of Direct Charitable Activities<br>Form 990-PF<br>Part IX-A"><img src="{{ site.baseurl }}/assets/img/irs-w-text-alt.png" alt="IRS logo" class="icon-irs-alt"></button></h4>
+                    <h4>Charitable Activities <button class="tooltipped right valign-wrapper" data-position="left" data-html="true" data-tooltip="Summary of Direct Charitable Activities<br>Form 990 PF<br>Part IX-A"><img src="{{ site.baseurl }}/assets/img/irs-w-text-alt.png" alt="IRS logo" class="icon-irs-alt"></button></h4>
                   </div>
                   <div class="card-content card-panel-body">
                     <div class="row row-tight">
@@ -535,7 +535,7 @@ donorbox_popup: false
                             {% endfor %}
                           </ul>
                         {% else %}
-                          No Charitable Activities listed on Form 990-PF Part IX-A
+                          No Charitable Activities listed on Form 990 PF Part IX-A
                         {% endif %}
                       </div>
                     </div>
@@ -693,7 +693,7 @@ donorbox_popup: false
             <div class="col s12">
               <div id="information-source">
                 <h6 class="valign-wrapper valign-wrapper-center-align">
-                  Information pulled directly from IRS Form 990-PF
+                  Information pulled directly from IRS Form 990 PF
                 </h6>
               </div>
             </div>
@@ -707,7 +707,7 @@ donorbox_popup: false
                     <div class="card-panel-header">
                       <div class="row">
                         <div class="col s12">
-                          <h4>Application Guidelines <button class="tooltipped right valign-wrapper" data-position="left" data-html="true" data-tooltip="Form 990-PF<br>Part XV<br>Line 2"><img src="{{ site.baseurl }}/assets/img/irs-w-text-alt.png" alt="IRS logo" class="icon-irs-alt"></button></h4>
+                          <h4>Application Guidelines <button class="tooltipped right valign-wrapper" data-position="left" data-html="true" data-tooltip="Form 990 PF<br>Part XV<br>Line 2"><img src="{{ site.baseurl }}/assets/img/irs-w-text-alt.png" alt="IRS logo" class="icon-irs-alt"></button></h4>
                         </div>
                       </div>
                     </div>
@@ -724,7 +724,7 @@ donorbox_popup: false
                     {% endif %}
 
                     {% unless page.grants_to_preselected_only or page.grants_application_info %}
-                      The foundation does not provide any guidance in its latest Form 990-PF Part XV, Lines 2-2d
+                      The foundation does not provide any guidance in its latest Form 990 PF Part XV, Lines 2-2d
                     {% endunless %}
 
                     {% if page.grants_to_preselected_only %}
@@ -786,8 +786,8 @@ donorbox_popup: false
                                 {% endif %}
                               {% endif %}
                             {% else %}
-                              <p>This foundation's latest IRS Form 990-PF does not list contact information specific to their grant application process.</p>
-                              <p>Tip: General contact information can often be found elsewhere in the funders most recent Form 990-PF (see PDF links below).</p>
+                              <p>This foundation's latest IRS Form 990 PF does not list contact information specific to their grant application process.</p>
+                              <p>Tip: General contact information can often be found elsewhere in the funders most recent Form 990 PF (see PDF links below).</p>
                             {% endif %}
                           </li>
                         <!--/sse-->
@@ -808,7 +808,7 @@ donorbox_popup: false
                     <ul class="collection">
                       <li class="collection-item collection-item-empty-state avatar">
                         <p>Grantmakers.io is a free community project aimed at giving nonprofits unfettered access to a public dataset of Form 990 tax filings published by the IRS. Read more <a href="{{ site.url }}/about/">about the project</a>.</p>
-                        <p>The project republishes the IRS dataset, verbatim, focusing exclusively on Form 990-PF, the form most commonly filed by private foundations.</p>
+                        <p>The project republishes the IRS dataset, verbatim, focusing exclusively on Form 990 PF, the form most commonly filed by private foundations.</p>
                         <p>Note that the IRS dataset only contains information from <em>electronically-filed</em> tax returns. Read more <a href="{{ site.url }}/about/the-dataset/">about the dataset</a>.</p>
                         <div class="card info-card grey lighten-3">
                           <div class="card-content">
