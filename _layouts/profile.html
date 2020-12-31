@@ -528,7 +528,7 @@ donorbox_popup: false
             </div>
           </div>
 
-          <div class="row">
+          <div class="row hide-on-small-only">
             <div class="col s12">
               <div id="activities">
                 <div class="card card-panel">
@@ -543,7 +543,7 @@ donorbox_popup: false
                           <ul class="collection">
                             {% for activity in sorted_activities %}
                               <li class="collection-item">
-                                <span class="new badge blue-grey" data-badge-caption="">${{ activity.expenses | intcomma }}</span>
+                                <span class="new badge blue-grey" data-badge-caption="">${{ activity.expenses | round | intcomma }}</span>
                                 <div class="collection-item-content">
                                   {{ activity.description }}
                                 </div>
