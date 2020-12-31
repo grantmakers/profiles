@@ -1146,6 +1146,10 @@ Mimic Algolia them - only the good parts
 			width: 16px;
 			height: 16px;
 		}
+		.card {
+			// HACK
+			margin-bottom: 0px; 
+		}
 	}
 	#summary {
 		p, h1, h2, h3, h4, h5, h6 {
