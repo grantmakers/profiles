@@ -834,16 +834,17 @@ $navbar-height: 64px;
 .profile-page {
 	.row-alert-fixed-to-top {
 		color: white;
+		border-top-left-radius: 6px;
+		border-top-right-radius: 6px;
 		.alert-content {
 			line-height: 40px;
 			height: 40px;
-			position: relative;
 		}
 		.alert-content-left {
-			right: 80px	
+			padding-right: 80px	
 		}
 		.alert-content-right {
-			left: 80px;
+			padding-left: 80px;
 		}
 		.alert-content-icon {
 			display: flex;
@@ -857,6 +858,14 @@ $navbar-height: 64px;
 		}
 		@media #{$small-and-down} {
 			font-size: .8em;
+			.alert-content-left {
+				text-align: left;
+				padding: 0;
+			}
+			.alert-content-right {
+				text-align: right;
+				padding: 0;
+			}
 		}
 	}
 	.alert-fixed-to-top {
