@@ -1286,6 +1286,12 @@ Mimic Algolia them - only the good parts
 		li {
 			float: left;
 		}
+		a {
+			display: inline-block;
+		}
+		a > i {
+			pointer-events: none;
+		}
 		a, i.material-icons {
 			color: #fff;
 		}
