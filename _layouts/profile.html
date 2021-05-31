@@ -83,7 +83,7 @@ donorbox_popup: false
   <link rel="stylesheet" href="{{ site.baseurl }}/assets/css/main.css?v={{ site.time | date: '%Y%m%d'}}">
 
   <!-- Schema.org -->
-  {% if page.website %}
+  {% if page.website and page.website_is_an_email == false %}
   <script type='application/ld+json'>
     {
       "@context": "https://schema.org/",
@@ -327,13 +327,17 @@ donorbox_popup: false
                         <i class="material-icons tooltipped" data-tooltip="No paid staff">account_circle</i>
                       {% endif %}
                     </li>
-                    {% if page.website %}
+                    {% if page.website and page.website_is_an_email != true %}
                       <li>
                         <a href="{{ page.website }}" data-ga="Website Summary Icon" class="js-ga-website-click tooltipped" data-tooltip="Click to visit website"><i class="material-icons material-icons-active">public</i></a>
                       </li>
+                    {% elsif page.website and page.website_is_an_email == true and grants_to_preselected_only != true %}
+                      <li>
+                        <a href="{{ page.website }}" data-ga="Website Summary Icon" class="js-ga-website-click tooltipped" data-tooltip="The latest e-filed Form 990PF lists<br>an email in the website field"><i class="material-icons material-icons-active">public</i></a>
+                      </li>
                     {% else %}
                       <li>
-                        <i class="material-icons tooltipped" data-tooltip="No website listed">public</i>
+                        <i class="material-icons tooltipped" data-tooltip="No website available">public</i>
                       </li>
                     {% endif %}
                     <li>
@@ -729,7 +733,7 @@ donorbox_popup: false
                     </div>
                   </div>
                   <div class="card-panel-body">
-                    {% if page.website %}
+                    {% if page.website and page.website_is_an_email != true %}
                       <ul class="collection">
                         <li class="collection-item avatar">
                           <a href="{{ page.website }}" data-ga="Refer to Fdn Website"><i class="material-icons circle blue">public</i></a>
@@ -737,6 +741,14 @@ donorbox_popup: false
                         </li>
                       </ul>
                       <hr class="divider">
+                    {% elsif page.website and page.website_is_an_email == true and grants_to_preselected_only != true %}
+                    <ul class="collection">
+                      <li class="collection-item avatar">
+                        <a href="{{ page.website }}" data-ga="Refer to Fdn Website"><i class="material-icons circle blue">public</i></a>
+                        <p>Note: In lieu of providing a website in its latest e-filed Form 990PF, this foundation likely provided a contact email instead. <a class="btn-link" href="{{ page.website }}" data-ga="Refer to Fdn Website">View Email</a>.</p>
+                      </li>
+                    </ul>
+                    <hr class="divider">
                     {% endif %}
 
                     {% unless page.grants_to_preselected_only or page.grants_application_info %}
