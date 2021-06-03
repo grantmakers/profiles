@@ -331,7 +331,7 @@ donorbox_popup: false
                       <li>
                         <a href="{{ page.website }}" data-ga="Website Summary Icon" class="js-ga-website-click tooltipped" data-tooltip="Click to visit website"><i class="material-icons material-icons-active">public</i></a>
                       </li>
-                    {% elsif page.website and page.website_is_an_email == true and grants_to_preselected_only != true %}
+                    {% elsif page.website and page.website_is_an_email == true and page.grants_to_preselected_only != true %}
                       <li>
                         <a href="{{ page.website }}" data-ga="Website Summary Icon" class="js-ga-website-click tooltipped" data-tooltip="The latest e-filed Form 990PF lists<br>an email in the website field"><i class="material-icons material-icons-active">public</i></a>
                       </li>
@@ -741,7 +741,7 @@ donorbox_popup: false
                         </li>
                       </ul>
                       <hr class="divider">
-                    {% elsif page.website and page.website_is_an_email == true and grants_to_preselected_only != true %}
+                    {% elsif page.website and page.website_is_an_email == true and page.grants_to_preselected_only != true %}
                     <ul class="collection">
                       <li class="collection-item avatar">
                         <a href="{{ page.website }}" data-ga="Refer to Fdn Website"><i class="material-icons circle blue">public</i></a>
