@@ -22,6 +22,7 @@ try {
   
   let counter = 0;
   pipeline.on('data', (data) => {
+    counter++;
     fs.writeFileSync('ein/' + data.ein + '.json', JSON.stringify(data), 'utf-8');
   });
   pipeline.on('end', () => {
