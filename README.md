@@ -8,16 +8,16 @@ Assumes Ruby, Node, and npm are installed. Then...
 
 - From project root: `gem install jekyll bundler`
 - Create an `ein` folder under `_data`
-- Install the `fs` npm package
-  * `npm install fs`
+- Install the `stream-json` npm package
+  * `npm install stream-json`
 - Parse through the aggregated.json file (this will populate the `ein` directory with json files)
   * `cd _data`
   * Rename `aggregated.json.example` to `aggregated.json`
-  * `node split_for_jekyll_json`
+  * `node split-aggregated`
 - From project root:
   * Install Vue / Webpack dependencies: `npm install`
   * Start the server: `npm run dev`
-- Site should be accesible here:  `http://localhost:4000/profiles/`
+- Site should be accessible here:  `http://localhost:4000/profiles/`
 
 # Credits
 - Materialize: [Alvin Wang et al](http://materializecss.com/)
