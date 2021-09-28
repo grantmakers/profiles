@@ -16,6 +16,10 @@ try {
     streamArray(),
     data => {
       const doc = data.value;
+      // Mutute the array and keep only the largest 50 grants
+      doc.grants.sort((a, b) => b.amount - a.amount);
+      doc.grants.splice(50);
+      
       return doc;
     },
   ]);
