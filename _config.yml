@@ -8,6 +8,10 @@ baseurl: /profiles # Leave this blank unless your site is located on a subpath, 
 url: https://www.grantmakers.io # Typically http://www.yourdomain.org
 sass:
   sass_dir: assets/css/_sass
+# The following helps troubleshoot automated build issues
+strict_front_matter: true
+liquid:
+  error_mode: strict
 
 portfolio_dir: v0
 skip_related_projects: true
