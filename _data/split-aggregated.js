@@ -11,7 +11,7 @@ const fs   = require('fs');
 
 try {
   const pipeline = chain([
-    fs.createReadStream('aggregated.json'),
+    fs.createReadStream('./_data/aggregated.json'),
     parser(),
     streamArray(),
     data => {
@@ -27,7 +27,7 @@ try {
   let counter = 0;
   pipeline.on('data', (data) => {
     counter++;
-    fs.writeFileSync('ein/' + data.ein + '.json', JSON.stringify(data), 'utf-8');
+    fs.writeFileSync('./_data/ein/' + data.ein + '.json', JSON.stringify(data), 'utf-8');
   });
   pipeline.on('end', () => {
     console.log(`Processed ${counter} documents.`);
