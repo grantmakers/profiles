@@ -7,6 +7,9 @@
 version: 2.1 # Set the CI version.
 jobs:
   deploy:
+    # If need to set a working_directory, set it here
+    # Path will then be /home/circleci/project/[the new working_directory]
+    # Not that useful in this test script as there's only one job (deploy)
     docker:
       - image: circleci/ruby:2.7.4-node
     steps:
@@ -68,6 +71,7 @@ jobs:
       - run: 
           name: Build Jekyll
           command: JEKYLL_ENV=production bundle exec jekyll build
+          no_output_timeout: 150m
       - deploy:
           name: Deploy Release to GitHub
           command: |
