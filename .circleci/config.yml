@@ -26,11 +26,14 @@ jobs:
           paths:
             - vendor/bundle
           key: gem-cache-v1-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
-      # TODO If the below doesn't work, install npm and use package.json
+      # TODO Doesn't appear yarn import is working
+      # Hence the need to yarn add the two packages
       - run: 
           name: Convert npm to yarn
           command: yarn import
       - run: yarn
+      - run: yarn add stream-chain
+      - run: yarn add stream-json
       - run: 
           name: Fetch aggregated.json
           command: wget $AGGREGATED_JSON_PUBLIC_URL -O _data/aggregated.json
