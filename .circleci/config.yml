@@ -11,12 +11,14 @@ jobs:
       - image: circleci/ruby:2.7.4-node
     steps:
       - restore_cache:
+          name: Restore cache - checkout
           keys:
             - source-v2-{{ .Branch }}-{{ .Revision }}
             - source-v2-{{ .Branch }}-
             - source-v2-
       - checkout
       - save_cache:
+          name: Save cache - checkout
           key: source-v2-{{ .Branch }}-{{ .Revision }}
           paths:
             - ".git"
@@ -26,12 +28,14 @@ jobs:
             gem update --system
             gem install bundler
       - restore_cache:
+          name: Restore cache - gems
           keys:
             - gem-cache-v1-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
             - gem-cache-v1-{{ arch }}-{{ .Branch }}-
             - gem-cache-v1-{{ arch }}-
       - run: bundle install --path=vendor/bundle && bundle clean
       - save_cache:
+          name: Save cache - gems
           paths:
             - vendor/bundle
           key: gem-cache-v1-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
@@ -45,6 +49,7 @@ jobs:
       - run: yarn add stream-json
       - run: echo $PWD
       - restore_cache:
+          name: Restore cache - aggregated.json
           keys:
             - aggregated-v1-{{ .Branch }}-{{ .Revision }}
             - aggregated-v1-{{ .Branch }}-
@@ -53,6 +58,7 @@ jobs:
           name: Fetch aggregated.json
           command: wget $AGGREGATED_JSON_PUBLIC_URL -O _data/aggregated.json
       - save_cache:
+          name: Save cache - aggregated.json
           key: aggregated-v1-{{ .Branch }}-{{ .Revision }}
           paths:
             - "_data/aggregated.json"
