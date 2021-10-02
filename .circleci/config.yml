@@ -30,6 +30,7 @@ jobs:
       - run: 
           name: Convert npm to yarn
           command: yarn import
+      - run: yarn
       - run: 
           name: Fetch aggregated.json
           command: wget $AGGREGATED_JSON_PUBLIC_URL -O _data/aggregated.json
