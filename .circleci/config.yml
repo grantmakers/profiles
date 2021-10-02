@@ -10,7 +10,17 @@ jobs:
     docker:
       - image: circleci/ruby:2.7.4-node
     steps:
+      - restore_cache:
+          keys:
+            - source-v1-{{ .Branch }}-{{ .Revision }}
+            - source-v1-{{ .Branch }}-
+            - source-v1-
       - checkout
+      # TODO Remove this temp step
+      - save_cache:
+          key: source-v1-{{ .Branch }}-{{ .Revision }}
+          paths:
+            - ".git"
       - run:
           name: Install dependencies
           command: |
@@ -35,9 +45,18 @@ jobs:
       - run: yarn add stream-chain
       - run: yarn add stream-json
       - run: echo $PWD
-      #- run: 
-      #    name: Fetch aggregated.json
-      #    command: wget $AGGREGATED_JSON_PUBLIC_URL -O _data/aggregated.json
+      - restore_cache:
+          keys:
+            - aggregated-v1-{{ .Branch }}-{{ .Revision }}
+            - aggregated-v1-{{ .Branch }}-
+            - aggregated-v1-
+      - run: 
+          name: Fetch aggregated.json
+          command: wget $AGGREGATED_JSON_PUBLIC_URL -O _data/aggregated.json
+      - save_cache:
+          key: aggregated-v1-{{ .Branch }}-{{ .Revision }}
+          paths:
+            - "_data/aggregated.json"
       - run: 
           name: Split aggregated.json
           command: node _data/split-aggregated.js
