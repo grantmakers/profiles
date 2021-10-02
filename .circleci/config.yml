@@ -33,15 +33,9 @@ jobs:
       - run: 
           name: Fetch aggregated.json
           command: wget $AGGREGATED_JSON_PUBLIC_URL -O _data/aggregated.json
-      # TODO Dry this up with declared paths
-      - run: cd _data
       - run: 
           name: Split aggregated.json
-          command: node split-aggregated.js
-      - run: cd ..
-      - run: 
-          name: Split aggregated.json
-          command: node split-aggregated.js
+          command: node _data/split-aggregated.js
       - run: 
           name: Build Jekyll
           command: JEKYLL_ENV=production bundle exec jekyll build
