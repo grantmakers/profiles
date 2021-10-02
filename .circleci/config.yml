@@ -34,9 +34,10 @@ jobs:
       - run: yarn
       - run: yarn add stream-chain
       - run: yarn add stream-json
-      - run: 
-          name: Fetch aggregated.json
-          command: wget $AGGREGATED_JSON_PUBLIC_URL -O _data/aggregated.json
+      - run: echo $PWD
+      #- run: 
+      #    name: Fetch aggregated.json
+      #    command: wget $AGGREGATED_JSON_PUBLIC_URL -O _data/aggregated.json
       - run: 
           name: Split aggregated.json
           command: node _data/split-aggregated.js
