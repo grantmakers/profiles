@@ -5,6 +5,8 @@
 # AGGREGATED_JSON_PUBLIC_URL
 #
 version: 2.1 # Set the CI version.
+orbs:
+  slack: circleci/slack@4.4.4
 jobs:
   deploy:
     # If need to set a working_directory, set it here
@@ -100,6 +102,12 @@ jobs:
             if [ $CIRCLE_BRANCH == 'todo_change_to_source' ]; then
               bash .circleci/deploy.sh
             fi
+      - slack/notify:
+          event: fail
+          template: basic_fail_1
+      - slack/notify:
+          event: pass
+          template: basic_success_1
 workflows:
   version: 2
   build:
