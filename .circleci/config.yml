@@ -12,6 +12,7 @@ jobs:
     # Not that useful in this test script as there's only one job (deploy)
     docker:
       - image: circleci/ruby:2.7.4-node
+    resource_class: medium+
     steps:
       - restore_cache:
           name: Restore cache - checkout
