@@ -10,10 +10,31 @@ jobs:
     # If need to set a working_directory, set it here
     # Path will then be /home/circleci/project/[the new working_directory]
     # Not that useful in this test script as there's only one job (deploy)
-    docker:
-      - image: circleci/ruby:2.7.4-node
     resource_class: medium
+    machine:
+      image: ubuntu-2004:202107-02
     steps:
+      - restore_cache:
+          name: Restore cache - node and deps
+          keys:
+            - node-v1-{{ .Branch }}-{{ .Revision }}
+            - node-v1-{{ .Branch }}-
+            - node-v1-
+      - run:
+          name: Install node and deps using nvm
+          command: |
+            set +e
+            wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash &&  sudo /opt/circleci/.nvm/nvm.sh
+            export NVM_DIR="/opt/circleci/.nvm"
+            [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+            nvm install v14.17.6            
+            npm install stream-json
+      - save_cache:
+          name: Save cache - node and deps
+          key: node-v1-{{ .Branch }}-{{ .Revision }}
+          paths:
+            - /home/ubuntu/nvm/versions/node/14.17.6/bin
+            - /home/ubuntu/nvm/versions/node/14.17.6/lib/node_modules
       - restore_cache:
           name: Restore cache - checkout
           keys:
@@ -43,14 +64,6 @@ jobs:
           paths:
             - vendor/bundle
           key: gem-cache-v1-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
-      # TODO Doesn't appear yarn import is working
-      # Hence the need to yarn add the two packages
-      - run: 
-          name: Convert npm to yarn
-          command: yarn import
-      - run: yarn
-      - run: yarn add stream-chain
-      - run: yarn add stream-json
       - run: echo $PWD
       - restore_cache:
           name: Restore cache - aggregated.json
