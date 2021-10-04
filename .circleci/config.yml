@@ -16,7 +16,71 @@ jobs:
     docker:
       - image: circleci/ruby:2.7.4-node
     steps:
+      - run:
+           name: Set ruby version to 2.7.4
+           command: |
+                rvm use 2.7.4
+                echo . $(rvm 2.7.4 do rvm env --path) >> $BASH_ENV
+      - restore_cache:
+          name: Restore cache - checkout
+          keys:
+            - source-v2-{{ .Branch }}-{{ .Revision }}
+            - source-v2-{{ .Branch }}-
+            - source-v2-
       - checkout
+      - save_cache:
+          name: Save cache - checkout
+          key: source-v2-{{ .Branch }}-{{ .Revision }}
+          paths:
+            - ".git"
+      - run:
+          name: Install dependencies
+          command: |
+            gem update --system
+            gem install bundler
+      - restore_cache:
+          name: Restore cache - gems
+          keys:
+            - gem-cache-v1-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
+            - gem-cache-v1-{{ arch }}-{{ .Branch }}-
+            - gem-cache-v1-{{ arch }}-
+      - run: |
+          bundle config set --local path 'vendor/bundle'
+          bundle install 
+          bundle clean
+      - save_cache:
+          name: Save cache - gems
+          paths:
+            - vendor/bundle
+          key: gem-cache-v1-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
+      - run: echo $PWD
+      - restore_cache:
+          name: Restore cache - aggregated.json
+          keys:
+            - aggregated-v1-{{ .Branch }}-{{ .Revision }}
+            - aggregated-v1-{{ .Branch }}-
+            - aggregated-v1-
+      - run: 
+          name: Fetch aggregated.json
+          command: wget $AGGREGATED_JSON_PUBLIC_URL -O _data/aggregated.json
+      - save_cache:
+          name: Save cache - aggregated.json
+          key: aggregated-v1-{{ .Branch }}-{{ .Revision }}
+          paths:
+            - "_data/aggregated.json"
+      - run: 
+          name: Split aggregated.json
+          command: node _data/split-aggregated.js
+      - run: 
+          name: Build Jekyll
+          command: JEKYLL_ENV=production bundle exec jekyll build
+          no_output_timeout: 150m
+      - deploy:
+          name: Deploy Release to GitHub
+          command: |
+            if [ $CIRCLE_BRANCH == 'todo_change_to_source' ]; then
+              bash .circleci/deploy.sh
+            fi
       - slack/notify:
           event: fail
           template: basic_fail_1
