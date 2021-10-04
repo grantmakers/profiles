@@ -12,96 +12,11 @@ jobs:
     # If need to set a working_directory, set it here
     # Path will then be /home/circleci/project/[the new working_directory]
     # Not that useful in this test script as there's only one job (deploy)
-    resource_class: medium
-    machine:
-      image: ubuntu-2004:202107-02
+    resource_class: small
+    docker:
+      - image: circleci/ruby:2.7.4-node
     steps:
-      - run:
-           name: Set ruby version to 2.7.4
-           command: |
-                rvm install 2.7.4
-                echo . $(rvm 2.7.4 do rvm env --path) >> $BASH_ENV
-      - restore_cache:
-          name: Restore cache - node and deps
-          keys:
-            - node-v1-{{ .Branch }}-{{ .Revision }}
-            - node-v1-{{ .Branch }}-
-            - node-v1-
-      - run:
-          name: Install node and deps using nvm
-          command: |
-            set +e
-            wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash &&  sudo /opt/circleci/.nvm/nvm.sh
-            export NVM_DIR="/opt/circleci/.nvm"
-            [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-            nvm install v14.17.6            
-            npm install stream-json
-      - save_cache:
-          name: Save cache - node and deps
-          key: node-v1-{{ .Branch }}-{{ .Revision }}
-          paths:
-            - /home/ubuntu/nvm/versions/node/14.17.6/bin
-            - /home/ubuntu/nvm/versions/node/14.17.6/lib/node_modules
-      - restore_cache:
-          name: Restore cache - checkout
-          keys:
-            - source-v2-{{ .Branch }}-{{ .Revision }}
-            - source-v2-{{ .Branch }}-
-            - source-v2-
       - checkout
-      - save_cache:
-          name: Save cache - checkout
-          key: source-v2-{{ .Branch }}-{{ .Revision }}
-          paths:
-            - ".git"
-      - run:
-          name: Install dependencies
-          command: |
-            gem update --system
-            gem install bundler
-      - restore_cache:
-          name: Restore cache - gems
-          keys:
-            - gem-cache-v1-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
-            - gem-cache-v1-{{ arch }}-{{ .Branch }}-
-            - gem-cache-v1-{{ arch }}-
-      - run: |
-          bundle config set --local path 'vendor/bundle'
-          bundle install 
-          bundle clean
-      - save_cache:
-          name: Save cache - gems
-          paths:
-            - vendor/bundle
-          key: gem-cache-v1-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
-      - run: echo $PWD
-      - restore_cache:
-          name: Restore cache - aggregated.json
-          keys:
-            - aggregated-v1-{{ .Branch }}-{{ .Revision }}
-            - aggregated-v1-{{ .Branch }}-
-            - aggregated-v1-
-      - run: 
-          name: Fetch aggregated.json
-          command: wget $AGGREGATED_JSON_PUBLIC_URL -O _data/aggregated.json
-      - save_cache:
-          name: Save cache - aggregated.json
-          key: aggregated-v1-{{ .Branch }}-{{ .Revision }}
-          paths:
-            - "_data/aggregated.json"
-      - run: 
-          name: Split aggregated.json
-          command: node _data/split-aggregated.js
-      - run: 
-          name: Build Jekyll
-          command: JEKYLL_ENV=production bundle exec jekyll build
-          no_output_timeout: 150m
-      - deploy:
-          name: Deploy Release to GitHub
-          command: |
-            if [ $CIRCLE_BRANCH == 'todo_change_to_source' ]; then
-              bash .circleci/deploy.sh
-            fi
       - slack/notify:
           event: fail
           template: basic_fail_1
