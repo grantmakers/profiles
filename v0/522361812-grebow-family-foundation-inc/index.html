@@ -59,7 +59,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
 
   <!-- CSS Files -->
-  <link rel="stylesheet" href="/profiles/assets/css/main.css?v=20211002">
+  <link rel="stylesheet" href="/profiles/assets/css/main.css?v=20211022">
 
   <!-- Schema.org -->
   
@@ -114,18 +114,13 @@
   <!-- Search and Algolia-related scripts -->
   <script defer src="https://cdnjs.cloudflare.com/ajax/libs/algoliasearch/3.33.0/algoliasearchLite.min.js" integrity="sha256-3Laj91VXexjTlFLgL8+vvIq27laXdRmFIcO2miulgEs=" crossorigin="anonymous"></script>
   
-  
-  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/instantsearch.js/3.6.0/instantsearch.production.min.js" integrity="sha256-N/ZioXfJ7+qk2cejhAJsm0+ed/l/445mZGjpEWeyeR4=" crossorigin="anonymous"></script>
-  
-  <script defer src="/profiles/assets/js/search.js?v=20211002"></script>
-  
   <script defer src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.37.1/autocomplete.min.js" integrity="sha256-YVWQosorZnr6fALvOW9VALYuInld27RkSPkElGBdCaU=" crossorigin="anonymous"></script>
   <script defer src="/profiles/assets/js/autocomplete.js"></script>
 
-  <script src="/profiles/assets/js/profile.js?v=20211002"></script>
+  <script src="/profiles/assets/js/profile.js?v=20211022"></script>
 
   <!-- Vue -->
-  <!--<link rel="prefetch" href="/profiles/assets/js/bundle.js?v=20211002" as="script"> -->
+  <!--<link rel="prefetch" href="/profiles/assets/js/bundle.js?v=20211022" as="script"> -->
   
   <!-- Drift Widget -->
   <!-- <script defer src="/profiles/assets/js/drift-init.js"></script> -->
@@ -161,8 +156,6 @@
                 <a href="https://www.grantmakers.io/search/profiles/" class="breadcrumb hide-on-large-and-down" data-ga="Breadcrumb Profile Search">Foundation Profiles</a>
                 <span class="breadcrumb">GREBOW FAMILY FOUNDATION INC</span>
               </div>
-              
-                <span class="algolia-partnership-logo print-hidden"><a href="http://goto.algolia.com/l/139121/2017-10-24/26gc84"><img src="/profiles/assets/img/algolia-partnership-logo.svg" alt="Algolia Partnership Logo"></a></span>
               
             </div>
             <div class="col m6 l6 xl5 hide-on-med-and-down print-hidden">
@@ -464,25 +457,14 @@
                       <div class="card-panel-header">
                         <div class="row">
                           <div class="col s12 m3">
-                            <h4>Grants <span class="text-muted algolia-logo right hide-on-med-and-up print-hidden">Search powered by<br><a href="http://goto.algolia.com/l/139121/2017-10-24/26gc84" class="algolia-light-bg"><img src="/profiles/assets/img/algolia-light-bg.svg" alt="Powered by Algolia"></a></span><a href="#" data-target="algolia-mobile" class="sidenav-trigger right hide"><i class="material-icons text-muted">filter_list</i></a></h4>
+                            <h4>Grants</h4>
                           </div>
                           <div class="col s12 m6 print-hidden">
-                            
-                              <div class="search js-ie-check">
-                                <div class="input-field text-muted">
-                                  <!--
-                                  <i id="search-input-icon" class="material-icons prefix grey-text text-lighten-1">search</i>
-                                  <input id="ais-widget-search-box" type="search" />
-                                  <label for="ais-widget-search-box"></label>
-                                  -->
-                                  <div id="ais-widget-search-box"></div>
-                                </div>
-                              </div>
                             
                           </div>
                           <div class="col s12 m3 right-align print-hidden">
                             
-                              <div class="right-align text-muted algolia-logo hide-on-small-only">Search powered by<br><a class="algolia-light-bg" href="http://goto.algolia.com/l/139121/2017-10-24/26gc84"><img src="/profiles/assets/img/algolia-light-bg.svg" alt="Powered by Algolia"></a></div>
+                              <h4 class="right hide-on-small-only"><button class="tooltipped valign-wrapper" data-tooltip="Grants made in 2012 tax year"><img src="/profiles/assets/img/irs-w-text-alt.png" alt="IRS logo" class="icon-irs-alt"></button></h4>
                             
                           </div>
                         </div>
@@ -490,334 +472,379 @@
                       </div>
                   </div>
                   
-                  <div class="section section-results js-ie-check">
-                    <div id="rate-limit-message" class="hidden">
-  <div class="row">
-    <div class="col s12">
-      <div class="card">
-        <div class="card-content">
-          <h5>You have reached the hourly search limit</h5>
-          <p>We place limits on the number of searches to allow the maximum number of people access to this free service. You and/or your colleagues have reached this limit. Please try again in one hour. If you feel this was in error, please <a href="mailto:opensource@grantmakers.io">get in touch</a>.</p>
-        </div>
-        <div class="card-action">
-          <p>If you are trying to capture data using automated means, the data is freely available on <a href="https://github.com/grantmakers/grantmakers.github.io/">Github</a></p> 
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-                    <div id="forbidden-message" class="hidden">
-  <div class="row">
-    <div class="col s12">
-      <div class="card">
-        <div class="card-content">
-          <span class="card-title"><strong>Check your url</strong> <br>Search results are only available at <a href="/">Grantmakers.io</a></span> 
-          <p>We limit search results to Grantmakers.io to allow the maximum number of people access to this free service. The page you landed on is not Grantmakers.io.</p> 
-        </div>
-        <div class="card-action">
-          <p><a class="btn-flat blue-grey white-text" href="https://www.grantmakers.io/">Go to Grantmakers</a></p>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-                    <div id="algolia-hits-wrapper" class="row">
-                      <div class="col s12 l3">
-                        <!-- Filters / Refinements header -->
-                        <div class="ais-root ais-stats">
-                          <div class="ais-body ais-stats--body">
-                            <div class="text-muted hide-on-med-and-down">
-                              Filters
-                            </div>
-                            <div class="hide-on-large-only center-align">
-                              <ul class="actions">
-                                <li>
-                                  <span id="ais-widget-mobile-clear-all"></span>
-                                  <a href="#" data-target="refinements-slide-out" class="sidenav-trigger show-on-med-and-down waves-effect waves-light button-collapse btn white grey-text text-darken-3"><i class="material-icons right">filter_list</i> Filter</a>
-                                </li>
-                                <li>
-                                  
-                                </li>
-                              </ul>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="divider hide-on-med-and-down"></div>
-                        <div class="section section-refinements hide-on-med-and-down">
-                          <div id="ais-widget-refinements" class="row"> <!-- Add row class to remove added white space / padding -->
-                            <div class="col s12">
-                              <div id="ais-widget-refinement-list--seo-placeholder"><div class="ais-Panel card">
-  <div class="ais-Panel-header card-header grey lighten-4"><span>Tax Year</span></div>
-  <div class="ais-Panel-body card-content">
-    <div>
-      <div class="ais-RefinementList">
-        <ul class="ais-RefinementList-list">
-          
-            
-              <li class="ais-RefinementList-item">
-                <div>
-                  <label class="ais-RefinementList-label">
-                    <input type="checkbox" class="ais-RefinementList-checkbox filled-in" value="2012"> 
-                    <span class="ais-RefinementList-labelText small">2012</span>
-                    <span class="ais-RefinementList-count right small">35</span> 
-                  </label>
-                </div>
-              </li>
-            
-          
-        </ul>
-      </div>
-    </div>
-  </div>
-</div></div>
-                              <div id="ais-widget-range-slider"></div>
-                              <div id="ais-widget-refinement-list--grantee_state"></div>
-                              <div id="ais-widget-refinement-list--grantee_city"></div>
-                              <div id="ais-widget-refinement-list--grantee_name" ></div>
-                              <div id="ais-widget-refinement-list--grant_purpose"></div>
-                            </div>
-                            <div class="col s12 print-hidden">
-                              <div class="section section-clear-all">
-                                <div id="ais-widget-clear-all" class="center-align"></div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col s12 l9">
-                        <div class="col s12 m9 l9">
-                          <div id="ais-widget-stats"><span class="ais-Stats-text text-muted hide-on-med-and-down">35 results</span></div>
-                        </div>
-                        <div id="ais-widget-sort-by" class="col s12 m3 l3 right-align hidden">
-                          <a class="dropdown-trigger text-muted hide-on-med-and-down" data-target="tax-year-dropdown">
-                            
-                              Tax Year: 2012
-                            
-                          </a>
-                          <div id="ais-widget-refinement-list--tax_year"></div>
-                        </div>
-                        <div class="col s12 divider"></div>
-                        <div class="row">
-                          <div class="col s12"> <!-- Add row class to remove added white space / padding -->
-                            <div class="section">
-                                <div id="ais-widget-current-refined-values"></div>
-                              <div> <!-- Add card class for alt view -->
-                                <div class="card-content">
-                                  <div class="responsive-table-wrapper">
-                                    <div id="ais-widget-hits"><div id="grantsPlaceholderTableWrapper" class="seo-placeholder-table card-panel-body">
+                  <div class="section section-results">
+                    <div class="row">
+                      <div class="col s12">
+                        <div id="grantsTableWrapper" class="card-panel-body">
   <div class="responsive-table-wrapper">
-    <table id="grantsPlaceholderTable" class="striped bordered">
+    
+    <div class="row">
+      <div class="col s12 text-light">
+        Tax Year 2012
+      </div>
+    </div>
+    <table id="grantsTable" class="striped bordered">
       <thead>
         <tr>
-          <th class="text-nowrap right-align" data-sort="int"><span>Amount ($)</span></th>
+          <th data-sort="int" class="text-center"><span>#</span></th>
           <th data-sort="string"><span>Name</span></th>
           <th data-sort="string"><span>Purpose</span></th>
           <th data-sort="string"><span>Location</span></th>
-          <th data-sort="int" class="text-center"><span>Year</span></th>
+          <th class="text-nowrap right-align" data-sort="int"><span>Amount ($)</span></th>
         </tr>
       </thead>
-      <tbody>
+      <tbody id="grantsTableBody">
         
         
           
             <tr>
-              <td class="right-align" data-sort-value="12357">12,357</td>
+              <td class="left-align">1</td>
               <td>BETH ISRAEL CONGREGATION</td>
               <td>RELIGIOUS ENTITY</td>
               
                 <td class="text-nowrap">Owings Mills, MD</td>
               
-              <td class="left-align">2012</td>
+              <td class="right-align" data-sort-value="12357">12,357</td>
             </tr>
           
             <tr>
-              <td class="right-align" data-sort-value="10000">10,000</td>
+              <td class="left-align">2</td>
               <td>JOHNS HOPKINS CHILDRENS CENTER</td>
               <td>EDUCATIONAL PURPOSES</td>
               
                 <td class="text-nowrap">Baltimore, MD</td>
               
-              <td class="left-align">2012</td>
+              <td class="right-align" data-sort-value="10000">10,000</td>
             </tr>
           
             <tr>
-              <td class="right-align" data-sort-value="6900">6,900</td>
+              <td class="left-align">3</td>
               <td>HADASSAH</td>
               <td>WOMEN'S SERVICE & EDUCATIONAL ORGANIZATION</td>
               
                 <td class="text-nowrap">Baltimore, MD</td>
               
-              <td class="left-align">2012</td>
+              <td class="right-align" data-sort-value="6900">6,900</td>
             </tr>
           
             <tr>
-              <td class="right-align" data-sort-value="5450">5,450</td>
+              <td class="left-align">4</td>
               <td>CYSTIC FIBROSIS FOUNDATION</td>
               <td>MEDICAL RESEARCH & EDUCATION</td>
               
                 <td class="text-nowrap">Cockeysville, MD</td>
               
-              <td class="left-align">2012</td>
+              <td class="right-align" data-sort-value="5450">5,450</td>
             </tr>
           
             <tr>
-              <td class="right-align" data-sort-value="3825">3,825</td>
+              <td class="left-align">5</td>
               <td>UNIVERSITY OF MARYLAND COLLEGE PARK FOUNDATION</td>
               <td>EDUCATIONAL PURPOSES</td>
               
                 <td class="text-nowrap">College Park, MD</td>
               
-              <td class="left-align">2012</td>
+              <td class="right-align" data-sort-value="3825">3,825</td>
             </tr>
           
             <tr>
-              <td class="right-align" data-sort-value="2500">2,500</td>
+              <td class="left-align">6</td>
               <td>BETH SHALOM CONGREGATION</td>
               <td>RELIGIOUS ENTITY</td>
               
                 <td class="text-nowrap">Columbia, MD</td>
               
-              <td class="left-align">2012</td>
+              <td class="right-align" data-sort-value="2500">2,500</td>
             </tr>
           
             <tr>
-              <td class="right-align" data-sort-value="2500">2,500</td>
+              <td class="left-align">7</td>
               <td>ROLAND PARK COUNTRY SCHOOL</td>
               <td>EDUCATIONAL PURPOSES</td>
               
                 <td class="text-nowrap">Baltimore, MD</td>
               
-              <td class="left-align">2012</td>
+              <td class="right-align" data-sort-value="2500">2,500</td>
             </tr>
           
             <tr>
-              <td class="right-align" data-sort-value="1760">1,760</td>
+              <td class="left-align">8</td>
               <td>JEWISH FEDERATION OF HOWARD COUNTY</td>
               <td>RELIGIOUS & EDUCATIONAL PURPOSES</td>
               
                 <td class="text-nowrap">Columbia, MD</td>
               
-              <td class="left-align">2012</td>
+              <td class="right-align" data-sort-value="1760">1,760</td>
             </tr>
           
             <tr>
-              <td class="right-align" data-sort-value="1250">1,250</td>
+              <td class="left-align">9</td>
               <td>NATIONAL MULTIPLE SCLEROSIS SOCIETY</td>
               <td>MEDICAL RESEARCH & EDUCATION</td>
               
                 <td class="text-nowrap">New York, NY</td>
               
-              <td class="left-align">2012</td>
+              <td class="right-align" data-sort-value="1250">1,250</td>
             </tr>
           
             <tr>
-              <td class="right-align" data-sort-value="1000">1,000</td>
+              <td class="left-align">10</td>
               <td>THE ASSOCIATED</td>
               <td>PROVIDE CHARITABLE RELIEF IN THE JEWISH COMMUNITY</td>
               
                 <td class="text-nowrap">Baltimore, MD</td>
               
-              <td class="left-align">2012</td>
+              <td class="right-align" data-sort-value="1000">1,000</td>
             </tr>
           
             <tr>
-              <td class="right-align" data-sort-value="700">700</td>
+              <td class="left-align">11</td>
               <td>NIKKI PERLOW FOUNDATION ATTN GARY PERLOW</td>
               <td>MEDICAL RESEARCH & EDUCATION</td>
               
                 <td class="text-nowrap">Baltimore, MD</td>
               
-              <td class="left-align">2012</td>
+              <td class="right-align" data-sort-value="700">700</td>
             </tr>
           
             <tr>
-              <td class="right-align" data-sort-value="700">700</td>
+              <td class="left-align">12</td>
               <td>MARCH OF DIMES</td>
               <td>MEDICAL RESEARCH & PERINATAL MEDICAL SUPPORT</td>
               
                 <td class="text-nowrap">Arlington, VA</td>
               
-              <td class="left-align">2012</td>
+              <td class="right-align" data-sort-value="700">700</td>
             </tr>
           
             <tr>
-              <td class="right-align" data-sort-value="650">650</td>
+              <td class="left-align">13</td>
               <td>AMERICAN CANCER SOCIETY</td>
               <td>MEDICAL RESEARCH</td>
               
                 <td class="text-nowrap">Baltimore, MD</td>
               
-              <td class="left-align">2012</td>
+              <td class="right-align" data-sort-value="650">650</td>
             </tr>
           
             <tr>
-              <td class="right-align" data-sort-value="600">600</td>
+              <td class="left-align">14</td>
               <td>CROHNS & COLITIS FOUNDATION</td>
               <td>MEDICAL RESEARCH & EDUCATION</td>
               
                 <td class="text-nowrap">Columbia, MD</td>
               
-              <td class="left-align">2012</td>
+              <td class="right-align" data-sort-value="600">600</td>
             </tr>
           
             <tr>
-              <td class="right-align" data-sort-value="600">600</td>
+              <td class="left-align">15</td>
               <td>UNIVERSITY OF MICHIGAN</td>
               <td>EDUCATIONAL PURPOSES</td>
               
                 <td class="text-nowrap">Ann Arbor, MI</td>
               
-              <td class="left-align">2012</td>
+              <td class="right-align" data-sort-value="600">600</td>
             </tr>
           
             <tr>
-              <td class="right-align" data-sort-value="500">500</td>
+              <td class="left-align">16</td>
               <td>THE PAPS CORP</td>
               <td>MEDICAL RESEARCH</td>
               
                 <td class="text-nowrap">Deerfield Beach, FL</td>
               
-              <td class="left-align">2012</td>
+              <td class="right-align" data-sort-value="500">500</td>
             </tr>
           
             <tr>
-              <td class="right-align" data-sort-value="430">430</td>
+              <td class="left-align">17</td>
               <td>HELP HOPE LIVE</td>
               <td>FUNDRAISING CAMPAIGNS FOR MEDICAL BILLS</td>
               
                 <td class="text-nowrap">Radnor, PA</td>
               
-              <td class="left-align">2012</td>
+              <td class="right-align" data-sort-value="430">430</td>
             </tr>
           
             <tr>
-              <td class="right-align" data-sort-value="350">350</td>
+              <td class="left-align">18</td>
               <td>ULLMAN CANCER FOUNDATION</td>
               <td>MEDICAL EDUCATION & SUPPORT</td>
               
                 <td class="text-nowrap">Columbia, MD</td>
               
-              <td class="left-align">2012</td>
+              <td class="right-align" data-sort-value="350">350</td>
             </tr>
           
             <tr>
-              <td class="right-align" data-sort-value="300">300</td>
+              <td class="left-align">19</td>
               <td>ALZHEIMER'S FOUNDATION OF AMERICA</td>
               <td>MEDICAL RESEARCH</td>
               
                 <td class="text-nowrap">New York, NY</td>
               
-              <td class="left-align">2012</td>
+              <td class="right-align" data-sort-value="300">300</td>
             </tr>
           
             <tr>
-              <td class="right-align" data-sort-value="250">250</td>
+              <td class="left-align">20</td>
               <td>UNIVERSITY OF MARYLAND CANCER CENTER</td>
               <td>MEDICAL PURPOSES</td>
               
                 <td class="text-nowrap">Baltimore, MD</td>
               
-              <td class="left-align">2012</td>
+              <td class="right-align" data-sort-value="250">250</td>
+            </tr>
+          
+            <tr>
+              <td class="left-align">21</td>
+              <td>DYSLEXIA TUTORING PROGRAM</td>
+              <td>EDUCATIONAL PROGRAMS</td>
+              
+                <td class="text-nowrap">Baltimore, MD</td>
+              
+              <td class="right-align" data-sort-value="200">200</td>
+            </tr>
+          
+            <tr>
+              <td class="left-align">22</td>
+              <td>GIFT OF HOPE</td>
+              <td>ORGAN PROCUREMENT/DONOR NETWORK ORGANIZATION</td>
+              
+                <td class="text-nowrap">Itasca, IL</td>
+              
+              <td class="right-align" data-sort-value="200">200</td>
+            </tr>
+          
+            <tr>
+              <td class="left-align">23</td>
+              <td>KOMEN RACE FOR THE CURE</td>
+              <td>MEDICAL RESEARCH & EDUCATION</td>
+              
+                <td class="text-nowrap">Dallas, TX</td>
+              
+              <td class="right-align" data-sort-value="200">200</td>
+            </tr>
+          
+            <tr>
+              <td class="left-align">24</td>
+              <td>FRIENDS OF THE IDF MARYLAND REGION</td>
+              <td>SOCIAL & EDUCATIONAL PROGRAMS</td>
+              
+                <td class="text-nowrap">Stevenson, MD</td>
+              
+              <td class="right-align" data-sort-value="200">200</td>
+            </tr>
+          
+            <tr>
+              <td class="left-align">25</td>
+              <td>JEWISH NATIONAL FUND</td>
+              <td>ENVIRONMENTAL PROTECTION</td>
+              
+                <td class="text-nowrap">New York, NY</td>
+              
+              <td class="right-align" data-sort-value="172">172</td>
+            </tr>
+          
+            <tr>
+              <td class="left-align">26</td>
+              <td>AMERICAN HEART ASSOCIATION</td>
+              <td>MEDICAL RESEARCH & EDUCATION</td>
+              
+                <td class="text-nowrap">Dallas, TX</td>
+              
+              <td class="right-align" data-sort-value="150">150</td>
+            </tr>
+          
+            <tr>
+              <td class="left-align">27</td>
+              <td>JEWISH FEDERATIONS OF NORTH AMERICA</td>
+              <td>RELIGIOUS & EDUCATIONAL PURPOSES</td>
+              
+                <td class="text-nowrap">New York, NY</td>
+              
+              <td class="right-align" data-sort-value="150">150</td>
+            </tr>
+          
+            <tr>
+              <td class="left-align">28</td>
+              <td>GIFT OF LIFE</td>
+              <td>ORGAN PROCUREMENT/DONOR NETWORK ORGANIZATION</td>
+              
+                <td class="text-nowrap">Philadelphia, PA</td>
+              
+              <td class="right-align" data-sort-value="108">108</td>
+            </tr>
+          
+            <tr>
+              <td class="left-align">29</td>
+              <td>WELLESLEY COLLEGE SCHOLARSHIP FUND</td>
+              <td>EDUCATIONAL PURPOSES</td>
+              
+                <td class="text-nowrap">Wellesley, MA</td>
+              
+              <td class="right-align" data-sort-value="100">100</td>
+            </tr>
+          
+            <tr>
+              <td class="left-align">30</td>
+              <td>COPD FOUNDATION</td>
+              <td>MEDICAL RESEARCH & EDUCATION</td>
+              
+                <td class="text-nowrap">Washington, DC</td>
+              
+              <td class="right-align" data-sort-value="100">100</td>
+            </tr>
+          
+            <tr>
+              <td class="left-align">31</td>
+              <td>RALLY FOR A CURE</td>
+              <td>MEDICAL EDUCATION</td>
+              
+                <td class="text-nowrap">Wilton, CT</td>
+              
+              <td class="right-align" data-sort-value="50">50</td>
+            </tr>
+          
+            <tr>
+              <td class="left-align">32</td>
+              <td>RIDE ACROSS MARYLAND</td>
+              <td>MEDICAL RESEARCH & EDUCATION</td>
+              
+                <td class="text-nowrap">Columbia, MD</td>
+              
+              <td class="right-align" data-sort-value="50">50</td>
+            </tr>
+          
+            <tr>
+              <td class="left-align">33</td>
+              <td>SWIM ACROSS AMERICA</td>
+              <td>MEDICAL RESEARCH & EDUCATION</td>
+              
+                <td class="text-nowrap">Boston, MA</td>
+              
+              <td class="right-align" data-sort-value="50">50</td>
+            </tr>
+          
+            <tr>
+              <td class="left-align">34</td>
+              <td>LEUKEMIA & LYMPHOMA SOCIETY</td>
+              <td>MEDICAL RESEARCH & EDUCATION</td>
+              
+                <td class="text-nowrap">Pittsfield, MA</td>
+              
+              <td class="right-align" data-sort-value="36">36</td>
+            </tr>
+          
+            <tr>
+              <td class="left-align">35</td>
+              <td>BCPS EDUCATION FOUNDATION</td>
+              <td>EDUCATIONAL PURPOSES</td>
+              
+                <td class="text-nowrap">Towson, MD</td>
+              
+              <td class="right-align" data-sort-value="25">25</td>
             </tr>
           
         
@@ -825,19 +852,9 @@
       
     </table>
   </div>
-</div></div>
-                                  </div>
-                                  
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col s12 l9 offset-l3">
-                        <div class="section center-align ">
-                          <div id="ais-widget-pagination"></div>
-                        </div>
+  
+</div>
+                        
                       </div>
                     </div>
                   </div>
@@ -1291,22 +1308,6 @@
 <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "370802ed80eb452faad5ac648390ef30"}'></script>
 <!-- End Cloudflare Web Analytics -->
   
-  
-    <div class="profile-content section-refinements">
-  <!-- Filters / Refinements -->
-  <div class="row">
-    <div class="col s12">
-      <ul id="refinements-slide-out" class="sidenav left-align grey lighten-5">
-        <!-- <li><div class="card"><div id="ais-widget-mobile-refinement-list--purpose"></div></div></li> -->
-        <li><div class="card"><div id="ais-widget-mobile-refinement-list--grantee_state"></div></div></li>
-        <li><div class="card"><div id="ais-widget-mobile-refinement-list--grantee_city"></div></div></li>
-        <li><div class="card"><div id="ais-widget-mobile-refinement-list--grantee_name"></div></div></li>
-        <li><div class="card"><div id="ais-widget-mobile-refinement-list--tax_year"></div></div></li>
-        <li><div class="card"><div id="ais-widget-mobile-refinement-list--grant_purpose"></div></div></li>
-      </ul>
-    </div>
-  </div>
-</div>
   
 
 </body>  

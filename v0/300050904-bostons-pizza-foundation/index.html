@@ -59,7 +59,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
 
   <!-- CSS Files -->
-  <link rel="stylesheet" href="/profiles/assets/css/main.css?v=20211002">
+  <link rel="stylesheet" href="/profiles/assets/css/main.css?v=20211022">
 
   <!-- Schema.org -->
   
@@ -114,18 +114,13 @@
   <!-- Search and Algolia-related scripts -->
   <script defer src="https://cdnjs.cloudflare.com/ajax/libs/algoliasearch/3.33.0/algoliasearchLite.min.js" integrity="sha256-3Laj91VXexjTlFLgL8+vvIq27laXdRmFIcO2miulgEs=" crossorigin="anonymous"></script>
   
-  
-  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/instantsearch.js/3.6.0/instantsearch.production.min.js" integrity="sha256-N/ZioXfJ7+qk2cejhAJsm0+ed/l/445mZGjpEWeyeR4=" crossorigin="anonymous"></script>
-  
-  <script defer src="/profiles/assets/js/search.js?v=20211002"></script>
-  
   <script defer src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.37.1/autocomplete.min.js" integrity="sha256-YVWQosorZnr6fALvOW9VALYuInld27RkSPkElGBdCaU=" crossorigin="anonymous"></script>
   <script defer src="/profiles/assets/js/autocomplete.js"></script>
 
-  <script src="/profiles/assets/js/profile.js?v=20211002"></script>
+  <script src="/profiles/assets/js/profile.js?v=20211022"></script>
 
   <!-- Vue -->
-  <!--<link rel="prefetch" href="/profiles/assets/js/bundle.js?v=20211002" as="script"> -->
+  <!--<link rel="prefetch" href="/profiles/assets/js/bundle.js?v=20211022" as="script"> -->
   
   <!-- Drift Widget -->
   <!-- <script defer src="/profiles/assets/js/drift-init.js"></script> -->
@@ -161,8 +156,6 @@
                 <a href="https://www.grantmakers.io/search/profiles/" class="breadcrumb hide-on-large-and-down" data-ga="Breadcrumb Profile Search">Foundation Profiles</a>
                 <span class="breadcrumb">BOSTONS PIZZA FOUNDATION</span>
               </div>
-              
-                <span class="algolia-partnership-logo print-hidden"><a href="http://goto.algolia.com/l/139121/2017-10-24/26gc84"><img src="/profiles/assets/img/algolia-partnership-logo.svg" alt="Algolia Partnership Logo"></a></span>
               
             </div>
             <div class="col m6 l6 xl5 hide-on-med-and-down print-hidden">
@@ -511,25 +504,14 @@
                       <div class="card-panel-header">
                         <div class="row">
                           <div class="col s12 m3">
-                            <h4>Grants <span class="text-muted algolia-logo right hide-on-med-and-up print-hidden">Search powered by<br><a href="http://goto.algolia.com/l/139121/2017-10-24/26gc84" class="algolia-light-bg"><img src="/profiles/assets/img/algolia-light-bg.svg" alt="Powered by Algolia"></a></span><a href="#" data-target="algolia-mobile" class="sidenav-trigger right hide"><i class="material-icons text-muted">filter_list</i></a></h4>
+                            <h4>Grants</h4>
                           </div>
                           <div class="col s12 m6 print-hidden">
-                            
-                              <div class="search js-ie-check">
-                                <div class="input-field text-muted">
-                                  <!--
-                                  <i id="search-input-icon" class="material-icons prefix grey-text text-lighten-1">search</i>
-                                  <input id="ais-widget-search-box" type="search" />
-                                  <label for="ais-widget-search-box"></label>
-                                  -->
-                                  <div id="ais-widget-search-box"></div>
-                                </div>
-                              </div>
                             
                           </div>
                           <div class="col s12 m3 right-align print-hidden">
                             
-                              <div class="right-align text-muted algolia-logo hide-on-small-only">Search powered by<br><a class="algolia-light-bg" href="http://goto.algolia.com/l/139121/2017-10-24/26gc84"><img src="/profiles/assets/img/algolia-light-bg.svg" alt="Powered by Algolia"></a></div>
+                              <h4 class="right hide-on-small-only"><button class="tooltipped valign-wrapper" data-tooltip="Grants made in 2012 tax year"><img src="/profiles/assets/img/irs-w-text-alt.png" alt="IRS logo" class="icon-irs-alt"></button></h4>
                             
                           </div>
                         </div>
@@ -537,334 +519,249 @@
                       </div>
                   </div>
                   
-                  <div class="section section-results js-ie-check">
-                    <div id="rate-limit-message" class="hidden">
-  <div class="row">
-    <div class="col s12">
-      <div class="card">
-        <div class="card-content">
-          <h5>You have reached the hourly search limit</h5>
-          <p>We place limits on the number of searches to allow the maximum number of people access to this free service. You and/or your colleagues have reached this limit. Please try again in one hour. If you feel this was in error, please <a href="mailto:opensource@grantmakers.io">get in touch</a>.</p>
-        </div>
-        <div class="card-action">
-          <p>If you are trying to capture data using automated means, the data is freely available on <a href="https://github.com/grantmakers/grantmakers.github.io/">Github</a></p> 
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-                    <div id="forbidden-message" class="hidden">
-  <div class="row">
-    <div class="col s12">
-      <div class="card">
-        <div class="card-content">
-          <span class="card-title"><strong>Check your url</strong> <br>Search results are only available at <a href="/">Grantmakers.io</a></span> 
-          <p>We limit search results to Grantmakers.io to allow the maximum number of people access to this free service. The page you landed on is not Grantmakers.io.</p> 
-        </div>
-        <div class="card-action">
-          <p><a class="btn-flat blue-grey white-text" href="https://www.grantmakers.io/">Go to Grantmakers</a></p>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-                    <div id="algolia-hits-wrapper" class="row">
-                      <div class="col s12 l3">
-                        <!-- Filters / Refinements header -->
-                        <div class="ais-root ais-stats">
-                          <div class="ais-body ais-stats--body">
-                            <div class="text-muted hide-on-med-and-down">
-                              Filters
-                            </div>
-                            <div class="hide-on-large-only center-align">
-                              <ul class="actions">
-                                <li>
-                                  <span id="ais-widget-mobile-clear-all"></span>
-                                  <a href="#" data-target="refinements-slide-out" class="sidenav-trigger show-on-med-and-down waves-effect waves-light button-collapse btn white grey-text text-darken-3"><i class="material-icons right">filter_list</i> Filter</a>
-                                </li>
-                                <li>
-                                  
-                                </li>
-                              </ul>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="divider hide-on-med-and-down"></div>
-                        <div class="section section-refinements hide-on-med-and-down">
-                          <div id="ais-widget-refinements" class="row"> <!-- Add row class to remove added white space / padding -->
-                            <div class="col s12">
-                              <div id="ais-widget-refinement-list--seo-placeholder"><div class="ais-Panel card">
-  <div class="ais-Panel-header card-header grey lighten-4"><span>Tax Year</span></div>
-  <div class="ais-Panel-body card-content">
-    <div>
-      <div class="ais-RefinementList">
-        <ul class="ais-RefinementList-list">
-          
-            
-              <li class="ais-RefinementList-item">
-                <div>
-                  <label class="ais-RefinementList-label">
-                    <input type="checkbox" class="ais-RefinementList-checkbox filled-in" value="2012"> 
-                    <span class="ais-RefinementList-labelText small">2012</span>
-                    <span class="ais-RefinementList-count right small">22</span> 
-                  </label>
-                </div>
-              </li>
-            
-          
-        </ul>
-      </div>
-    </div>
-  </div>
-</div></div>
-                              <div id="ais-widget-range-slider"></div>
-                              <div id="ais-widget-refinement-list--grantee_state"></div>
-                              <div id="ais-widget-refinement-list--grantee_city"></div>
-                              <div id="ais-widget-refinement-list--grantee_name" ></div>
-                              <div id="ais-widget-refinement-list--grant_purpose"></div>
-                            </div>
-                            <div class="col s12 print-hidden">
-                              <div class="section section-clear-all">
-                                <div id="ais-widget-clear-all" class="center-align"></div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col s12 l9">
-                        <div class="col s12 m9 l9">
-                          <div id="ais-widget-stats"><span class="ais-Stats-text text-muted hide-on-med-and-down">22 results</span></div>
-                        </div>
-                        <div id="ais-widget-sort-by" class="col s12 m3 l3 right-align hidden">
-                          <a class="dropdown-trigger text-muted hide-on-med-and-down" data-target="tax-year-dropdown">
-                            
-                              Tax Year: 2012
-                            
-                          </a>
-                          <div id="ais-widget-refinement-list--tax_year"></div>
-                        </div>
-                        <div class="col s12 divider"></div>
-                        <div class="row">
-                          <div class="col s12"> <!-- Add row class to remove added white space / padding -->
-                            <div class="section">
-                                <div id="ais-widget-current-refined-values"></div>
-                              <div> <!-- Add card class for alt view -->
-                                <div class="card-content">
-                                  <div class="responsive-table-wrapper">
-                                    <div id="ais-widget-hits"><div id="grantsPlaceholderTableWrapper" class="seo-placeholder-table card-panel-body">
+                  <div class="section section-results">
+                    <div class="row">
+                      <div class="col s12">
+                        <div id="grantsTableWrapper" class="card-panel-body">
   <div class="responsive-table-wrapper">
-    <table id="grantsPlaceholderTable" class="striped bordered">
+    
+    <div class="row">
+      <div class="col s12 text-light">
+        Tax Year 2012
+      </div>
+    </div>
+    <table id="grantsTable" class="striped bordered">
       <thead>
         <tr>
-          <th class="text-nowrap right-align" data-sort="int"><span>Amount ($)</span></th>
+          <th data-sort="int" class="text-center"><span>#</span></th>
           <th data-sort="string"><span>Name</span></th>
           <th data-sort="string"><span>Purpose</span></th>
           <th data-sort="string"><span>Location</span></th>
-          <th data-sort="int" class="text-center"><span>Year</span></th>
+          <th class="text-nowrap right-align" data-sort="int"><span>Amount ($)</span></th>
         </tr>
       </thead>
-      <tbody>
+      <tbody id="grantsTableBody">
         
         
           
             <tr>
-              <td class="right-align" data-sort-value="76000">76,000</td>
+              <td class="left-align">1</td>
               <td>Kids Matter International</td>
               <td>GENERAL FUND-SUPPORT PROGRAMS</td>
               
                 <td class="text-nowrap">Southlake, TX</td>
               
-              <td class="left-align">2012</td>
+              <td class="right-align" data-sort-value="76000">76,000</td>
             </tr>
           
             <tr>
-              <td class="right-align" data-sort-value="24939">24,939</td>
+              <td class="left-align">2</td>
               <td>American Lebanese Syrian Assoc Charities Inc</td>
               <td>GENERAL FUND-SUPPORT PROGRAMS</td>
               
                 <td class="text-nowrap">Memphis, TN</td>
               
-              <td class="left-align">2012</td>
+              <td class="right-align" data-sort-value="24939">24,939</td>
             </tr>
           
             <tr>
-              <td class="right-align" data-sort-value="7432">7,432</td>
+              <td class="left-align">3</td>
               <td>KRADDICK FOUNDATION dba KIDD'S KIDS</td>
               <td>GENERAL FUND-SUPPORT PROGRAMS</td>
               
                 <td class="text-nowrap">Irving, TX</td>
               
-              <td class="left-align">2012</td>
+              <td class="right-align" data-sort-value="7432">7,432</td>
             </tr>
           
             <tr>
-              <td class="right-align" data-sort-value="3919">3,919</td>
+              <td class="left-align">4</td>
               <td>American Heart Association Inc</td>
               <td>GENERAL FUND-SUPPORT PROGRAMS</td>
               
                 <td class="text-nowrap">Dallas, TX</td>
               
-              <td class="left-align">2012</td>
+              <td class="right-align" data-sort-value="3919">3,919</td>
             </tr>
           
             <tr>
-              <td class="right-align" data-sort-value="3726">3,726</td>
+              <td class="left-align">5</td>
               <td>HUMANE SOCIETY OF TAMPA BAY INC</td>
               <td>GENERAL FUND-SUPPORT PROGRAMS</td>
               
                 <td class="text-nowrap">Tampa, FL</td>
               
-              <td class="left-align">2012</td>
+              <td class="right-align" data-sort-value="3726">3,726</td>
             </tr>
           
             <tr>
-              <td class="right-align" data-sort-value="2455">2,455</td>
+              <td class="left-align">6</td>
               <td>MID-OHIO FOOD BANK</td>
               <td>GENERAL FUND-SUPPORT PROGRAMS</td>
               
                 <td class="text-nowrap">Grove City, OH</td>
               
-              <td class="left-align">2012</td>
+              <td class="right-align" data-sort-value="2455">2,455</td>
             </tr>
           
             <tr>
-              <td class="right-align" data-sort-value="2107">2,107</td>
+              <td class="left-align">7</td>
               <td>CHRISTUS SANTA ROSA CHILDRENS HOSPITAL</td>
               <td>GENERAL FUND-SUPPORT PROGRAMS</td>
               
                 <td class="text-nowrap">San Antonio, TX</td>
               
-              <td class="left-align">2012</td>
+              <td class="right-align" data-sort-value="2107">2,107</td>
             </tr>
           
             <tr>
-              <td class="right-align" data-sort-value="1961">1,961</td>
+              <td class="left-align">8</td>
               <td>Juvenile Diabetes Research Foundation</td>
               <td>GENERAL FUND-SUPPORT PROGRAMS</td>
               
                 <td class="text-nowrap">New York, NY</td>
               
-              <td class="left-align">2012</td>
+              <td class="right-align" data-sort-value="1961">1,961</td>
             </tr>
           
             <tr>
-              <td class="right-align" data-sort-value="1945">1,945</td>
+              <td class="left-align">9</td>
               <td>DIABETES INCORPORATED</td>
               <td>GENERAL FUND-SUPPORT PROGRAMS</td>
               
                 <td class="text-nowrap">Rapit City, SD</td>
               
-              <td class="left-align">2012</td>
+              <td class="right-align" data-sort-value="1945">1,945</td>
             </tr>
           
             <tr>
-              <td class="right-align" data-sort-value="1500">1,500</td>
+              <td class="left-align">10</td>
               <td>STATE FAIR OF TEXAS</td>
               <td>GENERAL FUND-SUPPORT PROGRAMS</td>
               
                 <td class="text-nowrap">Dallas, TX</td>
               
-              <td class="left-align">2012</td>
+              <td class="right-align" data-sort-value="1500">1,500</td>
             </tr>
           
             <tr>
-              <td class="right-align" data-sort-value="1500">1,500</td>
+              <td class="left-align">11</td>
               <td>PROMISE HOUSE</td>
               <td>GENERAL FUND-SUPPORT PROGRAMS</td>
               
                 <td class="text-nowrap">Dallas, TX</td>
               
-              <td class="left-align">2012</td>
+              <td class="right-align" data-sort-value="1500">1,500</td>
             </tr>
           
             <tr>
-              <td class="right-align" data-sort-value="1150">1,150</td>
+              <td class="left-align">12</td>
               <td>MUNSTER MEDICAL RESEARCH FOUNDATION</td>
               <td>GENERAL FUND-SUPPORT PROGRAMS</td>
               
                 <td class="text-nowrap">Munster, IN</td>
               
-              <td class="left-align">2012</td>
+              <td class="right-align" data-sort-value="1150">1,150</td>
             </tr>
           
             <tr>
-              <td class="right-align" data-sort-value="1066">1,066</td>
+              <td class="left-align">13</td>
               <td>JDRF DESSERT SW NEW MEXICO CHAPTER</td>
               <td>GENERAL FUND-SUPPORT PROGRAMS</td>
               
                 <td class="text-nowrap">Albuquerque, NM</td>
               
-              <td class="left-align">2012</td>
+              <td class="right-align" data-sort-value="1066">1,066</td>
             </tr>
           
             <tr>
-              <td class="right-align" data-sort-value="1000">1,000</td>
+              <td class="left-align">14</td>
               <td>Canadian-American Chamber of Commerce</td>
               <td>GENERAL FUND-SUPPORT PROGRAMS</td>
               
                 <td class="text-nowrap">Irving, TX</td>
               
-              <td class="left-align">2012</td>
+              <td class="right-align" data-sort-value="1000">1,000</td>
             </tr>
           
             <tr>
-              <td class="right-align" data-sort-value="996">996</td>
+              <td class="left-align">15</td>
               <td>GUARDIAN ANGLES FOR SOLDIER'S PET</td>
               <td>GENERAL FUND-SUPPORT PROGRAMS</td>
               
                 <td class="text-nowrap">Gatesville, TX</td>
               
-              <td class="left-align">2012</td>
+              <td class="right-align" data-sort-value="996">996</td>
             </tr>
           
             <tr>
-              <td class="right-align" data-sort-value="841">841</td>
+              <td class="left-align">16</td>
               <td>THE EDUCATION FOUNDATION OF COLLIER COUNTY</td>
               <td>GENERAL FUND-SUPPORT PROGRAMS</td>
               
                 <td class="text-nowrap">Naples, FL</td>
               
-              <td class="left-align">2012</td>
+              <td class="right-align" data-sort-value="841">841</td>
             </tr>
           
             <tr>
-              <td class="right-align" data-sort-value="824">824</td>
+              <td class="left-align">17</td>
               <td>MIKE'S GUARDIAN EAGLE FOUNDATION</td>
               <td>GENERAL FUND-SUPPORT PROGRAMS</td>
               
                 <td class="text-nowrap">Clearfiled, UT</td>
               
-              <td class="left-align">2012</td>
+              <td class="right-align" data-sort-value="824">824</td>
             </tr>
           
             <tr>
-              <td class="right-align" data-sort-value="625">625</td>
+              <td class="left-align">18</td>
               <td>Lewisville ISD- Special Olympics</td>
               <td>Lewisville ISD Special Olympics Team</td>
               
                 <td class="text-nowrap">Flower Mound, TX</td>
               
-              <td class="left-align">2012</td>
+              <td class="right-align" data-sort-value="625">625</td>
             </tr>
           
             <tr>
-              <td class="right-align" data-sort-value="410">410</td>
+              <td class="left-align">19</td>
               <td>WELLSPRING REVIVAL MINISTRIES INC</td>
               <td>GENERAL FUND-SUPPORT PROGRAMS</td>
               
                 <td class="text-nowrap">Fairbanks, AK</td>
               
-              <td class="left-align">2012</td>
+              <td class="right-align" data-sort-value="410">410</td>
             </tr>
           
             <tr>
-              <td class="right-align" data-sort-value="321">321</td>
+              <td class="left-align">20</td>
               <td>FARIBAULT AREA FOOD SHELF</td>
               <td>GENERAL FUND-SUPPORT PROGRAMS</td>
               
                 <td class="text-nowrap">Faribault, MN</td>
               
-              <td class="left-align">2012</td>
+              <td class="right-align" data-sort-value="321">321</td>
+            </tr>
+          
+            <tr>
+              <td class="left-align">21</td>
+              <td>Children's Miracle Network</td>
+              <td>GENERAL FUND-SUPPORT PROGRAMS</td>
+              
+                <td class="text-nowrap">Salt Lake City, UT</td>
+              
+              <td class="right-align" data-sort-value="180">180</td>
+            </tr>
+          
+            <tr>
+              <td class="left-align">22</td>
+              <td>DALLAS STARS ELITE HOCKEY CLUB '99</td>
+              <td>GENERAL FUND-SUPPORT PROGRAMS</td>
+              
+                <td class="text-nowrap">Dallas, TX</td>
+              
+              <td class="right-align" data-sort-value="100">100</td>
             </tr>
           
         
@@ -872,19 +769,9 @@
       
     </table>
   </div>
-</div></div>
-                                  </div>
-                                  
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col s12 l9 offset-l3">
-                        <div class="section center-align ">
-                          <div id="ais-widget-pagination"></div>
-                        </div>
+  
+</div>
+                        
                       </div>
                     </div>
                   </div>
@@ -1300,22 +1187,6 @@
 <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "370802ed80eb452faad5ac648390ef30"}'></script>
 <!-- End Cloudflare Web Analytics -->
   
-  
-    <div class="profile-content section-refinements">
-  <!-- Filters / Refinements -->
-  <div class="row">
-    <div class="col s12">
-      <ul id="refinements-slide-out" class="sidenav left-align grey lighten-5">
-        <!-- <li><div class="card"><div id="ais-widget-mobile-refinement-list--purpose"></div></div></li> -->
-        <li><div class="card"><div id="ais-widget-mobile-refinement-list--grantee_state"></div></div></li>
-        <li><div class="card"><div id="ais-widget-mobile-refinement-list--grantee_city"></div></div></li>
-        <li><div class="card"><div id="ais-widget-mobile-refinement-list--grantee_name"></div></div></li>
-        <li><div class="card"><div id="ais-widget-mobile-refinement-list--tax_year"></div></div></li>
-        <li><div class="card"><div id="ais-widget-mobile-refinement-list--grant_purpose"></div></div></li>
-      </ul>
-    </div>
-  </div>
-</div>
   
 
 </body>  

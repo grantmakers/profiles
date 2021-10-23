@@ -59,7 +59,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
 
   <!-- CSS Files -->
-  <link rel="stylesheet" href="/profiles/assets/css/main.css?v=20211002">
+  <link rel="stylesheet" href="/profiles/assets/css/main.css?v=20211022">
 
   <!-- Schema.org -->
   
@@ -115,18 +115,13 @@
   <!-- Search and Algolia-related scripts -->
   <script defer src="https://cdnjs.cloudflare.com/ajax/libs/algoliasearch/3.33.0/algoliasearchLite.min.js" integrity="sha256-3Laj91VXexjTlFLgL8+vvIq27laXdRmFIcO2miulgEs=" crossorigin="anonymous"></script>
   
-  
-  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/instantsearch.js/3.6.0/instantsearch.production.min.js" integrity="sha256-N/ZioXfJ7+qk2cejhAJsm0+ed/l/445mZGjpEWeyeR4=" crossorigin="anonymous"></script>
-  
-  <script defer src="/profiles/assets/js/search.js?v=20211002"></script>
-  
   <script defer src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.37.1/autocomplete.min.js" integrity="sha256-YVWQosorZnr6fALvOW9VALYuInld27RkSPkElGBdCaU=" crossorigin="anonymous"></script>
   <script defer src="/profiles/assets/js/autocomplete.js"></script>
 
-  <script src="/profiles/assets/js/profile.js?v=20211002"></script>
+  <script src="/profiles/assets/js/profile.js?v=20211022"></script>
 
   <!-- Vue -->
-  <!--<link rel="prefetch" href="/profiles/assets/js/bundle.js?v=20211002" as="script"> -->
+  <!--<link rel="prefetch" href="/profiles/assets/js/bundle.js?v=20211022" as="script"> -->
   
   <!-- Drift Widget -->
   <!-- <script defer src="/profiles/assets/js/drift-init.js"></script> -->
@@ -162,8 +157,6 @@
                 <a href="https://www.grantmakers.io/search/profiles/" class="breadcrumb hide-on-large-and-down" data-ga="Breadcrumb Profile Search">Foundation Profiles</a>
                 <span class="breadcrumb">FOUNDATION FOR INFORMED MEDICAL DECISION MAKING INC</span>
               </div>
-              
-                <span class="algolia-partnership-logo print-hidden"><a href="http://goto.algolia.com/l/139121/2017-10-24/26gc84"><img src="/profiles/assets/img/algolia-partnership-logo.svg" alt="Algolia Partnership Logo"></a></span>
               
             </div>
             <div class="col m6 l6 xl5 hide-on-med-and-down print-hidden">
@@ -656,25 +649,14 @@
                       <div class="card-panel-header">
                         <div class="row">
                           <div class="col s12 m3">
-                            <h4>Grants <span class="text-muted algolia-logo right hide-on-med-and-up print-hidden">Search powered by<br><a href="http://goto.algolia.com/l/139121/2017-10-24/26gc84" class="algolia-light-bg"><img src="/profiles/assets/img/algolia-light-bg.svg" alt="Powered by Algolia"></a></span><a href="#" data-target="algolia-mobile" class="sidenav-trigger right hide"><i class="material-icons text-muted">filter_list</i></a></h4>
+                            <h4>Grants</h4>
                           </div>
                           <div class="col s12 m6 print-hidden">
-                            
-                              <div class="search js-ie-check">
-                                <div class="input-field text-muted">
-                                  <!--
-                                  <i id="search-input-icon" class="material-icons prefix grey-text text-lighten-1">search</i>
-                                  <input id="ais-widget-search-box" type="search" />
-                                  <label for="ais-widget-search-box"></label>
-                                  -->
-                                  <div id="ais-widget-search-box"></div>
-                                </div>
-                              </div>
                             
                           </div>
                           <div class="col s12 m3 right-align print-hidden">
                             
-                              <div class="right-align text-muted algolia-logo hide-on-small-only">Search powered by<br><a class="algolia-light-bg" href="http://goto.algolia.com/l/139121/2017-10-24/26gc84"><img src="/profiles/assets/img/algolia-light-bg.svg" alt="Powered by Algolia"></a></div>
+                              <h4 class="right hide-on-small-only"><button class="tooltipped valign-wrapper" data-tooltip="Grants made in 2012 tax year"><img src="/profiles/assets/img/irs-w-text-alt.png" alt="IRS logo" class="icon-irs-alt"></button></h4>
                             
                           </div>
                         </div>
@@ -682,335 +664,481 @@
                       </div>
                   </div>
                   
-                  <div class="section section-results js-ie-check">
-                    <div id="rate-limit-message" class="hidden">
-  <div class="row">
-    <div class="col s12">
-      <div class="card">
-        <div class="card-content">
-          <h5>You have reached the hourly search limit</h5>
-          <p>We place limits on the number of searches to allow the maximum number of people access to this free service. You and/or your colleagues have reached this limit. Please try again in one hour. If you feel this was in error, please <a href="mailto:opensource@grantmakers.io">get in touch</a>.</p>
-        </div>
-        <div class="card-action">
-          <p>If you are trying to capture data using automated means, the data is freely available on <a href="https://github.com/grantmakers/grantmakers.github.io/">Github</a></p> 
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-                    <div id="forbidden-message" class="hidden">
-  <div class="row">
-    <div class="col s12">
-      <div class="card">
-        <div class="card-content">
-          <span class="card-title"><strong>Check your url</strong> <br>Search results are only available at <a href="/">Grantmakers.io</a></span> 
-          <p>We limit search results to Grantmakers.io to allow the maximum number of people access to this free service. The page you landed on is not Grantmakers.io.</p> 
-        </div>
-        <div class="card-action">
-          <p><a class="btn-flat blue-grey white-text" href="https://www.grantmakers.io/">Go to Grantmakers</a></p>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-                    <div id="algolia-hits-wrapper" class="row">
-                      <div class="col s12 l3">
-                        <!-- Filters / Refinements header -->
-                        <div class="ais-root ais-stats">
-                          <div class="ais-body ais-stats--body">
-                            <div class="text-muted hide-on-med-and-down">
-                              Filters
-                            </div>
-                            <div class="hide-on-large-only center-align">
-                              <ul class="actions">
-                                <li>
-                                  <span id="ais-widget-mobile-clear-all"></span>
-                                  <a href="#" data-target="refinements-slide-out" class="sidenav-trigger show-on-med-and-down waves-effect waves-light button-collapse btn white grey-text text-darken-3"><i class="material-icons right">filter_list</i> Filter</a>
-                                </li>
-                                <li>
-                                  
-                                </li>
-                              </ul>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="divider hide-on-med-and-down"></div>
-                        <div class="section section-refinements hide-on-med-and-down">
-                          <div id="ais-widget-refinements" class="row"> <!-- Add row class to remove added white space / padding -->
-                            <div class="col s12">
-                              <div id="ais-widget-refinement-list--seo-placeholder"><div class="ais-Panel card">
-  <div class="ais-Panel-header card-header grey lighten-4"><span>Tax Year</span></div>
-  <div class="ais-Panel-body card-content">
-    <div>
-      <div class="ais-RefinementList">
-        <ul class="ais-RefinementList-list">
-          
-            
-              <li class="ais-RefinementList-item">
-                <div>
-                  <label class="ais-RefinementList-label">
-                    <input type="checkbox" class="ais-RefinementList-checkbox filled-in" value="2012"> 
-                    <span class="ais-RefinementList-labelText small">2012</span>
-                    <span class="ais-RefinementList-count right small">45</span> 
-                  </label>
-                </div>
-              </li>
-            
-          
-        </ul>
-      </div>
-    </div>
-  </div>
-</div></div>
-                              <div id="ais-widget-range-slider"></div>
-                              <div id="ais-widget-refinement-list--grantee_state"></div>
-                              <div id="ais-widget-refinement-list--grantee_city"></div>
-                              <div id="ais-widget-refinement-list--grantee_name" ></div>
-                              <div id="ais-widget-refinement-list--grant_purpose"></div>
-                            </div>
-                            <div class="col s12 print-hidden">
-                              <div class="section section-clear-all">
-                                <div id="ais-widget-clear-all" class="center-align"></div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col s12 l9">
-                        <div class="col s12 m9 l9">
-                          <div id="ais-widget-stats"><span class="ais-Stats-text text-muted hide-on-med-and-down">45 results</span></div>
-                        </div>
-                        <div id="ais-widget-sort-by" class="col s12 m3 l3 right-align hidden">
-                          <a class="dropdown-trigger text-muted hide-on-med-and-down" data-target="tax-year-dropdown">
-                            
-                              Tax Year: 2012
-                            
-                          </a>
-                          <div id="ais-widget-refinement-list--tax_year"></div>
-                        </div>
-                        <div class="col s12 divider"></div>
-                        <div class="row">
-                          <div class="col s12"> <!-- Add row class to remove added white space / padding -->
-                            <div class="section">
-                                <div id="ais-widget-current-refined-values"></div>
-                              <div> <!-- Add card class for alt view -->
-                                <div class="card-content">
-                                  <div class="responsive-table-wrapper">
-                                    <div id="ais-widget-hits"><div id="grantsPlaceholderTableWrapper" class="seo-placeholder-table card-panel-body">
+                  <div class="section section-results">
+                    <div class="row">
+                      <div class="col s12">
+                        <div id="grantsTableWrapper" class="card-panel-body">
   <div class="responsive-table-wrapper">
-    <table id="grantsPlaceholderTable" class="striped bordered">
+    
+    <div class="row">
+      <div class="col s12 text-light">
+        Tax Year 2012
+      </div>
+    </div>
+    <table id="grantsTable" class="striped bordered">
       <thead>
         <tr>
-          <th class="text-nowrap right-align" data-sort="int"><span>Amount ($)</span></th>
+          <th data-sort="int" class="text-center"><span>#</span></th>
           <th data-sort="string"><span>Name</span></th>
           <th data-sort="string"><span>Purpose</span></th>
           <th data-sort="string"><span>Location</span></th>
-          <th data-sort="int" class="text-center"><span>Year</span></th>
+          <th class="text-nowrap right-align" data-sort="int"><span>Amount ($)</span></th>
         </tr>
       </thead>
-      <tbody>
+      <tbody id="grantsTableBody">
         
         
           
             <tr>
+              <td class="left-align">1</td>
+              <td>TRUSTEES OF DARTMOUTH COLLEGE</td>
+              <td>SITE GRANT</td>
+              
+                <td class="text-nowrap">Hanover, NH</td>
+              
               <td class="right-align" data-sort-value="157797">157,797</td>
+            </tr>
+          
+            <tr>
+              <td class="left-align">2</td>
               <td>TRUSTEES OF DARTMOUTH COLLEGE</td>
               <td>SITE GRANT</td>
               
                 <td class="text-nowrap">Hanover, NH</td>
               
-              <td class="left-align">2012</td>
-            </tr>
-          
-            <tr>
               <td class="right-align" data-sort-value="150000">150,000</td>
-              <td>TRUSTEES OF DARTMOUTH COLLEGE</td>
-              <td>SITE GRANT</td>
-              
-                <td class="text-nowrap">Hanover, NH</td>
-              
-              <td class="left-align">2012</td>
             </tr>
           
             <tr>
-              <td class="right-align" data-sort-value="128426">128,426</td>
+              <td class="left-align">3</td>
               <td>CHILDBIRTH CONNECTION</td>
               <td>DEVELOPMENT GRANT</td>
               
                 <td class="text-nowrap">New York, NY</td>
               
-              <td class="left-align">2012</td>
+              <td class="right-align" data-sort-value="128426">128,426</td>
             </tr>
           
             <tr>
-              <td class="right-align" data-sort-value="94267">94,267</td>
+              <td class="left-align">4</td>
               <td>MASSACHUSETTS GENERAL HOSPITAL</td>
               <td>RESEARCH GRANT</td>
               
                 <td class="text-nowrap">Boston, MA</td>
               
-              <td class="left-align">2012</td>
+              <td class="right-align" data-sort-value="94267">94,267</td>
             </tr>
           
             <tr>
-              <td class="right-align" data-sort-value="74658">74,658</td>
+              <td class="left-align">5</td>
               <td>GROUP HEALTH RESEARCH INSTITUTE</td>
               <td>SITE GRANT</td>
               
               
                 <td class="text-nowrap">Seattle, CA*</td>
               
-              <td class="left-align">2012</td>
+              <td class="right-align" data-sort-value="74658">74,658</td>
             </tr>
           
             <tr>
-              <td class="right-align" data-sort-value="70351">70,351</td>
+              <td class="left-align">6</td>
               <td>TUFTS MEDICAL CENTER</td>
               <td>MEDICAL EDITOR GRANT</td>
               
                 <td class="text-nowrap">Boston, MA</td>
               
-              <td class="left-align">2012</td>
+              <td class="right-align" data-sort-value="70351">70,351</td>
             </tr>
           
             <tr>
-              <td class="right-align" data-sort-value="63468">63,468</td>
+              <td class="left-align">7</td>
               <td>UNIVERSITY OF NORTH CAROLINA CHAPEL HILL</td>
               <td>MEDICAL EDITOR GRANT</td>
               
                 <td class="text-nowrap">Chapel Hill, NC</td>
               
-              <td class="left-align">2012</td>
+              <td class="right-align" data-sort-value="63468">63,468</td>
             </tr>
           
             <tr>
-              <td class="right-align" data-sort-value="60797">60,797</td>
+              <td class="left-align">8</td>
               <td>VANDERBILT UNIVERSITY MEDICAL CENTER</td>
               <td>MEDICAL EDITOR GRANT</td>
               
                 <td class="text-nowrap">Atlanta, GA</td>
               
-              <td class="left-align">2012</td>
+              <td class="right-align" data-sort-value="60797">60,797</td>
             </tr>
           
             <tr>
-              <td class="right-align" data-sort-value="60209">60,209</td>
+              <td class="left-align">9</td>
               <td>MASSACHUSETTS GENERAL HOSPITAL</td>
               <td>SITE GRANT</td>
               
                 <td class="text-nowrap">Boston, MA</td>
               
-              <td class="left-align">2012</td>
+              <td class="right-align" data-sort-value="60209">60,209</td>
             </tr>
           
             <tr>
-              <td class="right-align" data-sort-value="60000">60,000</td>
+              <td class="left-align">10</td>
               <td>UNIVERSITY OF CALIFORNIA SAN FRANCISCO</td>
               <td>SITE GRANT</td>
               
                 <td class="text-nowrap">San Francisco, CA</td>
               
-              <td class="left-align">2012</td>
+              <td class="right-align" data-sort-value="60000">60,000</td>
             </tr>
           
             <tr>
-              <td class="right-align" data-sort-value="60000">60,000</td>
+              <td class="left-align">11</td>
               <td>UNIVERSITY OF NORTH CAROLINA CHAPEL HILL</td>
               <td>SITE GRANT</td>
               
                 <td class="text-nowrap">Chapel Hill, NC</td>
               
-              <td class="left-align">2012</td>
+              <td class="right-align" data-sort-value="60000">60,000</td>
             </tr>
           
             <tr>
-              <td class="right-align" data-sort-value="60000">60,000</td>
+              <td class="left-align">12</td>
               <td>OREGON HEALTH SCIENCE UNIVERSITY</td>
               <td>SITE GRANT</td>
               
                 <td class="text-nowrap">Portland, OR</td>
               
-              <td class="left-align">2012</td>
+              <td class="right-align" data-sort-value="60000">60,000</td>
             </tr>
           
             <tr>
-              <td class="right-align" data-sort-value="60000">60,000</td>
+              <td class="left-align">13</td>
               <td>STILLWATER MEDICAL CENTER</td>
               <td>SITE GRANT</td>
               
                 <td class="text-nowrap">Stillwater, MN</td>
               
-              <td class="left-align">2012</td>
+              <td class="right-align" data-sort-value="60000">60,000</td>
             </tr>
           
             <tr>
-              <td class="right-align" data-sort-value="60000">60,000</td>
+              <td class="left-align">14</td>
               <td>MERCY FOUNDATION</td>
               <td>SITE GRANT</td>
               
                 <td class="text-nowrap">Des Moines, IA</td>
               
-              <td class="left-align">2012</td>
+              <td class="right-align" data-sort-value="60000">60,000</td>
             </tr>
           
             <tr>
-              <td class="right-align" data-sort-value="59984">59,984</td>
+              <td class="left-align">15</td>
               <td>PALO ALTO MEDICAL FOUNDATION RESEARCH INSTITUTE</td>
               <td>SITE GRANT</td>
               
                 <td class="text-nowrap">Palo Alto, CA</td>
               
-              <td class="left-align">2012</td>
+              <td class="right-align" data-sort-value="59984">59,984</td>
             </tr>
           
             <tr>
-              <td class="right-align" data-sort-value="59919">59,919</td>
+              <td class="left-align">16</td>
               <td>MAINE HEALTH</td>
               <td>SITE GRANT</td>
               
                 <td class="text-nowrap">Portland, ME</td>
               
-              <td class="left-align">2012</td>
+              <td class="right-align" data-sort-value="59919">59,919</td>
             </tr>
           
             <tr>
-              <td class="right-align" data-sort-value="58691">58,691</td>
+              <td class="left-align">17</td>
               <td>UNIVERSITY OF CINCINNATI PHYSICIANS COMPANY</td>
               <td>RESEARCH GRANT</td>
               
                 <td class="text-nowrap">Cincinnati, OH</td>
               
-              <td class="left-align">2012</td>
+              <td class="right-align" data-sort-value="58691">58,691</td>
             </tr>
           
             <tr>
-              <td class="right-align" data-sort-value="50000">50,000</td>
+              <td class="left-align">18</td>
               <td>OREGON HEALTH SCIENCE UNIVERSITY</td>
               <td>SITE GRANT</td>
               
                 <td class="text-nowrap">Portland, OR</td>
               
-              <td class="left-align">2012</td>
+              <td class="right-align" data-sort-value="50000">50,000</td>
             </tr>
           
             <tr>
-              <td class="right-align" data-sort-value="50000">50,000</td>
+              <td class="left-align">19</td>
               <td>MASSACHUSETTS GENERAL HOSPITAL</td>
               <td>SITE GRANT</td>
               
                 <td class="text-nowrap">Boston, MA</td>
               
-              <td class="left-align">2012</td>
+              <td class="right-align" data-sort-value="50000">50,000</td>
             </tr>
           
             <tr>
-              <td class="right-align" data-sort-value="46140">46,140</td>
+              <td class="left-align">20</td>
               <td>PALO ALTO MEDICAL FOUNDATION RESEARCH INSTITUTE</td>
               <td>SITE GRANT</td>
               
                 <td class="text-nowrap">Palo Alto, CA</td>
               
-              <td class="left-align">2012</td>
+              <td class="right-align" data-sort-value="46140">46,140</td>
+            </tr>
+          
+            <tr>
+              <td class="left-align">21</td>
+              <td>UNIVERSITY OF CALIFORNIA SAN FRANCISCO</td>
+              <td>SITE GRANT</td>
+              
+                <td class="text-nowrap">San Francisco, CA</td>
+              
+              <td class="right-align" data-sort-value="43875">43,875</td>
+            </tr>
+          
+            <tr>
+              <td class="left-align">22</td>
+              <td>MAINE HEALTH</td>
+              <td>SITE GRANT</td>
+              
+                <td class="text-nowrap">Portland, ME</td>
+              
+              <td class="right-align" data-sort-value="43148">43,148</td>
+            </tr>
+          
+            <tr>
+              <td class="left-align">23</td>
+              <td>MERCY FOUNDATION</td>
+              <td>SITE GRANT</td>
+              
+                <td class="text-nowrap">Des Moines, IA</td>
+              
+              <td class="right-align" data-sort-value="42844">42,844</td>
+            </tr>
+          
+            <tr>
+              <td class="left-align">24</td>
+              <td>UNIVERSITY OF COLORADO</td>
+              <td>MEDICAL EDITOR GRANT</td>
+              
+                <td class="text-nowrap">Aurora, CO</td>
+              
+              <td class="right-align" data-sort-value="39987">39,987</td>
+            </tr>
+          
+            <tr>
+              <td class="left-align">25</td>
+              <td>CHILDBIRTH CONNECTION</td>
+              <td>DEVELOPMENT GRANT</td>
+              
+                <td class="text-nowrap">New York, NY</td>
+              
+              <td class="right-align" data-sort-value="39645">39,645</td>
+            </tr>
+          
+            <tr>
+              <td class="left-align">26</td>
+              <td>UNIVERSITY OF NEW MEXICO</td>
+              <td>MEDICAL EDITOR GRANT</td>
+              
+                <td class="text-nowrap">Alberquerque, NM</td>
+              
+              <td class="right-align" data-sort-value="37542">37,542</td>
+            </tr>
+          
+            <tr>
+              <td class="left-align">27</td>
+              <td>BRIGHAM & WOMEN'S HOSPITAL</td>
+              <td>MEDICAL EDITOR GRANT</td>
+              
+                <td class="text-nowrap">Boston, MA</td>
+              
+              <td class="right-align" data-sort-value="33871">33,871</td>
+            </tr>
+          
+            <tr>
+              <td class="left-align">28</td>
+              <td>DUKE UNIVERSITY</td>
+              <td>RESEARCH GRANT</td>
+              
+                <td class="text-nowrap">Durham, NC</td>
+              
+              <td class="right-align" data-sort-value="31586">31,586</td>
+            </tr>
+          
+            <tr>
+              <td class="left-align">29</td>
+              <td>GROUP HEALTH RESEARCH INSTITUTE</td>
+              <td>SITE GRANT</td>
+              
+                <td class="text-nowrap">Seattle, WA</td>
+              
+              <td class="right-align" data-sort-value="30535">30,535</td>
+            </tr>
+          
+            <tr>
+              <td class="left-align">30</td>
+              <td>DUKE UNIVERSITY</td>
+              <td>MEDICAL EDITOR GRANT</td>
+              
+                <td class="text-nowrap">Durham, NC</td>
+              
+              <td class="right-align" data-sort-value="27500">27,500</td>
+            </tr>
+          
+            <tr>
+              <td class="left-align">31</td>
+              <td>UNIVERSITY OF NORTH CAROLINA CHAPEL HILL</td>
+              <td>RESEARCH GRANT</td>
+              
+                <td class="text-nowrap">Chapel Hill, NC</td>
+              
+              <td class="right-align" data-sort-value="26250">26,250</td>
+            </tr>
+          
+            <tr>
+              <td class="left-align">32</td>
+              <td>UNIVERSIDAD DE GRANADA</td>
+              <td>RESEARCH GRANT</td>
+              
+              
+                <td class="text-nowrap">Cam De La Cartuja, SP*</td>
+              
+              <td class="right-align" data-sort-value="25000">25,000</td>
+            </tr>
+          
+            <tr>
+              <td class="left-align">33</td>
+              <td>UNIVERSITY OF COLORADO</td>
+              <td>RESEARCH GRANT</td>
+              
+                <td class="text-nowrap">Denver, CO</td>
+              
+              <td class="right-align" data-sort-value="25000">25,000</td>
+            </tr>
+          
+            <tr>
+              <td class="left-align">34</td>
+              <td>MASSACHUSETTS GENERAL HOSPITAL</td>
+              <td>RESEARCH GRANT</td>
+              
+                <td class="text-nowrap">Boston, MA</td>
+              
+              <td class="right-align" data-sort-value="24708">24,708</td>
+            </tr>
+          
+            <tr>
+              <td class="left-align">35</td>
+              <td>UNIVERSITY OF CINCINNATI PHYSICIANS COMPANY</td>
+              <td>RESEARCH GRANT</td>
+              
+                <td class="text-nowrap">Cincinnati, OH</td>
+              
+              <td class="right-align" data-sort-value="24500">24,500</td>
+            </tr>
+          
+            <tr>
+              <td class="left-align">36</td>
+              <td>GROUP HEALTH RESEARCH INSTITUTE</td>
+              <td>MEDICAL EDITOR GRANT</td>
+              
+                <td class="text-nowrap">Seattle, WA</td>
+              
+              <td class="right-align" data-sort-value="22100">22,100</td>
+            </tr>
+          
+            <tr>
+              <td class="left-align">37</td>
+              <td>UNIVERSITY OF TEXAS</td>
+              <td>RESEARCH GRANT</td>
+              
+                <td class="text-nowrap">Houston, TX</td>
+              
+              <td class="right-align" data-sort-value="21159">21,159</td>
+            </tr>
+          
+            <tr>
+              <td class="left-align">38</td>
+              <td>STILLWATER MEDICAL CENTER</td>
+              <td>SITE GRANT</td>
+              
+                <td class="text-nowrap">Stillwater, MN</td>
+              
+              <td class="right-align" data-sort-value="18726">18,726</td>
+            </tr>
+          
+            <tr>
+              <td class="left-align">39</td>
+              <td>UNIVERSITY OF CALIFORNIA SAN FRANCISCO</td>
+              <td>MEDICAL EDITOR GRANT</td>
+              
+                <td class="text-nowrap">San Francisco, CA</td>
+              
+              <td class="right-align" data-sort-value="18029">18,029</td>
+            </tr>
+          
+            <tr>
+              <td class="left-align">40</td>
+              <td>MASSACHUSETTS GENERAL HOSPITAL</td>
+              <td>RESEARCH GRANT</td>
+              
+                <td class="text-nowrap">Boston, MA</td>
+              
+              <td class="right-align" data-sort-value="16443">16,443</td>
+            </tr>
+          
+            <tr>
+              <td class="left-align">41</td>
+              <td>UNIVERSITY OF TEXAS SOUTHWESTERN MEDICAL CENTER</td>
+              <td>RESEARCH GRANT</td>
+              
+                <td class="text-nowrap">Dallas, TX</td>
+              
+              <td class="right-align" data-sort-value="14920">14,920</td>
+            </tr>
+          
+            <tr>
+              <td class="left-align">42</td>
+              <td>MAINE MEDICAL CENTER</td>
+              <td>MEDICAL EDITOR GRANT</td>
+              
+                <td class="text-nowrap">Portland, ME</td>
+              
+              <td class="right-align" data-sort-value="13997">13,997</td>
+            </tr>
+          
+            <tr>
+              <td class="left-align">43</td>
+              <td>UNIVERSITY OF CALIFORNIA SAN FRANCISCO</td>
+              <td>SITE GRANT</td>
+              
+                <td class="text-nowrap">San Francisco, CA</td>
+              
+              <td class="right-align" data-sort-value="10340">10,340</td>
+            </tr>
+          
+            <tr>
+              <td class="left-align">44</td>
+              <td>UNIVERSITY OF NORTH CAROLINA CHAPEL HILL</td>
+              <td>RESEARCH GRANT</td>
+              
+                <td class="text-nowrap">Chapel Hill, NC</td>
+              
+              <td class="right-align" data-sort-value="7500">7,500</td>
+            </tr>
+          
+            <tr>
+              <td class="left-align">45</td>
+              <td>THE HITCHCOCK FOUNDATION</td>
+              <td>RESEARCH GRANT</td>
+              
+                <td class="text-nowrap">Lebanon, NH</td>
+              
+              <td class="right-align" data-sort-value="4194">4,194</td>
             </tr>
           
         
@@ -1025,19 +1153,9 @@
       
     </table>
   </div>
-</div></div>
-                                  </div>
-                                  
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col s12 l9 offset-l3">
-                        <div class="section center-align ">
-                          <div id="ais-widget-pagination"></div>
-                        </div>
+  
+</div>
+                        
                       </div>
                     </div>
                   </div>
@@ -1499,22 +1617,6 @@
 <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "370802ed80eb452faad5ac648390ef30"}'></script>
 <!-- End Cloudflare Web Analytics -->
   
-  
-    <div class="profile-content section-refinements">
-  <!-- Filters / Refinements -->
-  <div class="row">
-    <div class="col s12">
-      <ul id="refinements-slide-out" class="sidenav left-align grey lighten-5">
-        <!-- <li><div class="card"><div id="ais-widget-mobile-refinement-list--purpose"></div></div></li> -->
-        <li><div class="card"><div id="ais-widget-mobile-refinement-list--grantee_state"></div></div></li>
-        <li><div class="card"><div id="ais-widget-mobile-refinement-list--grantee_city"></div></div></li>
-        <li><div class="card"><div id="ais-widget-mobile-refinement-list--grantee_name"></div></div></li>
-        <li><div class="card"><div id="ais-widget-mobile-refinement-list--tax_year"></div></div></li>
-        <li><div class="card"><div id="ais-widget-mobile-refinement-list--grant_purpose"></div></div></li>
-      </ul>
-    </div>
-  </div>
-</div>
   
 
 </body>  
