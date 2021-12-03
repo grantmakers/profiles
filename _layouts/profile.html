@@ -1099,10 +1099,10 @@ donorbox_popup: false
   {% endcomment %}
   {% include footer.html %}
   {% include footer-license-and-links.html %}
-  {% unless jekyll.environment == 'staging' %}
+  {% if jekyll.environment == 'production' %}
     {% include ga.html %}
     {% include cloudflare-analytics.js %}
-  {% endunless %}
+  {% endif %}
   {% if algolia %}
     {% include algolia/refinements-slide-out.html %}
   {% endif %}
