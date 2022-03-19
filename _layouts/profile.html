@@ -150,16 +150,16 @@ donorbox_popup: false
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 
   <!-- Search and Algolia-related scripts -->
-  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/algoliasearch/4.11.0/algoliasearch-lite.umd.min.js" integrity="sha512-BoKAYz7l8vkL8441nqr0Cf1fpbPQmo9k+Hw2Z35D2696wzoNw0a9AwZPPw+a2JhlbziiVMtLo2uNmPZ5FlT1FQ==" crossorigin="anonymous"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/algoliasearch/4.13.0/algoliasearch-lite.umd.min.js" integrity="sha512-ji9S/0drol2op0X3D/X3s0NzPYTbJ+uuTqKM4pppyGKCvJ9+aKsw6Vgyk3ByZ8ZXGh0rdr+Eokv+m1xOrygFVw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   {% if algolia == true %}
   {% if jekyll.environment == 'production' %}
-  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/instantsearch.js/4.33.2/instantsearch.production.min.js" integrity="sha512-HEoA/Xitm1VDJWVQ39MRhRlTNom2xIJLN/byzhUwucDVQwumzdDU+Y4deKETzZDgYKj6Q8mNo1bCtjg602FcFA==" crossorigin="anonymous"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/instantsearch.js/4.39.2/instantsearch.production.min.js" integrity="sha512-GZAF54GRoa3oTxOSw6uLtVBHcnMBK1K0HqK7RymF9yjb+C65B8mAOs46vvk4YIKuED5FkAUrSOc24f8mmpLqmw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   {% else %}
-  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/instantsearch.js/4.33.2/instantsearch.development.js" integrity="sha512-YU/fDZQHCDs7rm+aI2U0YgMnm931PCaIcWZIacXNi1xXnLpNDXQCPBJMt4MujtLUuIsGmRdWAE9Kd1usbR/xgA==" crossorigin="anonymous"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/instantsearch.js/4.39.2/instantsearch.development.js" integrity="sha512-Eb4fOLQcWMlQV4c9O6ZYz4K84KdM5wFdHlGKCsbm2Msz7p45EcdmlHyb1SBBeXFITOvjL7+6SEAKdHNNGPKPbQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   {% endif %}
   <script defer src="{{ site.baseurl }}/assets/js/search.js?v={{ site.time | date: '%Y%m%d'}}"></script>
   {% endif %}
-  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.37.1/autocomplete.min.js" integrity="sha256-YVWQosorZnr6fALvOW9VALYuInld27RkSPkElGBdCaU=" crossorigin="anonymous"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.1/autocomplete.min.js" integrity="sha512-fmVMZ+dBGAuD97TYKZZwA/6jel1QFPVJ8KPX+UXStz5z4iod0Ep7aHEshG8AQjLzAw0HMFeE+rAmEArxKvjwrA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script defer src="{{ site.baseurl }}/assets/js/autocomplete.js"></script>
 
   <script src="{{ site.baseurl }}/assets/js/profile.js?v={{ site.time | date: '%Y%m%d'}}"></script>
