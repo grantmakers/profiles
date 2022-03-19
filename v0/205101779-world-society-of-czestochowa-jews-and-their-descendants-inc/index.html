@@ -59,7 +59,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
 
   <!-- CSS Files -->
-  <link rel="stylesheet" href="/profiles/assets/css/main.css?v=20211022">
+  <link rel="stylesheet" href="/profiles/assets/css/main.css?v=20220319">
 
   <!-- Schema.org -->
   
@@ -113,20 +113,20 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 
   <!-- Search and Algolia-related scripts -->
-  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/algoliasearch/3.33.0/algoliasearchLite.min.js" integrity="sha256-3Laj91VXexjTlFLgL8+vvIq27laXdRmFIcO2miulgEs=" crossorigin="anonymous"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/algoliasearch/4.13.0/algoliasearch-lite.umd.min.js" integrity="sha512-ji9S/0drol2op0X3D/X3s0NzPYTbJ+uuTqKM4pppyGKCvJ9+aKsw6Vgyk3ByZ8ZXGh0rdr+Eokv+m1xOrygFVw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   
   
-  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/instantsearch.js/3.6.0/instantsearch.production.min.js" integrity="sha256-N/ZioXfJ7+qk2cejhAJsm0+ed/l/445mZGjpEWeyeR4=" crossorigin="anonymous"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/instantsearch.js/4.39.2/instantsearch.production.min.js" integrity="sha512-GZAF54GRoa3oTxOSw6uLtVBHcnMBK1K0HqK7RymF9yjb+C65B8mAOs46vvk4YIKuED5FkAUrSOc24f8mmpLqmw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   
-  <script defer src="/profiles/assets/js/search.js?v=20211022"></script>
+  <script defer src="/profiles/assets/js/search.js?v=20220319"></script>
   
-  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.37.1/autocomplete.min.js" integrity="sha256-YVWQosorZnr6fALvOW9VALYuInld27RkSPkElGBdCaU=" crossorigin="anonymous"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.1/autocomplete.min.js" integrity="sha512-fmVMZ+dBGAuD97TYKZZwA/6jel1QFPVJ8KPX+UXStz5z4iod0Ep7aHEshG8AQjLzAw0HMFeE+rAmEArxKvjwrA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script defer src="/profiles/assets/js/autocomplete.js"></script>
 
-  <script src="/profiles/assets/js/profile.js?v=20211022"></script>
+  <script src="/profiles/assets/js/profile.js?v=20220319"></script>
 
   <!-- Vue -->
-  <!--<link rel="prefetch" href="/profiles/assets/js/bundle.js?v=20211022" as="script"> -->
+  <!--<link rel="prefetch" href="/profiles/assets/js/bundle.js?v=20220319" as="script"> -->
   
   <!-- Drift Widget -->
   <!-- <script defer src="/profiles/assets/js/drift-init.js"></script> -->
@@ -702,7 +702,11 @@
                       </div>
                       <div class="col s12 l9">
                         <div class="col s12 m9 l9">
-                          <div id="ais-widget-stats"><span class="ais-Stats-text text-muted hide-on-med-and-down">110 results</span></div>
+                          <div id="ais-widget-stats">
+                            <div class="ais-Stats">
+                              <span class="ais-Stats-text text-muted hide-on-med-and-down">110 results</span>
+                            </div>
+                          </div>
                         </div>
                         <div id="ais-widget-sort-by" class="col s12 m3 l3 right-align hidden">
                           <a class="dropdown-trigger text-muted hide-on-med-and-down" data-target="tax-year-dropdown">

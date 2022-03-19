@@ -21,7 +21,7 @@ ready(function() {
 
   // Load Vue if supported
   const vue = document.createElement('script');
-  vue.src = '/profiles/assets/js/bundle.js?v=20211022';
+  vue.src = '/profiles/assets/js/bundle.js?v=20220319';
   if (!isIE11 && !isMobile.matches && allowsCookies && allowsLocalStorage && isSupported) {
     // document.body.appendChild(vue);
   } else {

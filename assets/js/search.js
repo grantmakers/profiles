@@ -35,6 +35,7 @@ ready(function() {
   // =======================================================
   // Config
   const searchClient = algoliasearch('QA1231C5W9', '96a419d65f67ff3b4c54939f8e90c220');
+  const algoliaIndex = 'grantmakers_io';
   const facets = [
     {
       facet: 'tax_year',
@@ -62,60 +63,67 @@ ready(function() {
     },
   ];
   const search = instantsearch({
-    'indexName': 'grantmakers_io',
+    'indexName': algoliaIndex,
     searchClient,
     'numberLocale': 'en-US',
-    'searchParameters': {
-      'filters': 'ein:' + targetEIN,
-    },
-    // routing: true,
     'routing': {
       'stateMapping': {
-        stateToRoute({query, refinementList, range, page}) {
+        stateToRoute(uiState) {
+          /**
+           * State to Route updates the url from whatever is happening in Instantsearch
+           * We use the character ~ as it is one that is rarely present in data and renders well in URLs
+           */
+          const indexUiState = uiState[algoliaIndex];
           return {
-            'query': query,
+            'query': indexUiState.query,
             'tax_year':
-              refinementList &&
-              refinementList.tax_year &&
-              refinementList.tax_year.join('~'),
+              indexUiState.refinementList &&
+              indexUiState.refinementList.tax_year &&
+              indexUiState.refinementList.tax_year.join('~'),
             'grantee_city':
-              refinementList &&
-              refinementList.grantee_city &&
-              refinementList.grantee_city.join('~'),
+              indexUiState.refinementList &&
+              indexUiState.refinementList.grantee_city &&
+              indexUiState.refinementList.grantee_city.join('~'),
             'grantee_state':
-              refinementList &&
-              refinementList.grantee_state &&
-              refinementList.grantee_state.join('~'),
+              indexUiState.refinementList &&
+              indexUiState.refinementList.grantee_state &&
+              indexUiState.refinementList.grantee_state.join('~'),
             'grantee_name':
-              refinementList &&
-              refinementList.grantee_name &&
-              refinementList.grantee_name.join('~'),
+              indexUiState.refinementList &&
+              indexUiState.refinementList.grantee_name &&
+              indexUiState.refinementList.grantee_name.join('~'),
             'grant_purpose':
-              refinementList &&
-              refinementList.grant_purpose &&
-              refinementList.grant_purpose.join('~'),
+              indexUiState.refinementList &&
+              indexUiState.refinementList.grant_purpose &&
+              indexUiState.refinementList.grant_purpose.join('~'),
             'grant_amount':
-              range &&
-              range.grant_amount &&
-              range.grant_amount.replace(':', '~'),
-            'page': page,
+              indexUiState.range &&
+              indexUiState.range.grant_amount &&
+              indexUiState.range.grant_amount.replace(':', '~'),
+            'page': indexUiState.page,
           };
         },
         /* eslint-disable camelcase */
         routeToState(routeState) {
+          /**
+           * Route to State takes the url and parses it
+           * The object it creates is sent to the widgets
+           */
           return {
-            'query': routeState.query,
-            'refinementList': {
-              'tax_year': routeState.tax_year && routeState.tax_year.split('~'),
-              'grantee_city': routeState.grantee_city && routeState.grantee_city.split('~'),
-              'grantee_state': routeState.grantee_state && routeState.grantee_state.split('~'),
-              'grantee_name': routeState.grantee_name && routeState.grantee_name.split('~'),
-              'grant_purpose': routeState.grant_purpose && routeState.grant_purpose.split('~'),
+            [algoliaIndex]: {
+              'query': routeState.query,
+              'refinementList': {
+                'tax_year': routeState.tax_year && routeState.tax_year.split('~'),
+                'grantee_city': routeState.grantee_city && routeState.grantee_city.split('~'),
+                'grantee_state': routeState.grantee_state && routeState.grantee_state.split('~'),
+                'grantee_name': routeState.grantee_name && routeState.grantee_name.split('~'),
+                'grant_purpose': routeState.grant_purpose && routeState.grant_purpose.split('~'),
+              },
+              'range': {
+                'grant_amount': routeState.grant_amount && routeState.grant_amount.replace('~', ':'),
+              },
+              'page': routeState.page,
             },
-            'range': {
-              'grant_amount': routeState.grant_amount && routeState.grant_amount.replace('~', ':'),
-            },
-            'page': routeState.page,
           };
         },
       },
@@ -135,36 +143,9 @@ ready(function() {
   const panelHeaderClasses = ['card-header', 'grey', 'lighten-4'];
   const panelHeaderClassesMobile = ['card-header', 'blue-grey', 'lighten-4'];
 
-  // Construct widgets
-  // =======================================================
-  search.addWidget(
-    instantsearch.widgets.searchBox({
-      container: '#ais-widget-search-box',
-      placeholder: 'Search by keyword or recipient name',
-      autofocus: false,
-      reset: true,
-      queryHook: function(query, searchInstance) {
-        searchInstance(query);
-        gaEventsSearchFocus();
-      },
-    })
-  );
-
-  /* Stats */
-  search.addWidget(
-    instantsearch.widgets.stats({
-      container: '#ais-widget-stats',
-      templates: {
-        text: templateStats,
-      },
-      cssClasses: {
-        root: 'center-align-on-mobile',
-        text: ['text-muted', 'hide-on-med-and-down'],
-      },
-    })
-  );
-
-  /* Hits */
+  /* ---------------------------- */
+  /* Connector - Hits Widget      */
+  /* ---------------------------- */
   const renderHits = (renderOptions) => {
     const { hits, results, widgetParams } = renderOptions;
 
@@ -250,13 +231,9 @@ ready(function() {
     renderHits
   );
 
-  search.addWidget(
-    customHits({
-      container: document.querySelector('#ais-widget-hits'),
-    })
-  );
-
-  /* RefinementList - Tax Year Toggle */
+  /* --------------------------------------------------- */
+  /* Connector - RefinementList Widget (Tax Year Toggle) */
+  /* --------------------------------------------------- */
   const renderRefinementList = (renderOptions) => {
     const { items, refine, widgetParams } = renderOptions;
 
@@ -293,17 +270,66 @@ ready(function() {
     renderRefinementList
   );
 
-  search.addWidget(
-    customRefinementList({
-      'container': document.querySelector('#ais-widget-refinement-list--tax_year'),
-      'attribute': 'tax_year',
-      'limit': 8,
-      'sortBy': ['isRefined', 'name:desc'],
-    })
+  /* ---------------------------- */
+  /* Connector - Range Slider     */
+  /* ---------------------------- */
+  const customRangeSliderWithPanel = instantsearch.widgets.panel({
+    'templates': {
+      'header': 'Amount',
+    },
+    hidden(options) {
+      return options.results.nbHits === 0;
+    },
+    'cssClasses': {
+      'root': 'card',
+      'header': panelHeaderClasses,
+      'body': 'card-content',
+    },
+  })(instantsearch.widgets.rangeSlider);
+
+  /* ------------------------------- */
+  /* Connector - Current Refinements */
+  /* ------------------------------- */
+  const createDataAttributes = refinement =>
+    Object.keys(refinement)
+      .map(key => `data-${key}="${refinement[key]}"`)
+      .join(' ');
+
+  const renderListItem = item => `
+    ${item.refinements.map(refinement => `
+      <li>
+        <button class="waves-effect btn blue-grey lighten-3 grey-text text-darken-3 truncate" ${createDataAttributes(refinement)}><i class="material-icons right">remove_circle</i><small>${getLabel(item.label)}</small> ${formatIfRangeLabel(refinement)} </button>
+      </li>
+    `).join('')}
+  `;
+
+  const renderCurrentRefinements = (renderOptions) => {
+    const { items, refine, widgetParams } = renderOptions;
+
+    widgetParams.container.innerHTML = `<ul class="list list-inline">${items.map(renderListItem).join('')}</ul>`;
+
+    [...widgetParams.container.querySelectorAll('button')].forEach(element => {
+      element.addEventListener('click', event => {
+        const item = Object.keys(event.currentTarget.dataset).reduce(
+          (acc, key) => ({
+            ...acc,
+            [key]: event.currentTarget.dataset[key],
+          }),
+          {}
+        );
+
+        refine(item);
+      });
+    });
+  };
+
+  const customCurrentRefinements = instantsearch.connectors.connectCurrentRefinements(
+    renderCurrentRefinements
   );
-  
-  
-  /* Refinements */
+
+  /* ---------------------------- */
+  /* Create all other refinements */
+  /* ---------------------------- */
   facets.forEach((refinement) => {
     let sortBy = ['isRefined', 'count:desc', 'name:asc'];
     // Amount handled by range widget
@@ -386,23 +412,42 @@ ready(function() {
     );
   });
 
-  const rangeSliderWithPanel = instantsearch.widgets.panel({
-    'templates': {
-      'header': 'Amount',
-    },
-    hidden(options) {
-      return options.results.nbHits === 0;
-    },
-    'cssClasses': {
-      'root': 'card',
-      'header': panelHeaderClasses,
-      'body': 'card-content',
-    },
-  })(instantsearch.widgets.rangeSlider);
+  /* ---------------------------- */
+  /* Instantiate all Widgets
+  /* ---------------------------- */
+  search.addWidgets([
 
-  /* Range Slider */
-  search.addWidget(
-    rangeSliderWithPanel({
+    instantsearch.widgets.searchBox({
+      container: '#ais-widget-search-box',
+      placeholder: 'Search by keyword or recipient name',
+      autofocus: false,
+      reset: true,
+      queryHook: function(query, searchInstance) {
+        searchInstance(query);
+        gaEventsSearchFocus();
+      },
+    }),
+
+    instantsearch.widgets.configure({
+      'filters': 'ein:' + targetEIN,
+    }),
+
+    instantsearch.widgets.stats({
+      container: '#ais-widget-stats',
+      templates: {
+        text: templateStats,
+      },
+      cssClasses: {
+        root: 'center-align-on-mobile',
+        text: ['text-muted', 'hide-on-med-and-down'],
+      },
+    }),
+
+    customHits({
+      container: document.querySelector('#ais-widget-hits'),
+    }),
+
+    customRangeSliderWithPanel({
       container: '#ais-widget-range-slider',
       attribute: 'grant_amount',
       tooltips: {
@@ -411,55 +456,19 @@ ready(function() {
         },
       },
       pips: false,
-    })
-  );
+    }),
 
-  /* Current Refinements */
-  const createDataAttributes = refinement =>
-    Object.keys(refinement)
-      .map(key => `data-${key}="${refinement[key]}"`)
-      .join(' ');
+    customRefinementList({
+      'container': document.querySelector('#ais-widget-refinement-list--tax_year'),
+      'attribute': 'tax_year',
+      'limit': 8,
+      'sortBy': ['isRefined', 'name:desc'],
+    }),
 
-  const renderListItem = item => `
-    ${item.refinements.map(refinement => `
-      <li>
-        <button class="waves-effect btn blue-grey lighten-3 grey-text text-darken-3 truncate" ${createDataAttributes(refinement)}><i class="material-icons right">remove_circle</i><small>${getLabel(item.label)}</small> ${formatIfRangeLabel(refinement)} </button>
-      </li>
-    `).join('')}
-  `;
-
-  const renderCurrentRefinements = (renderOptions) => {
-    const { items, refine, widgetParams } = renderOptions;
-
-    widgetParams.container.innerHTML = `<ul class="list list-inline">${items.map(renderListItem).join('')}</ul>`;
-
-    [...widgetParams.container.querySelectorAll('button')].forEach(element => {
-      element.addEventListener('click', event => {
-        const item = Object.keys(event.currentTarget.dataset).reduce(
-          (acc, key) => ({
-            ...acc,
-            [key]: event.currentTarget.dataset[key],
-          }),
-          {}
-        );
-
-        refine(item);
-      });
-    });
-  };
-
-  const customCurrentRefinements = instantsearch.connectors.connectCurrentRefinements(
-    renderCurrentRefinements
-  );
-
-  search.addWidget(
     customCurrentRefinements({
       container: document.querySelector('#ais-widget-current-refined-values'),
-    })
-  );
+    }),
 
-  /* Clear Refinements */
-  search.addWidget(
     instantsearch.widgets.clearRefinements({
       container: '#ais-widget-clear-all',
       templates: {
@@ -468,11 +477,18 @@ ready(function() {
       cssClasses: {
         button: ['btn', 'btn-custom', 'waves-effect', 'waves-light', 'white-text'],
       },
-    })
-  );
+    }),
 
-  /* Pagination */
-  search.addWidget(
+    instantsearch.widgets.clearRefinements({
+      container: '#ais-widget-mobile-clear-all',
+      cssClasses: {
+        button: ['waves-effect', 'waves-light', 'btn', 'btn', 'grey', 'lighten-5', 'grey-text', 'text-darken-3'],
+      },
+      templates: {
+        resetLabel: 'Clear',
+      },
+    }),
+
     instantsearch.widgets.pagination({
       container: '#ais-widget-pagination',
       scrollTo: false,
@@ -482,27 +498,12 @@ ready(function() {
         selectedItem: ['active', 'grey'],
         disabledItem: 'disabled',
       },
-    })
-  );
+    }),
+  ]);
 
-  // Clear refinements button - mobile
-  search.addWidget(
-    instantsearch.widgets.clearRefinements({
-      container: '#ais-widget-mobile-clear-all',
-      cssClasses: {
-        button: ['waves-effect', 'waves-light', 'btn', 'btn', 'grey', 'lighten-5', 'grey-text', 'text-darken-3'],
-      },
-      templates: {
-        resetLabel: 'Clear',
-      },
-    })
-  );
-
-  // Initialize search
-  search.start();
-
-  // Initialize Materialize JS components
-  // =======================================================
+  /* ---------------------------- */
+  /* Render Widgets
+  /* ---------------------------- */
   search.once('render', function() {
     const elemsFS = document.querySelectorAll('select');
     M.FormSelect.init(elemsFS);
@@ -519,10 +520,16 @@ ready(function() {
       renderForbidden();
       console.log('Origin forbidden'); // eslint-disable-line no-console
     }
-    // console.log(e);
+    console.log(e);
   });
 
+  /* ---------------------------- */
+  /* Start Search
+  /* ---------------------------- */
+  search.start();
+
   // Materialize - initialize tax year dropdown
+  // =======================================================
   function reInitDropdown() {
     const elems = document.querySelectorAll('.dropdown-trigger');
     M.Dropdown.init(elems, {'container': 'ais-widget-refinement-list--tax_year'});
@@ -550,35 +557,6 @@ ready(function() {
       });
     }
   }
-
-  // FETCH GRANTS JSON
-  // =======================================================
-  /*
-  const grantsURL = '/profiles/' + targetEIN + '/grants/';
-  function fetchGrants(url, callback) {
-    let req = new XMLHttpRequest();
-  
-    req.addEventListener('load', onLoad);
-    req.addEventListener('error', onFail);
-    req.addEventListener('abort', onFail);
-  
-    req.open('GET', url);
-    req.send();
-  
-    function onLoad(event) {
-      if (req.status >= 400) {
-        onFail(event);
-      } else {
-        const json = JSON.parse(this.responseText);
-        callback(null, json);
-      }
-    }
-  
-    function onFail(event) {
-      callback(new Error('...'));
-    }
-  }
-  */
 
   // Helper functions
   // =======================================================
