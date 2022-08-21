@@ -1056,12 +1056,12 @@ donorbox_popup: false
                   <h4>Looking for Another Grantmaker?</h4>
                   <p>Free profiles for over {{ site.number_of_profiles | divided_by: 1000 | append: ',000' }} US foundations</p>
                   <!-- <a href="https://www.grantmakers.io" class="btn">Search</a> -->
-                  <div class="row">
+                  {% comment %} <div class="row">
                     <div class="input-field text-muted col s12 m6 offset-m3">
                       <i class="js-autocomplete-icon material-icons prefix grey-text text-lighten-1">search</i>
                       <input id="autocomplete-input" type="text" class="autocomplete" />
                     </div>
-                  </div>
+                  </div> {% endcomment %}
                   <div class="row">
                     <div class="col s12">
                       <div class="small text-muted">
