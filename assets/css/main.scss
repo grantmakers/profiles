@@ -221,6 +221,12 @@ i.material-icons-tight {
 img.icon-irs-alt {
 	height: 22px;
 }
+img.icon-propublica {
+	height: 75%;
+	@media #{$small-and-down} {
+		height: 60%;
+	}
+}
 img.icon-logo {
 	height: 50px;
 	width: 50px;
@@ -1134,10 +1140,10 @@ Mimic Algolia them - only the good parts
 	#profile, #noscript, #feedback, #profile-share, #information-source, #coffee-bottom-cta, #tagline {
 		margin-bottom: 75px;
 	}
-	#summary, #people, #activities, #grants, #application-info, #about, #financials-tagline, #financial-overview, #financial-trends, #filings {
+	#summary, #people, #activities, #grants, #application-info, #about, #financials-tagline, #financial-overview, #financial-trends, #filings, #data-source {
 		margin-bottom: 75px;
 	}
-	#people, #grants, #application-info, #financials, #filings {
+	#people, #grants, #application-info, #financials, #filings, #data-source {
 		outline: none;
 	}
 	#alerts {
@@ -1981,7 +1987,7 @@ Mimic Algolia them - only the good parts
 			margin-bottom: 25px;
 		}
 	}
-	#filings {
+	#filings, #data-source {
 		a.text-default {
 			color: $text-color !important;
 		}
@@ -2272,7 +2278,7 @@ Print
 	}
 
 	// Avoid page breaks for important sections
-	.print-no-pagebreak, #grants-scroll-anchor, #grants, #application-info, #financial-overview, #financial-trends, #financials {
+	.print-no-pagebreak, #grants-scroll-anchor, #grants, #application-info, #financial-overview, #financial-trends, #financials, #data-source {
 		page-break-inside: avoid;
 	}
 
@@ -2321,7 +2327,7 @@ Print
 	.main {
 		top: 150px;
 	}
-	#profile, #summary, #people, #activities, #grants, #application-info, #alerts, #about, #financial-overview, #financial-trends {
+	#profile, #summary, #people, #activities, #grants, #application-info, #alerts, #about, #financial-overview, #financial-trends, #data-source {
 		margin-bottom: 0 !important;
   }
   #tagline {

@@ -170,9 +170,9 @@ donorbox_popup: false
   <!-- Drift Widget -->
   <!-- <script defer src="{{ site.baseurl }}/assets/js/drift-init.js"></script> -->
 
-  {% unless jekyll.environment == 'staging' %}
+  {% if jekyll.environment == 'production' %}
     <script defer src="{{ site.baseurl }}/assets/js/ga-events.js"></script>
-  {% endunless %}
+  {% endif %}
 
 </head>
 
@@ -1014,29 +1014,65 @@ donorbox_popup: false
               <div id="filings">
                 <div class="card-panel">
                   <div class="card-panel-header">
-                    <h4>Tax <a class="text-default" href="https://projects.propublica.org/nonprofits/organizations/{{ page.ein }}" target="_blank" title="Click to view tax filings available on ProPublica">Filings</a> <button class="tooltipped right valign-wrapper" data-position="left" data-html="true" data-tooltip="Tax returns filed<br>electronically"><img src="{{ site.baseurl }}/assets/img/irs-w-text-alt.png" alt="IRS logo" class="icon-irs-alt"></button></h4>
+                    <h4>
+                      Tax <a class="text-default">Filings</a>
+                      <a class="right valign-wrapper" style="height: 27px" href="https://projects.propublica.org/nonprofits/organizations/{{ page.ein }}" target="_blank" title="Click to view tax filings available on ProPublica" data-position="left" data-html="true" data-tooltip="Courtesy of<br>ProPublica"><img src="{{ site.baseurl }}/assets/img/propublica.png" alt="IRS logo" class="icon-propublica"></a>
+                    </h4>
                   </div>
                   <div class="card-panel-body">
                     <ul class="list-inline">
-                      <li><i class="material-icons tooltipped" data-html="true" data-tooltip="<b>Human Readable</b><br>Foundation Center PDFs">picture_as_pdf</i> <span class="show-on-medium-and-down text-muted">PDF</span></li>
-                      {% for each in page.filings %}
-                      {% if each.filing_is_amendment %}{% assign amendment_exists = true %}{% endif %}
-                        <li><a class="js-filings-pdf waves-effect waves-light btn grey lighten-3 grey-text text-darken-1" target="_blank" rel="noopener" data-ga="PDF" data-tax-period="{{ each.tax_period | round }}" data-ein="{{ page.ein }}" data-url-xml="{{ each.url }}" title="View 990-PF">{{ each.tax_year | round }}{%- if each.filing_is_amendment -%}*{%- endif -%}</a></li>
-                      {% endfor %}
+                      <li class="hide-on-med-and-down"><i class="material-icons">picture_as_pdf</i> <span class="show-on-medium-and-down text-muted">PDF</span></li>
+                      {% comment %} {%- assign test = site.data.test.test -%}
+                      {% for each in test.filings_with_data limit:5 %}
+                        <li><a class="waves-effect waves-light btn grey lighten-3 grey-text text-darken-1" href="{{ each.pdf_url }}" target="_blank" rel="noopener" data-ga="PDF" data-ein="{{ page.ein }}" title="View 990-PF">{{ each.tax_prd_yr | round }}</a></li>
+                      {% endfor %} {% endcomment %}
+                      {% comment %} When re-enabling direct PDF links, add class "hide-on-med-and-down" below {% endcomment %}
+                      <li><a class="waves-effect waves-light btn-flat blue-grey-text" style="text-transform:none" href="https://projects.propublica.org/nonprofits/organizations/{{ page.ein }}" target="_blank" rel="noopener" data-ga="PDF" data-ein="{{ page.ein }}" title="View all available tax filings">View all filings available at ProPublica</a></li>
                     </ul>
-                    <hr>
-                    <ul class="list-inline">
-                      <li><i class="material-icons tooltipped" data-html="true" data-tooltip="<b>Machine Readable</b><br>XML Format">code</i> <span class="show-on-medium-and-down text-muted">XML</span></li>
-                      {% for each in page.filings %}
-                        <li><a class="waves-effect waves-light btn grey lighten-3 grey-text text-darken-1" href="{{ each.url }}" target="_blank" rel="noopener" data-ga="XML" data-tax-period="{{ each.tax_period | round }}" data-ein="{{ each.ein }}" data-url-xml="{{ each.url }}" title="View 990-PF">{{ each.tax_year | round }}{%- if each.filing_is_amendment -%}*{%- endif -%}</a></li>
-                      {% endfor %}
-                    </ul>
-                    {%- if amendment_exists -%}
-                    <hr>
-                    * Amended return
-                    {%- endif %}
                   </div>
                 </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row print-hidden">
+            <div class="col s12">
+              <div id="data-source">
+                <div class="card-panel">
+                  <div class="card-panel-header">
+                    <h4>Data Source <a class="right valign-wrapper" href="https://www.irs.gov/charities-non-profits/form-990-series-downloads" title="Click to view filings on IRS.gov"><img src="{{ site.baseurl }}/assets/img/irs-w-text-alt.png" alt="IRS logo" class="icon-irs-alt"></a></h4>
+                  </div>
+                  <div class="card-panel-body">
+                    <ul>
+                      <li><h6></h6>IRS 990 e-file dataset accessed on {{ page.last_updated_grantmakers | date: "%b %d, %Y"}} from&nbsp;<a href="https://registry.opendata.aws/irs990/" class="blue-grey-text" target="_blank">AWS Registry of Open Data</a></li>
+                    </ul>
+                    <div class="hide-on-small-only">
+                      <hr>
+                      <ul class="list-inline">
+                        <li><i class="material-icons">code</i> <span class="show-on-medium-and-down text-muted">XML</span></li>
+                        {% for each in page.filings %}
+                        {% if each.filing_is_amendment %}{% assign amendment_exists = true %}{% endif %}
+                          <li><a class="js-filings-xml waves-effect waves-light btn grey lighten-3 grey-text text-darken-1" target="_blank" rel="noopener" data-ga="XML" data-tax-period="{{ each.tax_period | round }}" data-ein="{{ page.ein }}" data-url-xml="{{ each.url }}" title="View 990-PF">{{ each.tax_year | round }}{%- if each.filing_is_amendment -%}*{%- endif -%}</a></li>
+                        {% endfor %}
+                      </ul>
+                      {%- if amendment_exists -%}
+                        <div class="text-muted right-align small">* Amended return</div>
+                      {%- endif %}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row print-hidden hide-on-small-only">
+            <div class="col s12">
+              <div id="information-source" class="center">
+                <h6 class="valign-wrapper valign-wrapper-center-align">
+                  <strong>Reminder</strong>
+                </h6>
+                <p>Grantmakers.io is an automated, verbatim reproduction of a public IRS dataset.</p>
+                {% comment %} <p class="valign-wrapper valign-wrapper-center-align"><a href="{{ site.url }}/about/the-dataset/" class="btn btn-flat transparent blue-grey-text">Learn More</a></p> {% endcomment %}
               </div>
             </div>
           </div>

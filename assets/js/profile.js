@@ -402,22 +402,48 @@ ready(function() {
   const gcf = 'https://us-central1-infinite-badge-163220.cloudfunctions.net/checkUrl';
 
   document.querySelectorAll('.js-filings-pdf').forEach((el) => {
-    addFilingURL(el);
-    el.addEventListener('click', checkURL);
+    // TODO Call ProPublica API
+    // addFilingURL(el);
+    // el.addEventListener('click', checkURL);
+    el.addEventListener('click', fetchProPublicaData);
   });
-  
-  function addFilingURL(el) {
+
+  document.querySelectorAll('.js-filings-xml').forEach((el) => {
     const ein = el.dataset.ein;
-    const einShort = ein.toString().substring(0, 3);
-    const taxPeriod = el.dataset.taxPeriod;
-    // Foundation Center: http://990s.foundationcenter.org/990pf_pdf_archive/272/272624875/272624875_201412_990PF.pdf
-    const urlPDF = 'http://990s.foundationcenter.org/990pf_pdf_archive/' +
-                 einShort + '/' +
-                 ein + '/' +
-                 ein + '_' +
-                 taxPeriod + '_990PF.pdf';
-    el.dataset.urlPdf = urlPDF;
-    el.href = urlPDF;
+    el.addEventListener('click', () => { xmlNotAvailable(ein); }, false);
+  });
+
+  async function fetchProPublicaData(e) {
+    e.preventDefault();
+    const elem = e.target;
+    const ein = elem.getAttribute('data-ein');
+    const url = `https://projects.propublica.org/nonprofits/api/v2/organizations/${ein}.json`;
+    // const data = { 'target': target };
+    // const json = JSON.stringify(data);
+
+    try {
+      const response = await fetch(url, {
+        method: 'GET',
+        // headers: {
+        //   accept: 'application/json',
+        // },
+      });
+  
+      if (!response.ok) {
+        return `Error! status: ${response.status}`;
+        // throw new Error(`Error! status: ${response.status}`);
+      }
+  
+      const result = await response.json();
+      return result;
+    } catch (err) {
+      console.log(err);
+      return false;
+    }
+
+    // const request = new XMLHttpRequest();
+    // request.open('GET', url, true);
+    // request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
   }
 
   function checkURL(e) {
@@ -464,6 +490,16 @@ ready(function() {
 
   function pdfRequestFailed() {
     const toastContent = '<span>Something went wrong.</span><a href="http://foundationcenter.org/find-funding/990-finder" class="btn-flat toast-action">Try Here.</a>';
+    M.Toast.dismissAll();
+    M.toast({
+      'html': toastContent,
+      'displayLength': 10000,
+    });
+  }
+
+  function xmlNotAvailable(ein) {
+    console.log('Clicked');
+    const toastContent = `<span>XML files not currently available</span><a href="https://projects.propublica.org/nonprofits/organizations/${ein}" class="btn-flat blue-grey-text text-lighten-3 toast-action">Try Here</a>`;
     M.Toast.dismissAll();
     M.toast({
       'html': toastContent,
