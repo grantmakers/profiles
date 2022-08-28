@@ -499,7 +499,7 @@ ready(function() {
 
   function xmlNotAvailable(ein) {
     console.log('Clicked');
-    const toastContent = `<span>XML files not currently available</span><a href="https://projects.propublica.org/nonprofits/organizations/${ein}" class="btn-flat blue-grey-text text-lighten-3 toast-action">Try Here</a>`;
+    const toastContent = `<span>XML files not currently available</span><a href="https://projects.propublica.org/nonprofits/organizations/${ein}" target="_blank" class="btn-flat blue-grey-text text-lighten-3 toast-action">Try Here</a>`;
     M.Toast.dismissAll();
     M.toast({
       'html': toastContent,
