@@ -59,7 +59,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
 
   <!-- CSS Files -->
-  <link rel="stylesheet" href="/profiles/assets/css/main.css?v=20220319">
+  <link rel="stylesheet" href="/profiles/assets/css/main.css?v=20220828">
 
   <!-- Schema.org -->
   
@@ -117,15 +117,15 @@
   
   <script defer src="https://cdnjs.cloudflare.com/ajax/libs/instantsearch.js/4.39.2/instantsearch.production.min.js" integrity="sha512-GZAF54GRoa3oTxOSw6uLtVBHcnMBK1K0HqK7RymF9yjb+C65B8mAOs46vvk4YIKuED5FkAUrSOc24f8mmpLqmw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   
-  <script defer src="/profiles/assets/js/search.js?v=20220319"></script>
+  <script defer src="/profiles/assets/js/search.js?v=20220828"></script>
   
   <script defer src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.1/autocomplete.min.js" integrity="sha512-fmVMZ+dBGAuD97TYKZZwA/6jel1QFPVJ8KPX+UXStz5z4iod0Ep7aHEshG8AQjLzAw0HMFeE+rAmEArxKvjwrA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script defer src="/profiles/assets/js/autocomplete.js"></script>
 
-  <script src="/profiles/assets/js/profile.js?v=20220319"></script>
+  <script src="/profiles/assets/js/profile.js?v=20220828"></script>
 
   <!-- Vue -->
-  <!--<link rel="prefetch" href="/profiles/assets/js/bundle.js?v=20220319" as="script"> -->
+  <!--<link rel="prefetch" href="/profiles/assets/js/bundle.js?v=20220828" as="script"> -->
   
   <!-- Drift Widget -->
   <!-- <script defer src="/profiles/assets/js/drift-init.js"></script> -->
@@ -901,35 +901,65 @@
               <div id="filings">
                 <div class="card-panel">
                   <div class="card-panel-header">
-                    <h4>Tax <a class="text-default" href="https://projects.propublica.org/nonprofits/organizations/357113898" target="_blank" title="Click to view tax filings available on ProPublica">Filings</a> <button class="tooltipped right valign-wrapper" data-position="left" data-html="true" data-tooltip="Tax returns filed<br>electronically"><img src="/profiles/assets/img/irs-w-text-alt.png" alt="IRS logo" class="icon-irs-alt"></button></h4>
+                    <h4>
+                      Tax <a class="text-default">Filings</a>
+                      <a class="right valign-wrapper" style="height: 27px" href="https://projects.propublica.org/nonprofits/organizations/357113898" target="_blank" title="Click to view tax filings available on ProPublica" data-position="left" data-html="true" data-tooltip="Courtesy of<br>ProPublica"><img src="/profiles/assets/img/propublica.png" alt="IRS logo" class="icon-propublica"></a>
+                    </h4>
                   </div>
                   <div class="card-panel-body">
                     <ul class="list-inline">
-                      <li><i class="material-icons tooltipped" data-html="true" data-tooltip="<b>Human Readable</b><br>Foundation Center PDFs">picture_as_pdf</i> <span class="show-on-medium-and-down text-muted">PDF</span></li>
+                      <li class="hide-on-med-and-down"><i class="material-icons">picture_as_pdf</i> <span class="show-on-medium-and-down text-muted">PDF</span></li>
                       
                       
-                        <li><a class="js-filings-pdf waves-effect waves-light btn grey lighten-3 grey-text text-darken-1" target="_blank" rel="noopener" data-ga="PDF" data-tax-period="202012" data-ein="357113898" data-url-xml="https://s3.amazonaws.com/irs-form-990/202101269349102350_public.xml" title="View 990-PF">2020</a></li>
-                      
-                      
-                        <li><a class="js-filings-pdf waves-effect waves-light btn grey lighten-3 grey-text text-darken-1" target="_blank" rel="noopener" data-ga="PDF" data-tax-period="201912" data-ein="357113898" data-url-xml="https://s3.amazonaws.com/irs-form-990/202023109349100517_public.xml" title="View 990-PF">2019</a></li>
-                      
-                      
-                        <li><a class="js-filings-pdf waves-effect waves-light btn grey lighten-3 grey-text text-darken-1" target="_blank" rel="noopener" data-ga="PDF" data-tax-period="201812" data-ein="357113898" data-url-xml="https://s3.amazonaws.com/irs-form-990/201921359349102802_public.xml" title="View 990-PF">2018</a></li>
-                      
-                    </ul>
-                    <hr>
-                    <ul class="list-inline">
-                      <li><i class="material-icons tooltipped" data-html="true" data-tooltip="<b>Machine Readable</b><br>XML Format">code</i> <span class="show-on-medium-and-down text-muted">XML</span></li>
-                      
-                        <li><a class="waves-effect waves-light btn grey lighten-3 grey-text text-darken-1" href="https://s3.amazonaws.com/irs-form-990/202101269349102350_public.xml" target="_blank" rel="noopener" data-ga="XML" data-tax-period="202012" data-ein="" data-url-xml="https://s3.amazonaws.com/irs-form-990/202101269349102350_public.xml" title="View 990-PF">2020</a></li>
-                      
-                        <li><a class="waves-effect waves-light btn grey lighten-3 grey-text text-darken-1" href="https://s3.amazonaws.com/irs-form-990/202023109349100517_public.xml" target="_blank" rel="noopener" data-ga="XML" data-tax-period="201912" data-ein="" data-url-xml="https://s3.amazonaws.com/irs-form-990/202023109349100517_public.xml" title="View 990-PF">2019</a></li>
-                      
-                        <li><a class="waves-effect waves-light btn grey lighten-3 grey-text text-darken-1" href="https://s3.amazonaws.com/irs-form-990/201921359349102802_public.xml" target="_blank" rel="noopener" data-ga="XML" data-tax-period="201812" data-ein="" data-url-xml="https://s3.amazonaws.com/irs-form-990/201921359349102802_public.xml" title="View 990-PF">2018</a></li>
-                      
+                      <li><a class="waves-effect waves-light btn-flat blue-grey-text" style="text-transform:none" href="https://projects.propublica.org/nonprofits/organizations/357113898" target="_blank" rel="noopener" data-ga="PDF" data-ein="357113898" title="View all available tax filings">View all filings available at ProPublica</a></li>
                     </ul>
                   </div>
                 </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row print-hidden">
+            <div class="col s12">
+              <div id="data-source">
+                <div class="card-panel">
+                  <div class="card-panel-header">
+                    <h4>Data Source <a class="right valign-wrapper" href="https://www.irs.gov/charities-non-profits/form-990-series-downloads" title="Click to view filings on IRS.gov"><img src="/profiles/assets/img/irs-w-text-alt.png" alt="IRS logo" class="icon-irs-alt"></a></h4>
+                  </div>
+                  <div class="card-panel-body">
+                    <ul>
+                      <li><h6></h6>IRS 990 e-file dataset accessed on Sep 26, 2021 from&nbsp;<a href="https://registry.opendata.aws/irs990/" class="blue-grey-text" target="_blank">AWS Registry of Open Data</a></li>
+                    </ul>
+                    <div class="hide-on-small-only">
+                      <hr>
+                      <ul class="list-inline">
+                        <li><i class="material-icons">code</i> <span class="show-on-medium-and-down text-muted">XML</span></li>
+                        
+                        
+                          <li><a class="js-filings-xml waves-effect waves-light btn grey lighten-3 grey-text text-darken-1" target="_blank" rel="noopener" data-ga="XML" data-tax-period="202012" data-ein="357113898" data-url-xml="https://s3.amazonaws.com/irs-form-990/202101269349102350_public.xml" title="View 990-PF">2020</a></li>
+                        
+                        
+                          <li><a class="js-filings-xml waves-effect waves-light btn grey lighten-3 grey-text text-darken-1" target="_blank" rel="noopener" data-ga="XML" data-tax-period="201912" data-ein="357113898" data-url-xml="https://s3.amazonaws.com/irs-form-990/202023109349100517_public.xml" title="View 990-PF">2019</a></li>
+                        
+                        
+                          <li><a class="js-filings-xml waves-effect waves-light btn grey lighten-3 grey-text text-darken-1" target="_blank" rel="noopener" data-ga="XML" data-tax-period="201812" data-ein="357113898" data-url-xml="https://s3.amazonaws.com/irs-form-990/201921359349102802_public.xml" title="View 990-PF">2018</a></li>
+                        
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row print-hidden hide-on-small-only">
+            <div class="col s12">
+              <div id="information-source" class="center">
+                <h6 class="valign-wrapper valign-wrapper-center-align">
+                  <strong>Reminder</strong>
+                </h6>
+                <p>Grantmakers.io is an automated, verbatim reproduction of a public IRS dataset.</p>
+                
               </div>
             </div>
           </div>
@@ -949,12 +979,7 @@
                   <h4>Looking for Another Grantmaker?</h4>
                   <p>Free profiles for over 109,000 US foundations</p>
                   <!-- <a href="https://www.grantmakers.io" class="btn">Search</a> -->
-                  <div class="row">
-                    <div class="input-field text-muted col s12 m6 offset-m3">
-                      <i class="js-autocomplete-icon material-icons prefix grey-text text-lighten-1">search</i>
-                      <input id="autocomplete-input" type="text" class="autocomplete" />
-                    </div>
-                  </div>
+                  
                   <div class="row">
                     <div class="col s12">
                       <div class="small text-muted">

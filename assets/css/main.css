@@ -6595,6 +6595,12 @@ i.material-icons-tight.right {
 img.icon-irs-alt {
   height: 22px; }
 
+img.icon-propublica {
+  height: 75%; }
+  @media only screen and (max-width: 600px) {
+    img.icon-propublica {
+      height: 60%; } }
+
 img.icon-logo {
   height: 50px;
   width: 50px; }
@@ -7347,9 +7353,9 @@ Mimic Algolia them - only the good parts
   /* Apply flexbox to match height */ }
   .profile-content #profile, .profile-content #noscript, .profile-content #feedback, .profile-content #profile-share, .profile-content #information-source, .profile-content #coffee-bottom-cta, .profile-content #tagline {
     margin-bottom: 75px; }
-  .profile-content #summary, .profile-content #people, .profile-content #activities, .profile-content #grants, .profile-content #application-info, .profile-content #about, .profile-content #financials-tagline, .profile-content #financial-overview, .profile-content #financial-trends, .profile-content #filings {
+  .profile-content #summary, .profile-content #people, .profile-content #activities, .profile-content #grants, .profile-content #application-info, .profile-content #about, .profile-content #financials-tagline, .profile-content #financial-overview, .profile-content #financial-trends, .profile-content #filings, .profile-content #data-source {
     margin-bottom: 75px; }
-  .profile-content #people, .profile-content #grants, .profile-content #application-info, .profile-content #financials, .profile-content #filings {
+  .profile-content #people, .profile-content #grants, .profile-content #application-info, .profile-content #financials, .profile-content #filings, .profile-content #data-source {
     outline: none; }
   .profile-content #alerts {
     margin-top: 75px; }
@@ -8001,20 +8007,20 @@ Mimic Algolia them - only the good parts
       width: 100%; } }
   .profile-content #feedback h5, .profile-content #coffee-bottom-cta h5 {
     margin-bottom: 25px; }
-  .profile-content #filings a.text-default, .profile-content #filings ul#mobile-nav.nav-primary.sidenav li a, ul#mobile-nav.nav-primary.sidenav li .profile-content #filings a, .profile-content #filings ul#navbar-more.dropdown-content li a, ul#navbar-more.dropdown-content li .profile-content #filings a {
+  .profile-content #filings a.text-default, .profile-content #filings ul#mobile-nav.nav-primary.sidenav li a, ul#mobile-nav.nav-primary.sidenav li .profile-content #filings a, .profile-content #filings ul#navbar-more.dropdown-content li a, ul#navbar-more.dropdown-content li .profile-content #filings a, .profile-content #data-source a.text-default, .profile-content #data-source ul#mobile-nav.nav-primary.sidenav li a, ul#mobile-nav.nav-primary.sidenav li .profile-content #data-source a, .profile-content #data-source ul#navbar-more.dropdown-content li a, ul#navbar-more.dropdown-content li .profile-content #data-source a {
     color: #333333 !important; }
-  .profile-content #filings li .material-icons {
+  .profile-content #filings li .material-icons, .profile-content #data-source li .material-icons {
     color: #999999 !important;
     margin: -1px 5px 0 0;
     vertical-align: middle; }
   @media only screen and (max-width: 992px) {
-    .profile-content #filings li {
+    .profile-content #filings li, .profile-content #data-source li {
       padding-bottom: 10px; }
-    .profile-content #filings li:first-child {
+    .profile-content #filings li:first-child, .profile-content #data-source li:first-child {
       display: block;
       margin-bottom: 10px; } }
   @media only screen and (max-width: 992px) {
-    .profile-content #filings .show-on-medium-and-down {
+    .profile-content #filings .show-on-medium-and-down, .profile-content #data-source .show-on-medium-and-down {
       display: inline-block !important; } }
 
 .section-simple-intro {
@@ -8199,7 +8205,7 @@ Print
     margin: 0 !important;
     box-shadow: none !important; }
 
-  .print-no-pagebreak, #grants-scroll-anchor, #grants, #application-info, #financial-overview, #financial-trends, #financials {
+  .print-no-pagebreak, #grants-scroll-anchor, #grants, #application-info, #financial-overview, #financial-trends, #financials, #data-source {
     page-break-inside: avoid; }
 
   .brand {
@@ -8230,7 +8236,7 @@ Print
   .main {
     top: 150px; }
 
-  #profile, #summary, #people, #activities, #grants, #application-info, #alerts, #about, #financial-overview, #financial-trends {
+  #profile, #summary, #people, #activities, #grants, #application-info, #alerts, #about, #financial-overview, #financial-trends, #data-source {
     margin-bottom: 0 !important; }
 
   #tagline {

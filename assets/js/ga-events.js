@@ -47,13 +47,13 @@ ready(function() {
   // see search.js
 
   // Algolia Autocomplete search box
-  document.getElementById('autocomplete-input').addEventListener('focus', () => {
-    ga('send', 'event', {
-      'eventCategory': 'Profile Events',
-      'eventAction': 'Profile Search Focus',
-      'eventLabel': 'Autocomplete search',
-    });
-  });
+  // document.getElementById('autocomplete-input').addEventListener('focus', () => {
+  //   ga('send', 'event', {
+  //     'eventCategory': 'Profile Events',
+  //     'eventAction': 'Profile Search Focus',
+  //     'eventLabel': 'Autocomplete search',
+  //   });
+  // });
 
   // Tax filings
   document.querySelectorAll('#filings ul li a').forEach((each) => {
