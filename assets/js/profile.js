@@ -424,7 +424,6 @@ ready(function() {
   function enableProPublica(entries, observer) {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
-        console.log('Calling ProPublica Wrapper function');
         proPublicaWrapper();
         observer.unobserve(entry.target);
       }
@@ -435,7 +434,6 @@ ready(function() {
     const ref = document.getElementById('js-pdfs');
     const ein = ref.getAttribute('data-ein');
     const url = `${gcf}?ein=${ein}`;
-    console.log('Called fetchProPublicaData');
 
     try {
       const response = await fetch(url, {
@@ -475,7 +473,6 @@ ready(function() {
   }
 
   function xmlNotAvailable(ein) {
-    console.log('Clicked');
     const toastContent = `<span>XML files not currently available</span><a href="https://projects.propublica.org/nonprofits/organizations/${ein}" target="_blank" class="btn-flat blue-grey-text text-lighten-3 toast-action">Try Here</a>`;
     M.Toast.dismissAll();
     M.toast({
