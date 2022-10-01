@@ -397,104 +397,81 @@ ready(function() {
     }
   }
 
-  // FILINGS
+  // PDF FILINGS
   // =======================================================
-  const gcf = 'https://us-central1-infinite-badge-163220.cloudfunctions.net/checkUrl';
+  // No need to call ProPublica API unless user makes it down the page
+  // Create an IntersectionObserver to trigger main ProPublica function call
+  // IntersectionObserver function is initialized alongside iubenda function
+  const gcf = 'https://propublica-proxy-jzc7ggbgfq-uc.a.run.app';
 
-  document.querySelectorAll('.js-filings-pdf').forEach((el) => {
-    // TODO Call ProPublica API
-    // addFilingURL(el);
-    // el.addEventListener('click', checkURL);
-    el.addEventListener('click', fetchProPublicaData);
-  });
+  const proPublicaWrapper = async() => {
+    const res = await fetchProPublicaData();
+    return createPdfButtons(res);
+  };
 
-  document.querySelectorAll('.js-filings-xml').forEach((el) => {
-    const ein = el.dataset.ein;
-    el.addEventListener('click', () => { xmlNotAvailable(ein); }, false);
-  });
+  function createProPublicaObserver() {
+    let observer;
+    let anchor = document.getElementById('financial-overview');
+    let config = {
+      rootMargin: '0px 0px',
+      threshold: 0.01,
+    };
+    // Initiate observer using Footer as anchor
+    observer = new IntersectionObserver(enableProPublica, config);
+    observer.observe(anchor);
+  }
 
-  async function fetchProPublicaData(e) {
-    e.preventDefault();
-    const elem = e.target;
-    const ein = elem.getAttribute('data-ein');
-    const url = `https://projects.propublica.org/nonprofits/api/v2/organizations/${ein}.json`;
-    // const data = { 'target': target };
-    // const json = JSON.stringify(data);
+  function enableProPublica(entries, observer) {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        console.log('Calling ProPublica Wrapper function');
+        proPublicaWrapper();
+        observer.unobserve(entry.target);
+      }
+    });
+  }
+
+  async function fetchProPublicaData() {
+    const ref = document.getElementById('js-pdfs');
+    const ein = ref.getAttribute('data-ein');
+    const url = `${gcf}?ein=${ein}`;
+    console.log('Called fetchProPublicaData');
 
     try {
       const response = await fetch(url, {
         method: 'GET',
-        // headers: {
-        //   accept: 'application/json',
-        // },
       });
-  
+
       if (!response.ok) {
         return `Error! status: ${response.status}`;
-        // throw new Error(`Error! status: ${response.status}`);
       }
   
       const result = await response.json();
-      return result;
+      return {ein, result};
     } catch (err) {
       console.log(err);
       return false;
     }
-
-    // const request = new XMLHttpRequest();
-    // request.open('GET', url, true);
-    // request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
   }
 
-  function checkURL(e) {
-    e.preventDefault();
-    const elem = e.target;
-    const target = elem.href;
-    const data = { 'target': target };
-    const json = JSON.stringify(data);
-
-    M.toast({
-      'html': 'Redirecting to latest 990...',
-    });
-
-    const request = new XMLHttpRequest();
-    request.open('POST', gcf, true);
-    request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
-
-    request.onload = function() {
-      if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
-        if (this.response === 'true') {
-          window.location.href = target;
-        } else {
-          pdfNotAvailable(elem);
-        }
-      } else {
-        pdfRequestFailed();
-      }
-    };
-
-    request.onerror = function() {
-      pdfRequestFailed();
-    };
-
-    request.send(json);
-  }
-
-  function pdfNotAvailable(el) {
-    el.classList.add('disabled');
-    M.Toast.dismissAll();
-    M.toast({
-      'html': 'PDF not yet available. Try a prior year.',
-    });
-  }
-
-  function pdfRequestFailed() {
-    const toastContent = '<span>Something went wrong.</span><a href="http://foundationcenter.org/find-funding/990-finder" class="btn-flat toast-action">Try Here.</a>';
-    M.Toast.dismissAll();
-    M.toast({
-      'html': toastContent,
-      'displayLength': 10000,
-    });
+  function createPdfButtons({ein, result}) {
+    const ref = document.getElementById('js-pdfs');
+    if (result) {
+      result.reverse().map((each) => {
+        let el = document.createElement('li');
+        let link = document.createElement('a');
+        link.classList.add('js-filings-pdf', 'waves-effect', 'waves-light', 'btn', 'grey', 'lighten-3', 'grey-text', 'text-darken-1');
+        link.innerText = each.tax_prd_yr;
+        link.href = each.pdf_url_no_expire;
+        link.target = '_blank';
+        link.rel = 'noopener';
+        link.dataset.ga = 'PDF';
+        link.dataset.ein = ein;
+        link.title = 'View 990-PF';
+        el.appendChild(link);
+        ref.after(el);
+      });
+    }
   }
 
   function xmlNotAvailable(ein) {
@@ -506,6 +483,13 @@ ready(function() {
       'displayLength': 10000,
     });
   }
+
+  // XML Filings
+  // =======================================================
+  document.querySelectorAll('.js-filings-xml').forEach((el) => {
+    const ein = el.dataset.ein;
+    el.addEventListener('click', () => { xmlNotAvailable(ein); }, false);
+  });
 
   // Lazy Load Iubenda script
   // =======================================================
@@ -539,5 +523,6 @@ ready(function() {
 
   if ('IntersectionObserver' in window) {
     createIubendaObserver();
+    createProPublicaObserver();
   }
 });
