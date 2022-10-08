@@ -404,11 +404,7 @@ ready(function() {
   // IntersectionObserver function is initialized alongside iubenda function
   const gcf = 'https://propublica-proxy-jzc7ggbgfq-uc.a.run.app';
 
-  const proPublicaWrapper = async() => {
-    const res = await fetchProPublicaData();
-    return createPdfButtons(res);
-  };
-
+  // Function is initiated alongside iubenda intersection observer
   function createProPublicaObserver() {
     let observer;
     let anchor = document.getElementById('financial-overview');
@@ -420,6 +416,11 @@ ready(function() {
     observer = new IntersectionObserver(enableProPublica, config);
     observer.observe(anchor);
   }
+
+  const proPublicaWrapper = async() => {
+    const res = await fetchProPublicaData();
+    return createPdfButtons(res);
+  };
 
   function enableProPublica(entries, observer) {
     entries.forEach((entry) => {
@@ -466,6 +467,10 @@ ready(function() {
         link.dataset.ga = 'PDF';
         link.dataset.ein = ein;
         link.title = 'View 990-PF';
+        // Handle null pdf scenario - Direct user to target filing on main page using anchor tags
+        if (!each.pdf_url_no_expire) {
+          link.href = `https://projects.propublica.org/nonprofits/organizations/${ein}/#filing${each.tax_prd_yr}`;
+        }
         el.appendChild(link);
         ref.after(el);
       });
