@@ -455,6 +455,7 @@ ready(function() {
 
   function createPdfButtons({ein, result}) {
     const ref = document.getElementById('js-pdfs');
+    const loader = document.getElementById('js-pdfs-loader');
     if (result) {
       result.reverse().map((each) => {
         let el = document.createElement('li');
@@ -475,6 +476,7 @@ ready(function() {
         ref.after(el);
       });
     }
+    return loader.classList.add('hidden');
   }
 
   function xmlNotAvailable(ein) {
