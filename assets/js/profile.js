@@ -425,6 +425,8 @@ ready(function() {
   function enableProPublica(entries, observer) {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
+        const loader = document.getElementById('js-pdfs-loader');
+        loader.classList.remove('hidden');
         proPublicaWrapper();
         observer.unobserve(entry.target);
       }
@@ -484,7 +486,7 @@ ready(function() {
     M.Toast.dismissAll();
     M.toast({
       'html': toastContent,
-      'displayLength': 10000,
+      'displayLength': 4000,
     });
   }
 
