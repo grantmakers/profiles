@@ -43,6 +43,8 @@
     "eslint-plugin-vue": "^6.2.2",
     "mongodb-stitch-browser-sdk": "^4.8.0",
     "path": "^0.12.7",
+    "stream-chain": "^2.2.5",
+    "stream-json": "^1.8.0",
     "vue": "^2.7.10",
     "vue-clipboard2": "^0.3.3",
     "vue-loader": "^15.10.0",
