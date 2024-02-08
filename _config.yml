@@ -1,7 +1,7 @@
 # Site settings
 # Meta tags
 title: Grantmakers.io
-description: Quickly find data on 109,000 grantmaking institutions in the US. A free, open source project.
+description: Quickly find data on 145,000 grantmaking institutions in the US. A free, open source project.
 
 # Jekyll settings
 baseurl: /profiles # Leave this blank unless your site is located on a subpath, e.g. /blog
@@ -23,8 +23,8 @@ plugins_dir: _plugins
 
 # Last updated - used in creating redirects if name has changed
 # Format: "YYYY-MM-DDTHH:MM:SS.fffZ"
-last_updated_grantmakers: '2021-09-26T15:00:04.544Z'
-number_of_profiles: 109121
+last_updated_grantmakers: '2024-01-06T04:07:48.353Z'
+number_of_profiles: 145499
 
 algolia_referral_link: https://www.algolia.com/?utm_source=grantmakersio&utm_medium=referral
 
@@ -34,9 +34,6 @@ algolia_public_key_profiles: ce4d584b0de36ca3f8b4727fdb83c658
 
 # Donate links
 donorbox_hosted_page_coffee: https://donorbox.org/buy-chad-a-coffee
-
-# Google Analytics
-google-analytics: UA-84268197-1
 
 # Build settings
 markdown: kramdown
