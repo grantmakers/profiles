@@ -26,7 +26,7 @@ plugins_dir: _plugins
 last_updated_grantmakers: '2021-09-26T15:00:04.544Z'
 number_of_profiles: 109121
 
-algolia_referral_link: http://goto.algolia.com/l/139121/2017-10-24/26gc84
+algolia_referral_link: https://www.algolia.com/?utm_source=grantmakersio&utm_medium=referral
 
 # Algolia Public API Search Keys
 algolia_public_key_grants: 96a419d65f67ff3b4c54939f8e90c220
