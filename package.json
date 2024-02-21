@@ -51,7 +51,7 @@
     "webpack-cli": "^3.3.12"
   },
   "dependencies": {
-    "axios": "^0.21.4",
+    "axios": "^0.28.0",
     "bugsnag-js": "^4.7.3",
     "bugsnag-vue": "^1.0.1",
     "retry-axios": "^2.6.0"
