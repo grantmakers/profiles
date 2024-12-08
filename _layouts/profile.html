@@ -8,7 +8,7 @@ donorbox_popup: false
   <link rel="apple-touch-icon" sizes="76x76" href="{{ site.baseurl }}/assets/img/apple-icon.png">
   <link rel="icon" type="image/png" href="{{ site.baseurl }}/assets/img/favicon.png">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-  <link rel="canonical" href="{{ site.url }}{{ site.baseurl }}/v0/{{ page.ein }}-{{ page.organization_name | slugify }}/">
+  <link rel="canonical" href="{{ site.url }}{{ site.baseurl }}/v0/{{ page.ein }}-{{ page.organization_name_slug }}/">
 
   {% if jekyll.environment == 'staging' %}
     <meta name="robots" content="noindex, nofollow">
@@ -25,7 +25,7 @@ donorbox_popup: false
   <meta property="og:image:height" content="630">
   <meta property="og:title" content="{{ page.organization_name }}">
   <meta property="og:site_name" content="Grantmakers.io">
-  <meta property="og:url" content="{{ site.url }}{{ site.baseurl }}/v0/{{ page.ein }}-{{ page.organization_name | slugify }}/">
+  <meta property="og:url" content="{{ site.url }}{{ site.baseurl }}/v0/{{ page.ein }}-{{ page.organization_name_slug }}/">
   <meta property="og:description" content="Profile for {{ page.organization_name }} ({{ page.city }}, {{ page.state }} - EIN {{ page.ein }}) including grantees and board members as of {{ page.filings[0].tax_year | round }} tax year.">
   <meta property="og:type" content="profile">
 
@@ -45,7 +45,7 @@ donorbox_popup: false
 
   {% comment %} Simplify UI if has less than 20 grants or only one filing with grants {% endcomment %}
   {% assign count = 0 %}
-  {% for filing in page.grants_facet_tax_year %}
+  {% for filing in page.grants_facets %}
     {% if filing.count > 0 %}
       {% assign count = count | plus:1 %}
     {% endif %}
@@ -58,7 +58,7 @@ donorbox_popup: false
   {% endif %}
 
   {% comment %} Enable tax year refinement dropdown only if needed {% endcomment %}
-  {% if page.filings[1] and page.grants_facet_tax_year[1].count > 0 %}
+  {% if page.filings[1] and page.grants_facets[1].grant_count > 0 %}
     {% assign enable_tax_year_dropdown = true %}
   {% endif %}
 
@@ -139,7 +139,7 @@ donorbox_popup: false
         "@type": "ListItem",
         "position": 3,
         "item": {
-          "@id": "{{ site.url }}{{ site.baseurl }}/v0/{{ page.ein }}-{{ page.organization_name | slugify }}/",
+          "@id": "{{ site.url }}{{ site.baseurl }}/v0/{{ page.ein }}-{{ page.organization_name_slug }}/",
           "name": "{{ page.organization_name }}"
         }
       }]
@@ -300,7 +300,7 @@ donorbox_popup: false
                   <img src="{{ site.baseurl }}/assets/img/icons-letters/{{ page.organization_name | split: '' | first | upcase }}.svg" alt="Circle Image" class="circle responsive-img">
                 </div>
                 <div class="name">
-                  <h1 id="org-data" class="org-name" data-ein="{{ page.ein }}" data-name="{{ page.organization_name }}" data-url="{{ site.url }}{{ site.baseurl }}/{{ page.ein }}/" data-tax-year="{{ page.filings[0].tax_year | round }}" data-tax-year-only-one="{% if page.filings[1] and page.grants_facet_tax_year[1].count > 0 %}false{% else %}true{% endif %}">
+                  <h1 id="org-data" class="org-name" data-ein="{{ page.ein }}" data-name="{{ page.organization_name }}" data-url="{{ site.url }}{{ site.baseurl }}/{{ page.ein }}/" data-tax-year="{{ page.filings[0].tax_year | round }}" data-tax-year-only-one="{% if page.filings[1] and page.grants_facets[1].grant_count > 0 %}false{% else %}true{% endif %}">
                     {% if page.website %}
                       <a href="{{ page.website}}" class="js-ga-website-click disable-primary-color" title="Click to visit website" data-ga="Website H1 Click">{{ page.organization_name }}</a>
                     {% else %}
@@ -514,6 +514,8 @@ donorbox_popup: false
                               <td class="text-center">{{ forloop.index }}</td>
                               {% if each.name._ %}
                                 <td>{{ each.name._ }}</td>
+                              {% elsif each.name['#text'] %}
+                                <td>{{ each.name['#text'] }}</td>
                               {% else %}
                                 <td>{{ each.name }}</td>
                               {% endif %}
@@ -1047,40 +1049,6 @@ donorbox_popup: false
                           
                         </div> 
                       </li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="row print-hidden">
-            <div class="col s12">
-              <div id="data-source">
-                <div class="card-panel">
-                  <div class="card-panel-header">
-                    <h4>Data Source<a class="right valign-wrapper" href="https://www.irs.gov/charities-non-profits/form-990-series-downloads" title="Click to view filings on IRS.gov"><img src="{{ site.baseurl }}/assets/img/irs-w-text-alt.png" alt="IRS logo" class="icon-irs-alt"></a></h4>
-                  </div>
-                  <div class="card-panel-body">
-                    <div class="hide-on-small-only">
-                      <ul class="list-inline">
-                        <li><i class="material-icons">code</i> <span class="show-on-medium-and-down text-muted">XML</span></li>
-                        {% for each in page.filings %}
-                        {% if each.filing_is_amendment %}{% assign amendment_exists = true %}{% endif %}
-                          <li>
-                            <a class="js-filings-xml waves-effect waves-light btn grey lighten-3 grey-text text-darken-1" target="_blank" rel="noopener" data-ga="XML" data-tax-period="{{ each.tax_period | round }}" data-ein="{{ page.ein }}" data-url-xml="{{ each.url }}" title="View 990-PF">
-                              {{ each.tax_year | round }}{%- if each.filing_is_amendment -%}*{%- endif -%}
-                            </a>
-                          </li>
-                        {% endfor %}
-                      </ul>
-                      {%- if amendment_exists -%}
-                        <div class="text-muted right-align small">* Amended return</div>
-                      {%- endif %}
-                      <hr>
-                    </div>
-                    <ul>
-                      <li><h6></h6>IRS 990 e-file dataset accessed on {{ page.last_updated_grantmakers | date: "%b %d, %Y"}} from&nbsp;<a href="https://registry.opendata.aws/irs990/" class="blue-grey-text" target="_blank">AWS Registry of Open Data</a></li>
                     </ul>
                   </div>
                 </div>
