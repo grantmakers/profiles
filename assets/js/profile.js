@@ -397,106 +397,6 @@ ready(function() {
     }
   }
 
-  // PDF FILINGS
-  // =======================================================
-  // No need to call ProPublica API unless user makes it down the page
-  // Create an IntersectionObserver to trigger main ProPublica function call
-  // IntersectionObserver function is initialized alongside iubenda function
-  const gcf = 'https://propublica-proxy-jzc7ggbgfq-uc.a.run.app';
-
-  // Function is initiated alongside iubenda intersection observer
-  function createProPublicaObserver() {
-    let observer;
-    let anchor = document.getElementById('financial-overview');
-    let config = {
-      rootMargin: '0px 0px',
-      threshold: 0.01,
-    };
-    // Initiate observer using Footer as anchor
-    observer = new IntersectionObserver(enableProPublica, config);
-    observer.observe(anchor);
-  }
-
-  const proPublicaWrapper = async() => {
-    const res = await fetchProPublicaData();
-    return createPdfButtons(res);
-  };
-
-  function enableProPublica(entries, observer) {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        const loader = document.getElementById('js-pdfs-loader');
-        loader.classList.remove('hidden');
-        proPublicaWrapper();
-        observer.unobserve(entry.target);
-      }
-    });
-  }
-
-  async function fetchProPublicaData() {
-    const ref = document.getElementById('js-pdfs');
-    const ein = ref.getAttribute('data-ein');
-    const url = `${gcf}?ein=${ein}`;
-
-    try {
-      const response = await fetch(url, {
-        method: 'GET',
-      });
-
-      if (!response.ok) {
-        return `Error! status: ${response.status}`;
-      }
-  
-      const result = await response.json();
-      return {ein, result};
-    } catch (err) {
-      console.log(err);
-      return false;
-    }
-  }
-
-  function createPdfButtons({ein, result}) {
-    const ref = document.getElementById('js-pdfs');
-    const loader = document.getElementById('js-pdfs-loader');
-    if (result) {
-      result.reverse().map((each) => {
-        let el = document.createElement('li');
-        let link = document.createElement('a');
-        link.classList.add('js-filings-pdf', 'waves-effect', 'waves-light', 'btn', 'grey', 'lighten-3', 'grey-text', 'text-darken-1');
-        link.innerText = each.tax_prd_yr;
-        link.href = each.pdf_url_no_expire;
-        link.target = '_blank';
-        link.rel = 'noopener';
-        link.dataset.ga = 'PDF';
-        link.dataset.ein = ein;
-        link.title = 'View 990-PF';
-        // Handle null pdf scenario - Direct user to target filing on main page using anchor tags
-        if (!each.pdf_url_no_expire) {
-          link.href = `https://projects.propublica.org/nonprofits/organizations/${ein}/#filing${each.tax_prd_yr}`;
-        }
-        el.appendChild(link);
-        ref.after(el);
-      });
-    }
-    return loader.classList.add('hidden');
-  }
-
-  function xmlNotAvailable(ein) {
-    const toastContent = `<span>XML files not currently available</span><a href="https://projects.propublica.org/nonprofits/organizations/${ein}" target="_blank" class="btn-flat blue-grey-text text-lighten-3 toast-action">Try Here</a>`;
-    M.Toast.dismissAll();
-    M.toast({
-      'html': toastContent,
-      'displayLength': 4000,
-    });
-  }
-
-  // XML Filings
-  // =======================================================
-  document.querySelectorAll('.js-filings-xml').forEach((el) => {
-    const ein = el.dataset.ein;
-    el.addEventListener('click', () => { xmlNotAvailable(ein); }, false);
-  });
-
   // Lazy Load Iubenda script
   // =======================================================
   function createIubendaObserver() {
@@ -529,6 +429,5 @@ ready(function() {
 
   if ('IntersectionObserver' in window) {
     createIubendaObserver();
-    createProPublicaObserver();
   }
 });

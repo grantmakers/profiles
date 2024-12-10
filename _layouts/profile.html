@@ -1025,30 +1025,13 @@ donorbox_popup: false
                     <ul class="list-inline">
                       <li id="js-pdfs" data-ein="{{page.ein}}" class="hide-on-med-and-down"><i class="material-icons">picture_as_pdf</i> <span class="show-on-medium-and-down text-muted">PDF</span></li>
                       <!-- Filings buttons will populate here from ProPublica API call -->
-                      <li><a class="waves-effect waves-light btn grey lighten-3 grey-text text-darken-1" style="text-transform:none" href="https://projects.propublica.org/nonprofits/organizations/{{ page.ein }}" target="_blank" rel="noopener" data-ga="PDF View All" data-ein="{{ page.ein }}" title="View all available tax filings">View All</a></li>
-                      <li id="js-pdfs-loader" class="hidden">
-                        <div class="waves-effect waves-light btn-flat grey-text text-darken-1" style="text-transform:none">
-                          
-                          <!-- Loader -->
-                          <div class="valign-wrapper" style="gap:10px">
-                            <div class="preloader-wrapper tiny active">
-                              <div class="spinner-layer spinner-blue-grey-only">
-                                <div class="circle-clipper left">
-                                  <div class="circle"></div>
-                                </div>
-                              <div class="gap-patch">
-                                <div class="circle"></div>
-                                </div>
-                                <div class="circle-clipper right">
-                                  <div class="circle"></div>
-                                </div>
-                              </div>
-                            </div>
-                            Searching for filings...
-                          </div>
-                          
-                        </div> 
-                      </li>
+                        {% for filing in page.filings limit:7 %}  
+                          {% if filing.object_id_irs %}
+                            <li><a class="waves-effect waves-light btn grey lighten-3 grey-text text-darken-1" style="text-transform:none" href="https://projects.propublica.org/nonprofits/organizations/{{ page.ein }}/{{ filing.object_id_irs }}/full" target="_blank" rel="noopener" data-ga="PDF View Latest" data-ein="{{ page.ein }}" title="View latest filing">{{ filing.tax_year}}</a></li>
+                          {% endif %}
+                        {% endfor %}
+                      
+                      <li style="margin-top:12px"><a class="waves-effect waves-light btn-flat blue-grey-text" style="text-transform:none" href="https://projects.propublica.org/nonprofits/organizations/{{ page.ein }}" target="_blank" rel="noopener" data-ga="PDF View All" data-ein="{{ page.ein }}" title="View all available tax filings">View more at ProPublica</a></li>
                     </ul>
                   </div>
                 </div>
