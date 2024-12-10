@@ -18,21 +18,6 @@ ready(function() {
   const isMobile = window.matchMedia('only screen and (max-width: 992px)');
 
   let isSupported = browserTest();
-  let allowsCookies = cookieTest();
-  let allowsLocalStorage = storageTest();
-
-  // Load Vue if supported
-  const vue = document.createElement('script');
-  vue.src = '{{ site.baseurl }}/assets/js/bundle.js?v={{ site.time | date: "%Y%m%d"}}';
-  if (!isIE11 && !isMobile.matches && allowsCookies && allowsLocalStorage && isSupported) {
-    // document.body.appendChild(vue);
-  } else {
-    // Hide UI elements created in DOM, but handled by Vue
-    const vueElements = document.querySelectorAll('.js-vue-check');
-    vueElements.forEach(function(el) {
-      el.classList.add('hidden');
-    });
-  }
 
   // Show message if not supported
   if (isIE11 || !isSupported) {
@@ -55,36 +40,6 @@ ready(function() {
     const el = document.createElement('span');
     try {
       parent.prepend(el); // Using ParentNode.prepend() as proxy for supported browsers
-      return true;
-    } catch (e) {
-      return false;
-    }
-  }
-
-  function cookieTest() {
-    let cookieEnabled = navigator.cookieEnabled;
-    if (!cookieEnabled) {
-      document.cookie = 'testcookie';
-      cookieEnabled = document.cookie.indexOf('testcookie') !== -1;
-      document.cookie = 'testcookie; expires=Thu, 01-Jan-1970 00:00:01 GMT';
-    }
-    return cookieEnabled || showCookieFail();
-  }
-
-  function showCookieFail() {
-    if (!isIE11 && isSupported) {
-      M.toast({
-        'html': 'Enable cookies to view available profile updates',
-      });
-    }
-    return false;
-  }
-
-  function storageTest() {
-    const test = 'test';
-    try {
-      localStorage.setItem(test, test);
-      localStorage.removeItem(test);
       return true;
     } catch (e) {
       return false;
