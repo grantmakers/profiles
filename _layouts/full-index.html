@@ -2,6 +2,7 @@
 ---
 <!doctype html>
 <html lang="en">
+
 <head>
 	<meta charset="utf-8" />
 	<link rel="apple-touch-icon" sizes="76x76" href="{{ site.baseurl }}/assets/img/apple-icon.png">
@@ -9,26 +10,27 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
 	{% if jekyll.environment == 'staging' %}
-  	<meta name="robots" content="noindex, nofollow">
- 	{% endif %}
+	<meta name="robots" content="noindex, nofollow">
+	{% endif %}
 
 	<title>Grantmakers.io Profiles Index</title>
-	<meta name="description" content="Links to all {{ site.number_of_profiles | divided_by: 1000 }},{{ site.number_of_profiles | modulo: 1000 }} foundation profiles available on Grantmakers.io">
+	<meta name="description"
+		content="Links to all {{ site.number_of_profiles | divided_by: 1000 }},{{ site.number_of_profiles | modulo: 1000 }} foundation profiles available on Grantmakers.io">
 
 	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
-	<meta name = "format-detection" content = "telephone=no">
+	<meta name="format-detection" content="telephone=no">
 
 	<!-- Fonts and Icons  -->
-  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+	<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" />
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
 
 	<!-- CSS Files -->
 	<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/css/materialize.min.css"> -->
 	<link href="{{ site.baseurl }}/assets/css/main.css" rel="stylesheet">
-	
+
 	<!--   Core JS Files   -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-  <script src="{{ site.baseurl }}/assets/js/profile-index.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+	<script src="{{ site.baseurl }}/assets/js/profile-index.js"></script>
 
 </head>
 
@@ -53,29 +55,36 @@
 						<div class="col s12">
 							<div id="profile" class="profile center-align">
 								<div class="avatar">
-									<img src="{{ site.baseurl }}/assets/img/logo.png" alt="Grantmakers.io Logo" class="img-circle img-responsive">
+									<img src="{{ site.baseurl }}/assets/img/logo.png" alt="Grantmakers.io Logo"
+										class="img-circle img-responsive">
 								</div>
 								<div class="name">
 									<h1 class="title">Foundation Profiles</h1>
 									<h6 class="sub-title">Complete Index</h6>
-									<p>Psst. Use the <a href="{{ site.url }}/search/profiles/">main search feature</a> to find profiles.</p>
+									<p>Psst. Use the <a href="{{ site.url }}/search/profiles/">main search feature</a> to find profiles.
+									</p>
 
 									<div class="row">
 										<div class="col s12 l8 offset-l2">
-											<ul id="index" class="collapsible list-unstyled description left-align" data-collapsible="expandable">
+											<ul id="index" class="collapsible list-unstyled description left-align"
+												data-collapsible="expandable">
 												{% assign states = site.data.ein | group_by_exp: 'item', 'item[1].state' | sort: 'name' %}
 												{% for state in states %}
 												<li id="{{ state.name }}" class="{% if forloop.first == true %}active{% endif %}">
 													<div class="collapsible-header">
-														<h3><i class="material-icons">arrow_drop_down_circle</i> {% if state.name.size == 2 %}{% include state-list.html %}{% else %}{{ state.name | capitalize_all }}{% endif %}<span class="right"></span></h3>
+														<h3><i class="material-icons">arrow_drop_down_circle</i> {% if state.name.size == 2 %}{%
+															include state-list.html %}{% else %}{{ state.name | capitalize_all }}{% endif %}<span
+																class="right"></span></h3>
 													</div>
 													<div class="collapsible-body">
 														<ul class="list-unstyled">
 															{% for each in state.items %}
 															{% assign org = each[1] %}
-																<li class="each-index-item">
-																	<h6><span class="hide-on-med-and-down"><small>{{ org.ein }}</small></span> <a href="{{ site.url }}{{ site.baseurl }}/v0/{{ org.ein }}-{{ org.organization_name | slugify }}/">{{ org.organization_name }}</a></h6>
-																</li>
+															<li class="each-index-item">
+																<h6><span class="hide-on-med-and-down"><small>{{ org.ein }}</small></span> <a
+																		href="{{ site.url }}{{ site.baseurl }}/v0/{{ org.ein }}-{{ org.organization_name | slugify }}/">{{
+																		org.organization_name }}</a></h6>
+															</li>
 															{% endfor %}
 														</ul>
 													</div>
@@ -111,4 +120,5 @@
 	{% include footer-license-and-links.html %}
 
 </body>
+
 </html>
