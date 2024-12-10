@@ -39,13 +39,9 @@
 </head>
 
 <body class="simple-page">
-	{% include nav-no-search.html %}
-	{{ content }}
-	{% include footer.html %}
-	{% include footer-license-and-links.html %}
-	{% unless jekyll.environment == 'staging' %}
-		{% include ga.html %}
-		{% include cloudflare-analytics.js %}
-  {% endunless %}
+  {% include nav-no-search.html %}
+  {{ content }}
+  {% include footer.html %}
+  {% include footer-license-and-links.html %}
 </body>
 </html>
