@@ -265,6 +265,19 @@ input::-ms-clear {
   display: none;
 }
 
+.preloader-wrapper.tiny {
+	width: 24px;
+	height: 24px;
+}
+
+.spinner-blue-grey-only {
+	border: color("blue-grey", "base");
+}
+
+.spinner-grantmakers-only {
+	border: $secondary-color;
+}
+
 /* Animations */
 @keyframes md-spin {
 	0% {

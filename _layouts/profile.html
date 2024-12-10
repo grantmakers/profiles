@@ -8,7 +8,7 @@ donorbox_popup: false
   <link rel="apple-touch-icon" sizes="76x76" href="{{ site.baseurl }}/assets/img/apple-icon.png">
   <link rel="icon" type="image/png" href="{{ site.baseurl }}/assets/img/favicon.png">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-  <link rel="canonical" href="{{ site.url }}{{ site.baseurl }}/v0/{{ page.ein }}-{{ page.organization_name | slugify }}/">
+  <link rel="canonical" href="{{ site.url }}{{ site.baseurl }}/v0/{{ page.ein }}-{{ page.organization_name_slug }}/">
 
   {% if jekyll.environment == 'staging' %}
     <meta name="robots" content="noindex, nofollow">
@@ -25,7 +25,7 @@ donorbox_popup: false
   <meta property="og:image:height" content="630">
   <meta property="og:title" content="{{ page.organization_name }}">
   <meta property="og:site_name" content="Grantmakers.io">
-  <meta property="og:url" content="{{ site.url }}{{ site.baseurl }}/v0/{{ page.ein }}-{{ page.organization_name | slugify }}/">
+  <meta property="og:url" content="{{ site.url }}{{ site.baseurl }}/v0/{{ page.ein }}-{{ page.organization_name_slug }}/">
   <meta property="og:description" content="Profile for {{ page.organization_name }} ({{ page.city }}, {{ page.state }} - EIN {{ page.ein }}) including grantees and board members as of {{ page.filings[0].tax_year | round }} tax year.">
   <meta property="og:type" content="profile">
 
@@ -45,7 +45,7 @@ donorbox_popup: false
 
   {% comment %} Simplify UI if has less than 20 grants or only one filing with grants {% endcomment %}
   {% assign count = 0 %}
-  {% for filing in page.grants_facet_tax_year %}
+  {% for filing in page.grants_facets %}
     {% if filing.count > 0 %}
       {% assign count = count | plus:1 %}
     {% endif %}
@@ -58,7 +58,7 @@ donorbox_popup: false
   {% endif %}
 
   {% comment %} Enable tax year refinement dropdown only if needed {% endcomment %}
-  {% if page.filings[1] and page.grants_facet_tax_year[1].count > 0 %}
+  {% if page.filings[1] and page.grants_facets[1].grant_count > 0 %}
     {% assign enable_tax_year_dropdown = true %}
   {% endif %}
 
@@ -139,7 +139,7 @@ donorbox_popup: false
         "@type": "ListItem",
         "position": 3,
         "item": {
-          "@id": "{{ site.url }}{{ site.baseurl }}/v0/{{ page.ein }}-{{ page.organization_name | slugify }}/",
+          "@id": "{{ site.url }}{{ site.baseurl }}/v0/{{ page.ein }}-{{ page.organization_name_slug }}/",
           "name": "{{ page.organization_name }}"
         }
       }]
@@ -163,12 +163,6 @@ donorbox_popup: false
   <script defer src="{{ site.baseurl }}/assets/js/autocomplete.js"></script>
 
   <script src="{{ site.baseurl }}/assets/js/profile.js?v={{ site.time | date: '%Y%m%d'}}"></script>
-
-  <!-- Vue -->
-  <!--<link rel="prefetch" href="{{ site.baseurl }}/assets/js/bundle.js?v={{ site.time | date: '%Y%m%d'}}" as="script"> -->
-  
-  <!-- Drift Widget -->
-  <!-- <script defer src="{{ site.baseurl }}/assets/js/drift-init.js"></script> -->
 
   {% if jekyll.environment == 'production' %}
     <script defer src="{{ site.baseurl }}/assets/js/ga-events.js"></script>
@@ -202,7 +196,7 @@ donorbox_popup: false
                 <span class="breadcrumb">{{ page.organization_name }}</span>
               </div>
               {% if algolia == true %}
-                <span class="algolia-partnership-logo print-hidden"><a href="{{ site.algolia_referral_link }}"><img src="{{ site.baseurl}}/assets/img/algolia-partnership-logo.svg" alt="Algolia Partnership Logo"></a></span>
+                <span class="algolia-partnership-logo print-hidden"><a href="{{ site.algolia_referral_link }}"><img src="{{ site.baseurl}}/assets/img/algolia-partnership-logo-alt.svg" alt="Algolia Partnership Logo"></a></span>
               {% endif %}
             </div>
             <div class="col m6 l6 xl5 hide-on-med-and-down print-hidden">
@@ -212,7 +206,6 @@ donorbox_popup: false
                 <li><a href="#application-info" data-ga="Application Guidelines">Guidelines</a></li>
                 <li><a href="#financials" data-ga="Grants">Financials</a></li>
                 <li><a href="#" data-target="navbar-more" class="dropdown-trigger print-hidden" id="primary-navbar-dropdown-trigger">More <i style="margin-left:3px" class="material-icons right">arrow_drop_down</i></a></li>
-                <li class="js-vue-check hidden"><a href="#modal-saved-profiles" class="account modal-trigger"><i id="account-icon" class="material-icons">account_circle</i></a></li>
               </ul>
             </div>
           </div>
@@ -275,7 +268,6 @@ donorbox_popup: false
   <!-- End Navbar -->
 
   <div class="wrapper">
-    <!-- <div class="header header-filter" style="background-image: url('{{ site.baseurl }}/assets/img/{{ page.state }}.jpg');"></div> -->
     <div class="header header-bg" style="background-image: url('{{ site.baseurl }}/assets/img/NY.jpg');"></div>
     <div class="main main-raised">
       <div class="profile-content">
@@ -300,7 +292,7 @@ donorbox_popup: false
                   <img src="{{ site.baseurl }}/assets/img/icons-letters/{{ page.organization_name | split: '' | first | upcase }}.svg" alt="Circle Image" class="circle responsive-img">
                 </div>
                 <div class="name">
-                  <h1 id="org-data" class="org-name" data-ein="{{ page.ein }}" data-name="{{ page.organization_name }}" data-url="{{ site.url }}{{ site.baseurl }}/{{ page.ein }}/" data-tax-year="{{ page.filings[0].tax_year | round }}" data-tax-year-only-one="{% if page.filings[1] and page.grants_facet_tax_year[1].count > 0 %}false{% else %}true{% endif %}">
+                  <h1 id="org-data" class="org-name" data-ein="{{ page.ein }}" data-name="{{ page.organization_name }}" data-url="{{ site.url }}{{ site.baseurl }}/{{ page.ein }}/" data-tax-year="{{ page.filings[0].tax_year | round }}" data-tax-year-only-one="{% if page.filings[1] and page.grants_facets[1].grant_count > 0 %}false{% else %}true{% endif %}">
                     {% if page.website %}
                       <a href="{{ page.website}}" class="js-ga-website-click disable-primary-color" title="Click to visit website" data-ga="Website H1 Click">{{ page.organization_name }}</a>
                     {% else %}
@@ -315,16 +307,16 @@ donorbox_popup: false
                   <ul class="list-inline org-location profile-summary-icons text-center">
                     <li>
                       {% if page.has_recent_grants %}
-                        <i class="material-icons material-icons-active tooltipped" data-tooltip="Has recent grants">monetization_on</i>
+                        <i class="material-icons material-icons-active tooltipped" data-tooltip="Recent grants">monetization_on</i>
                       {% else %}
                         <i class="material-icons tooltipped" data-tooltip="No recent grants">monetization_on</i>
                       {% endif %}
                     </li>
                     <li>
                       {% if page.is_likely_staffed %}
-                      <i class="material-icons material-icons-active tooltipped" data-tooltip="Is likely staffed">account_circle</i>
+                      <i class="material-icons material-icons-active tooltipped" data-tooltip="Likely staffed">account_circle</i>
                       {% else %}
-                        <i class="material-icons tooltipped" data-tooltip="No paid staff">account_circle</i>
+                        <i class="material-icons tooltipped" data-tooltip="Limited staffing">account_circle</i>
                       {% endif %}
                     </li>
                     {% if page.website and page.website_is_an_email != true %}
@@ -514,6 +506,8 @@ donorbox_popup: false
                               <td class="text-center">{{ forloop.index }}</td>
                               {% if each.name._ %}
                                 <td>{{ each.name._ }}</td>
+                              {% elsif each.name['#text'] %}
+                                <td>{{ each.name['#text'] }}</td>
                               {% else %}
                                 <td>{{ each.name }}</td>
                               {% endif %}
@@ -581,7 +575,6 @@ donorbox_popup: false
               <div id="grants" class="scrollspy">
                 <div class="card-panel">
                   <div class="card-panel-header-wrapper">
-                      <!-- <div class="card-panel-header pushpin-nav pushpin-nav-search" data-target="grants"> -->
                       <div class="card-panel-header">
                         <div class="row">
                           <div class="col s12 m3">
@@ -591,11 +584,6 @@ donorbox_popup: false
                             {% if algolia == true %}
                               <div class="search js-ie-check">
                                 <div class="input-field text-muted">
-                                  <!--
-                                  <i id="search-input-icon" class="material-icons prefix grey-text text-lighten-1">search</i>
-                                  <input id="ais-widget-search-box" type="search" />
-                                  <label for="ais-widget-search-box"></label>
-                                  -->
                                   <div id="ais-widget-search-box"></div>
                                 </div>
                               </div>
@@ -609,7 +597,6 @@ donorbox_popup: false
                             {% endif %}
                           </div>
                         </div>
-                        
                       </div>
                   </div>
                   {% if algolia == true %}
@@ -777,21 +764,18 @@ donorbox_popup: false
                           <i class="material-icons circle grey tooltipped" data-position="right" data-html="true" data-tooltip="The form in which applications<br>should be submitted and information<br>and materials they should include<br>Line 2b">assignment</i>
                           <span class="title">Instructions</span>
                           <p>{{ page.grants_application_info }}</p>
-                          <!-- <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a> -->
                         </li>
 
                         <li class="collection-item avatar">
                           <i class="material-icons circle grey tooltipped" data-position="right" data-html="true" data-tooltip="Any submission deadlines<br>Line 2c">history</i>
                           <span class="title">Deadlines</span>
                           <p>{{ page.grants_application_deadlines }}</p>
-                          <!--<a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>-->
                         </li>
 
                         <li class="collection-item avatar">
                           <i class="material-icons circle grey tooltipped" data-position="right" data-html="true" data-tooltip="Any restrictions or limitations on awards,<br>such as by geographical areas, charitable fields,<br>kinds of institutions, or other factors<br>Line 2d">assignment_late</i>
                           <span class="title">Restrictions</span>
                           <p>{{ page.grants_application_restrictions }}</p>
-                          <!--<a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>-->
                         </li>
 
                         <li><hr class="divider"></li>
@@ -847,16 +831,6 @@ donorbox_popup: false
                             Grantmakers.io is not affiliated, associated, authorized, endorsed by, or in any way officially connected with any foundation appearing on the site.
                           </div>
                         </div>
-                        <!--
-                        <div class="action-group center-align">
-                          <a href="mailto:{{ page.ein }}@grantmakers.io?body=%0D%0A%0D%0A{{ page.organization_name}}%0D%0A{{ site.url }}{{ site.baseurl }}/{{ page.ein }}/" target="_blank" class="waves-effect waves-light btn white grey-text text-darken-1" data-ga="Email Share Resource"><i class="material-icons left">email</i> Share a Resource</a>
-                          
-                          <a href="#" class="sidenav-trigger waves-effect waves-light btn grantmakers white-text tooltipped" data-target="community-sidebar" data-html="true" data-tooltip="Community Insights<br>Q&A" data-position="left">
-                            <i class="material-icons left">question_answer</i> Ask a Question
-                          </a>
-                          
-                        </div>
-                        -->
                       </li>
                     </ul>
                   </div>
@@ -1003,7 +977,6 @@ donorbox_popup: false
             <div class="col s12">
               <div id="coffee-bottom-cta" class="center-align">
                 <h5>If this free profile helped you, why not</h5>
-                <!--<a href="{{ site.donorbox_hosted_page_coffee }}" class="custom-dbox-popup waves-effect waves-light btn white grey-text text-darken-1" data-ga="Email Feedback"><i class="material-icons left">emoji_food_beverage</i> Buy me a coffee</a>-->
                 <a href="{{ site.url }}/buy-chad-a-coffee/" class="waves-effect waves-light btn white grey-text text-darken-1" data-ga="Buy Me a Coffee CTA"><i class="material-icons left">emoji_food_beverage</i> Buy me a coffee</a>
               </div>
             </div>
@@ -1016,49 +989,19 @@ donorbox_popup: false
                   <div class="card-panel-header">
                     <h4>
                       Tax <a class="text-default">Filings</a>
-                      <a class="right valign-wrapper" style="height: 27px" href="https://projects.propublica.org/nonprofits/organizations/{{ page.ein }}" target="_blank" title="Click to view tax filings available on ProPublica" data-position="left" data-html="true" data-tooltip="Courtesy of<br>ProPublica"><img src="{{ site.baseurl }}/assets/img/propublica.png" alt="IRS logo" class="icon-propublica"></a>
+                      <a class="right valign-wrapper" style="height: 27px" href="https://projects.propublica.org/nonprofits/organizations/{{ page.ein }}" target="_blank" title="Tax filings courtesy of our friends at ProPublica" data-position="left" data-html="true" data-tooltip="Courtesy of<br>ProPublica"><img src="{{ site.baseurl }}/assets/img/propublica.png" alt="IRS logo" class="icon-propublica"></a>
                     </h4>
                   </div>
                   <div class="card-panel-body">
                     <ul class="list-inline">
-                      <li class="hide-on-med-and-down"><i class="material-icons">picture_as_pdf</i> <span class="show-on-medium-and-down text-muted">PDF</span></li>
-                      {% comment %} {%- assign test = site.data.test.test -%}
-                      {% for each in test.filings_with_data limit:5 %}
-                        <li><a class="waves-effect waves-light btn grey lighten-3 grey-text text-darken-1" href="{{ each.pdf_url }}" target="_blank" rel="noopener" data-ga="PDF" data-ein="{{ page.ein }}" title="View 990-PF">{{ each.tax_prd_yr | round }}</a></li>
-                      {% endfor %} {% endcomment %}
-                      {% comment %} When re-enabling direct PDF links, add class "hide-on-med-and-down" below {% endcomment %}
-                      <li><a class="waves-effect waves-light btn-flat blue-grey-text" style="text-transform:none" href="https://projects.propublica.org/nonprofits/organizations/{{ page.ein }}" target="_blank" rel="noopener" data-ga="PDF" data-ein="{{ page.ein }}" title="View all available tax filings">View all filings available at ProPublica</a></li>
+                      <li id="js-pdfs" data-ein="{{page.ein}}" class="hide-on-med-and-down"><i class="material-icons">picture_as_pdf</i> <span class="show-on-medium-and-down text-muted">PDF</span></li>
+                      {% for filing in page.filings limit:7 %}  
+                        {% if filing.object_id_irs %}
+                          <li><a class="waves-effect waves-light btn grey lighten-3 grey-text text-darken-1" style="text-transform:none" href="https://projects.propublica.org/nonprofits/organizations/{{ page.ein }}/{{ filing.object_id_irs }}/full" target="_blank" rel="noopener" data-ga="PDF View Latest" data-ein="{{ page.ein }}" title="View latest filing">{{ filing.tax_year}}</a></li>
+                        {% endif %}
+                      {% endfor %}
+                      <li style="margin-top:12px"><a class="waves-effect waves-light btn-flat blue-grey-text" style="text-transform:none" href="https://projects.propublica.org/nonprofits/organizations/{{ page.ein }}" target="_blank" rel="noopener" data-ga="PDF View All" data-ein="{{ page.ein }}" title="View all available tax filings">View more at ProPublica</a></li>
                     </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="row print-hidden">
-            <div class="col s12">
-              <div id="data-source">
-                <div class="card-panel">
-                  <div class="card-panel-header">
-                    <h4>Data Source <a class="right valign-wrapper" href="https://www.irs.gov/charities-non-profits/form-990-series-downloads" title="Click to view filings on IRS.gov"><img src="{{ site.baseurl }}/assets/img/irs-w-text-alt.png" alt="IRS logo" class="icon-irs-alt"></a></h4>
-                  </div>
-                  <div class="card-panel-body">
-                    <ul>
-                      <li><h6></h6>IRS 990 e-file dataset accessed on {{ page.last_updated_grantmakers | date: "%b %d, %Y"}} from&nbsp;<a href="https://registry.opendata.aws/irs990/" class="blue-grey-text" target="_blank">AWS Registry of Open Data</a></li>
-                    </ul>
-                    <div class="hide-on-small-only">
-                      <hr>
-                      <ul class="list-inline">
-                        <li><i class="material-icons">code</i> <span class="show-on-medium-and-down text-muted">XML</span></li>
-                        {% for each in page.filings %}
-                        {% if each.filing_is_amendment %}{% assign amendment_exists = true %}{% endif %}
-                          <li><a class="js-filings-xml waves-effect waves-light btn grey lighten-3 grey-text text-darken-1" target="_blank" rel="noopener" data-ga="XML" data-tax-period="{{ each.tax_period | round }}" data-ein="{{ page.ein }}" data-url-xml="{{ each.url }}" title="View 990-PF">{{ each.tax_year | round }}{%- if each.filing_is_amendment -%}*{%- endif -%}</a></li>
-                        {% endfor %}
-                      </ul>
-                      {%- if amendment_exists -%}
-                        <div class="text-muted right-align small">* Amended return</div>
-                      {%- endif %}
-                    </div>
                   </div>
                 </div>
               </div>
@@ -1072,7 +1015,6 @@ donorbox_popup: false
                   <strong>Reminder</strong>
                 </h6>
                 <p>Grantmakers.io is an automated, verbatim reproduction of a public IRS dataset.</p>
-                {% comment %} <p class="valign-wrapper valign-wrapper-center-align"><a href="{{ site.url }}/about/the-dataset/" class="btn btn-flat transparent blue-grey-text">Learn More</a></p> {% endcomment %}
               </div>
             </div>
           </div>
@@ -1091,13 +1033,6 @@ donorbox_popup: false
                 <div class="center-align">
                   <h4>Looking for Another Grantmaker?</h4>
                   <p>Free profiles for over {{ site.number_of_profiles | divided_by: 1000 | append: ',000' }} US foundations</p>
-                  <!-- <a href="https://www.grantmakers.io" class="btn">Search</a> -->
-                  {% comment %} <div class="row">
-                    <div class="input-field text-muted col s12 m6 offset-m3">
-                      <i class="js-autocomplete-icon material-icons prefix grey-text text-lighten-1">search</i>
-                      <input id="autocomplete-input" type="text" class="autocomplete" />
-                    </div>
-                  </div> {% endcomment %}
                   <div class="row">
                     <div class="col s12">
                       <div class="small text-muted">
@@ -1124,25 +1059,12 @@ donorbox_popup: false
     </div>
 
   </div>
-  <!-- Vue -->
-  <div id="root"></div>
-  <!-- Vue currently loaded via profile.js -->
-  <!-- End Vue -->
   <!-- Object to be consumed by ChartJS-->
   <script>
     const orgFinancialStats = {{ page.financial_stats | jsonify }};
   </script>
-   {% comment %}
-  {% include saved-profiles-feature-discovery.html %}
-  {% include fixed-action-button.html %}
-  {% include community-sidebar.html %}
-  {% endcomment %}
   {% include footer.html %}
   {% include footer-license-and-links.html %}
-  {% if jekyll.environment == 'production' %}
-    {% include ga.html %}
-    {% include cloudflare-analytics.js %}
-  {% endif %}
   {% if algolia %}
     {% include algolia/refinements-slide-out.html %}
   {% endif %}

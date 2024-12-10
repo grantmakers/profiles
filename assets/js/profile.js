@@ -18,21 +18,6 @@ ready(function() {
   const isMobile = window.matchMedia('only screen and (max-width: 992px)');
 
   let isSupported = browserTest();
-  let allowsCookies = cookieTest();
-  let allowsLocalStorage = storageTest();
-
-  // Load Vue if supported
-  const vue = document.createElement('script');
-  vue.src = '{{ site.baseurl }}/assets/js/bundle.js?v={{ site.time | date: "%Y%m%d"}}';
-  if (!isIE11 && !isMobile.matches && allowsCookies && allowsLocalStorage && isSupported) {
-    // document.body.appendChild(vue);
-  } else {
-    // Hide UI elements created in DOM, but handled by Vue
-    const vueElements = document.querySelectorAll('.js-vue-check');
-    vueElements.forEach(function(el) {
-      el.classList.add('hidden');
-    });
-  }
 
   // Show message if not supported
   if (isIE11 || !isSupported) {
@@ -55,36 +40,6 @@ ready(function() {
     const el = document.createElement('span');
     try {
       parent.prepend(el); // Using ParentNode.prepend() as proxy for supported browsers
-      return true;
-    } catch (e) {
-      return false;
-    }
-  }
-
-  function cookieTest() {
-    let cookieEnabled = navigator.cookieEnabled;
-    if (!cookieEnabled) {
-      document.cookie = 'testcookie';
-      cookieEnabled = document.cookie.indexOf('testcookie') !== -1;
-      document.cookie = 'testcookie; expires=Thu, 01-Jan-1970 00:00:01 GMT';
-    }
-    return cookieEnabled || showCookieFail();
-  }
-
-  function showCookieFail() {
-    if (!isIE11 && isSupported) {
-      M.toast({
-        'html': 'Enable cookies to view available profile updates',
-      });
-    }
-    return false;
-  }
-
-  function storageTest() {
-    const test = 'test';
-    try {
-      localStorage.setItem(test, test);
-      localStorage.removeItem(test);
       return true;
     } catch (e) {
       return false;
@@ -395,116 +350,6 @@ ready(function() {
         'eventLabel': label,
       });
     }
-  }
-
-  // FILINGS
-  // =======================================================
-  const gcf = 'https://us-central1-infinite-badge-163220.cloudfunctions.net/checkUrl';
-
-  document.querySelectorAll('.js-filings-pdf').forEach((el) => {
-    // TODO Call ProPublica API
-    // addFilingURL(el);
-    // el.addEventListener('click', checkURL);
-    el.addEventListener('click', fetchProPublicaData);
-  });
-
-  document.querySelectorAll('.js-filings-xml').forEach((el) => {
-    const ein = el.dataset.ein;
-    el.addEventListener('click', () => { xmlNotAvailable(ein); }, false);
-  });
-
-  async function fetchProPublicaData(e) {
-    e.preventDefault();
-    const elem = e.target;
-    const ein = elem.getAttribute('data-ein');
-    const url = `https://projects.propublica.org/nonprofits/api/v2/organizations/${ein}.json`;
-    // const data = { 'target': target };
-    // const json = JSON.stringify(data);
-
-    try {
-      const response = await fetch(url, {
-        method: 'GET',
-        // headers: {
-        //   accept: 'application/json',
-        // },
-      });
-  
-      if (!response.ok) {
-        return `Error! status: ${response.status}`;
-        // throw new Error(`Error! status: ${response.status}`);
-      }
-  
-      const result = await response.json();
-      return result;
-    } catch (err) {
-      console.log(err);
-      return false;
-    }
-
-    // const request = new XMLHttpRequest();
-    // request.open('GET', url, true);
-    // request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
-  }
-
-  function checkURL(e) {
-    e.preventDefault();
-    const elem = e.target;
-    const target = elem.href;
-    const data = { 'target': target };
-    const json = JSON.stringify(data);
-
-    M.toast({
-      'html': 'Redirecting to latest 990...',
-    });
-
-    const request = new XMLHttpRequest();
-    request.open('POST', gcf, true);
-    request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
-
-    request.onload = function() {
-      if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
-        if (this.response === 'true') {
-          window.location.href = target;
-        } else {
-          pdfNotAvailable(elem);
-        }
-      } else {
-        pdfRequestFailed();
-      }
-    };
-
-    request.onerror = function() {
-      pdfRequestFailed();
-    };
-
-    request.send(json);
-  }
-
-  function pdfNotAvailable(el) {
-    el.classList.add('disabled');
-    M.Toast.dismissAll();
-    M.toast({
-      'html': 'PDF not yet available. Try a prior year.',
-    });
-  }
-
-  function pdfRequestFailed() {
-    const toastContent = '<span>Something went wrong.</span><a href="http://foundationcenter.org/find-funding/990-finder" class="btn-flat toast-action">Try Here.</a>';
-    M.Toast.dismissAll();
-    M.toast({
-      'html': toastContent,
-      'displayLength': 10000,
-    });
-  }
-
-  function xmlNotAvailable(ein) {
-    console.log('Clicked');
-    const toastContent = `<span>XML files not currently available</span><a href="https://projects.propublica.org/nonprofits/organizations/${ein}" target="_blank" class="btn-flat blue-grey-text text-lighten-3 toast-action">Try Here</a>`;
-    M.Toast.dismissAll();
-    M.toast({
-      'html': toastContent,
-      'displayLength': 10000,
-    });
   }
 
   // Lazy Load Iubenda script

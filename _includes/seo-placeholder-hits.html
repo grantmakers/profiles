@@ -11,30 +11,30 @@
         </tr>
       </thead>
       <tbody>
-        {% assign sorted_grants = page.grants | sort: 'amount' | reverse %}
+        {% assign sorted_grants = page.grants_current_year_top_20 | sort: 'amount' | reverse %}
         {% if sorted_grants.size > 0 %}
-          {% for each in sorted_grants limit:20 %}
-            <tr>
-              <td class="right-align" data-sort-value="{{ each.amount }}">{{ each.amount | round | intcomma }}</td>
-              <td>{{ each.name }}</td>
-              <td>{{ each.purpose }}</td>
-              {% if each.is_foreign == true %}
-              {% assign is_foreign_true = true %}
-                <td class="text-nowrap">{% if each.city != null %}{{ each.city }}, {{ each.country }}*{% endif %}</td>
-              {% else %}
-                <td class="text-nowrap">{% if each.city != null %}{{ each.city }}, {{ each.state }}{% endif %}</td>
-              {% endif %}
-              <td class="left-align">{{ page.filings[0].tax_year | round }}</td>
-            </tr>
-          {% endfor %}
+        {% for each in sorted_grants limit:20 %}
+        <tr>
+          <td class="right-align" data-sort-value="{{ each.amount }}">{{ each.amount | round | intcomma }}</td>
+          <td>{{ each.name }}</td>
+          <td>{{ each.purpose }}</td>
+          {% if each.is_foreign == true %}
+          {% assign is_foreign_true = true %}
+          <td class="text-nowrap">{% if each.city != null %}{{ each.city }}, {{ each.country }}*{% endif %}</td>
+          {% else %}
+          <td class="text-nowrap">{% if each.city != null %}{{ each.city }}, {{ each.state }}{% endif %}</td>
+          {% endif %}
+          <td class="left-align">{{ page.filings[0].tax_year | round }}</td>
+        </tr>
+        {% endfor %}
         {% else %}
-          <tr>
-            <td></td>
-            <td>No Grants Listed</td>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
+        <tr>
+          <td></td>
+          <td>No Grants Listed</td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
         {% endif %}
       </tbody>
       {% if is_foreign_true %}
