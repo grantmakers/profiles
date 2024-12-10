@@ -1,7 +1,7 @@
 /**
  * Splits the aggregated JSON file into individual JSON files per EIN
  * Files are then available to Jekyll in the _data folder
- * 
+ *
  * TODO Lots of opportunities to simplify - good first pull request 😉
  */
 const {chain}  = require('stream-chain');
