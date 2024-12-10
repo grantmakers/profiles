@@ -31,8 +31,6 @@
   },
   "homepage": "https://github.com/grantmakers/grantmakers.github.io#readme",
   "devDependencies": {
-    "eslint": "^6.8.0",
-    "eslint-plugin-frontmatter": "0.0.8",
     "path": "^0.12.7",
     "stream-chain": "^2.2.5",
     "stream-json": "^1.8.0"
