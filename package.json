@@ -3,26 +3,20 @@
   "version": "0.2.0",
   "description": "Summary profiles for all US-based foundations who have filed electronic IRS Form 990-PF",
   "main": "bundle.js",
-  "engines": {
-    "node": "~20.10.0"
-  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "version": "echo $npm_package_version",
     "dev": "bundle exec jekyll serve --livereload --config _config.yml,_config_development.yml",
-    "parallels": "webpack --mode development --watch & bundle exec jekyll serve --host 0.0.0.0",
+    "parallels": "bundle exec jekyll serve --host 0.0.0.0",
     "stage": "JEKYLL_ENV=staging bundle exec jekyll build --config=_config.yml,_config_staging.yml",
-    "build": "bundle exec jekyll build",
-    "webpack": "webpack --mode production"
+    "build": "bundle exec jekyll build"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/grantmakers/profiles.git"
   },
   "keywords": [
-    "jekyll",
-    "webpack",
-    "vue"
+    "jekyll"
   ],
   "author": "Chad Kruse",
   "license": "MIT",
@@ -31,7 +25,6 @@
   },
   "homepage": "https://github.com/grantmakers/grantmakers.github.io#readme",
   "devDependencies": {
-    "path": "^0.12.7",
     "stream-chain": "^2.2.5",
     "stream-json": "^1.8.0"
   }
