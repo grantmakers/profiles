@@ -1,4 +1,2 @@
 source 'https://rubygems.org'
-ruby '~> 2.7.8'
-gem 'jekyll', '~> 3.9.0'
-gem 'jekyll-sitemap'
+gem 'github-pages', group: :jekyll_plugins
